@@ -3,6 +3,7 @@ from profiles.models import EmployeeProfile
 from django.shortcuts import render, get_object_or_404
 from .models import Department
 
+
 def home_view(request):
     departments = {
         'pa': {'name': 'Police Academy', 'role': 'Chief of PA', 'username': None},
@@ -13,7 +14,8 @@ def home_view(request):
 
     for key, department in departments.items():
         try:
-            employee_profile = EmployeeProfile.objects.get(role__name=department['role'], department__name=department['name'])
+            employee_profile = EmployeeProfile.objects.get(role__name=department['role'],
+                                                           department__name=department['name'])
             department['username'] = employee_profile.user.username
         except EmployeeProfile.DoesNotExist:
             department['username'] = None
@@ -24,6 +26,7 @@ def home_view(request):
 
 def pa_view(request):
     return render(request, 'departments/pa_detail.html')
+
 
 def about_view(request):
     return render(request, 'departments/about_detail.html')

@@ -4,9 +4,9 @@ __pycache__
 *.sqlite3
 
 # Среда виртуализации
-venv/
-env/
-ENV/
+*.venv/
+*.env/
+*.ENV/
 
 .env
 

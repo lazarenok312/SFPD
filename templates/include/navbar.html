@@ -139,6 +139,7 @@
                     <ul class="list-lined">
                         <li><a href="{% url 'register' %}">Вход</a></li>
                         <li><a href="{% url 'register' %}">Регистрация</a></li>
+                        <li><a href="{% url 'register' %}">Страница Манула</a></li>
                     </ul>
                 </div>
             </div>
@@ -160,10 +161,11 @@
                         <div class="rd-navbar-main-element">
                             <div class="rd-navbar-nav-wrap">
                                 <ul class="rd-navbar-nav">
-                                    <li class="rd-nav-item active"><a class="rd-nav-link"
-                                                                      href="{% url 'home' %}">Главная</a>
+                                    <li class="rd-nav-item {% if request.path == '/' %}active{% endif %}">
+                                        <a class="rd-nav-link" href="{% url 'home' %}">Главная</a>
                                     </li>
-                                    <li class="rd-nav-item"><a class="rd-nav-link" href="{% url 'about' %}">О нас</a>
+                                    <li class="rd-nav-item {% if request.path == '/department/about' %}active{% endif %}">
+                                        <a class="rd-nav-link" href="{% url 'about' %}">О нас</a>
                                     </li>
                                     <li class="rd-nav-item">
                                         <a class="rd-nav-link" href="#">Отделы</a>
@@ -174,7 +176,8 @@
                                             <li><a href="#">Detective Bureau</a></li>
                                         </ul>
                                     </li>
-                                    <li class="rd-nav-item"><a class="rd-nav-link" href="contacts.html">FAQ</a>
+                                    <li class="rd-nav-item {% if request.path == '/contacts/' %}active{% endif %}">
+                                        <a class="rd-nav-link" href="contacts.html">FAQ</a>
                                     </li>
                                 </ul>
                             </div>
