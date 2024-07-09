@@ -54,11 +54,14 @@
                 <div class="rd-navbar-aside-outer rd-navbar-collapse">
                     <div class="rd-navbar-aside">
                         <div class="rd-navbar-info">
-                            <div class="icon novi-icon mdi mdi-phone"></div>
-                            <a href="tel:#">+1 (800) 123 1234</a>
+                            <ul class="list-lined">
+                                <li><a href="https://discord.gg/ddnRXcQJCV">Discord</a></li>
+                                <li><a href="https://vk.com/saintlouis_sfpd">Группа ВК</a></li>
+                                <li><a href="https://evolve-rp.su/index.php?forums/46/">Форум</a></li>
+                            </ul>
                         </div>
                         <ul class="list-lined">
-                            <li><a href="#">Вход</a></li>
+                            <li><a href="{% url 'register' %}">Вход</a></li>
                             <li><a href="#">Регистрация</a></li>
                         </ul>
                     </div>
@@ -66,19 +69,16 @@
                 <div class="rd-navbar-main-outer">
                     <div class="rd-navbar-main-inner">
                         <div class="rd-navbar-main">
-                            <!--RD Navbar Panel-->
                             <div class="rd-navbar-panel">
-                                <!--RD Navbar Toggle-->
                                 <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap">
                                     <span></span></button>
-                                <!--RD Navbar Brand-->
                                 <div class="rd-navbar-brand">
-                                    <!--Brand--><a class="brand" href="index.html"><img class="brand-logo-dark"
-                                                                                        src="{% static 'images/logo-default-293x44.png' %}"
-                                                                                        alt="" width="146" height="22"/><img
-                                        class="brand-logo-light" src="{% static 'images/Li7MP3X.png' %}" alt=""
-                                        width="200"
-                                        height="220"/></a>
+                                    <a class="brand" href="index.html"><img class="brand-logo-dark"
+                                                                            src="{% static 'images/Li7MP3X.png' %}"
+                                                                            alt="" width="146" height="22"/><img
+                                            class="brand-logo-light" src="{% static 'images/Li7MP3X.png' %}" alt=""
+                                            width="200"
+                                            height="220"/></a>
                                 </div>
                             </div>
                             <div class="rd-navbar-main-element">
@@ -107,31 +107,103 @@
     <section class="section swiper-container swiper-slider swiper-slider-1 context-dark" data-loop="true"
              data-autoplay="5000" data-simulate-touch="false">
         <div class="swiper-wrapper">
-                {% for department in departments %}
-        <div class="swiper-slide" data-slide-bg="{% static 'images/index-1-slider-1-1920x768.jpg' %}">
-            <div class="swiper-slide-caption section-lg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
-                            <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">{{ department.name }}</span><span
-                                    class="d-block text-light" data-caption-animate="fadeInUp"
-                                    data-caption-delay="200">{{ department.role }}</span></h1>
-                            {% if department.username %}
-                                <p class="lead" data-caption-animate="fadeInUp"
-                                   data-caption-delay="350">{{ department.username }}</p>
-                            {% else %}
-                                <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
-                                    Вакантно</p>
-                            {% endif %}
-                            <div class="button-wrap-default" data-caption-animate="fadeInUp"
-                                 data-caption-delay="450"><a class="button button-secondary-text" href="#">Читать
-                                далее</a></div>
+            <div class="swiper-slide " data-slide-bg="{% static 'images/Hb0ytWc.jpg' %}">
+                <div class="swiper-slide-caption section-lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                                <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
+                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                        data-caption-delay="200">Chief of PA</span></h1>
+                                {% if pa_username %}
+                                    <p class="lead" data-caption-animate="fadeInUp"
+                                       data-caption-delay="350">{{ pa_username }}</p>
+                                {% else %}
+                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
+                                        Вакантно</p>
+                                {% endif %}
+                                <div class="button-wrap-default" data-caption-animate="fadeInUp"
+                                     data-caption-delay="450"><a class="button button-secondary-pa" href="#">Читать
+                                    далее</a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+            <div class="swiper-slide" data-slide-bg="{% static 'images/bybsyu53SnY.jpg' %}">
+                <div class="swiper-slide-caption section-lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                                <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Central Patrol Division</span><span
+                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                        data-caption-delay="200">Chief of CPD</span></h1>
+                                {% if cpd_username %}
+                                    <p class="lead" data-caption-animate="fadeInUp"
+                                       data-caption-delay="350">{{ cpd_username }}</p>
+                                {% else %}
+                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
+                                        Вакантно</p>
+                                {% endif %}
+                                <div class="button-wrap-default" data-caption-animate="fadeInUp"
+                                     data-caption-delay="450"><a class="button button-secondary-cpd" href="#">Читать
+                                    далее</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide"
+                 data-slide-bg="{% static 'images/1000_F_272412106_wWPaQF1GBy6U7EVnGBDvWhOpcYQiuSTh.jpg' %}">
+                <div class="swiper-slide-caption section-lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                                <h1><span class="d-block" data-caption-animate="fadeInUp"
+                                          data-caption-delay="100">SWAT</span><span
+                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                        data-caption-delay="200">Сommander of SWAT</span></h1>
+                                {% if db_username %}
+                                    <p class="lead" data-caption-animate="fadeInUp"
+                                       data-caption-delay="350">{{ db_username }}</p>
+                                {% else %}
+                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
+                                        Вакантно</p>
+                                {% endif %}
+                                <div class="button-wrap-default" data-caption-animate="fadeInUp"
+                                     data-caption-delay="450"><a class="button button-secondary-swat" href="#">Читать
+                                    далее</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide"
+                 data-slide-bg="{% static 'images/360_F_554053185_2fWwExa3uyXMxlhp1FDc4kgEjv1FA2W2.jpg' %}">
+                <div class="swiper-slide-caption section-lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                                <h1><span class="d-block" data-caption-animate="fadeInUp"
+                                          data-caption-delay="100">Detective Bureau</span><span
+                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                        data-caption-delay="200">Head of DB</span></h1>
+                                {% if username %}
+                                    <p class="lead" data-caption-animate="fadeInUp"
+                                       data-caption-delay="350">{{ username }}</p>
+
+                                {% else %}
+                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
+                                        Вакантно</p>
+                                {% endif %}
+                                <div class="button-wrap-default" data-caption-animate="fadeInUp"
+                                     data-caption-delay="450"><a class="button button-secondary-text" href="#">Читать
+                                    далее</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--Swiper Pagination-->
         <div class="swiper-pagination-wrap">
@@ -150,71 +222,75 @@
             <div class="row row-30">
                 <div class="col-md-4 wow fadeInUp">
                     <div class="box-icon-2">
-                        <div class="icon novi-icon mercury-icon-calc"></div>
-                        <h5 class="title">Accounting Services</h5>
-                        <p class="text">We offer a full range of comprehensive accounting services to companies
-                            throughout the US and European countries.</p>
+                        <div class="icon novi-icon mercury-icon-group"></div>
+                        <h5 class="title">Профессиональное обучение</h5>
+                        <p class="text">Мы обеспечиваем высококачественное обучение наших сотрудников, чтобы они были
+                            готовы к любым вызовам в службе и на улицах San Andreas.</p>
                     </div>
                 </div>
                 <div class="col-md-4 wow fadeInUp" data-wow-delay="0.2s">
                     <div class="box-icon-2">
-                        <div class="icon novi-icon mercury-icon-chart"></div>
-                        <h5 class="title">Income Tax</h5>
-                        <p class="text">This Service allows you to submit and view your tax returns and receive instant
-                            notification of the return receipt.</p>
+                        <div class="icon novi-icon mercury-icon-phone-24"></div>
+                        <h5 class="title">Безопасность граждан</h5>
+                        <p class="text">Наша цель - обеспечить безопасность всех жителей San Andreas, борясь с
+                            преступностью и поддерживая общественный порядок.</p>
                     </div>
                 </div>
                 <div class="col-md-4 wow fadeInUp" data-wow-delay="0.4s">
                     <div class="box-icon-2">
-                        <div class="icon novi-icon mercury-icon-time-sand"></div>
-                        <h5 class="title">Financial Services</h5>
-                        <p class="text">Our company provides various financial services including insurance, wealth
-                            management, tax consulting etc.</p>
+                        <div class="icon novi-icon mercury-icon-partners"></div>
+                        <h5 class="title">Совместное взаимодействие</h5>
+                        <p class="text">Мы стремимся к сотрудничеству с нашими сообществами, чтобы создать безопасное и
+                            устойчивое окружение для всех жителей и посетителей San Andreas.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Download Our Tax Guide App-->
-    <section class="section bg-gray-100 box-image-left">
+    <section class="parallax-container box-image-left" data-parallax-img="{% static 'images/main-bgr.png' %}">
+        {#            <section class="parallax-container" data-parallax-img="{% static 'images/main-bgr.png' %}">#}
         <div class="container">
             <div class="row">
                 <div class="col-md-6 wow fadeInLeft">
                     <div class="section-lg section-lg-top-100">
-                        <h2 class="title-icon title-icon-2"><span
-                                class="icon icon-default mercury-icon-touch"></span><span>Download Our <br><span
-                                class="text-light">Tax Guide App</span></span></h2>
-                        <p class="big">We are glad to introduce our brand new Tax Guide App, a perfect solution for
-                            individual tax management our clients have been waiting for. It is available now for all iOS
-                            and Android device owners.</p>
-                        <div class="group-sm group-wrap-2"><a class="button button-primary" href="#">Get iOS app</a><a
-                                class="button button-icon button-icon-right button-secondary" href="#"><span>Get Android app</span><span
+                        <h2 class="title-icon title-icon-2" style="color: white"><span
+                                class="icon icon-default mercury-icon-touch"></span><span>Играй с нами<br><span
+                                class="text-light">Вступай в SFPD</span></span></h2>
+                        <p class="big">Ниже представлены официальные приложения проекта Evolve Role Play для совместной
+                            игры в нашем департаменте</p>
+                        <div class="group-sm group-wrap-2"><a class="button button-primary"
+                                                              href="https://launcher.evolve-rp.net/EvolveSetup.exe">Скачать
+                            лаунчер</a><a
+                                class="button button-icon button-icon-right button-secondary"
+                                href="https://launcher.evolve-rp.net/MOBILE/launcher.apk"><span>Скачать APK</span><span
                                 class="icon fa fa-android"></span></a></div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="box-image-item box-image-video novi-background bg-image"
-             style="background-image: url(images/index-874x534.jpg)"><a class="icon novi-icon fa fa-caret-right"
-                                                                        href="//www.youtube.com/embed/KFVUxSynSXc"
-                                                                        data-lightgallery="item"></a></div>
+        <div class="box-image-item box-image-video novi-background bg-image"><a class="icon novi-icon fa fa-caret-right"
+                                                                                href="https://www.youtube.com/watch?v=UNeY6CB-onM"
+                                                                                data-lightgallery="item"></a></div>
     </section>
     <!-- Our Mission-->
     <section class="section bg-default section-md">
         <div class="container">
             <div class="row row-30">
                 <div class="col-md-6">
-                    <h2 class="title-icon"><span class="icon icon-default mercury-icon-target-2"></span><span>Our <span
-                            class="text-light">Mission</span></span></h2>
-                    <p class="big">Our mission is to provide accounting and tax services of a superior quality. The
-                        responsive, personal attention we provide for each client, regardless how large or small, is the
-                        key to our approach.</p>
+                    <h2 class="title-icon"><span class="icon icon-default mercury-icon-target-2"></span><span>Наша <span
+                            class="text-light">Миссия</span></span></h2>
+                    <p class="big">Наша миссия - предоставить уникальную возможность для Вас испытать себя в роли
+                        полицейских, развивая
+                        навыки, необходимые для поддержания правопорядка и безопасности в городе San-Fierro. Наша
+                        команда стремится к тому, чтобы каждый сотрудник получил максимальный опыт, обучаясь
+                        профессионализму, ответственности и взаимодействию в команде. Присоединяйтесь к нам и станьте
+                        частью захватывающего мира, где каждый день приносит новые вызовы и победы!</p>
                     <ul class="list-marked-2">
-                        <li>Providing high-quality accounting & tax services</li>
-                        <li>Sharing professional experience in tax management</li>
-                        <li>Offering full support to all our clients</li>
+                        <li>Обучение высококлассным навыкам патрулирования и охраны порядка</li>
+                        <li>Поддержка профессионального роста и развития сотрудников</li>
+                        <li>Предоставление полной помощи и сопровождения для всех членов ком</li>
                     </ul>
-                    <a class="button button-primary" href="#">Read more</a>
+                    <a class="button button-primary" href="#">Читать далее</a>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
@@ -222,18 +298,18 @@
                             <!--Box counter-->
                             <div class="box-counter">
                                 <div class="box-counter-main">
-                                    <div class="counter">750</div>
+                                    <div class="counter">1000+</div>
                                 </div>
-                                <p class="box-counter-title">Satisfied Clients</p>
+                                <p class="box-counter-title">Обученых сотрудников</p>
                             </div>
                         </div>
                         <div class="col-6">
                             <!--Box counter-->
                             <div class="box-counter">
                                 <div class="box-counter-main">
-                                    <div class="counter">68</div>
+                                    <div class="counter">25</div>
                                 </div>
-                                <p class="box-counter-title">Team Members</p>
+                                <p class="box-counter-title">Наша команда</p>
                             </div>
                         </div>
                         <div class="col-6">
@@ -242,7 +318,7 @@
                                 <div class="box-counter-main">
                                     <div class="counter">243</div>
                                 </div>
-                                <p class="box-counter-title">Successful Cases</p>
+                                <p class="box-counter-title">Хейтеров SFPD</p>
                             </div>
                         </div>
                         <div class="col-6">
@@ -252,7 +328,7 @@
                                     <div class="counter">99</div>
                                     <span>%</span>
                                 </div>
-                                <p class="box-counter-title">Satisfaction Rate</p>
+                                <p class="box-counter-title">Уровень удовлетворенности</p>
                             </div>
                         </div>
                     </div>
@@ -260,17 +336,14 @@
             </div>
         </div>
     </section>
-    <section class="parallax-container" data-parallax-img="images/parallax-1-1920x1026.jpg">
+    <section class="parallax-container" data-parallax-img="{% static 'images/parallax-1-1920x10261.png' %}">
         <div class="parallax-content section-xl context-dark text-center">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-xl-9">
-                        <h2>Monthly <span class="text-light">Offer</span></h2>
-                        <div class="heading-5 font-weight-normal">Get our FREE financial consultation for your business
-                            taxes
-                        </div>
+                        <h2>департамент SFPD <span class="text-light">существует уже</span></h2>
                         <!--TimeCircles-->
-                        <div class="countdown" data-countdown data-to="2019-12-31">
+                        <div class="countdown" data-countdown data-to="2017-02-17">
                             <div class="countdown-block countdown-block-days">
                                 <svg class="countdown-circle" x="0" y="0" width="200" height="200" viewbox="0 0 200 200"
                                      data-progress-days="">
@@ -279,7 +352,7 @@
                                 </svg>
                                 <div class="countdown-wrap">
                                     <div class="countdown-counter" data-counter-days="">00</div>
-                                    <div class="countdown-title">days</div>
+                                    <div class="countdown-title">Дней</div>
                                 </div>
                             </div>
                             <div class="countdown-block countdown-block-hours">
@@ -290,7 +363,7 @@
                                 </svg>
                                 <div class="countdown-wrap">
                                     <div class="countdown-counter" data-counter-hours="">00</div>
-                                    <div class="countdown-title">hours</div>
+                                    <div class="countdown-title">Часов</div>
                                 </div>
                             </div>
                             <div class="countdown-block countdown-block-minutes">
@@ -301,7 +374,7 @@
                                 </svg>
                                 <div class="countdown-wrap">
                                     <div class="countdown-counter" data-counter-minutes="">00</div>
-                                    <div class="countdown-title">minutes</div>
+                                    <div class="countdown-title">Минут</div>
                                 </div>
                             </div>
                             <div class="countdown-block countdown-block-seconds">
@@ -312,7 +385,7 @@
                                 </svg>
                                 <div class="countdown-wrap">
                                     <div class="countdown-counter" data-counter-seconds="">00</div>
-                                    <div class="countdown-title">seconds</div>
+                                    <div class="countdown-title">Секунд</div>
                                 </div>
                             </div>
                         </div>
@@ -325,131 +398,125 @@
     <!-- Latest Articles-->
     <section class="section bg-default section-md">
         <div class="container">
-            <h2 class="title-icon"><span class="icon icon-default mercury-icon-news"></span><span>Latest <span
-                    class="text-light">Articles</span></span></h2>
+            <h2 class="title-icon"><span class="icon icon-default mercury-icon-news"></span><span>Последние <span
+                    class="text-light">Новости</span></span></h2>
             <div class="box-image-small box-image-small-left">
                 <div class="item-image bg-image novi-nackground"
-                     style="background-image: url(images/index-1-2-586x334.jpg)"></div>
+                     style="background-image: url({% static 'images/staff.jpg' %})"></div>
                 <div class="item-body wow fadeInRight">
-                    <p>July 12, 2019</p>
-                    <h4><a href="#">Saving Money When Paying Taxes</a></h4>
-                    <p class="big">If you’re like a majority of Americans, you may be looking for new, creative ways to
-                        ease your annual tax burden. Fortunately, there are several things you can do to cut your taxes
-                        or increase...</p>
+                    <p>Июль 08, 2024</p>
+                    <h4><a href="#">Назначение шерифа</a></h4>
+                    <p class="big">По итогу тяжелейших собеседований и долгих обсуждений, на пост Шерифа департамента
+                        г.Сан-Фиерро была назначена Jennifer Ruthless. </p>
                 </div>
             </div>
             <div class="box-image-small box-image-small-right">
                 <div class="item-image bg-image novi-nackground"
-                     style="background-image: url(images/index-1-3-580x334.jpg)"></div>
+                     style="background-image: url({% static 'images/cpd.jpg)' %}"></div>
                 <div class="item-body wow fadeInLeft">
-                    <p>July 12, 2019</p>
-                    <h4><a href="#">What Is a 1035 Exchange?</a></h4>
-                    <p class="big">In this post, we will discuss what a 1035 exchange is and how it helps you manage and
-                        preserve your wealth and finances. A 1035 exchange is a specific transfer of funds from one life
-                        insurance policy...</p>
+                    <p>Июль 08, 2024 </p>
+                    <h4><a href="#">Назначение на должность</a></h4>
+                    <p class="big">Eivor Valison снят с должности Chief of CPD по окончании срока</p>
                 </div>
             </div>
         </div>
     </section>
-    <a class="banner" href="https://www.templatemonster.com/website-templates/monstroid2.html" target="_blank"><img
-            src="{% static 'images/monstroid-big.jpg' %}" alt="" height="0"></a>
     <footer class="section footer-classic">
         <div class="footer-inner-1">
             <div class="container">
                 <div class="row row-40">
                     <div class="col-md-5 col-lg-3">
-                        <h5>Our Contacts</h5>
-                        <ul class="contact-list font-weight-bold">
-                            <li>
-                                <div class="unit unit-spacing-xs">
-                                    <div class="unit-left">
-                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-map-marker"></div>
-                                    </div>
-                                    <div class="unit-body"><a href="#">14973 Interurban Ave <br>New York, NY 98168</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="unit unit-spacing-xs">
-                                    <div class="unit-left">
-                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-phone"></div>
-                                    </div>
-                                    <div class="unit-body"><a href="tel:#">+1 (800) 123 1234</a></div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="unit unit-spacing-xs">
-                                    <div class="unit-left">
-                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-clock"></div>
-                                    </div>
-                                    <div class="unit-body">
-                                        <ul class="list-0">
-                                            <li>Weekdays: 8:00–17:00</li>
-                                            <li>Weekends: Closed</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                        <a class="d-inline-block big" href="mailto:#">mail@demolink.org</a>
+                        <h5>Наши контакты</h5>
+                        {#                        <ul class="contact-list font-weight-bold">#}
+                        {#                            <li>#}
+                        {#                                <div class="unit unit-spacing-xs">#}
+                        {#                                    <div class="unit-left">#}
+                        {#                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-map-marker"></div>#}
+                        {#                                    </div>#}
+                        {#                                    <div class="unit-body"><a href="#">14973 Interurban Ave <br>New York, NY 98168</a>#}
+                        {#                                    </div>#}
+                        {#                                </div>#}
+                        {#                            </li>#}
+                        {#                            <li>#}
+                        {#                                <div class="unit unit-spacing-xs">#}
+                        {#                                    <div class="unit-left">#}
+                        {#                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-phone"></div>#}
+                        {#                                    </div>#}
+                        {#                                    <div class="unit-body"><a href="tel:#">+1 (800) 123 1234</a></div>#}
+                        {#                                </div>#}
+                        {#                            </li>#}
+                        {#                            <li>#}
+                        {#                                <div class="unit unit-spacing-xs">#}
+                        {#                                    <div class="unit-left">#}
+                        {#                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-clock"></div>#}
+                        {#                                    </div>#}
+                        {#                                    <div class="unit-body">#}
+                        {#                                        <ul class="list-0">#}
+                        {#                                            <li>Weekdays: 8:00–17:00</li>#}
+                        {#                                            <li>Weekends: Closed</li>#}
+                        {#                                        </ul>#}
+                        {#                                    </div>#}
+                        {#                                </div>#}
+                        {#                            </li>#}
+                        {#                        </ul>#}
                     </div>
                     <div class="col-md-6 col-lg-5">
-                        <h5>Links</h5>
-                        <div class="row row-5 justify-content-between">
-                            <div class="col-sm-6">
-                                <ul class="footer-list big">
-                                    <li><a href="#">IRS Publications</a></li>
-                                    <li><a href="#">Record Retention Guide</a></li>
-                                    <li><a href="#">Tax Due Dates</a></li>
-                                    <li><a href="#">Tax Forms</a></li>
-                                    <li><a href="#">Tax Rates</a></li>
-                                    <li><a href="#">Where is my refund?</a></li>
-                                    <li><a href="#">Retirement</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-4 col-lg-6 col-xxl-5">
-                                <ul class="footer-list big">
-                                    <li><a href="#">Retirement</a></li>
-                                    <li><a href="#">Investment</a></li>
-                                    <li><a href="#">Real Estate</a></li>
-                                    <li><a href="#">Insurance</a></li>
-                                    <li><a href="#">Tax</a></li>
-                                    <li><a href="#">Money</a></li>
-                                    <li><a href="#">Other Resources</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <h5>Ссылки</h5>
+                        {#                        <div class="row row-5 justify-content-between">#}
+                        {#                            <div class="col-sm-6">#}
+                        {#                                <ul class="footer-list big">#}
+                        {#                                    <li><a href="#">IRS Publications</a></li>#}
+                        {#                                    <li><a href="#">Record Retention Guide</a></li>#}
+                        {#                                    <li><a href="#">Tax Due Dates</a></li>#}
+                        {#                                    <li><a href="#">Tax Forms</a></li>#}
+                        {#                                    <li><a href="#">Tax Rates</a></li>#}
+                        {#                                    <li><a href="#">Where is my refund?</a></li>#}
+                        {#                                    <li><a href="#">Retirement</a></li>#}
+                        {#                                </ul>#}
+                        {#                            </div>#}
+                        {#                            <div class="col-sm-4 col-lg-6 col-xxl-5">#}
+                        {#                                <ul class="footer-list big">#}
+                        {#                                    <li><a href="#">Retirement</a></li>#}
+                        {#                                    <li><a href="#">Investment</a></li>#}
+                        {#                                    <li><a href="#">Real Estate</a></li>#}
+                        {#                                    <li><a href="#">Insurance</a></li>#}
+                        {#                                    <li><a href="#">Tax</a></li>#}
+                        {#                                    <li><a href="#">Money</a></li>#}
+                        {#                                    <li><a href="#">Other Resources</a></li>#}
+                        {#                                </ul>#}
+                        {#                            </div>#}
+                        {#                        </div>#}
                     </div>
                     <div class="col-md-12 col-lg-4">
-                        <h5>Partners</h5>
-                        <div class="row row-30 align-items-center text-center">
-                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img
-                                    src="{% static 'images/footer-1-brand-1-144x70.png' %}" alt="" width="144"
-                                    height="35"/></a></div>
-                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img
-                                    src="{% static 'images/footer-1-brand-2-121x68.png' %}" alt="" width="121"
-                                    height="34"/></a></div>
-                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img
-                                    src="{% static 'images/footer-1-brand-3-121x33.png' %}" alt="" width="121"
-                                    height="16"/></a></div>
-                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img
-                                    src="{% static 'images/footer-1-brand-4-101x76.png' %}" alt="" width="101"
-                                    height="38"/></a></div>
-                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img
-                                    src="{% static 'images/footer-1-brand-5-107x53.png' %}" alt="" width="107"
-                                    height="26"/></a></div>
-                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img
-                                    src="{% static 'images/footer-1-brand-6-97x52.png' %}" alt="" width="97"
-                                    height="26"/></a></div>
-                        </div>
+                        <h5>Партнеры</h5>
+                        {#                        <div class="row row-30 align-items-center text-center">#}
+                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
+                        {#                                    src="{% static 'images/footer-1-brand-1-144x70.png' %}" alt="" width="144"#}
+                        {#                                    height="35"/></a></div>#}
+                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
+                        {#                                    src="{% static 'images/footer-1-brand-2-121x68.png' %}" alt="" width="121"#}
+                        {#                                    height="34"/></a></div>#}
+                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
+                        {#                                    src="{% static 'images/footer-1-brand-3-121x33.png' %}" alt="" width="121"#}
+                        {#                                    height="16"/></a></div>#}
+                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
+                        {#                                    src="{% static 'images/footer-1-brand-4-101x76.png' %}" alt="" width="101"#}
+                        {#                                    height="38"/></a></div>#}
+                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
+                        {#                                    src="{% static 'images/footer-1-brand-5-107x53.png' %}" alt="" width="107"#}
+                        {#                                    height="26"/></a></div>#}
+                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
+                        {#                                    src="{% static 'images/footer-1-brand-6-97x52.png' %}" alt="" width="97"#}
+                        {#                                    height="26"/></a></div>#}
+                        {#                        </div>#}
                     </div>
                 </div>
             </div>
         </div>
         <div class="footer-inner-2">
             <div class="container">
-                <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span>. All Rights Reserved.
-                    Design by <a href="https://www.templatemonster.com">TemplateMonster</a></p>
+                <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span>. Все права защищены.
+                    Design by <a href="https://vk.com/lazarev312">Dimentii Lazarev</a></p>
             </div>
         </div>
     </footer>

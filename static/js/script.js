@@ -50,7 +50,6 @@
 			viewAnimate:             $( '.view-animate' ),
 			wow:                     $( '.wow' ),
 			maps:                    $( '.google-map-container' ),
-			counter:                 document.querySelectorAll( '.counter' ),
 			progressLinear:          document.querySelectorAll( '.progress-linear' ),
 			countdown:               document.querySelectorAll( '.countdown' )
 		};
@@ -106,32 +105,6 @@
 					windowReady = true;
 				}
 			});
-
-			// Counter
-			if ( plugins.counter ) {
-				for ( var i = 0; i < plugins.counter.length; i++ ) {
-					var
-						node = plugins.counter[i],
-						counter = aCounter({
-							node: node,
-							duration: node.getAttribute( 'data-duration' ) || 1000
-						}),
-						scrollHandler = (function() {
-							if ( Util.inViewport( this ) && !this.classList.contains( 'animated-first' ) ) {
-								this.counter.run();
-								this.classList.add( 'animated-first' );
-							}
-						}).bind( node ),
-						blurHandler = (function() {
-							this.counter.params.to = parseInt( this.textContent, 10 );
-							this.counter.run();
-						}).bind( node );
-
-					scrollHandler();
-					window.addEventListener( 'scroll', scrollHandler );
-					node.addEventListener( 'blur', blurHandler );
-				}
-			}
 
 			// Progress Bar
 			if ( plugins.progressLinear ) {
