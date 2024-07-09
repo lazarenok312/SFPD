@@ -1,9 +1,6 @@
-{% block content %}
-  <h2>Регистрация</h2>
-  <form method="post">
+<form method="post">
     {% csrf_token %}
     {{ user_form.as_p }}
     {{ profile_form.as_p }}
-    <button type="submit">Зарегистрироваться</button>
-  </form>
-{% endblock %}
+    <button type="submit">Register</button>
+</form>

@@ -1,0 +1,427 @@
+{% load static %}
+{% include 'base.html' %}
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>Police Academy</title>
+</head>
+<body>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Загрузка...</p>
+    </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <section class="section swiper-container swiper-slider swiper-slider-1 context-dark" data-loop="true"
+             data-autoplay="5000" data-simulate-touch="false">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide " data-slide-bg="{% static 'images/Hb0ytWc.jpg' %}">
+                <div class="swiper-slide-caption section-lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                                <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
+                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                        data-caption-delay="200">Chief of PA</span></h1>
+                                {% if pa_username %}
+                                    <p class="lead" data-caption-animate="fadeInUp"
+                                       data-caption-delay="350">{{ pa_username }}</p>
+                                {% else %}
+                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
+                                        Вакантно</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide " data-slide-bg="{% static 'images/Hb0ytWc.jpg' %}">
+                <div class="swiper-slide-caption section-lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                                <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
+                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                        data-caption-delay="200">Dep.Chief of PA</span></h1>
+                                {% if pa_username %}
+                                    <p class="lead" data-caption-animate="fadeInUp"
+                                       data-caption-delay="350">{{ pa_username }}</p>
+                                {% else %}
+                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
+                                        Вакантно</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide " data-slide-bg="{% static 'images/Hb0ytWc.jpg' %}">
+                <div class="swiper-slide-caption section-lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                                <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
+                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                        data-caption-delay="200">Dep.Chief of PA</span></h1>
+                                {% if pa_username %}
+                                    <p class="lead" data-caption-animate="fadeInUp"
+                                       data-caption-delay="350">{{ pa_username }}</p>
+                                {% else %}
+                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
+                                        Вакантно</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Swiper Pagination-->
+        <div class="swiper-pagination-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Icon List 2-->
+    <section class="section section-sm section-sm-bottom-100 bg-primary text-center">
+        <div class="container">
+            <h2 class="mb-5">Полицейская академия SFPD</h2>
+            <h3 class="mb-5">Особенности отдела</h3>
+            <div class="row">
+                <div class="col-md-4 wow fadeInUp" data-wow-duration="1s">
+                    <div class="box-icon-2">
+                        <div class="icon novi-icon mercury-icon-group"></div>
+                        <h5 class="title">Профессиональное обучение</h5>
+                        <p class="text">Разработка и реализация планов обучения стажёров департамента.</p>
+                        <p class="text">Проведение регулярных практических занятий и переаттестация сотрудников по
+                            запросу руководства.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+                    <div class="box-icon-2">
+                        <div class="icon novi-icon mercury-icon-chart-up"></div>
+                        <h5 class="title">Экспертное сопровождение</h5>
+                        <p class="text">Разрешение спорных и конфликтных рабочих ситуаций.</p>
+                        <p class="text">Постоянное совершенствование и подготовка персонала.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                    <div class="box-icon-2">
+                        <div class="icon novi-icon mercury-icon-partners"></div>
+                        <h5 class="title">Сотрудничество и устойчивость</h5>
+                        <p class="text">Сотрудничество с сообществами для создания безопасного окружения.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section section-lg bg-default">
+        <div class="container text-center text-lg-left">
+            <h2><span class="text-light">Руководство</span> отдела</h2>
+            <div class="row row-40">
+                <div class="col-md-4">
+                    <div class="team-box-left">
+                        <div class="team-meta unit align-items-center">
+                            <div class="unit-left"><img class="img" src="{% static 'images/pa1.png' %}" alt=""
+                                                        width="138" height="69"/>
+                            </div>
+                            <div class="unit-body">
+                                <h5 class="title">James Ezar</h5>
+                                <div class="subtitle">Chief of PA</div>
+                            </div>
+                        </div>
+                        <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a fermentum
+                            turpis. Nulla metus diam, feugiat ac lectus vitae, tempus porttitor sem. Vestibulum non
+                            lacus vulputate, placerat ligula ut, dignissim tortor.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-box-left">
+                        <div class="team-meta unit align-items-center">
+                            <div class="unit-left"><img class="img" src="{% static 'images/pa2.png' %}" alt=""
+                                                        width="138" height="69"/>
+                            </div>
+                            <div class="unit-body">
+                                <h5 class="title">Kristina Gurinifero</h5>
+                                <div class="subtitle">Dep.Chief of PA</div>
+                            </div>
+                        </div>
+                        <div class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+                            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
+                            quasi architecto beatae vitae dicta sunt explicabo.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-box-left">
+                        <div class="team-meta unit align-items-center">
+                            <div class="unit-left"><img class="img" src="{% static 'images/pa3.png' %}" alt=""
+                                                        width="138" height="69"/>
+                            </div>
+                            <div class="unit-body">
+                                <h5 class="title">Infeless Montana</h5>
+                                <div class="subtitle">Dep.Chief of PA</div>
+                            </div>
+                        </div>
+                        <div class="content">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
+                            consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+                            dolore magnam aliquam quaerat voluptatem. Ut enim ad minima.
+                        </div>
+                    </div>
+                </div>
+    </section>
+    <section class="section bg-gray-100 box-image-left">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="section-md section-md-bottom-50">
+                        <h2 class="title-icon"><span class="icon icon-default mercury-icon-speak"></span><span>Важная информация</span>
+                        </h2>
+                        <!-- Owl Carousel-->
+                        <div class="owl-carousel owl-carousel-1" data-items="1" data-dots="true" data-nav="false"
+                             data-stage-padding="0" data-loop="true" data-margin="30" data-mouse-drag="false">
+                            <blockquote class="quote quote-simple">
+                                <q>Police Academy — это ключевой отдел департамента, занимающийся обучением и подготовкой новых сотрудников для службы в полиции San Andreas. </q>
+                                <div class="quote-meta">
+                                    <div class="author">
+                                        <cite>Sara Parker</cite>
+                                    </div>
+                                    <div class="position">Chief executive officer</div>
+                                </div>
+                            </blockquote>
+                            <blockquote class="quote quote-simple">
+                                <q>Для вступления в Police Academy требуется звание Сержант полиции и выше, желание обучать курсантов и выполнять должностные обязанности, а также адекватность, трудолюбие и целеустремленность. </q>
+                                <div class="quote-meta">
+                                    <div class="author">
+                                        <cite>Sam Jackson</cite>
+                                    </div>
+                                    <div class="position">Lawyer</div>
+                                </div>
+                            </blockquote>
+                            <blockquote class="quote quote-simple">
+                                <q>Отдел является ведущим экспертным органом в плане разрешения спорных или конфликтных рабочих ситуаций.</q>
+                                <div class="quote-meta">
+                                    <div class="author">
+                                        <cite>Ann White</cite>
+                                    </div>
+                                    <div class="position">Regional Manager</div>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-image-item novi-background bg-image"
+             style="background-image: url('{% static 'images/typography-1-946x485.jpg' %}'); background-size: cover; width: 946px; height: 485px;"></div>
+    </section>
+    <section class="parallax-container box-image-left"
+             data-parallax-img="{% static 'images/san-francisco-is-down-hundreds-of-cops-its-now-seeking-v0-Yj9CCsl4Phjg1ti8OO-UTn-KbDAf90OKr45WSkI13Iw.webp' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 wow fadeInLeft">
+                    <div class="section-lg section-lg-top-100">
+                        <h2 class="title-icon title-icon-2" style="color: white"><span
+                                class="icon icon-default mercury-icon-touch"></span><span>
+Полезные ссылки<br></span></h2>
+                        <p class="big" style="color: white">Ниже представлены полезные скрипты для комфортной игры в
+                            нашем отделе</p>
+                        <div class="group-sm group-wrap-2">
+                            <a class="button button-icon button-icon-right button-secondary"
+                               href="https://launcher.evolve-rp.net/MOBILE/launcher.apk">
+                                <span>Спец. рация SFPD</span>
+                                <img src="{% static 'images/discord.svg' %}" alt="Discord Icon" width="25">
+                            </a>
+                            <a class="button button-icon button-icon-right button-primary"
+                               href="https://launcher.evolve-rp.net/MOBILE/launcher.apk">
+                                <span>FBI Tools</span>
+                                <img src="{% static 'images/fbitools.png' %}" alt="Discord Icon" width="25">
+                            </a>
+                            <a class="button button-icon button-icon-right button-excel"
+                               href="https://docs.google.com/spreadsheets/d/10suCWj2o6Cy9J5tp-I9jMW9HinTgFq1T1yPlsAjJGPE/edit?gid=1836015645#gid=1836015645">
+                                <span>Таблица отдела</span>
+                                <span
+                                        class="icon fa fa-table"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-image-item box-image-video novi-background bg-image"><a class="icon novi-icon fa fa-caret-right"
+                                                                                href="https://www.youtube.com/watch?v=1ehhpTuivWg"
+                                                                                data-lightgallery="item"></a></div>
+    </section>
+    <!-- Our Mission-->
+    <section class="section bg-default section-md">
+        <div class="container">
+            <div class="row row-30">
+                <div class="col-md-6">
+                    <h2 class="title-icon"><span class="icon icon-default mercury-icon-target-2"></span><span>Police Academy</span>
+                    </h2>
+                    <p class="big">Police Academy - отдел департамента, занимающийся обучением и подготовкой к
+                        дальнейшей службе курсантов недавно вступивших в ряды полиции
+                        а так же проведением учебно-тактических занятий и пресечением нарушений среди сотрудников
+                        департамента.
+                        Если у тебя есть желание обучать кадетов, выполнять должностные обязанности, ты адекватный,
+                        трудолюбивый и целеустремлённый - тогда тебе к нам.</p>
+                    <ul class="list-marked-2">
+                        <li>Обучение высококлассным навыкам патрулирования и охраны порядка</li>
+                        <li>Поддержка профессионального роста и развития сотрудников</li>
+                        <li>Предоставление полной помощи и сопровождения для всех членов ком</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <!--Box counter-->
+                            <div class="box-counter">
+                                <div class="box-counter-main">
+                                    <div class="counter">1000+</div>
+                                </div>
+                                <p class="box-counter-title">Обученых сотрудников</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <!--Box counter-->
+                            <div class="box-counter">
+                                <div class="box-counter-main">
+                                    <div class="counter">25</div>
+                                </div>
+                                <p class="box-counter-title">Наша команда</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <!--Box counter-->
+                            <div class="box-counter">
+                                <div class="box-counter-main">
+                                    <div class="counter">243</div>
+                                </div>
+                                <p class="box-counter-title">Хейтеров SFPD</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <!--Box counter-->
+                            <div class="box-counter">
+                                <div class="box-counter-main">
+                                    <div class="counter">99</div>
+                                    <span>%</span>
+                                </div>
+                                <p class="box-counter-title">Уровень удовлетворенности</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {#    <section class="parallax-container" data-parallax-img="{% static 'images/parallax-1-1920x10261.png' %}">#}
+    {#        <div class="parallax-content section-xl context-dark text-center">#}
+    {#            <div class="container">#}
+    {#                <div class="row justify-content-center">#}
+    {#                    <div class="col-md-10 col-xl-9">#}
+    {#                        <h2>департамент SFPD <span class="text-light">существует уже</span></h2>#}
+    {#                        <!--TimeCircles-->#}
+    {#                        <div class="countdown" data-countdown data-to="2017-02-17">#}
+    {#                            <div class="countdown-block countdown-block-days">#}
+    {#                                <svg class="countdown-circle" x="0" y="0" width="200" height="200" viewbox="0 0 200 200"#}
+    {#                                     data-progress-days="">#}
+    {#                                    <circle class="countdown-circle-bg" cx="100" cy="100" r="90"></circle>#}
+    {#                                    <circle class="countdown-circle-fg clipped" cx="100" cy="100" r="90"></circle>#}
+    {#                                </svg>#}
+    {#                                <div class="countdown-wrap">#}
+    {#                                    <div class="countdown-counter" data-counter-days="">00</div>#}
+    {#                                    <div class="countdown-title">Дней</div>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            <div class="countdown-block countdown-block-hours">#}
+    {#                                <svg class="countdown-circle" x="0" y="0" width="200" height="200" viewbox="0 0 200 200"#}
+    {#                                     data-progress-hours="">#}
+    {#                                    <circle class="countdown-circle-bg" cx="100" cy="100" r="90"></circle>#}
+    {#                                    <circle class="countdown-circle-fg clipped" cx="100" cy="100" r="90"></circle>#}
+    {#                                </svg>#}
+    {#                                <div class="countdown-wrap">#}
+    {#                                    <div class="countdown-counter" data-counter-hours="">00</div>#}
+    {#                                    <div class="countdown-title">Часов</div>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            <div class="countdown-block countdown-block-minutes">#}
+    {#                                <svg class="countdown-circle" x="0" y="0" width="200" height="200" viewbox="0 0 200 200"#}
+    {#                                     data-progress-minutes="">#}
+    {#                                    <circle class="countdown-circle-bg" cx="100" cy="100" r="90"></circle>#}
+    {#                                    <circle class="countdown-circle-fg clipped" cx="100" cy="100" r="90"></circle>#}
+    {#                                </svg>#}
+    {#                                <div class="countdown-wrap">#}
+    {#                                    <div class="countdown-counter" data-counter-minutes="">00</div>#}
+    {#                                    <div class="countdown-title">Минут</div>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                            <div class="countdown-block countdown-block-seconds">#}
+    {#                                <svg class="countdown-circle" x="0" y="0" width="200" height="200" viewbox="0 0 200 200"#}
+    {#                                     data-progress-seconds="">#}
+    {#                                    <circle class="countdown-circle-bg" cx="100" cy="100" r="90"></circle>#}
+    {#                                    <circle class="countdown-circle-fg clipped" cx="100" cy="100" r="90"></circle>#}
+    {#                                </svg>#}
+    {#                                <div class="countdown-wrap">#}
+    {#                                    <div class="countdown-counter" data-counter-seconds="">00</div>#}
+    {#                                    <div class="countdown-title">Секунд</div>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        </div>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </section>#}
+    {##}
+    {#    <!-- Latest Articles-->#}
+    {#    <section class="section bg-default section-md">#}
+    {#        <div class="container">#}
+    {#            <h2 class="title-icon"><span class="icon icon-default mercury-icon-news"></span><span>Последние <span#}
+    {#                    class="text-light">Новости</span></span></h2>#}
+    {#            <div class="box-image-small box-image-small-left">#}
+    {#                <div class="item-image bg-image novi-nackground"#}
+    {#                     style="background-image: url({% static 'images/staff.jpg' %})"></div>#}
+    {#                <div class="item-body wow fadeInRight">#}
+    {#                    <p>Июль 08, 2024</p>#}
+    {#                    <h4><a href="#">Назначение шерифа</a></h4>#}
+    {#                    <p class="big">По итогу тяжелейших собеседований и долгих обсуждений, на пост Шерифа департамента#}
+    {#                        г.Сан-Фиерро была назначена Jennifer Ruthless. </p>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#            <div class="box-image-small box-image-small-right">#}
+    {#                <div class="item-image bg-image novi-nackground"#}
+    {#                     style="background-image: url({% static 'images/cpd.jpg)' %}"></div>#}
+    {#                <div class="item-body wow fadeInLeft">#}
+    {#                    <p>Июль 08, 2024 </p>#}
+    {#                    <h4><a href="#">Назначение на должность</a></h4>#}
+    {#                    <p class="big">Eivor Valison снят с должности Chief of CPD по окончании срока</p>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </section>#}
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+{% load static %}
+<style>
+    .rd-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .rd-nav-item {
+        position: relative;
+        display: inline-block;
+    }
+
+    .rd-nav-link {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: #000;
+        transition: color 0.3s ease;
+    }
+
+    .rd-nav-link:hover {
+        color: #007bff;
+    }
+
+    .dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 160px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        z-index: 1000;
+    }
+
+    .dropdown li {
+        padding: 10px;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+    }
+
+    .dropdown li a {
+        text-decoration: none;
+        color: #000;
+        display: block;
+        transition: color 0.3s ease;
+    }
+
+    .dropdown li a:hover {
+        color: #007bff;
+    }
+
+    .rd-nav-item:hover .dropdown,
+    .rd-nav-item:focus-within .dropdown {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .rd-nav-item:hover .dropdown li,
+    .rd-nav-item:focus-within .dropdown li {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .dropdown li:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+
+    .dropdown li:nth-child(2) {
+        transition-delay: 0.2s;
+    }
+
+    .dropdown li:nth-child(3) {
+        transition-delay: 0.3s;
+    }
+
+    .dropdown li:nth-child(4) {
+        transition-delay: 0.4s;
+    }
+
+    @media (max-width: 768px) {
+        .rd-navbar-nav {
+            flex-direction: column;
+        }
+
+        .rd-nav-item {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+            top: auto;
+            left: auto;
+            box-shadow: none;
+            opacity: 1;
+            visibility: visible;
+            transform: none;
+        }
+
+        .rd-nav-item:hover .dropdown,
+        .rd-nav-item:focus-within .dropdown {
+            display: block;
+        }
+    }
+</style>
+
+<header class="section page-header rd-navbar-transparent-wrap">
+    <div class="rd-navbar-wrap">
+        <nav class="rd-navbar rd-navbar-transparent" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
+             data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed"
+             data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static"
+             data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static"
+             data-lg-stick-up-offset="20px" data-xl-stick-up-offset="20px" data-xxl-stick-up-offset="20px"
+             data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-collapse-toggle rd-navbar-fixed-element-1"
+                 data-rd-navbar-toggle=".rd-navbar-collapse"><span></span></div>
+            <div class="rd-navbar-aside-outer rd-navbar-collapse">
+                <div class="rd-navbar-aside">
+                    <div class="rd-navbar-info">
+                        <ul class="list-lined">
+                            <li><a href="https://discord.gg/ddnRXcQJCV">Discord</a></li>
+                            <li><a href="https://vk.com/saintlouis_sfpd">Группа ВК</a></li>
+                            <li><a href="https://evolve-rp.su/index.php?forums/46/">Форум</a></li>
+                        </ul>
+                    </div>
+                    <ul class="list-lined">
+                        <li><a href="{% url 'register' %}">Вход</a></li>
+                        <li><a href="{% url 'register' %}">Регистрация</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="rd-navbar-main-outer">
+                <div class="rd-navbar-main-inner">
+                    <div class="rd-navbar-main">
+                        <div class="rd-navbar-panel">
+                            <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap">
+                                <span></span></button>
+                            <div class="rd-navbar-brand">
+                                <a class="brand" href="{% url 'home' %}"><img class="brand-logo-dark"
+                                                                              src="{% static 'images/Li7MP3X.png' %}"
+                                                                              alt="" width="146" height="22"/><img
+                                        class="brand-logo-light" src="{% static 'images/Li7MP3X.png' %}" alt=""
+                                        width="200"
+                                        height="220"/></a>
+                            </div>
+                        </div>
+                        <div class="rd-navbar-main-element">
+                            <div class="rd-navbar-nav-wrap">
+                                <ul class="rd-navbar-nav">
+                                    <li class="rd-nav-item active"><a class="rd-nav-link"
+                                                                      href="{% url 'home' %}">Главная</a>
+                                    </li>
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="{% url 'about' %}">О нас</a>
+                                    </li>
+                                    <li class="rd-nav-item">
+                                        <a class="rd-nav-link" href="#">Отделы</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{% url 'pa_detail' %}">Police Academy</a></li>
+                                            <li><a href="#">Central Patrol Division</a></li>
+                                            <li><a href="#">SWAT</a></li>
+                                            <li><a href="#">Detective Bureau</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="rd-nav-item"><a class="rd-nav-link" href="contacts.html">FAQ</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>

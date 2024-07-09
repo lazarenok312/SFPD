@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from profiles.models import EmployeeProfile
-
+from django.shortcuts import render, get_object_or_404
+from .models import Department
 
 def home_view(request):
     departments = {
@@ -19,3 +20,10 @@ def home_view(request):
 
     context = {f"{key}_username": department['username'] for key, department in departments.items()}
     return render(request, 'home/index.html', context)
+
+
+def pa_view(request):
+    return render(request, 'departments/pa_detail.html')
+
+def about_view(request):
+    return render(request, 'departments/about_detail.html')

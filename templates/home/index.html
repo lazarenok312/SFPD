@@ -4,26 +4,8 @@
 <html class="wide wow-animation" lang="en">
 <head>
     <title>Главная страница</title>
-    <style>.ie-panel {
-        display: none;
-        background: #212121;
-        padding: 10px 0;
-        box-shadow: 3px 3px 5px 0 rgba(0, 0, 0, .3);
-        clear: both;
-        text-align: center;
-        position: relative;
-        z-index: 1;
-    }
-
-    html.ie-10 .ie-panel, html.lt-ie-10 .ie-panel {
-        display: block;
-    }</style>
 </head>
 <body>
-<div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img
-        src="{% static 'images/ie8-panel/warning_bar_0000_us.jpg' %}" height="42" width="820"
-        alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a>
-</div>
 <div class="preloader">
     <div class="preloader-body">
         <div class="loader">
@@ -41,68 +23,7 @@
     </div>
 </div>
 <div class="page">
-    <header class="section page-header rd-navbar-transparent-wrap">
-        <div class="rd-navbar-wrap">
-            <nav class="rd-navbar rd-navbar-transparent" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed"
-                 data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed"
-                 data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-static"
-                 data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static"
-                 data-lg-stick-up-offset="20px" data-xl-stick-up-offset="20px" data-xxl-stick-up-offset="20px"
-                 data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
-                <div class="rd-navbar-collapse-toggle rd-navbar-fixed-element-1"
-                     data-rd-navbar-toggle=".rd-navbar-collapse"><span></span></div>
-                <div class="rd-navbar-aside-outer rd-navbar-collapse">
-                    <div class="rd-navbar-aside">
-                        <div class="rd-navbar-info">
-                            <ul class="list-lined">
-                                <li><a href="https://discord.gg/ddnRXcQJCV">Discord</a></li>
-                                <li><a href="https://vk.com/saintlouis_sfpd">Группа ВК</a></li>
-                                <li><a href="https://evolve-rp.su/index.php?forums/46/">Форум</a></li>
-                            </ul>
-                        </div>
-                        <ul class="list-lined">
-                            <li><a href="{% url 'register' %}">Вход</a></li>
-                            <li><a href="#">Регистрация</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="rd-navbar-main-outer">
-                    <div class="rd-navbar-main-inner">
-                        <div class="rd-navbar-main">
-                            <div class="rd-navbar-panel">
-                                <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap">
-                                    <span></span></button>
-                                <div class="rd-navbar-brand">
-                                    <a class="brand" href="index.html"><img class="brand-logo-dark"
-                                                                            src="{% static 'images/Li7MP3X.png' %}"
-                                                                            alt="" width="146" height="22"/><img
-                                            class="brand-logo-light" src="{% static 'images/Li7MP3X.png' %}" alt=""
-                                            width="200"
-                                            height="220"/></a>
-                                </div>
-                            </div>
-                            <div class="rd-navbar-main-element">
-                                <div class="rd-navbar-nav-wrap">
-                                    <ul class="rd-navbar-nav">
-                                        <li class="rd-nav-item active"><a class="rd-nav-link"
-                                                                          href="index.html">Главная</a>
-                                        </li>
-                                        <li class="rd-nav-item"><a class="rd-nav-link" href="about.html">О нас</a>
-                                        </li>
-                                        <li class="rd-nav-item"><a class="rd-nav-link"
-                                                                   href="typography.html">Отделы</a>
-                                        </li>
-                                        <li class="rd-nav-item"><a class="rd-nav-link" href="contacts.html">FAQ</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </header>
+            {% include 'include/navbar.html' %}
     <!--Swiper-->
     <section class="section swiper-container swiper-slider swiper-slider-1 context-dark" data-loop="true"
              data-autoplay="5000" data-simulate-touch="false">
@@ -123,7 +44,7 @@
                                         Вакантно</p>
                                 {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
-                                     data-caption-delay="450"><a class="button button-secondary-pa" href="#">Читать
+                                     data-caption-delay="450"><a class="button button-secondary-pa" href="{% url 'pa_detail' %}">Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -421,109 +342,10 @@
             </div>
         </div>
     </section>
-    <footer class="section footer-classic">
-        <div class="footer-inner-1">
-            <div class="container">
-                <div class="row row-40">
-                    <div class="col-md-5 col-lg-3">
-                        <h5>Наши контакты</h5>
-                        {#                        <ul class="contact-list font-weight-bold">#}
-                        {#                            <li>#}
-                        {#                                <div class="unit unit-spacing-xs">#}
-                        {#                                    <div class="unit-left">#}
-                        {#                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-map-marker"></div>#}
-                        {#                                    </div>#}
-                        {#                                    <div class="unit-body"><a href="#">14973 Interurban Ave <br>New York, NY 98168</a>#}
-                        {#                                    </div>#}
-                        {#                                </div>#}
-                        {#                            </li>#}
-                        {#                            <li>#}
-                        {#                                <div class="unit unit-spacing-xs">#}
-                        {#                                    <div class="unit-left">#}
-                        {#                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-phone"></div>#}
-                        {#                                    </div>#}
-                        {#                                    <div class="unit-body"><a href="tel:#">+1 (800) 123 1234</a></div>#}
-                        {#                                </div>#}
-                        {#                            </li>#}
-                        {#                            <li>#}
-                        {#                                <div class="unit unit-spacing-xs">#}
-                        {#                                    <div class="unit-left">#}
-                        {#                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-clock"></div>#}
-                        {#                                    </div>#}
-                        {#                                    <div class="unit-body">#}
-                        {#                                        <ul class="list-0">#}
-                        {#                                            <li>Weekdays: 8:00–17:00</li>#}
-                        {#                                            <li>Weekends: Closed</li>#}
-                        {#                                        </ul>#}
-                        {#                                    </div>#}
-                        {#                                </div>#}
-                        {#                            </li>#}
-                        {#                        </ul>#}
-                    </div>
-                    <div class="col-md-6 col-lg-5">
-                        <h5>Ссылки</h5>
-                        {#                        <div class="row row-5 justify-content-between">#}
-                        {#                            <div class="col-sm-6">#}
-                        {#                                <ul class="footer-list big">#}
-                        {#                                    <li><a href="#">IRS Publications</a></li>#}
-                        {#                                    <li><a href="#">Record Retention Guide</a></li>#}
-                        {#                                    <li><a href="#">Tax Due Dates</a></li>#}
-                        {#                                    <li><a href="#">Tax Forms</a></li>#}
-                        {#                                    <li><a href="#">Tax Rates</a></li>#}
-                        {#                                    <li><a href="#">Where is my refund?</a></li>#}
-                        {#                                    <li><a href="#">Retirement</a></li>#}
-                        {#                                </ul>#}
-                        {#                            </div>#}
-                        {#                            <div class="col-sm-4 col-lg-6 col-xxl-5">#}
-                        {#                                <ul class="footer-list big">#}
-                        {#                                    <li><a href="#">Retirement</a></li>#}
-                        {#                                    <li><a href="#">Investment</a></li>#}
-                        {#                                    <li><a href="#">Real Estate</a></li>#}
-                        {#                                    <li><a href="#">Insurance</a></li>#}
-                        {#                                    <li><a href="#">Tax</a></li>#}
-                        {#                                    <li><a href="#">Money</a></li>#}
-                        {#                                    <li><a href="#">Other Resources</a></li>#}
-                        {#                                </ul>#}
-                        {#                            </div>#}
-                        {#                        </div>#}
-                    </div>
-                    <div class="col-md-12 col-lg-4">
-                        <h5>Партнеры</h5>
-                        {#                        <div class="row row-30 align-items-center text-center">#}
-                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
-                        {#                                    src="{% static 'images/footer-1-brand-1-144x70.png' %}" alt="" width="144"#}
-                        {#                                    height="35"/></a></div>#}
-                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
-                        {#                                    src="{% static 'images/footer-1-brand-2-121x68.png' %}" alt="" width="121"#}
-                        {#                                    height="34"/></a></div>#}
-                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
-                        {#                                    src="{% static 'images/footer-1-brand-3-121x33.png' %}" alt="" width="121"#}
-                        {#                                    height="16"/></a></div>#}
-                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
-                        {#                                    src="{% static 'images/footer-1-brand-4-101x76.png' %}" alt="" width="101"#}
-                        {#                                    height="38"/></a></div>#}
-                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
-                        {#                                    src="{% static 'images/footer-1-brand-5-107x53.png' %}" alt="" width="107"#}
-                        {#                                    height="26"/></a></div>#}
-                        {#                            <div class="col-6 col-md-4 col-lg-6"><a class="link-image" href="#"><img#}
-                        {#                                    src="{% static 'images/footer-1-brand-6-97x52.png' %}" alt="" width="97"#}
-                        {#                                    height="26"/></a></div>#}
-                        {#                        </div>#}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-inner-2">
-            <div class="container">
-                <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"></span>. Все права защищены.
-                    Design by <a href="https://vk.com/lazarev312">Dimentii Lazarev</a></p>
-            </div>
-        </div>
-    </footer>
+    {% include 'include/footer.html' %}
 </div>
 <div class="snackbars" id="form-output-global"></div>
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
-<!--coded by Starlight-->
 </body>
 </html>
