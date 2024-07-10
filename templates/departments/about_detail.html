@@ -51,6 +51,14 @@
             font-weight: bold;
             color: #333;
         }
+        .silver-frame {
+            border-color: #bab7b7;
+            border-width: 3px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
 
         .modal {
             display: none;
@@ -127,7 +135,7 @@
 <div class="page">
     {% include 'include/navbar.html' %}
     <div class="rd-navbar-bg novi-background bg-image"
-         style="background-image: url('{% static 'images/bg-navbar.jpg' %}')"></div>
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
     <section class="breadcrumbs-custom bg-image novi-background bg-primary">
         <div class="container">
             <ul class="breadcrumbs-custom-path">
@@ -139,12 +147,9 @@
     <!-- Our Story-->
     <section class="section section-lg bg-default">
         <div class="container">
-            <h2><span class="text-light">Наша</span> История</h2>
+            <h2><span class="text-light">Наша</span> история</h2>
             <div class="row row-30 justify-content-xl-between">
                 <div class="col-md-6 col-xl-6">
-                    <p class="big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a fermentum turpis.
-                        Nulla metus diam, feugiat ac lectus vitae, tempus porttitor sem. Vestibulum non lacus vulputate,
-                        placerat ligula ut, dignissim tortor. Nulla facilisi.</p>
                     <div class="history-item">
                         <div class="box-shadow-2">
                             <div class="box-shadow-header">
@@ -308,6 +313,37 @@
             </div>
         </div>
     </section>
+
+    <section class="parallax-container box-image-left" data-parallax-img="{% static 'images/job.png' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 wow fadeInLeft">
+                    <div class="section-lg section-lg-top-100">
+                        <h2 class="title-icon title-icon-2" style="color: white"><span
+                                class="icon icon-default mercury-icon-jobs"></span><span>Трудоуcстройство<br><span
+                                class="text-light">Вступай в SFPD</span></span></h2>
+                        <p class="big" style="color: white">У нас имеется ряд возможностей для вступления в наш департамент</p>
+                        <div class="group-sm group-wrap-2">
+                            <a
+                                class="button button-icon button-icon-right button-secondary"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLSc3dyeczDSUIE3YEr9Igmivdmm0mKw-t0jibMBt7y-xImDUzw/viewform" target="_blank"><span>Контрактная служба</span><span
+                                class="icon fa fa-cogs"></span></a>
+                            <a
+                                class="button button-icon button-icon-right button-secondary"
+                                href="https://evolve-rp.su/threads/384319/" target="_blank"><span>Переводы</span><span
+                                class="icon fa fa-android"></span></a>
+                            <a
+                                class="button button-icon button-icon-right button-secondary"
+                                href="https://docs.google.com/forms/d/e/1FAIpQLScsp2Ymkh5QFO8VjdQj9TyYwcW7D2HaLXpMuDwEVlWtr58V_g/viewform" target="_blank"><span>Полицейская академия</span><span
+                                class="icon fa fa-android"></span></a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="section section-lg bg-gray-800">
         <div class="container text-center text-xl-left">
             <h2>Выдающиеся <span class="text-light">Шерифы</span></h2>
@@ -316,7 +352,7 @@
                  data-loop="false" data-margin="30" data-mouse-drag="false">
                 <div class="item">
                     <a class="link-image" href="javascript:void(0);" onclick="openModal('modal1');">
-                        <img src="{% static 'images/bg-pattern-boxed.png' %}" alt="" width="200" height="90"/>
+                        <img src="{% static 'images/sherif/Dimentii.webp' %}"  width="200" height="90"/>
                     </a>
                     <div class="nickname-text">
                         <div class="nickname-frame gold-frame">
@@ -326,11 +362,11 @@
                 </div>
                 <div class="item">
                     <a class="link-image" href="javascript:void(0);" onclick="openModal('modal2');">
-                        <img src="{% static 'images/bg-pattern-boxed.png' %}" alt="" width="200" height="90"/>
+                        <img src="{% static 'images/sherif/Gorden Needes.webp' %}" alt="" width="200" height="90"/>
                     </a>
                     <div class="nickname-text">
-                        <div class="nickname-frame gold-frame">
-                            Dimentii Lazarev
+                        <div class="nickname-frame silver-frame">
+                            Gorden Needes
                         </div>
                     </div>
                 </div>
@@ -340,7 +376,17 @@
                     </a>
                     <div class="nickname-text">
                         <div class="nickname-frame gold-frame">
-                            Dimentii Lazarev
+                            Simon Frolov
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a class="link-image" href="javascript:void(0);" onclick="openModal('modal4');">
+                        <img src="{% static 'images/bg-pattern-boxed.png' %}" alt="" width="200" height="90"/>
+                    </a>
+                    <div class="nickname-text">
+                        <div class="nickname-frame gold-frame">
+                            Daniel Gurinifero
                         </div>
                     </div>
                 </div>
@@ -366,6 +412,13 @@
             <div class="modal-content">
                 <span class="close" onclick="closeModal('modal3')">&times;</span>
                 <p>4-х кратный шериф департамента, внес большой вклад в развитие</p>
+            </div>
+        </div>
+
+        <div id="modal4" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('modal4')">&times;</span>
+                <p>Превосходный лидер SFPD 2021, смог вывести средний онлайн фракции из 10 до 45 и этим утёр нос другим департаментам</p>
             </div>
         </div>
     </section>
