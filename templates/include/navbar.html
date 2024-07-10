@@ -139,7 +139,6 @@
                     <ul class="list-lined">
                         <li><a href="{% url 'register' %}">Вход</a></li>
                         <li><a href="{% url 'register' %}">Регистрация</a></li>
-                        <li><a href="{% url 'register' %}">Страница Манула</a></li>
                     </ul>
                 </div>
             </div>
@@ -171,13 +170,20 @@
                                         <a class="rd-nav-link" href="#">Отделы</a>
                                         <ul class="dropdown">
                                             <li><a href="{% url 'pa_detail' %}">Police Academy</a></li>
-                                            <li><a href="#">Central Patrol Division</a></li>
-                                            <li><a href="#">SWAT</a></li>
-                                            <li><a href="#">Detective Bureau</a></li>
+                                            <li><a href="{% url 'cpd_detail' %}">Central Patrol Division</a></li>
+                                            <li><a href="{% url 'swat_detail' %}">SWAT</a></li>
+                                            <li><a href="{% url 'db_detail' %}">Detective Bureau</a></li>
                                         </ul>
                                     </li>
-                                    <li class="rd-nav-item {% if request.path == '/contacts/' %}active{% endif %}">
-                                        <a class="rd-nav-link" href="contacts.html">FAQ</a>
+                                    <li class="rd-nav-item {% if request.path == '/faq/' %}active{% endif %}">
+                                        <a class="rd-nav-link" href="{% url 'faq' %}">FAQ</a>
+                                    </li>
+                                    <li class="rd-nav-item">
+                                        <a class="rd-nav-link" href="#">Разное</a>
+                                        <ul class="dropdown">
+                                            <li><a href="{% url 'pa_detail' %}">Доска почета</a></li>
+                                            <li><a href="{% url 'cpd_detail' %}">Благодарственная доска</a></li>
+                                        </ul>
                                     </li>
                                 </ul>
                             </div>

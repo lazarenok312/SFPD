@@ -4,65 +4,60 @@
             <div class="row row-40">
                 <div class="col-md-5 col-lg-3">
                     <h5>Наши контакты</h5>
-                    {#                        <ul class="contact-list font-weight-bold">#}
-                    {#                            <li>#}
-                    {#                                <div class="unit unit-spacing-xs">#}
-                    {#                                    <div class="unit-left">#}
-                    {#                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-map-marker"></div>#}
-                    {#                                    </div>#}
-                    {#                                    <div class="unit-body"><a href="#">14973 Interurban Ave <br>New York, NY 98168</a>#}
-                    {#                                    </div>#}
-                    {#                                </div>#}
-                    {#                            </li>#}
-                    {#                            <li>#}
-                    {#                                <div class="unit unit-spacing-xs">#}
-                    {#                                    <div class="unit-left">#}
-                    {#                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-phone"></div>#}
-                    {#                                    </div>#}
-                    {#                                    <div class="unit-body"><a href="tel:#">+1 (800) 123 1234</a></div>#}
-                    {#                                </div>#}
-                    {#                            </li>#}
-                    {#                            <li>#}
-                    {#                                <div class="unit unit-spacing-xs">#}
-                    {#                                    <div class="unit-left">#}
-                    {#                                        <div class="icon icon-sm icon-primary novi-icon mdi mdi-clock"></div>#}
-                    {#                                    </div>#}
-                    {#                                    <div class="unit-body">#}
-                    {#                                        <ul class="list-0">#}
-                    {#                                            <li>Weekdays: 8:00–17:00</li>#}
-                    {#                                            <li>Weekends: Closed</li>#}
-                    {#                                        </ul>#}
-                    {#                                    </div>#}
-                    {#                                </div>#}
-                    {#                            </li>#}
-                    {#                        </ul>#}
+                    <ul class="contact-list font-weight-bold">
+                        <li>
+                            <div class="unit unit-spacing-xs">
+                                <div class="unit-left">
+                                    <div class="icon icon-sm icon-primary novi-icon mdi mdi-android"></div>
+                                </div>
+                                <div class="unit-body"><a href="#">Discord</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="unit unit-spacing-xs">
+                                <div class="unit-left">
+                                    <div class="icon icon-sm icon-primary novi-icon mdi mdi-phone"></div>
+                                </div>
+                                <div class="unit-body"><a href="tel:#">Официальное сообщество<br>департамента</a></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="unit unit-spacing-xs">
+                                <div class="unit-left">
+                                    <div class="icon icon-sm icon-primary novi-icon mdi mdi-clock"></div>
+                                </div>
+                                <div class="unit-body">
+                                    <ul class="list-0">
+                                        <li>Будни: 9:00–21:00</li>
+                                        <li>Выходные: 10:00–20:00</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-md-6 col-lg-5">
                     <h5>Ссылки</h5>
-                    {#                        <div class="row row-5 justify-content-between">#}
-                    {#                            <div class="col-sm-6">#}
-                    {#                                <ul class="footer-list big">#}
-                    {#                                    <li><a href="#">IRS Publications</a></li>#}
-                    {#                                    <li><a href="#">Record Retention Guide</a></li>#}
-                    {#                                    <li><a href="#">Tax Due Dates</a></li>#}
-                    {#                                    <li><a href="#">Tax Forms</a></li>#}
-                    {#                                    <li><a href="#">Tax Rates</a></li>#}
-                    {#                                    <li><a href="#">Where is my refund?</a></li>#}
-                    {#                                    <li><a href="#">Retirement</a></li>#}
-                    {#                                </ul>#}
-                    {#                            </div>#}
-                    {#                            <div class="col-sm-4 col-lg-6 col-xxl-5">#}
-                    {#                                <ul class="footer-list big">#}
-                    {#                                    <li><a href="#">Retirement</a></li>#}
-                    {#                                    <li><a href="#">Investment</a></li>#}
-                    {#                                    <li><a href="#">Real Estate</a></li>#}
-                    {#                                    <li><a href="#">Insurance</a></li>#}
-                    {#                                    <li><a href="#">Tax</a></li>#}
-                    {#                                    <li><a href="#">Money</a></li>#}
-                    {#                                    <li><a href="#">Other Resources</a></li>#}
-                    {#                                </ul>#}
-                    {#                            </div>#}
-                    {#                        </div>#}
+                    <div class="row row-5 justify-content-between">
+                        <div class="col-sm-6">
+                            <ul class="footer-list big">
+                                <li><a href="{% url 'home' %}">Главная</a></li>
+                                <li><a href="{% url 'about' %}">О департаменте</a></li>
+                                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                <li><a href="#">Доска почета</a></li>
+                                <li><a href="#">Доска благодарностей</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-lg-6 col-xxl-5">
+                            <ul class="footer-list big">
+                                <li><a href="{% url 'pa_detail' %}">Police Academy</a></li>
+                                <li><a href="{% url 'cpd_detail' %}">Central Patrol Division</a></li>
+                                <li><a href="{% url 'swat_detail' %}">SWAT</a></li>
+                                <li><a href="{% url 'db_detail' %}">Detective Bureau</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12 col-lg-4">
                     <h5>Партнеры</h5>

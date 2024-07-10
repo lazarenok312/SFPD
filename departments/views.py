@@ -28,5 +28,21 @@ def pa_view(request):
     return render(request, 'departments/pa_detail.html')
 
 
+def cpd_view(request):
+    return render(request, 'departments/cpd_detail.html')
+
+
+def swat_view(request):
+    return render(request, 'departments/swat_detail.html')
+
+
+def db_view(request):
+    return render(request, 'departments/db_detail.html')
+
+
+def faq_view(request):
+    return render(request, 'departments/faq.html')
+
+
 def about_view(request):
     return render(request, 'departments/about_detail.html')

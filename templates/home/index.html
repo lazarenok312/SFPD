@@ -5,6 +5,15 @@
 <head>
     <title>Главная страница</title>
 </head>
+<style>
+            .text-with-border {
+            text-shadow:
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+</style>
 <body>
 <div class="preloader">
     <div class="preloader-body">
@@ -28,7 +37,7 @@
     <section class="section swiper-container swiper-slider swiper-slider-1 context-dark" data-loop="true"
              data-autoplay="5000" data-simulate-touch="false">
         <div class="swiper-wrapper">
-            <div class="swiper-slide " data-slide-bg="{% static 'images/Hb0ytWc.jpg' %}">
+            <div class="swiper-slide " data-slide-bg="{% static 'images/bg-pa-main.png' %}">
                 <div class="swiper-slide-caption section-lg">
                     <div class="container">
                         <div class="row">
@@ -51,7 +60,7 @@
                     </div>
                 </div>
             </div>
-            <div class="swiper-slide" data-slide-bg="{% static 'images/bybsyu53SnY.jpg' %}">
+            <div class="swiper-slide" data-slide-bg="{% static 'images/bg-cpd-main.png' %}">
                 <div class="swiper-slide-caption section-lg">
                     <div class="container">
                         <div class="row">
@@ -67,7 +76,7 @@
                                         Вакантно</p>
                                 {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
-                                     data-caption-delay="450"><a class="button button-secondary-cpd" href="#">Читать
+                                     data-caption-delay="450"><a class="button button-secondary-cpd" href="{% url 'cpd_detail' %}">Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -75,14 +84,14 @@
                 </div>
             </div>
             <div class="swiper-slide"
-                 data-slide-bg="{% static 'images/1000_F_272412106_wWPaQF1GBy6U7EVnGBDvWhOpcYQiuSTh.jpg' %}">
+                 data-slide-bg="{% static 'images/bg-swat-main4.png' %}">
                 <div class="swiper-slide-caption section-lg">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
-                                <h1><span class="d-block" data-caption-animate="fadeInUp"
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp"
                                           data-caption-delay="100">SWAT</span><span
-                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                        class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Сommander of SWAT</span></h1>
                                 {% if db_username %}
                                     <p class="lead" data-caption-animate="fadeInUp"
@@ -92,7 +101,7 @@
                                         Вакантно</p>
                                 {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
-                                     data-caption-delay="450"><a class="button button-secondary-swat" href="#">Читать
+                                     data-caption-delay="450"><a class="button button-secondary-swat" href="{% url 'swat_detail' %}">Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -100,14 +109,14 @@
                 </div>
             </div>
             <div class="swiper-slide"
-                 data-slide-bg="{% static 'images/360_F_554053185_2fWwExa3uyXMxlhp1FDc4kgEjv1FA2W2.jpg' %}">
+                 data-slide-bg="{% static 'images/bg-db-main1.png' %}">
                 <div class="swiper-slide-caption section-lg">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
-                                <h1><span class="d-block" data-caption-animate="fadeInUp"
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp"
                                           data-caption-delay="100">Detective Bureau</span><span
-                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                        class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Head of DB</span></h1>
                                 {% if username %}
                                     <p class="lead" data-caption-animate="fadeInUp"
@@ -118,7 +127,7 @@
                                         Вакантно</p>
                                 {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
-                                     data-caption-delay="450"><a class="button button-secondary-text" href="#">Читать
+                                     data-caption-delay="450"><a class="button button-secondary-text" href="{% url 'db_detail' %}">Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -138,7 +147,7 @@
         </div>
     </section>
     <!--Icon List 2-->
-    <section class="section section-sm section-sm-bottom-100 bg-primary">
+    <section class="section section-sm section-sm-bottom-100 bg-primary text-center">
         <div class="container">
             <div class="row row-30">
                 <div class="col-md-4 wow fadeInUp">
@@ -179,12 +188,19 @@
                                 class="text-light">Вступай в SFPD</span></span></h2>
                         <p class="big">Ниже представлены официальные приложения проекта Evolve Role Play для совместной
                             игры в нашем департаменте</p>
-                        <div class="group-sm group-wrap-2"><a class="button button-primary"
-                                                              href="https://launcher.evolve-rp.net/EvolveSetup.exe">Скачать
-                            лаунчер</a><a
+                        <div class="group-sm group-wrap-2">
+{#                            <a class="button button-primary"#}
+{#                                                              href="https://launcher.evolve-rp.net/EvolveSetup.exe">Скачать#}
+{#                            лаунчер</a>#}
+                            <a
+                                class="button button-icon button-icon-right button-primary"
+                                href="https://launcher.evolve-rp.net/MOBILE/launcher.apk"><span>Скачать лаунчер</span><span
+                                class="icon fa fa-cogs"></span></a>
+                            <a
                                 class="button button-icon button-icon-right button-secondary"
                                 href="https://launcher.evolve-rp.net/MOBILE/launcher.apk"><span>Скачать APK</span><span
-                                class="icon fa fa-android"></span></a></div>
+                                class="icon fa fa-android"></span></a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -211,7 +227,7 @@
                         <li>Поддержка профессионального роста и развития сотрудников</li>
                         <li>Предоставление полной помощи и сопровождения для всех членов ком</li>
                     </ul>
-                    <a class="button button-primary" href="#">Читать далее</a>
+                    <a class="button button-primary" href="{% url 'about' %}">Читать далее</a>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
@@ -239,7 +255,7 @@
                                 <div class="box-counter-main">
                                     <div class="counter">243</div>
                                 </div>
-                                <p class="box-counter-title">Хейтеров SFPD</p>
+                                <p class="box-counter-title">Успешно решенных дел</p>
                             </div>
                         </div>
                         <div class="col-6">
@@ -257,12 +273,12 @@
             </div>
         </div>
     </section>
-    <section class="parallax-container" data-parallax-img="{% static 'images/parallax-1-1920x10261.png' %}">
+    <section class="parallax-container" data-parallax-img="{% static 'images/parallax.png' %}">
         <div class="parallax-content section-xl context-dark text-center">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-xl-9">
-                        <h2>департамент SFPD <span class="text-light">существует уже</span></h2>
+                        <h2>San-Fierro Police Department <span class="text-light">существует уже</span></h2>
                         <!--TimeCircles-->
                         <div class="countdown" data-countdown data-to="2017-02-17">
                             <div class="countdown-block countdown-block-days">
@@ -323,7 +339,7 @@
                     class="text-light">Новости</span></span></h2>
             <div class="box-image-small box-image-small-left">
                 <div class="item-image bg-image novi-nackground"
-                     style="background-image: url({% static 'images/staff.jpg' %})"></div>
+                     style="background-image: url({% static 'images/staff.png' %})"></div>
                 <div class="item-body wow fadeInRight">
                     <p>Июль 08, 2024</p>
                     <h4><a href="#">Назначение шерифа</a></h4>
@@ -333,7 +349,7 @@
             </div>
             <div class="box-image-small box-image-small-right">
                 <div class="item-image bg-image novi-nackground"
-                     style="background-image: url({% static 'images/cpd.jpg)' %}"></div>
+                     style="background-image: url({% static 'images/cpd.png)' %}"></div>
                 <div class="item-body wow fadeInLeft">
                     <p>Июль 08, 2024 </p>
                     <h4><a href="#">Назначение на должность</a></h4>
