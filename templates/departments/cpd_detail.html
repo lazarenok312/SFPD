@@ -5,6 +5,14 @@
 <head>
     <title>Central Patrol Division</title>
 </head>
+<style>
+    .text-with-border {
+        text-shadow: -1px -1px 0 #000000,
+        1px -1px 0 #000000,
+        -1px 1px 0 #000000,
+        1px 1px 0 #000000;
+    }
+</style>
 <body>
 <div class="preloader">
     <div class="preloader-body">
@@ -27,7 +35,7 @@
     <section class="section swiper-container swiper-slider swiper-slider-1 context-dark" data-loop="true"
              data-autoplay="5000" data-simulate-touch="false">
         <div class="swiper-wrapper">
-            <div class="swiper-slide " data-slide-bg="{% static 'images/Hb0ytWc.jpg' %}">
+            <div class="swiper-slide " data-slide-bg="{% static 'images/bg-cpd-main.png' %}">
                 <div class="swiper-slide-caption section-lg">
                     <div class="container">
                         <div class="row">
@@ -47,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="swiper-slide " data-slide-bg="{% static 'images/Hb0ytWc.jpg' %}">
+            <div class="swiper-slide " data-slide-bg="{% static 'images/bg-cpd-main1.png' %}">
                 <div class="swiper-slide-caption section-lg">
                     <div class="container">
                         <div class="row">
@@ -67,13 +75,14 @@
                     </div>
                 </div>
             </div>
-            <div class="swiper-slide " data-slide-bg="{% static 'images/Hb0ytWc.jpg' %}">
+            <div class="swiper-slide " data-slide-bg="{% static 'images/bg-cpd-main2.png' %}">
                 <div class="swiper-slide-caption section-lg">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
-                                <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Central Patrol Division</span><span
-                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp"
+                                          data-caption-delay="100">Central Patrol Division</span><span
+                                        class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Chief of CPD</span></h1>
                                 {% if pa_username %}
                                     <p class="lead" data-caption-animate="fadeInUp"
@@ -109,21 +118,24 @@
                     <div class="box-icon-2">
                         <div class="icon novi-icon mercury-icon-group"></div>
                         <h5 class="title">Охрана порядка</h5>
-                        <p class="text">Патрулирования и посты с напарниками, выявление нарушений и принятие санкционных мер относительно нарушителя, захватывающие погони за преступниками гарантированы.</p>
+                        <p class="text">Патрулирования и посты с напарниками, выявление нарушений и принятие санкционных
+                            мер относительно нарушителя, захватывающие погони за преступниками гарантированы.</p>
                     </div>
                 </div>
                 <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
                     <div class="box-icon-2">
                         <div class="icon novi-icon mercury-icon-chart-up"></div>
                         <h5 class="title">Огромный коллектив</h5>
-                        <p class="text">Наш отдел является наибольшим в департаменте по количеству сотрудников с дружелюбным коллективом, где каждый сможет тебе с радостью помочь.</p>
+                        <p class="text">Наш отдел является наибольшим в департаменте по количеству сотрудников с
+                            дружелюбным коллективом, где каждый сможет тебе с радостью помочь.</p>
                     </div>
                 </div>
                 <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
                     <div class="box-icon-2">
-                        <div class="icon novi-icon mercury-icon-partners"></div>
+                        <div class="icon novi-icon mercury-icon-target"></div>
                         <h5 class="title">Военная полиция</h5>
-                        <p class="text">Создание безопасных маршрутов фур материального снабжения. Наведение порядка в порту и на военных призывах. Патрули с сотрудниками армий.</p>
+                        <p class="text">Создание безопасных маршрутов фур материального снабжения. Наведение порядка в
+                            порту и на военных призывах. Патрули с сотрудниками армий.</p>
                     </div>
                 </div>
             </div>
@@ -197,8 +209,8 @@
                              data-stage-padding="0" data-loop="true" data-margin="30" data-mouse-drag="false">
                             <blockquote class="quote quote-simple">
                                 <q>Пройдя кадетское обучение, получив звание Офицер, без необходимости переводиться,
- вы сразу станете членом Патрульной Полиции SFPD
-</q>
+                                    вы сразу станете членом Патрульной Полиции SFPD
+                                </q>
                                 <div class="quote-meta">
                                     <div class="author">
                                         <cite>Sara Parker</cite>
@@ -207,7 +219,8 @@
                                 </div>
                             </blockquote>
                             <blockquote class="quote quote-simple">
-                                <q>Отдел является основой практической подготовки в полиции, где вы столкнетесь с различными ситуациями, для совладания с которыми необходим опыт службы.</q>
+                                <q>Отдел является основой практической подготовки в полиции, где вы столкнетесь с
+                                    различными ситуациями, для совладания с которыми необходим опыт службы.</q>
                                 <div class="quote-meta">
                                     <div class="author">
                                         <cite>Sam Jackson</cite>
@@ -266,18 +279,17 @@
         <div class="container">
             <div class="row row-30">
                 <div class="col-md-6">
-                    <h2 class="title-icon"><span class="icon icon-default mercury-icon-target-2"></span><span>Police Academy</span>
+                    <h2 class="title-icon"><span class="icon icon-default mercury-icon-target-2"></span><span>Central Patrol Division</span>
                     </h2>
-                    <p class="big">Police Academy - отдел департамента, занимающийся обучением и подготовкой к
-                        дальнейшей службе курсантов недавно вступивших в ряды полиции
-                        а так же проведением учебно-тактических занятий и пресечением нарушений среди сотрудников
-                        департамента.
-                        Если у тебя есть желание обучать кадетов, выполнять должностные обязанности, ты адекватный,
-                        трудолюбивый и целеустремлённый - тогда тебе к нам.</p>
+                    <p class="big">Central Patrol Division — главный патрульный дивизион полицейского департамента
+                        г.Сан-Фиерро, предназначен для патрулирование улиц города, слежкой за гражданским населением, а
+                        также оказание помощи нуждающимся гражданам, реагирование на вызовы и нарушение гражданских.
+                        Разделяется на подотделы Central Patrol Units и Central Military Units</p>
                     <ul class="list-marked-2">
-                        <li>Обучение высококлассным навыкам патрулирования и охраны порядка</li>
-                        <li>Поддержка профессионального роста и развития сотрудников</li>
-                        <li>Предоставление полной помощи и сопровождения для всех членов ком</li>
+                        <li>Работа по ориентировкам или же "зачистка" улиц</li>
+                        <li>Охрана порядка и пресечением нарушений законодательств со стороны граждан</li>
+                        <li>Сопровождение военных во время перевозки боеприпасов</li>
+                        <li>Помощь военнослужащим и отбитие воинских частей</li>
                     </ul>
                 </div>
                 <div class="col-md-6">
