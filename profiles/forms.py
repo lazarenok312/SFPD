@@ -1,30 +1,30 @@
 from django import forms
 from django.contrib.auth.models import User
-from profiles.models import EmployeeProfile
-from departments.models import Department, Role
+from profiles.models import Profile
+
 
 class UserRegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ['username', 'password', 'email']
+        fields = ('username', 'first_name', 'last_name', 'email')
 
-class EmployeeProfileForm(forms.ModelForm):
-    department = forms.ModelChoiceField(queryset=Department.objects.all())
-    role = forms.ModelChoiceField(queryset=Role.objects.none())
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd['password'] != cd['password2']:
+            raise forms.ValidationError('Пароли не совпадают.')
+        return cd['password2']
 
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Пользователь с таким именем уже существует.')
+        return username
+
+
+class ProfileForm(forms.ModelForm):
     class Meta:
-        model = EmployeeProfile
-        fields = ['department', 'role']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if 'department' in self.data:
-            try:
-                department_id = int(self.data.get('department'))
-                self.fields['role'].queryset = Role.objects.filter(department_id=department_id).order_by('name')
-            except (ValueError, TypeError):
-                pass
-        elif self.instance.pk:
-            self.fields['role'].queryset = self.instance.department.role_set.order_by('name')
+        model = Profile
+        fields = ['name', 'surnames', 'photo']

@@ -1,16 +1,24 @@
 from django.contrib import admin
-from django.contrib.auth import get_user_model
-from .models import EmployeeProfile
+from .models import Profile
 
-User = get_user_model()
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'name', 'surnames', 'email', 'status', 'is_online')
+    list_filter = ('user__is_staff', 'last_activity')
+    search_fields = ('user__username', 'name', 'surnames', 'email')
+    readonly_fields = ('slug', 'last_activity')
 
-class EmployeeProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'department', 'role', 'get_full_name')
-    list_filter = ('department', 'role')
-    search_fields = ('user__username', 'department__name', 'role__name')
+    def status(self, obj):
+        return obj.status
 
-    def get_full_name(self, obj):
-        return f"{obj.user.first_name} {obj.user.last_name}"
-    get_full_name.short_description = 'Full Name'
+    def is_online(self, obj):
+        return obj.is_online
 
-admin.site.register(EmployeeProfile, EmployeeProfileAdmin)
+    status.short_description = 'Статус'
+    is_online.short_description = 'Онлайн'
+
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('user', 'name', 'surnames', 'email', 'photo', 'slug', 'last_activity')
+        }),
+    )

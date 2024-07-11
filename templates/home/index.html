@@ -6,13 +6,12 @@
     <title>Главная страница</title>
 </head>
 <style>
-            .text-with-border {
-            text-shadow:
-                -1px -1px 0 #480101,
-                1px -1px 0 #4d0202,
-                -1px 1px 0 #4d0202,
-                1px 1px 0 #4d0202;
-        }
+    .text-with-border {
+        text-shadow: -1px -1px 0 #480101,
+        1px -1px 0 #4d0202,
+        -1px 1px 0 #4d0202,
+        1px 1px 0 #4d0202;
+    }
 </style>
 <body>
 <div class="preloader">
@@ -32,7 +31,7 @@
     </div>
 </div>
 <div class="page">
-            {% include 'include/navbar.html' %}
+    {% include 'include/navbar.html' %}
     <!--Swiper-->
     <section class="section swiper-container swiper-slider swiper-slider-1 context-dark" data-loop="true"
              data-autoplay="5000" data-simulate-touch="false">
@@ -53,7 +52,8 @@
                                         Вакантно</p>
                                 {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
-                                     data-caption-delay="450"><a class="button button-secondary-pa" href="{% url 'pa_detail' %}">Читать
+                                     data-caption-delay="450"><a class="button button-secondary-pa"
+                                                                 href="{% url 'departments:pa_detail' %}">Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -76,7 +76,8 @@
                                         Вакантно</p>
                                 {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
-                                     data-caption-delay="450"><a class="button button-secondary-cpd" href="{% url 'cpd_detail' %}">Читать
+                                     data-caption-delay="450"><a class="button button-secondary-cpd"
+                                                                 href="{% url 'departments:cpd_detail' %}">Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -101,7 +102,8 @@
                                         Вакантно</p>
                                 {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
-                                     data-caption-delay="450"><a class="button button-secondary-swat" href="{% url 'swat_detail' %}">Читать
+                                     data-caption-delay="450"><a class="button button-secondary-swat"
+                                                                 href="{% url 'departments:swat_detail' %}">Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -127,7 +129,8 @@
                                         Вакантно</p>
                                 {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
-                                     data-caption-delay="450"><a class="button button-secondary-text" href="{% url 'db_detail' %}">Читать
+                                     data-caption-delay="450"><a class="button button-secondary-text"
+                                                                 href="{% url 'departments:db_detail' %}">Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -146,6 +149,29 @@
             </div>
         </div>
     </section>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="position-fixed bottom-1 end-1 z-index-2">
+                <div class="toast fade hide p-2 mt-2 {{ message.extra_tags }}" role="alert" aria-live="assertive"
+                     id="infoToast"
+                     aria-atomic="true">
+                    <div class="toast-header bg-transparent border-0">
+                        <i class="material-icons text-white me-2">
+                            notifications
+                        </i>
+                        <span class="me-auto text-white font-weight-bold">Оповещение</span>
+                        <small class="text-white">Только что</small>
+                        <i class="fas fa-times text-md text-white ms-3 cursor-pointer" data-bs-dismiss="toast"
+                           aria-label="Close"></i>
+                    </div>
+                    <hr class="horizontal light m-0">
+                    <div class="toast-body text-white">
+                        {{ message }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
     <!--Icon List 2-->
     <section class="section section-sm section-sm-bottom-100 bg-primary text-center">
         <div class="container">
@@ -190,13 +216,13 @@
                             игры в нашем департаменте</p>
                         <div class="group-sm group-wrap-2">
                             <a
-                                class="button button-icon button-icon-right button-secondary"
-                                href="https://launcher.evolve-rp.net/EvolveSetup.exe"><span>Скачать лаунчер</span><span
-                                class="icon fa fa-cogs"></span></a>
+                                    class="button button-icon button-icon-right button-secondary"
+                                    href="https://launcher.evolve-rp.net/EvolveSetup.exe"><span>Скачать лаунчер</span><span
+                                    class="icon fa fa-cogs"></span></a>
                             <a
-                                class="button button-icon button-icon-right button-secondary"
-                                href="https://launcher.evolve-rp.net/MOBILE/launcher.apk"><span>Скачать APK</span><span
-                                class="icon fa fa-android"></span></a>
+                                    class="button button-icon button-icon-right button-secondary"
+                                    href="https://launcher.evolve-rp.net/MOBILE/launcher.apk"><span>Скачать APK</span><span
+                                    class="icon fa fa-android"></span></a>
                         </div>
                     </div>
                 </div>
@@ -223,7 +249,7 @@
                         <li>Поддержка профессионального роста и развития сотрудников</li>
                         <li>Предоставление полной помощи и сопровождения для всех членов ком</li>
                     </ul>
-                    <a class="button button-primary" href="{% url 'about' %}">Читать далее</a>
+                    <a class="button button-primary" href="{% url 'departments:about' %}">Читать далее</a>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
@@ -328,7 +354,6 @@
         </div>
     </section>
 
-    <!-- Latest Articles-->
     <section class="section bg-default section-md">
         <div class="container">
             <h2 class="title-icon"><span class="icon icon-default mercury-icon-news"></span><span>Последние <span
@@ -359,5 +384,6 @@
 <div class="snackbars" id="form-output-global"></div>
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
+{% include 'include/notifications.html' %}
 </body>
 </html>

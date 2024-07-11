@@ -383,19 +383,19 @@
 			var regularConstraintsMessages = [
 				{
 					type: regula.Constraint.Required,
-					newMessage: "The text field is required."
+					newMessage: "Текстовое поле обязательно."
 				},
 				{
 					type: regula.Constraint.Email,
-					newMessage: "The email is not a valid email."
+					newMessage: "Электронная почта не является действительным адресом электронной почты."
 				},
 				{
 					type: regula.Constraint.Numeric,
-					newMessage: "Only numbers are required"
+					newMessage: "Требуются только цифры"
 				},
 				{
 					type: regula.Constraint.Selected,
-					newMessage: "Please choose an option."
+					newMessage: "Пожалуйста, выберите опцию."
 				}
 			];
 
@@ -1026,10 +1026,10 @@
 
 							form.addClass('form-in-process');
 
-							if (output.hasClass("snackbars")) {
-								output.html('<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Sending</span></p>');
-								output.addClass("active");
-							}
+							// if (output.hasClass("snackbars")) {
+							// 	output.html('<p><span class="icon text-middle fa fa-circle-o-notch fa-spin icon-xxs"></span><span>Sending</span></p>');
+							// 	output.addClass("active");
+							// }
 						} else {
 							return false;
 						}

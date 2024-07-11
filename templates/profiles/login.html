@@ -1,0 +1,88 @@
+{% load static %}
+{% include 'base.html' %}
+<!DOCTYPE html>
+
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>Авторизация</title>
+</head>
+<body>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Загрузка...</p>
+    </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+        <div class="rd-navbar-bg novi-background bg-image"
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
+    <section class="breadcrumbs-custom bg-image novi-background bg-primary">
+        <div class="container">
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                <li class="active">Авторизация</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section section-md">
+        <div class="container">
+            <h2>Авторизация</h2>
+            <div class="row row-40">
+                <div class="col-md-10 col-lg-6">
+                    <form action="{% url 'user_login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row row-10">
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    <input class="form-input" id="username" type="text" name="username"
+                                           data-constraints="@Required">
+                                    <label class="form-label" for="username">Логин</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-wrap">
+                                    <input class="form-input" id="password" type="password" name="password"
+                                           data-constraints="@Required" oninput="checkPasswords()">
+                                    <label class="form-label" for="password">Пароль</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    <p id="password-error" style="color:red; display:none;">Пароли не совпадают!</p>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="button button-size-1 button-block button-primary" type="submit">
+                                    Авторизоваться
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <p class="mt-4 text-sm text-center">
+                        Еще нет аккаунта?
+                        <a href="{% url 'register' %}"
+                           class="text-info text-gradient font-weight-bold">Зарегистрируйтесь!</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

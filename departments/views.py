@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from profiles.models import EmployeeProfile
+
 from django.shortcuts import render, get_object_or_404
 from .models import Department
 
@@ -12,13 +11,6 @@ def home_view(request):
         'db': {'name': 'Detective Bureau', 'role': 'Head of DB', 'username': None},
     }
 
-    for key, department in departments.items():
-        try:
-            employee_profile = EmployeeProfile.objects.get(role__name=department['role'],
-                                                           department__name=department['name'])
-            department['username'] = employee_profile.user.username
-        except EmployeeProfile.DoesNotExist:
-            department['username'] = None
 
     context = {f"{key}_username": department['username'] for key, department in departments.items()}
     return render(request, 'home/index.html', context)

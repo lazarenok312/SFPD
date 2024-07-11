@@ -137,8 +137,13 @@
                         </ul>
                     </div>
                     <ul class="list-lined">
-                        <li><a href="{% url 'register' %}">Вход</a></li>
-                        <li><a href="{% url 'register' %}">Регистрация</a></li>
+                        {% if user.is_authenticated %}
+                            <li>{{ user.username }}</li>
+                            <li><a href="{% url 'user_logout' %}">Выход</a></li>
+                        {% else %}
+                            <li><a href="{% url 'user_login' %}">Вход</a></li>
+                            <li><a href="{% url 'register' %}">Регистрация</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -149,7 +154,7 @@
                             <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap">
                                 <span></span></button>
                             <div class="rd-navbar-brand">
-                                <a class="brand" href="{% url 'home' %}"><img class="brand-logo-dark"
+                                <a class="brand" href="{% url 'departments:home' %}"><img class="brand-logo-dark"
                                                                               src="{% static 'images/Li7MP3X.png' %}"
                                                                               alt="" width="146" height="22"/><img
                                         class="brand-logo-light" src="{% static 'images/Li7MP3X.png' %}" alt=""
@@ -161,28 +166,28 @@
                             <div class="rd-navbar-nav-wrap">
                                 <ul class="rd-navbar-nav">
                                     <li class="rd-nav-item {% if request.path == '/' %}active{% endif %}">
-                                        <a class="rd-nav-link" href="{% url 'home' %}">Главная</a>
+                                        <a class="rd-nav-link" href="{% url 'departments:home' %}">Главная</a>
                                     </li>
                                     <li class="rd-nav-item {% if request.path == '/department/about' %}active{% endif %}">
-                                        <a class="rd-nav-link" href="{% url 'about' %}">О нас</a>
+                                        <a class="rd-nav-link" href="{% url 'departments:about' %}">О нас</a>
                                     </li>
                                     <li class="rd-nav-item">
                                         <a class="rd-nav-link" href="#">Отделы</a>
                                         <ul class="dropdown">
-                                            <li><a href="{% url 'pa_detail' %}">Police Academy</a></li>
-                                            <li><a href="{% url 'cpd_detail' %}">Central Patrol Division</a></li>
-                                            <li><a href="{% url 'swat_detail' %}">SWAT</a></li>
-                                            <li><a href="{% url 'db_detail' %}">Detective Bureau</a></li>
+                                            <li><a href="{% url 'departments:pa_detail' %}">Police Academy</a></li>
+                                            <li><a href="{% url 'departments:cpd_detail' %}">Central Patrol Division</a></li>
+                                            <li><a href="{% url 'departments:swat_detail' %}">SWAT</a></li>
+                                            <li><a href="{% url 'departments:db_detail' %}">Detective Bureau</a></li>
                                         </ul>
                                     </li>
                                     <li class="rd-nav-item {% if request.path == '/faq/' %}active{% endif %}">
-                                        <a class="rd-nav-link" href="{% url 'faq' %}">FAQ</a>
+                                        <a class="rd-nav-link" href="{% url 'departments:faq' %}">FAQ</a>
                                     </li>
                                     <li class="rd-nav-item">
                                         <a class="rd-nav-link" href="#">Разное</a>
                                         <ul class="dropdown">
-                                            <li><a href="{% url 'pa_detail' %}">Доска почета</a></li>
-                                            <li><a href="{% url 'cpd_detail' %}">Благодарственная доска</a></li>
+                                            <li><a href="{% url 'departments:pa_detail' %}">Доска почета</a></li>
+                                            <li><a href="{% url 'departments:cpd_detail' %}">Благодарственная доска</a></li>
                                         </ul>
                                     </li>
                                 </ul>

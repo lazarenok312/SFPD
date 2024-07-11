@@ -1,0 +1,125 @@
+<style>
+    .text-with-border {
+        text-shadow: -1px -1px 0 #480101,
+                     1px -1px 0 #4d0202,
+                    -1px 1px 0 #4d0202,
+                     1px 1px 0 #4d0202;
+    }
+
+    .toast-container {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 1055;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .toast {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        background-color: rgba(0, 107, 218, 0.95);
+        color: white;
+        border-radius: 0.25rem;
+        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .toast.show {
+        opacity: 1;
+    }
+
+    .toast.hide {
+        opacity: 0;
+    }
+
+    .toast-header {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 0.5rem;
+    }
+
+    .toast-progress {
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(to left, #ff8c00, #ff4500);
+        transition: width 10s linear;
+        margin-bottom: 0.5rem;
+    }
+
+    .toast-body {
+        padding-top: 0.5rem;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+    }
+
+    .close:hover {
+        color: #ff8c00;
+    }
+</style>
+
+{% if messages %}
+    <div class="toast-container">
+        {% for message in messages %}
+            <div class="toast" role="alert">
+                <div class="toast-header">
+                    <strong>Оповещение:</strong>
+                    <button type="button" class="close" aria-label="Close" onclick="closeToast(this)">&times;</button>
+                </div>
+                <div class="toast-progress"></div>
+                <div class="toast-body">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toasts = document.querySelectorAll('.toast');
+
+        toasts.forEach((toast, index) => {
+            setTimeout(() => {
+                toast.classList.add('show');
+                const progressBar = toast.querySelector('.toast-progress');
+                progressBar.style.width = '0%';
+            }, index * 500);
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+                toast.classList.add('hide');
+            }, 10500);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 11000);
+        });
+    });
+
+    function closeToast(button) {
+        const toast = button.closest('.toast');
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+        setTimeout(() => {
+            toast.remove();
+        }, 500);
+    }
+</script>

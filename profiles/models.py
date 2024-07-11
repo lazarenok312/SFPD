@@ -1,17 +1,52 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-from django.apps import apps
+from django.contrib.auth.models import User
+from django.utils import timezone
+from django.urls import reverse
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
-User = get_user_model()
 
-class EmployeeProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    department = models.ForeignKey('departments.Department', on_delete=models.CASCADE)
-    role = models.ForeignKey('departments.Role', on_delete=models.CASCADE)
+class Profile(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
+    name = models.CharField(max_length=25, verbose_name="Имя", blank=True)
+    surnames = models.CharField(max_length=25, verbose_name="Фамилия", blank=True)
+    email = models.EmailField(max_length=40, verbose_name="Электронная почта", blank=True)
+    photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True, verbose_name="Фото",
+                              default='../static/img/default.png')
+    slug = models.SlugField("URL", max_length=50, blank=True)
+    last_activity = models.DateTimeField(verbose_name="Последняя активность", default=timezone.now)
 
-    class Meta:
-        verbose_name = 'Профиль сотрудника'
-        verbose_name_plural = 'Профили сотрудников'
+    @property
+    def status(self):
+        return "Администратор" if self.user.is_staff else "Пользователь"
+
+    @property
+    def is_online(self):
+        now = timezone.now()
+        return now - self.last_activity < timezone.timedelta(minutes=2)
 
     def __str__(self):
-        return f"{self.user.username} ({self.department.name}) - {self.role.name}"
+        return 'Профиль пользователя {}'.format(self.user.username)
+
+    def get_absolute_url(self):
+        return reverse('profile_detail', kwargs={'slug': self.slug})
+
+    def save(self, *args, **kwargs):
+        self.slug = "{}".format(self.user.username)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профиля'
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()

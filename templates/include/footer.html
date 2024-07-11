@@ -62,19 +62,19 @@
                     <div class="row row-5 justify-content-between">
                         <div class="col-sm-6">
                             <ul class="footer-list big">
-                                <li><a href="{% url 'home' %}">Главная</a></li>
-                                <li><a href="{% url 'about' %}">О департаменте</a></li>
-                                <li><a href="{% url 'faq' %}">FAQ</a></li>
+                                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                                <li><a href="{% url 'departments:about' %}">О департаменте</a></li>
+                                <li><a href="{% url 'departments:faq' %}">FAQ</a></li>
                                 <li><a href="#">Доска почета</a></li>
                                 <li><a href="#">Доска благодарностей</a></li>
                             </ul>
                         </div>
                         <div class="col-sm-4 col-lg-6 col-xxl-5">
                             <ul class="footer-list big">
-                                <li><a href="{% url 'pa_detail' %}">Police Academy</a></li>
-                                <li><a href="{% url 'cpd_detail' %}">CPD</a></li>
-                                <li><a href="{% url 'swat_detail' %}">SWAT</a></li>
-                                <li><a href="{% url 'db_detail' %}">Detective Bureau</a></li>
+                                <li><a href="{% url 'departments:pa_detail' %}">Police Academy</a></li>
+                                <li><a href="{% url 'departments:cpd_detail' %}">CPD</a></li>
+                                <li><a href="{% url 'departments:swat_detail' %}">SWAT</a></li>
+                                <li><a href="{% url 'departments:db_detail' %}">Detective Bureau</a></li>
                             </ul>
                         </div>
                     </div>
