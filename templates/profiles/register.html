@@ -25,7 +25,7 @@
 </div>
 <div class="page">
     {% include 'include/navbar.html' %}
-        <div class="rd-navbar-bg novi-background bg-image"
+    <div class="rd-navbar-bg novi-background bg-image"
          style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
     <section class="breadcrumbs-custom bg-image novi-background bg-primary">
         <div class="container">
@@ -40,20 +40,20 @@
             <h2>Регистрация</h2>
             <div class="row row-40">
                 <div class="col-md-10 col-lg-6">
-                    <form data-form-output="form-output-global" data-form-type="contact"
-                          method="post" action="." onsubmit="return validateForm()">
+                    <form data-form-output="form-output-global" data-form-type="contact" method="post" action="."
+                          onsubmit="return validateForm()">
                         {% csrf_token %}
                         <div class="row row-10">
                             <div class="col-md-6">
                                 <div class="form-wrap">
-                                    <input class="form-input" id="name" type="text" name="name"
+                                    <input class="form-input" id="name" type="text" name="first_name"
                                            data-constraints="@Required">
                                     <label class="form-label" for="name">Имя</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-wrap">
-                                    <input class="form-input" id="surnames" type="text" name="surnames"
+                                    <input class="form-input" id="surnames" type="text" name="last_name"
                                            data-constraints="@Required">
                                     <label class="form-label" for="surnames">Фамилия</label>
                                 </div>
@@ -81,10 +81,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-wrap">
-                                    <input class="form-input" id="confirm_password" type="password"
-                                           name="confirm_password" data-constraints="@Required"
-                                           oninput="checkPasswords()">
-                                    <label class="form-label" for="confirm_password">Подтвердите пароль</label>
+                                    <input class="form-input" id="password2" type="password" name="password2"
+                                           data-constraints="@Required" oninput="checkPasswords()">
+                                    <label class="form-label" for="password2">Подтвердите пароль</label>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -121,32 +120,30 @@
 <div class="snackbars" id="form-output-global"></div>
 <script>
     function checkPasswords() {
-        var password = document.getElementById("register-password").value;
-        var confirmPassword = document.getElementById("register-confirm-password").value;
-        var errorElement = document.getElementById("password-error");
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('password2').value;
+        const errorElement = document.getElementById('password-error');
 
         if (password !== confirmPassword) {
-            errorElement.style.display = "block";
+            errorElement.style.display = 'block';
         } else {
-            errorElement.style.display = "none";
+            errorElement.style.display = 'none';
         }
     }
 
     function validateForm() {
-        var password = document.getElementById("register-password").value;
-        var confirmPassword = document.getElementById("register-confirm-password").value;
-        var errorElement = document.getElementById("password-error");
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('password2').value;
 
         if (password !== confirmPassword) {
-            errorElement.style.display = "block";
+            document.getElementById('password-error').style.display = 'block';
             return false;
-        } else {
-            errorElement.style.display = "none";
-            return true;
         }
+        return true;
     }
 </script>
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
+{% include 'include/notifications.html' %}
 </body>
 </html>

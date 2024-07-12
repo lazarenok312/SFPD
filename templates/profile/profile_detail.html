@@ -1,0 +1,237 @@
+{% load static %}
+{% include 'base.html' %}
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>Личный кабинет</title>
+    <style>
+        .form-wrap {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1.25rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 0.25rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: #2e3843;
+            outline: none;
+        }
+
+        .form-label {
+            position: absolute;
+            top: -0.75rem;
+            left: 1rem;
+            padding: 0 0.25rem;
+            background: #fff;
+            font-size: 0.85rem;
+            color: #2e3843;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.25rem;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            background-color: #002258;
+            border: none;
+            border-radius: 0.25rem;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #2e3843;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Загрузка...</p>
+    </div>
+</div>
+<div class="page">
+{% include 'include/navbar.html' %}
+    <div class="rd-navbar-bg novi-background bg-image"
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
+    <section class="breadcrumbs-custom bg-image novi-background bg-primary">
+        <div class="container">
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                <li class="active">О нас</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section section-md">
+        <div class="container">
+            <h1>Личный кабинет</h1>
+
+            <!-- Вкладки для различных разделов -->
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="personal-info-tab" data-toggle="tab" href="#personal-info" role="tab"
+                       aria-controls="personal-info" aria-selected="true">Личная информация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="game-info-tab" data-toggle="tab" href="#game-info" role="tab"
+                       aria-controls="game-info" aria-selected="false">Игровая информация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
+                       aria-controls="settings" aria-selected="false">Настройки</a>
+                </li>
+                <!-- Добавьте другие вкладки по необходимости -->
+            </ul>
+
+            <!-- Содержимое вкладок -->
+            <div class="tab-content" id="myTabContent">
+                <!-- Вкладка "Личная информация" -->
+                <div class="tab-pane fade show active" id="personal-info" role="tabpanel"
+                     aria-labelledby="personal-info-tab">
+                    <div class="row">
+                        {% if profile.photo %}
+                            <div class="col-md-3 text-center">
+                                <img src="{{ profile.photo.url }}" alt="{{ profile.user.username }}'s photo"
+                                     class="img-thumbnail" style="width: 100%; height: auto; max-width: 300px;">
+                            </div>
+                        {% endif %}
+                        <div class="col-md-8">
+                            <br>
+                            <p><strong>Имя:</strong> {{ profile.name }}</p>
+                            <p><strong>Фамилия:</strong> {{ profile.surnames }}</p>
+                            <p><strong>Электронная почта:</strong> {{ profile.email }}</p>
+                            <p><strong>Статус:</strong> {{ profile.status }}</p>
+                            <p><strong>Последняя активность:</strong> {{ profile.last_activity }}</p>
+                            <p><strong>Биография:</strong></p>
+                            <p>{{ profile.bio }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вкладка "Игровая информация" -->
+                <div class="tab-pane fade" id="game-info" role="tabpanel" aria-labelledby="game-info-tab">
+                    <h3>Игровая информация</h3>
+                    <p><strong>Отдел</strong> {{ profile.department }}</p>
+                    <p><strong>Должность</strong> {{ profile.role }}</p>
+                    {% if profile.is_online %}
+                        <p><strong>Статус онлайн:</strong> В сети</p>
+                    {% else %}
+                        <p><strong>Статус онлайн:</strong> Не в сети</p>
+                    {% endif %}
+                    <p><strong>Онлайн за неделю:</strong> 21:01:56</p>
+                    <p><strong>Онлайн за месяц:</strong> 48:25:05</p>
+                </div>
+
+                <!-- Вкладка "Настройки" -->
+                <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                    <h3>Настройки</h3>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row row-10">
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    <input class="form-input" id="id_name" type="text" name="name"
+                                           value="{{ form.name.value }}">
+                                    <label class="form-label" for="id_name">Имя</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    <input class="form-input" id="id_surnames" type="text" name="surnames"
+                                           value="{{ form.surnames.value }}">
+                                    <label class="form-label" for="id_surnames">Фамилия</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    <input class="form-input" id="id_email" type="email" name="email"
+                                           value="{{ form.email.value }}">
+                                    <label class="form-label" for="id_email">Электронная почта</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    <input class="form-input" id="id_photo" type="file" name="photo">
+                                    <label class="form-label" for="id_photo">Фото</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    {{ form.department.label_tag }}
+                                    {{ form.department }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    {{ form.role.label_tag }}
+                                    {{ form.role }}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-wrap">
+                                    <textarea class="form-input" id="id_bio" name="bio">{{ form.bio.value }}</textarea>
+                                    <label class="form-label" for="id_bio">Биография</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-end">
+                                <button type="submit" class="button button-size-1 button-block button-primary">Сохранить
+                                    изменения
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Добавьте другие вкладки по необходимости -->
+            </div>
+        </div>
+    </section>
+
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#id_department').change(function () {
+            var departmentId = $(this).val();
+            $.ajax({
+                url: "{% url 'load_roles' %}",
+                data: {
+                    'department_id': departmentId
+                },
+                dataType: 'json',
+                success: function (data) {
+                    var roleSelect = $('#id_role');
+                    roleSelect.empty();
+                    roleSelect.append('<option value="">Выберите должность</option>');
+                    $.each(data, function (key, value) {
+                        roleSelect.append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                }
+            });
+        });
+    });
+</script>
+{% include 'include/notifications.html' %}
+</body>
+</html>

@@ -362,7 +362,7 @@
                 </div>
                 <div class="item">
                     <a class="link-image" href="javascript:void(0);" onclick="openModal('modal2');">
-                        <img src="{% static 'images/sherif/Gorden Needes.webp' %}" alt="" width="200" height="90"/>
+                        <img src="{% static 'images/sherif/GordenNeedes.webp' %}" alt="" width="200" height="90"/>
                     </a>
                     <div class="nickname-text">
                         <div class="nickname-frame silver-frame">
@@ -598,6 +598,7 @@
 <div class="snackbars" id="form-output-global"></div>
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
+{% include 'include/notifications.html' %}
 <script>
     function openModal(modalId) {
         var modal = document.getElementById(modalId);

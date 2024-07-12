@@ -91,6 +91,72 @@
         transition-delay: 0.4s;
     }
 
+    .dropdown-auth {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #31404a;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 160px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        z-index: 1000;
+    }
+
+    .dropdown-auth li {
+        padding: 10px;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+    }
+
+    .dropdown-auth li a {
+        text-decoration: none;
+        color: #fff;
+        display: block;
+        transition: color 0.3s ease;
+    }
+
+    .dropdown-auth li a:hover {
+        color: #007bff;
+    }
+
+    .rd-nav-item:hover .dropdown-auth,
+    .rd-nav-item:focus-within .dropdown-auth {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .rd-nav-item:hover .dropdown-auth li,
+    .rd-nav-item:focus-within .dropdown-auth li {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .dropdown-auth li:nth-child(1) {
+        transition-delay: 0.1s;
+    }
+
+    .dropdown-auth li:nth-child(2) {
+        transition-delay: 0.2s;
+    }
+
+    .dropdown-auth li:nth-child(3) {
+        transition-delay: 0.3s;
+    }
+
+    .dropdown-auth li:nth-child(4) {
+        transition-delay: 0.4s;
+    }
+
     @media (max-width: 768px) {
         .rd-navbar-nav {
             flex-direction: column;
@@ -100,7 +166,8 @@
             width: 100%;
         }
 
-        .dropdown {
+        .dropdown,
+        .dropdown-auth {
             position: relative;
             top: auto;
             left: auto;
@@ -111,7 +178,9 @@
         }
 
         .rd-nav-item:hover .dropdown,
-        .rd-nav-item:focus-within .dropdown {
+        .rd-nav-item:focus-within .dropdown,
+        .rd-nav-item:hover .dropdown-auth,
+        .rd-nav-item:focus-within .dropdown-auth {
             display: block;
         }
     }
@@ -138,11 +207,16 @@
                     </div>
                     <ul class="list-lined">
                         {% if user.is_authenticated %}
-                            <li>{{ user.username }}</li>
-                            <li><a href="{% url 'user_logout' %}">Выход</a></li>
+                            <li class="rd-nav-item">
+                                <a href="#" class="rd-nav-link">{{ user.username }}</a>
+                                <ul class="dropdown-auth">
+                                    <li><a href="{% url 'profile_detail' slug=user.profile.slug %}">Личный кабинет</a></li>
+                                    <li><a href="{% url 'user_logout' %}">Выход</a></li>
+                                </ul>
+                            </li>
                         {% else %}
-                            <li><a href="{% url 'user_login' %}">Вход</a></li>
-                            <li><a href="{% url 'register' %}">Регистрация</a></li>
+                            <li><a href="{% url 'user_login' %}" class="rd-nav-link">Вход</a></li>
+                            <li><a href="{% url 'register' %}" class="rd-nav-link">Регистрация</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -154,12 +228,10 @@
                             <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap">
                                 <span></span></button>
                             <div class="rd-navbar-brand">
-                                <a class="brand" href="{% url 'departments:home' %}"><img class="brand-logo-dark"
-                                                                              src="{% static 'images/Li7MP3X.png' %}"
-                                                                              alt="" width="146" height="22"/><img
-                                        class="brand-logo-light" src="{% static 'images/Li7MP3X.png' %}" alt=""
-                                        width="200"
-                                        height="220"/></a>
+                                <a class="brand" href="{% url 'departments:home' %}">
+                                    <img class="brand-logo-dark" src="{% static 'images/Li7MP3X.png' %}" alt="" width="146" height="22"/>
+                                    <img class="brand-logo-light" src="{% static 'images/Li7MP3X.png' %}" alt="" width="200" height="220"/>
+                                </a>
                             </div>
                         </div>
                         <div class="rd-navbar-main-element">

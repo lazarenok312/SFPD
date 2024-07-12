@@ -25,7 +25,7 @@
 </div>
 <div class="page">
     {% include 'include/navbar.html' %}
-        <div class="rd-navbar-bg novi-background bg-image"
+    <div class="rd-navbar-bg novi-background bg-image"
          style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
     <section class="breadcrumbs-custom bg-image novi-background bg-primary">
         <div class="container">
@@ -50,22 +50,17 @@
                                     <label class="form-label" for="username">Логин</label>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-wrap">
+                            <div class="col-md-12 d-flex align-items-center">
+                                <div class="form-wrap flex-grow-1">
                                     <input class="form-input" id="password" type="password" name="password"
                                            data-constraints="@Required" oninput="checkPasswords()">
                                     <label class="form-label" for="password">Пароль</label>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-wrap">
-                                    <p id="password-error" style="color:red; display:none;">Пароли не совпадают!</p>
+                                <div class="ml-3">
+                                    <button class="button button-size-1 button-block button-primary" type="submit">
+                                        Войти
+                                    </button>
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="button button-size-1 button-block button-primary" type="submit">
-                                    Авторизоваться
-                                </button>
                             </div>
                         </div>
                     </form>
@@ -84,5 +79,6 @@
 <div class="snackbars" id="form-output-global"></div>
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
+{% include 'include/notifications.html' %}
 </body>
 </html>

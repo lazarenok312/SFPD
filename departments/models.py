@@ -2,8 +2,8 @@ from django.db import models
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
+    name = models.CharField(max_length=100, verbose_name="Отдел")
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
@@ -14,15 +14,15 @@ class Department(models.Model):
 
 
 class Role(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Должность")
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.name} ({self.department.name})"
 
     class Meta:
-        verbose_name = 'Роль'
-        verbose_name_plural = 'Роли'
+        verbose_name = 'Должность'
+        verbose_name_plural = 'Должности'
 
 
 class ImportantInfo(models.Model):

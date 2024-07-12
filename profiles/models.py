@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-
+from departments.models import Role, Department
 
 class Profile(models.Model):
     id = models.AutoField(primary_key=True)
@@ -16,6 +16,9 @@ class Profile(models.Model):
                               default='../static/img/default.png')
     slug = models.SlugField("URL", max_length=50, blank=True)
     last_activity = models.DateTimeField(verbose_name="Последняя активность", default=timezone.now)
+    bio = models.TextField(verbose_name="Биография", blank=True)
+    department = models.ForeignKey(Department, verbose_name="Отдел", on_delete=models.CASCADE, blank=True, null=True)
+    role = models.ForeignKey(Role, verbose_name="Должность", on_delete=models.CASCADE, blank=True, null=True)
 
     @property
     def status(self):
