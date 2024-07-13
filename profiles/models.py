@@ -6,6 +6,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from departments.models import Role, Department
 
+
 class Profile(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
@@ -19,6 +20,9 @@ class Profile(models.Model):
     bio = models.TextField(verbose_name="Биография", blank=True)
     department = models.ForeignKey(Department, verbose_name="Отдел", on_delete=models.CASCADE, blank=True, null=True)
     role = models.ForeignKey(Role, verbose_name="Должность", on_delete=models.CASCADE, blank=True, null=True)
+    nick_name = models.CharField(max_length=50, verbose_name="Игровой ник", blank=True)
+    profile_confirmed = models.BooleanField(default=False, verbose_name="Подтверждение профиля")
+    role_confirmed = models.BooleanField(default=False, verbose_name="Подтверждение должности")
 
     @property
     def status(self):
@@ -53,3 +57,17 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+
+class SupportRequest(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Ваше имя', blank=True)
+    email = models.EmailField(verbose_name='Электронная почта')
+    message = models.TextField(verbose_name='Текст обращения')
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+
+    def __str__(self):
+        return f"Обращение от {self.email} ({self.created_at})"
+
+    class Meta:
+        verbose_name = 'Обращение в поддержку'
+        verbose_name_plural = 'Обращения в поддержку'

@@ -5,11 +5,10 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from .models import Profile
 from django.shortcuts import render, redirect
-from .forms import ProfileUpdateForm
+from .forms import ProfileUpdateForm, SupportForm
 from django.views.generic import View
-from departments.models import Role
-from django.http import JsonResponse
-
+from django.core.mail import send_mail
+from django.conf import settings
 
 def register(request):
     if request.method == 'POST':
@@ -81,8 +80,23 @@ class ProfileDetailView(DetailView):
         return context
 
 
-class LoadRolesView(View):
+class SupportView(View):
     def get(self, request):
-        department_id = request.GET.get('department_id')
-        roles = Role.objects.filter(department_id=department_id).values('id', 'name')
-        return JsonResponse(list(roles), safe=False)
+        form = SupportForm()
+        return render(request, 'include/footer.html', {'form': form})
+
+    def post(self, request):
+        form = SupportForm(request.POST)
+        if form.is_valid():
+            support_request = form.save()
+
+            # Отправляем ответное сообщение на указанный email
+            subject = 'Ваше обращение принято'
+            message = 'Благодарим вас за обращение. Мы обработаем его в ближайшее время.'
+            from_email = settings.EMAIL_HOST_USER
+            to_email = form.cleaned_data['email']
+            send_mail(subject, message, from_email, [to_email])
+
+            messages.success(request, 'Ваше обращение успешно доставлено!')
+            return redirect(request.META.get('HTTP_REFERER', 'departments:home'))
+        return render(request, 'include/footer.html', {'form': form})

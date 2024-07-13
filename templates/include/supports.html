@@ -1,0 +1,126 @@
+<style>
+    .modal-dialog-centered {
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - (.5rem * 2));
+    }
+
+    .modal-content {
+        position: relative;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, .2);
+        border-radius: .3rem;
+        outline: 0;
+    }
+
+    .modal-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        padding: 1rem 1rem;
+        border-bottom: 1px solid #dee2e6;
+        border-top-left-radius: .3rem;
+        border-top-right-radius: .3rem;
+    }
+
+    .modal-title {
+        margin-bottom: 0;
+        line-height: 1.5;
+    }
+
+    /* Стили для крестика закрытия */
+    .close {
+        padding: 1rem;
+        margin: -1rem -1rem -1rem auto;
+    }
+
+    .close span {
+        position: relative;
+        display: inline-block;
+        width: 1.5em;
+        height: 1.5em;
+        background-color: #acb7be; /* Цвет фона крестика */
+        border-radius: 50%;
+        text-align: center;
+        line-height: 1.5em;
+        font-size: 1.25em;
+        cursor: pointer;
+    }
+
+    .close span:hover {
+        background-color: #e9ecef; /* Цвет фона крестика при наведении */
+    }
+
+    .modal-body {
+        position: relative;
+        flex: 1 1 auto;
+        padding: 1rem;
+    }
+</style>
+<button type="button" class="button button-size-1 button-block button-primary" data-toggle="modal"
+        data-target="#supportModal">
+    Форма поддержки
+</button>
+
+<div class="modal fade" id="supportModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="supportModalLabel">Поддержка</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'support' %}" id="supportForm">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            {{ support_form.name }}
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{ support_form.email }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{ support_form.message }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Custom JavaScript for form validation and interaction
+        $('#supportForm').on('submit', function (event) {
+            // Add any custom form validation here
+            // For example, check if all required fields are filled
+            let isValid = true;
+            $(this).find('input[required], textarea[required]').each(function () {
+                if ($(this).val() === '') {
+                    isValid = false;
+                    $(this).addClass('is-invalid');
+                } else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+            if (!isValid) {
+                event.preventDefault();
+                alert('Пожалуйста, заполните все обязательные поля.');
+            }
+        });
+
+        // Close modal on successful submission
+        $('#supportForm').on('submit', function () {
+            if ($(this).find('input.is-invalid, textarea.is-invalid').length === 0) {
+                $('#supportModal').modal('hide');
+            }
+        });
+    });
+</script>

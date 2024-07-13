@@ -7,5 +7,5 @@ urlpatterns = [
     path('login/', views.user_login, name='user_login'),
     path('logout/', views.user_logout, name='user_logout'),
     path('profile/<slug:slug>/', ProfileDetailView.as_view(), name='profile_detail'),
-    path('load_roles/', LoadRolesView.as_view(), name='load_roles'),
+    path('support/', views.SupportView.as_view(), name='support'),
 ]

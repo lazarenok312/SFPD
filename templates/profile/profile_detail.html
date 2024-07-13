@@ -2,6 +2,7 @@
 {% include 'base.html' %}
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <head>
     <title>Личный кабинет</title>
     <style>
@@ -49,6 +50,76 @@
             background-color: #2e3843;
             text-decoration: none;
         }
+
+        .badge {
+            --bs-badge-padding-x: 0.9em;
+            --bs-badge-padding-y: 0.55em;
+            --bs-badge-font-size: 0.75em;
+            --bs-badge-font-weight: 700;
+            --bs-badge-color: #fff;
+            --bs-badge-border-radius: 0.45rem;
+            display: inline-block;
+            padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
+            font-size: var(--bs-badge-font-size);
+            font-weight: var(--bs-badge-font-weight);
+            line-height: 1;
+            color: var(--bs-badge-color);
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: var(--bs-badge-border-radius);
+        }
+
+        .bg-gradient-success {
+            background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+        }
+
+        .bg-gradient-danger {
+            background-image: linear-gradient(195deg, #EF5350 0%, #E53935 100%);
+        }
+
+        .bg-gradient-secondary {
+            background-image: linear-gradient(195deg, #747b8a 0%, #495361 100%);
+        }
+
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #e0e0e0;
+        }
+
+        .custom-file-upload input[type=file] {
+            display: none;
+        }
+
+        .custom-file-upload i {
+            margin-right: 8px;
+        }
+
+        .custom-file-upload::before {
+            content: "\f0ee"; /* Font Awesome cloud upload icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 5px;
+        }
+
+        .custom-file-upload::after {
+            content: "Выберите фото";
+        }
+
+        .custom-file-upload:hover::before {
+            color: #007bff; /* Change color on hover */
+        }
     </style>
 </head>
 <body>
@@ -69,7 +140,7 @@
     </div>
 </div>
 <div class="page">
-{% include 'include/navbar.html' %}
+    {% include 'include/navbar.html' %}
     <div class="rd-navbar-bg novi-background bg-image"
          style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
     <section class="breadcrumbs-custom bg-image novi-background bg-primary">
@@ -112,13 +183,33 @@
                                 <img src="{{ profile.photo.url }}" alt="{{ profile.user.username }}'s photo"
                                      class="img-thumbnail" style="width: 100%; height: auto; max-width: 300px;">
                             </div>
+                        {% else %}
+                            <div class="col-md-3 text-center">
+                                <img src="{% static 'images/incognito.png' %}" alt="Default photo"
+                                     class="img-thumbnail" style="width: 100%; height: auto; max-width: 300px;">
+                            </div>
                         {% endif %}
                         <div class="col-md-8">
-                            <br>
+                            <div class="profile-confirmation">
+                                <br>
+                                {% if profile.profile_confirmed %}
+                                    <span class="badge bg-gradient-success"> <i class="fas fa-check-circle mr-2"></i>Профиль подтвержден</span>
+                                    </p>
+                                {% else %}
+                                    <span class="badge bg-gradient-danger"> <i
+                                            class="fas fa-exclamation-circle mr-2"></i>Профиль не подтвержден</span></p>
+                                {% endif %}
+                            </div>
                             <p><strong>Имя:</strong> {{ profile.name }}</p>
                             <p><strong>Фамилия:</strong> {{ profile.surnames }}</p>
                             <p><strong>Электронная почта:</strong> {{ profile.email }}</p>
-                            <p><strong>Статус:</strong> {{ profile.status }}</p>
+                            <p><strong>Статус:</strong>
+                                {% if profile.user.is_staff %}
+                                    <span class="badge bg-gradient-success">Администратор</span>
+                                {% else %}
+                                    <span class="badge bg-gradient-secondary">Пользователь</span>
+                                {% endif %}
+                            </p>
                             <p><strong>Последняя активность:</strong> {{ profile.last_activity }}</p>
                             <p><strong>Биография:</strong></p>
                             <p>{{ profile.bio }}</p>
@@ -129,8 +220,16 @@
                 <!-- Вкладка "Игровая информация" -->
                 <div class="tab-pane fade" id="game-info" role="tabpanel" aria-labelledby="game-info-tab">
                     <h3>Игровая информация</h3>
-                    <p><strong>Отдел</strong> {{ profile.department }}</p>
                     <p><strong>Должность</strong> {{ profile.role }}</p>
+                    <p><strong>Nick_Name:</strong> {{ profile.nick_name }}
+                        {% if profile.role_confirmed %}
+                            <span class="badge bg-gradient-success"> <i class="fas fa-check-circle"></i></span>
+                            </p>
+                        {% else %}
+                            <span class="badge bg-gradient-danger"> <i
+                                    class="fas fa-exclamation-circle"></i></span></p>
+                        {% endif %}
+                    </p>
                     {% if profile.is_online %}
                         <p><strong>Статус онлайн:</strong> В сети</p>
                     {% else %}
@@ -169,14 +268,17 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-wrap">
-                                    <input class="form-input" id="id_photo" type="file" name="photo">
-                                    <label class="form-label" for="id_photo">Фото</label>
+                                    <label class="custom-file-upload">
+                                        <input id="id_photo" type="file" name="photo"/>
+                                        <i class="fas fa-file-image-o"></i>
+                                    </label>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-wrap">
-                                    {{ form.department.label_tag }}
-                                    {{ form.department }}
+                                    <input class="form-input" id="id_nick_name" type="text" name="nick_name"
+                                           value="{{ form.nick_name.value }}">
+                                    <label class="form-label" for="id_nick_name">Игровой никнейм</label>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -203,35 +305,11 @@
             </div>
         </div>
     </section>
-
     {% include 'include/footer.html' %}
 </div>
 <div class="snackbars" id="form-output-global"></div>
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#id_department').change(function () {
-            var departmentId = $(this).val();
-            $.ajax({
-                url: "{% url 'load_roles' %}",
-                data: {
-                    'department_id': departmentId
-                },
-                dataType: 'json',
-                success: function (data) {
-                    var roleSelect = $('#id_role');
-                    roleSelect.empty();
-                    roleSelect.append('<option value="">Выберите должность</option>');
-                    $.each(data, function (key, value) {
-                        roleSelect.append('<option value="' + value.id + '">' + value.name + '</option>');
-                    });
-                }
-            });
-        });
-    });
-</script>
 {% include 'include/notifications.html' %}
 </body>
 </html>
