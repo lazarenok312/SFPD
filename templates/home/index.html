@@ -40,23 +40,16 @@
                 <div class="swiper-slide-caption section-lg">
                     <div class="container">
                         <div class="row">
-                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
-                                <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
-                                        class="d-block text-light" data-caption-animate="fadeInUp"
-                                        data-caption-delay="200">Chief of PA</span></h1>
-                                {% if pa_username %}
-                                    <p class="lead" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">{{ pa_username }}</p>
-                                {% else %}
-                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
-                                        Вакантно</p>
-                                {% endif %}
-                                <div class="button-wrap-default" data-caption-animate="fadeInUp"
-                                     data-caption-delay="450"><a class="button button-secondary-pa"
-                                                                 href="{% url 'departments:pa_detail' %}">Читать
-                                    далее</a></div>
-                            </div>
-                        </div>
+    <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+        <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
+                class="d-block text-light" data-caption-animate="fadeInUp"
+                data-caption-delay="200">Chief of PA</span></h1>
+        <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">{{ chief_of_pa.nickname }}</p>
+        <div class="button-wrap-default" data-caption-animate="fadeInUp" data-caption-delay="450">
+            <a class="button button-secondary-pa" href="{% url 'departments:pa_detail' %}">Читать далее</a>
+        </div>
+    </div>
+</div>
                     </div>
                 </div>
             </div>
@@ -68,13 +61,10 @@
                                 <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Central Patrol Division</span><span
                                         class="d-block text-light" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Chief of CPD</span></h1>
-                                {% if cpd_username %}
                                     <p class="lead" data-caption-animate="fadeInUp"
                                        data-caption-delay="350">{{ cpd_username }}</p>
-                                {% else %}
                                     <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
                                         Вакантно</p>
-                                {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
                                      data-caption-delay="450"><a class="button button-secondary-cpd"
                                                                  href="{% url 'departments:cpd_detail' %}">Читать
@@ -94,13 +84,10 @@
                                           data-caption-delay="100">SWAT</span><span
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Сommander of SWAT</span></h1>
-                                {% if db_username %}
                                     <p class="lead" data-caption-animate="fadeInUp"
                                        data-caption-delay="350">{{ db_username }}</p>
-                                {% else %}
                                     <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
                                         Вакантно</p>
-                                {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
                                      data-caption-delay="450"><a class="button button-secondary-swat"
                                                                  href="{% url 'departments:swat_detail' %}">Читать
@@ -120,14 +107,10 @@
                                           data-caption-delay="100">Detective Bureau</span><span
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Head of DB</span></h1>
-                                {% if username %}
                                     <p class="lead" data-caption-animate="fadeInUp"
                                        data-caption-delay="350">{{ username }}</p>
-
-                                {% else %}
                                     <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
                                         Вакантно</p>
-                                {% endif %}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
                                      data-caption-delay="450"><a class="button button-secondary-text"
                                                                  href="{% url 'departments:db_detail' %}">Читать

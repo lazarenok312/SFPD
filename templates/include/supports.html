@@ -1,27 +1,25 @@
 <style>
-    .modal-dialog-centered {
+   .modal-dialog-custom {
         display: flex;
         align-items: center;
-        min-height: calc(100% - (.5rem * 2));
+        justify-content: center;
+        min-height: calc(100vh - 1rem);
     }
 
-    .modal-content {
-        position: relative;
+    .modal-content-custom {
         background-color: #fff;
-        background-clip: padding-box;
-        border: 1px solid rgba(0, 0, 0, .2);
-        border-radius: .3rem;
-        outline: 0;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.3rem;
     }
 
-    .modal-header {
+    .modal-header-custom {
         display: flex;
-        align-items: flex-start;
+        align-items: center;
         justify-content: space-between;
-        padding: 1rem 1rem;
+        padding: 1rem;
         border-bottom: 1px solid #dee2e6;
-        border-top-left-radius: .3rem;
-        border-top-right-radius: .3rem;
+        border-top-left-radius: 0.3rem;
+        border-top-right-radius: 0.3rem;
     }
 
     .modal-title {
@@ -29,10 +27,9 @@
         line-height: 1.5;
     }
 
-    /* Стили для крестика закрытия */
     .close {
-        padding: 1rem;
-        margin: -1rem -1rem -1rem auto;
+        padding: 0.75rem;
+        margin: -0.75rem -0.75rem -0.75rem auto;
     }
 
     .close span {
@@ -40,7 +37,7 @@
         display: inline-block;
         width: 1.5em;
         height: 1.5em;
-        background-color: #acb7be; /* Цвет фона крестика */
+        background-color: #acb7be;
         border-radius: 50%;
         text-align: center;
         line-height: 1.5em;
@@ -49,10 +46,10 @@
     }
 
     .close span:hover {
-        background-color: #e9ecef; /* Цвет фона крестика при наведении */
+        background-color: #e9ecef;
     }
 
-    .modal-body {
+    .modal-body-custom {
         position: relative;
         flex: 1 1 auto;
         padding: 1rem;
@@ -64,15 +61,15 @@
 </button>
 
 <div class="modal fade" id="supportModal" tabindex="-1" aria-labelledby="supportModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
+    <div class="modal-dialog modal-dialog-custom">
+        <div class="modal-content modal-content-custom">
+            <div class="modal-header modal-header-custom">
                 <h5 class="modal-title" id="supportModalLabel">Поддержка</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body modal-body-custom">
                 <form method="post" action="{% url 'support' %}" id="supportForm">
                     {% csrf_token %}
                     <div class="form-row">

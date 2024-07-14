@@ -9,28 +9,4 @@
     <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Найти элементы уведомления и кнопку закрытия
-            const notification = document.getElementById('notification');
-            const notificationMessage = document.getElementById('notification-message');
-            const closeNotificationBtn = document.getElementById('close-notification');
-
-            // Функция для показа уведомления
-            window.showNotification = function (message) {
-                notificationMessage.innerText = message;
-                notification.classList.add('show'); // Добавить класс 'show', чтобы показать уведомление
-            }
-
-            // Функция для скрытия уведомления при нажатии на кнопку закрытия
-            closeNotificationBtn.addEventListener('click', function () {
-                notification.classList.remove('show'); // Убрать класс 'show', чтобы скрыть уведомление
-            });
-
-            // Показать уведомление по умолчанию
-            // showNotification('Приветствуем вас на нашем сайте!');
-        });
-    </script>
-
-
 </head>

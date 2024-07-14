@@ -11,4 +11,8 @@ urlpatterns = [
     path('db/', views.db_view, name='db_detail'),
     path('about/', views.about_view, name='about'),
     path('faq/', views.faq_view, name='faq'),
+    path('faq/', views.faq_view, name='faq'),
+    path('hall_of_fame/', views.hall_fame, name='hall_of_fame'),
+    path('thank_board/', views.thank_board, name='thank_board'),
+    path('police-academy/', views.police_academy_view, name='police_academy_view'),
 ]

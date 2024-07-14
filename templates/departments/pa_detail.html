@@ -35,13 +35,8 @@
                                 <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
                                         class="d-block text-light" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Chief of PA</span></h1>
-                                {% if pa_username %}
                                     <p class="lead" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">{{ pa_username }}</p>
-                                {% else %}
-                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
-                                        Вакантно</p>
-                                {% endif %}
+                                       data-caption-delay="350">{{ chief_of_pa.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -55,13 +50,8 @@
                                 <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
                                         class="d-block text-light" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Chief of PA</span></h1>
-                                {% if pa_username %}
                                     <p class="lead" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">{{ pa_username }}</p>
-                                {% else %}
-                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
-                                        Вакантно</p>
-                                {% endif %}
+                                       data-caption-delay="350">{{ dep_chief1_of_pa.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -75,13 +65,8 @@
                                 <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
                                         class="d-block text-light" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Chief of PA</span></h1>
-                                {% if pa_username %}
                                     <p class="lead" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">{{ pa_username }}</p>
-                                {% else %}
-                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
-                                        Вакантно</p>
-                                {% endif %}
+                                       data-caption-delay="350">{{ dep_chief2_of_pa.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -143,13 +128,11 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">James Ezar</h5>
+                                <h5 class="title">{{ chief_of_pa.nickname }}</h5>
                                 <div class="subtitle">Chief of PA</div>
                             </div>
                         </div>
-                        <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a fermentum
-                            turpis. Nulla metus diam, feugiat ac lectus vitae, tempus porttitor sem. Vestibulum non
-                            lacus vulputate, placerat ligula ut, dignissim tortor.
+                        <div class="content">{{ chief_of_pa.description }}.
                         </div>
                     </div>
                 </div>
@@ -160,13 +143,11 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Kristina Gurinifero</h5>
+                                <h5 class="title">{{ dep_chief1_of_pa.nickname }}</h5>
                                 <div class="subtitle">Dep.Chief of PA</div>
                             </div>
                         </div>
-                        <div class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
-                            quasi architecto beatae vitae dicta sunt explicabo.
+                        <div class="content">{{ dep_chief1_of_pa.description }}
                         </div>
                     </div>
                 </div>
@@ -177,13 +158,11 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Infeless Montana</h5>
+                                <h5 class="title">{{ dep_chief2_of_pa.nickname }}</h5>
                                 <div class="subtitle">Dep.Chief of PA</div>
                             </div>
                         </div>
-                        <div class="content">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                            consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
-                            dolore magnam aliquam quaerat voluptatem. Ut enim ad minima.
+                        <div class="content">{{ dep_chief2_of_pa.description }}
                         </div>
                     </div>
                 </div>
@@ -203,7 +182,7 @@
                                     подготовкой новых сотрудников для службы в полиции Saint-Louis. </q>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>James Ezar</cite>
+                                        <cite>{{ chief_of_pa.nickname }}</cite>
                                     </div>
                                     <div class="position">Chief of PA</div>
                                 </div>
@@ -214,7 +193,7 @@
                                     трудолюбие и целеустремленность. </q>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>James Ezar</cite>
+                                        <cite>{{ chief_of_pa.nickname }}</cite>
                                     </div>
                                     <div class="position">Chief of PA</div>
                                 </div>
@@ -224,7 +203,7 @@
                                     рабочих ситуаций.</q>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>James Ezar</cite>
+                                        <cite>{{ chief_of_pa.nickname }}</cite>
                                     </div>
                                     <div class="position">Chief of PA</div>
                                 </div>

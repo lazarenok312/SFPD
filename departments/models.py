@@ -30,3 +30,19 @@ class ImportantInfo(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     date_posted = models.DateTimeField(auto_now_add=True)
+
+
+class PoliceAcademyPosition(models.Model):
+    POSITION_CHOICES = [
+        ('chief', 'Chief of PA'),
+        ('dep_chief1', 'Dep.Chief of PA'),
+        ('dep_chief2', 'Dep.Chief of PA'),
+    ]
+
+    position = models.CharField(max_length=10, choices=POSITION_CHOICES)
+    nickname = models.CharField(max_length=100)
+    description = models.TextField()
+    photo = models.ImageField(upload_to='police_academy_photos/', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.get_position_display()} - {self.nickname}"

@@ -1,0 +1,12 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ formset.management_form }}
+    <div class="row">
+        {% for form in formset %}
+            <div class="col-md-4">
+                {{ form.as_p }}
+            </div>
+        {% endfor %}
+    </div>
+    <button type="submit">Сохранить</button>
+</form>
