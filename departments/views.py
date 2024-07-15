@@ -53,7 +53,6 @@ def thank_board(request):
 def police_academy_view(request):
     positions = ['chief', 'dep_chief1', 'dep_chief2']
 
-    # Убедиться, что в базе данных есть только одна запись для каждой позиции
     for position in positions:
         PoliceAcademyPosition.objects.get_or_create(position=position)
 
@@ -64,6 +63,10 @@ def police_academy_view(request):
         if formset.is_valid():
             formset.save()
             return redirect('departments:home')
+        else:
+            print("Formset errors:", formset.errors)
+            for form in formset:
+                print(form.errors)
     else:
         formset = PoliceAcademyPositionFormSet(queryset=positions_qs)
 

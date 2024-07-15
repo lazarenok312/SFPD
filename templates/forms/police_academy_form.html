@@ -4,7 +4,30 @@
     <div class="row">
         {% for form in formset %}
             <div class="col-md-4">
-                {{ form.as_p }}
+                {{ form.id }}
+                {{ form.position.label_tag }}
+                {{ form.position }}
+                {% if form.position.errors %}
+                    <div class="form-error">{{ form.position.errors }}</div>
+                {% endif %}
+
+                {{ form.nickname.label_tag }}
+                {{ form.nickname }}
+                {% if form.nickname.errors %}
+                    <div class="form-error">{{ form.nickname.errors }}</div>
+                {% endif %}
+
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                {% if form.description.errors %}
+                    <div class="form-error">{{ form.description.errors }}</div>
+                {% endif %}
+
+                {{ form.photo.label_tag }}
+                {{ form.photo }}
+                {% if form.photo.errors %}
+                    <div class="form-error">{{ form.photo.errors }}</div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

@@ -7,11 +7,22 @@ class PoliceAcademyPositionForm(forms.ModelForm):
     class Meta:
         model = PoliceAcademyPosition
         fields = ['position', 'nickname', 'description', 'photo']
+        widgets = {
+            'position': forms.Select(attrs={'class': 'form-input'}),
+            'nickname': forms.TextInput(attrs={'class': 'form-input'}),
+            'description': forms.Textarea(attrs={'class': 'form-input'}),
+            'photo': forms.ClearableFileInput(attrs={'class': 'form-input'}),
+        }
+        labels = {
+            'position': 'Должность',
+            'nickname': 'Никнейм',
+            'description': 'Описание',
+            'photo': 'Фотография',
+        }
 
-
-PoliceAcademyPositionFormSet = modelformset_factory(
+PoliceAcademyPositionFormSet = forms.modelformset_factory(
     PoliceAcademyPosition,
-    fields=('position', 'nickname', 'description', 'photo'),
+    form=PoliceAcademyPositionForm,
     extra=0,
     can_delete=False
 )
