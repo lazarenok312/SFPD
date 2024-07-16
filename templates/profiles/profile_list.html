@@ -1,0 +1,174 @@
+{% load static %}
+{% include 'base.html' %}
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<head>
+    <title>База сотрудников</title>
+</head>
+<style>
+    .badge {
+        --bs-badge-padding-x: 0.9em;
+        --bs-badge-padding-y: 0.55em;
+        --bs-badge-font-size: 0.75em;
+        --bs-badge-font-weight: 700;
+        --bs-badge-color: #fff;
+        --bs-badge-border-radius: 0.45rem;
+        display: inline-block;
+        padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
+        font-size: var(--bs-badge-font-size);
+        font-weight: var(--bs-badge-font-weight);
+        line-height: 1;
+        color: var(--bs-badge-color);
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: var(--bs-badge-border-radius);
+    }
+
+    .bg-gradient-db {
+        background-image: linear-gradient(195deg, #800303 0%, #b00707 100%);
+    }
+
+    .bg-gradient-pa {
+        background-image: linear-gradient(195deg, #00b4ff 0%, #1760e1 100%);
+    }
+
+    .bg-gradient-cpd {
+        background-image: linear-gradient(195deg, #959595 0%, #929292 100%);
+    }
+
+    .bg-gradient-swat {
+        background-image: linear-gradient(195deg, #232222 0%, #434345 100%);
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+<body>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Загрузка...</p>
+    </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <div class="rd-navbar-bg novi-background bg-image"
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
+    <section class="breadcrumbs-custom bg-image novi-background bg-primary">
+        <div class="container">
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                <li class="active">База сотрудников</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section section-md">
+        <div class="container">
+            <h2>База сотрудников</h2>
+            <br>
+            <div class="form-group">
+                <input type="text" class="form-control" id="search" placeholder="Поиск по таблице">
+            </div>
+            <hr/>
+            <table class="table-bordered table-hover table" id="my-search-table">
+                <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Игровой ник</th>
+                    <th>Отдел</th>
+                    <th>Должность</th>
+                    <th>Статус</th>
+                </tr>
+                </thead>
+                <tbody id="profile-table">
+                {% for profile in profiles %}
+                    <tr>
+                        <td class="text-center">
+                            {% if profile.name %}{{ profile.name }}{% else %}Нет данных{% endif %}</td>
+                        <td class="text-center">
+                            {% if profile.surnames %}{{ profile.surnames }}{% else %}Нет данных{% endif %}</td>
+                        <td class="text-center">
+                            {% if profile.nick_name %}{{ profile.nick_name }}{% else %}Нет данных{% endif %}</td>
+                        <td class="text-center">
+                            {% if profile.department %}
+                                {% if profile.department.name == "Detective Bureau" %}
+                                    <span class="badge bg-gradient-db">{{ profile.department.name }}</span>
+                                {% elif profile.department.name == "Police Academy" %}
+                                    <span class="badge bg-gradient-pa">{{ profile.department.name }}</span>
+                                {% elif profile.department.name == "Speсial Weapons And Tactics" %}
+                                    <span class="badge bg-gradient-swat">{{ profile.department.name }}</span>
+                                {% elif profile.department.name == "Central Patrol Division" %}
+                                    <span class="badge bg-gradient-cpd">{{ profile.department.name }}</span>
+                                {% else %}
+                                    <span class="badge bg-gradient-secondary">{{ profile.department.name }}</span>
+                                {% endif %}
+                            {% else %}
+                                Отсутствует
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if profile.role %}{{ profile.role.name }}{% else %}Отсутствует{% endif %}</td>
+                        <td class="text-center">
+                            {% if profile.is_online %}
+                                <span style="color:green">Онлайн</span>
+                            {% else %}
+                                <span style="color:red">Офлайн</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {% if profiles.has_other_pages %}
+                <ul class="pagination">
+                    {% if profiles.has_previous %}
+                        <li><a href="?page=1">&laquo;</a></li>
+                        <li><a href="?page={{ profiles.previous_page_number }}">{{ profiles.previous_page_number }}</a>
+                        </li>
+                    {% endif %}
+                    <li class="active"><span>{{ profiles.number }}</span></li>
+                    {% if profiles.has_next %}
+                        <li><a href="?page={{ profiles.next_page_number }}">{{ profiles.next_page_number }}</a></li>
+                        <li><a href="?page={{ profiles.paginator.num_pages }}">&raquo;</a></li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+        </div>
+    </section>
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% include 'include/notifications.html' %}
+<script>
+    $(document).ready(function () {
+        $("#search").keyup(function () {
+            _this = this;
+            $.each($("#my-search-table tbody tr"), function () {
+                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

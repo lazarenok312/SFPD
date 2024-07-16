@@ -62,7 +62,7 @@ def police_academy_view(request):
         formset = PoliceAcademyPositionFormSet(request.POST, request.FILES, queryset=positions_qs)
         if formset.is_valid():
             formset.save()
-            return redirect('departments:home')
+            return redirect('departments:pa_detail')
         else:
             print("Formset errors:", formset.errors)
             for form in formset:

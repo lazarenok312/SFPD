@@ -4,6 +4,7 @@
 <html class="wide wow-animation" lang="en">
 <head>
     <title>Форма Police Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -70,6 +71,45 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease-in-out;
         }
+
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #e0e0e0;
+        }
+
+        .custom-file-upload input[type=file] {
+            display: none;
+        }
+
+        .custom-file-upload i {
+            margin-right: 8px;
+        }
+
+        .custom-file-upload::before {
+            content: "\f0ee";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 5px;
+        }
+
+        .custom-file-upload::after {
+            content: "Выберите фото";
+        }
+
+        .custom-file-upload:hover::before {
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
@@ -106,36 +146,37 @@
                 {{ formset.management_form }}
                 <div class="row">
                     {% for form in formset %}
-                        <div class="col-md-4 form-card">
-                            {{ form.id }}
-                            <div class="form-group">
-                                {{ form.position.label_tag }}
-                                {{ form.position }}
-                                {% if form.position.errors %}
-                                    <div class="form-error">{{ form.position.errors }}</div>
-                                {% endif %}
-                            </div>
-                            <div class="form-group">
-                                {{ form.nickname.label_tag }}
-                                {{ form.nickname }}
-                                {% if form.nickname.errors %}
-                                    <div class="form-error">{{ form.nickname.errors }}</div>
-                                {% endif %}
-                            </div>
-                            <div class="form-group">
-                                {{ form.description.label_tag }}
-                                {{ form.description }}
-                                {% if form.description.errors %}
-                                    <div class="form-error">{{ form.description.errors }}</div>
-                                {% endif %}
-                            </div>
-                            <div class="form-group">
-                                {{ form.photo.label_tag }}
-                                {{ form.photo }}
-                                {% if form.photo.errors %}
-                                    <div class="form-error">{{ form.photo.errors }}</div>
-                                {% endif %}
-                                <img id="preview-{{ forloop.counter }}" class="img-preview" style="display: none;">
+                        <div class="col-md-4 mb-4">
+                            <div class="form-card">
+                                {{ form.id }}
+                                <div class="form-group">
+                                    {{ form.position.label_tag }}
+                                    {{ form.position }}
+                                    {% if form.position.errors %}
+                                        <div class="form-error">{{ form.position.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.nickname.label_tag }}
+                                    {{ form.nickname }}
+                                    {% if form.nickname.errors %}
+                                        <div class="form-error">{{ form.nickname.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.description.label_tag }}
+                                    {{ form.description }}
+                                    {% if form.description.errors %}
+                                        <div class="form-error">{{ form.description.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group">
+                                    <label class="custom-file-upload">
+                                        {{ form.photo }}
+                                        <i class="fas fa-file-image"></i>
+                                    </label>
+                                    <img id="preview-{{ forloop.counter }}" class="img-preview" style="display: none;">
+                                </div>
                             </div>
                         </div>
                     {% endfor %}

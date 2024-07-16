@@ -1,10 +1,11 @@
 from django.contrib import admin
-from .models import Profile, SupportRequest
+from .models import Profile, SupportRequest, ProfileChangeLog
 
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'name', 'surnames', 'email', 'department', 'role', 'profile_confirmed', 'role_confirmed', 'is_online')
+    list_display = (
+        'user', 'name', 'surnames', 'email', 'department', 'role', 'profile_confirmed', 'role_confirmed', 'is_online')
     list_filter = ('department', 'role', 'profile_confirmed', 'role_confirmed')
     search_fields = ('user__username', 'name', 'surnames', 'email', 'nick_name')
     readonly_fields = ('last_activity', 'is_online', 'slug')
@@ -23,6 +24,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
     def is_online(self, obj):
         return obj.is_online
+
     is_online.boolean = True
     is_online.short_description = 'Online status'
 
@@ -32,3 +34,8 @@ class ProfileAdmin(admin.ModelAdmin):
         readonly_fields = ('created_at',)
 
     admin.site.register(SupportRequest, SupportRequestAdmin)
+
+
+@admin.register(ProfileChangeLog)
+class ProfileChangeLogAdmin(admin.ModelAdmin):
+    list_display = ['user', 'change_type', 'old_value', 'new_value', 'timestamp']

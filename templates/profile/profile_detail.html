@@ -24,24 +24,6 @@
             outline: none;
         }
 
-
-        .button {
-            display: inline-block;
-            padding: 0.75rem 1.25rem;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #fff;
-            background-color: #002258;
-            border: none;
-            border-radius: 0.25rem;
-            transition: background-color 0.3s;
-        }
-
-        .button:hover {
-            background-color: #2e3843;
-            text-decoration: none;
-        }
-
         .badge {
             --bs-badge-padding-x: 0.9em;
             --bs-badge-padding-y: 0.55em;
@@ -309,12 +291,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-wrap">
+                                    <div class="form-wrap text-center">
                                         <label class="custom-file-upload">
                                             <input id="id_photo" type="file" name="photo"/>
                                             <i class="fas fa-file-image-o"></i>
                                         </label>
-                                        <img id="preview-photo" class="img-preview" style="display: none;">
+                                        <img id="preview-photo" class="img-preview"
+                                             style="display: none; max-width: 20%; height: auto; margin: 0 auto;">
                                     </div>
                                 </div>
                                 <div class="col-md-12">

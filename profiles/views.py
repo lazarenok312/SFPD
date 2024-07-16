@@ -12,6 +12,9 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from .models import ProfileChangeLog
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 
 
 def register(request):
@@ -80,9 +83,31 @@ class ProfileDetailView(DetailView):
         if self.object.user != request.user:
             raise PermissionDenied
         form = ProfileUpdateForm(request.POST, request.FILES, instance=self.object)
+        # if form.is_valid():
+        #     form.save()
+        #     messages.success(request, 'Профиль успешно обновлен!')
+        #     return redirect('profile_detail', slug=self.object.slug)
+        # return self.render_to_response(self.get_context_data(form=form))
+
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Профиль успешно обновлен!')
+            old_profile_data = Profile.objects.get(pk=self.object.pk)
+
+            new_profile_data = form.save()
+
+            changes_logged = False
+            for field_name, new_value in form.cleaned_data.items():
+                old_value = getattr(old_profile_data, field_name)
+                if old_value != new_value:
+                    change_type = f"Changed {field_name}"
+                    ProfileChangeLog.objects.create(user=request.user, change_type=change_type,
+                                                    old_value=old_value, new_value=new_value)
+                    changes_logged = True
+
+            if changes_logged:
+                messages.success(request, 'Профиль успешно обновлен!')
+            else:
+                messages.info(request, 'Нет изменений в профиле для логирования.')
+
             return redirect('profile_detail', slug=self.object.slug)
         return self.render_to_response(self.get_context_data(form=form))
 
@@ -107,6 +132,7 @@ class SupportView(View):
             return redirect(request.META.get('HTTP_REFERER', 'departments:home'))
         return render(request, 'include/footer.html', {'form': form})
 
+
 # class SupportView(View):
 #     def get(self, request):
 #         form = SupportForm()
@@ -127,3 +153,22 @@ class SupportView(View):
 #             messages.success(request, 'Ваше обращение успешно доставлено!')
 #             return redirect(request.META.get('HTTP_REFERER', 'departments:home'))
 #         return render(request, 'include/footer.html', {'form': form})
+
+def profile_list(request):
+    profiles = Profile.objects.order_by('id').all()  # Ensure ordering
+    query = request.GET.get('q')
+    if query:
+        profiles = profiles.filter(
+            Q(name__icontains=query) | Q(nick_name__icontains=query)
+        )
+
+    paginator = Paginator(profiles, 10)
+    page = request.GET.get('page')
+    try:
+        profiles = paginator.page(page)
+    except PageNotAnInteger:
+        profiles = paginator.page(1)
+    except EmptyPage:
+        profiles = paginator.page(paginator.num_pages)
+
+    return render(request, 'profiles/profile_list.html', {'profiles': profiles})

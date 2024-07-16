@@ -143,9 +143,12 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img" src="{% static 'images/pa2.png' %}" alt=""
-                                                        width="138" height="69"/>
-                            </div>
+                            {% if chief_of_pa.photo %}
+                                <img class="img" src="{{ chief_of_pa.photo.url }}" alt="" width="138" height="69"/>
+                            {% else %}
+                                <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                     height="69"/>
+                            {% endif %}
                             <div class="unit-body">
                                 <h5 class="title">{{ dep_chief1_of_pa.nickname }}</h5>
                                 <div class="subtitle">Dep.Chief of PA</div>
@@ -158,9 +161,12 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img" src="{% static 'images/pa3.png' %}" alt=""
-                                                        width="138" height="69"/>
-                            </div>
+                            {% if chief_of_pa.photo %}
+                                <img class="img" src="{{ chief_of_pa.photo.url }}" alt="" width="138" height="69"/>
+                            {% else %}
+                                <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                     height="69"/>
+                            {% endif %}
                             <div class="unit-body">
                                 <h5 class="title">{{ dep_chief2_of_pa.nickname }}</h5>
                                 <div class="subtitle">Dep.Chief of PA</div>

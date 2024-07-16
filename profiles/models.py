@@ -71,3 +71,18 @@ class SupportRequest(models.Model):
     class Meta:
         verbose_name = 'Обращение в поддержку'
         verbose_name_plural = 'Обращения в поддержку'
+
+
+class ProfileChangeLog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    change_type = models.CharField(max_length=255)
+    old_value = models.TextField()
+    new_value = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.change_type} - {self.timestamp}"
+
+    class Meta:
+        verbose_name = 'Логи изменений'
+        verbose_name_plural = 'Логи изменений'
