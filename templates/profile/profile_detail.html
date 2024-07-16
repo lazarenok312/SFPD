@@ -226,7 +226,7 @@
                             </div>
                             <p><strong>Имя:</strong> {{ profile.name }}</p>
                             <p><strong>Фамилия:</strong> {{ profile.surnames }}</p>
-                            <p><strong>Электронная почта:</strong> {{ profile.email }}</p>
+                            <p><strong>Электронная почта:</strong> <a href="mailto:{{ profile.email }}" style="color: blue;">{{ profile.email }}</a></p>
                             <p><strong>Статус:</strong>
                                 {% if profile.user.is_staff %}
                                     <span class="badge bg-gradient-success">Администратор</span>
@@ -235,8 +235,6 @@
                                 {% endif %}
                             </p>
                             <p><strong>Последняя активность:</strong> {{ profile.last_activity }}</p>
-                            <p><strong>Биография:</strong></p>
-                            <p>{{ profile.bio }}</p>
                         </div>
                     </div>
                 </div>
@@ -260,6 +258,8 @@
                     {% endif %}
                     <p><strong>Онлайн за неделю:</strong> 21:01:56</p>
                     <p><strong>Онлайн за месяц:</strong> 48:25:05</p>
+                    <p><strong>Биография:</strong></p>
+                    <p>{{ profile.bio }}</p>
                 </div>
 
                 <!-- Вкладка "Настройки" -->
