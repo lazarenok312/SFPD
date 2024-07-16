@@ -11,7 +11,7 @@ class PoliceAcademyPositionForm(forms.ModelForm):
             'position': forms.Select(attrs={'class': 'form-input'}),
             'nickname': forms.TextInput(attrs={'class': 'form-input'}),
             'description': forms.Textarea(attrs={'class': 'form-input'}),
-            'photo': forms.FileInput(attrs={'class': 'form-input'}),
+            'photo': forms.FileInput(attrs={'class': 'form-input photo-input'}),
         }
         labels = {
             'position': 'Должность',

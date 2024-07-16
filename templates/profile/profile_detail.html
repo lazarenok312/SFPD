@@ -24,15 +24,6 @@
             outline: none;
         }
 
-        .form-label {
-            position: absolute;
-            top: -0.75rem;
-            left: 1rem;
-            padding: 0 0.25rem;
-            background: #fff;
-            font-size: 0.85rem;
-            color: #2e3843;
-        }
 
         .button {
             display: inline-block;
@@ -107,7 +98,7 @@
         }
 
         .custom-file-upload::before {
-            content: "\f0ee"; /* Font Awesome cloud upload icon */
+            content: "\f0ee";
             font-family: "Font Awesome 5 Free";
             font-weight: 900;
             margin-right: 5px;
@@ -118,7 +109,58 @@
         }
 
         .custom-file-upload:hover::before {
-            color: #007bff; /* Change color on hover */
+            color: #007bff;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input,
+        textarea,
+        select {
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        .img-preview {
+            display: block;
+            margin-top: 10px;
+            max-width: 60%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .form-wrap {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -272,6 +314,7 @@
                                             <input id="id_photo" type="file" name="photo"/>
                                             <i class="fas fa-file-image-o"></i>
                                         </label>
+                                        <img id="preview-photo" class="img-preview" style="display: none;">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -310,6 +353,26 @@
     </section>
     {% include 'include/footer.html' %}
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const photoInput = document.getElementById('id_photo');
+        const previewPhoto = document.getElementById('preview-photo');
+
+        photoInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    previewPhoto.src = e.target.result;
+                    previewPhoto.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                previewPhoto.style.display = 'none';
+            }
+        });
+    });
+</script>
 <div class="snackbars" id="form-output-global"></div>
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>

@@ -35,8 +35,8 @@
                                 <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
                                         class="d-block text-light" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Chief of PA</span></h1>
-                                    <p class="lead" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">{{ chief_of_pa.nickname }}</p>
+                                <p class="lead" data-caption-animate="fadeInUp"
+                                   data-caption-delay="350">{{ chief_of_pa.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -50,8 +50,8 @@
                                 <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
                                         class="d-block text-light" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Chief of PA</span></h1>
-                                    <p class="lead" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">{{ dep_chief1_of_pa.nickname }}</p>
+                                <p class="lead" data-caption-animate="fadeInUp"
+                                   data-caption-delay="350">{{ dep_chief1_of_pa.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -65,8 +65,8 @@
                                 <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Police Academy</span><span
                                         class="d-block text-light" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Chief of PA</span></h1>
-                                    <p class="lead" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">{{ dep_chief2_of_pa.nickname }}</p>
+                                <p class="lead" data-caption-animate="fadeInUp"
+                                   data-caption-delay="350">{{ dep_chief2_of_pa.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -124,16 +124,20 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img" src="{{ chief_of_pa.photo.url }}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if chief_of_pa.photo %}
+                                    <img class="img" src="{{ chief_of_pa.photo.url }}" alt="" width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                         height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">{{ chief_of_pa.nickname }}</h5>
                                 <div class="subtitle">Chief of PA</div>
                             </div>
                         </div>
-                        <div class="content">{{ chief_of_pa.description }}.
-                        </div>
+                        <div class="content">{{ chief_of_pa.description }}.</div>
                     </div>
                 </div>
                 <div class="col-md-4">
