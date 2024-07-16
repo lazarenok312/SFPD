@@ -98,11 +98,26 @@
                 {% for profile in profiles %}
                     <tr>
                         <td class="text-center">
-                            {% if profile.name %}{{ profile.name }}{% else %}Нет данных{% endif %}</td>
+                            {% if profile.name %}
+                                <a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a>
+                            {% else %}
+                                Нет данных
+                            {% endif %}
+                        </td>
                         <td class="text-center">
-                            {% if profile.surnames %}{{ profile.surnames }}{% else %}Нет данных{% endif %}</td>
+                            {% if profile.surnames %}
+                                <a href="{{ profile.get_absolute_url }}">{{ profile.surnames }}</a>
+                            {% else %}
+                                Нет данных
+                            {% endif %}
+                        </td>
                         <td class="text-center">
-                            {% if profile.nick_name %}{{ profile.nick_name }}{% else %}Нет данных{% endif %}</td>
+                            {% if profile.nick_name %}
+                                <a href="{{ profile.get_absolute_url }}">{{ profile.nick_name }}</a>
+                            {% else %}
+                                Нет данных
+                            {% endif %}
+                        </td>
                         <td class="text-center">
                             {% if profile.department %}
                                 {% if profile.department.name == "Detective Bureau" %}
@@ -121,7 +136,12 @@
                             {% endif %}
                         </td>
                         <td class="text-center">
-                            {% if profile.role %}{{ profile.role.name }}{% else %}Отсутствует{% endif %}</td>
+                            {% if profile.role %}
+                                <a href="{{ profile.get_absolute_url }}">{{ profile.role.name }}</a>
+                            {% else %}
+                                Отсутствует
+                            {% endif %}
+                        </td>
                         <td class="text-center">
                             {% if profile.is_online %}
                                 <span style="color:green">Онлайн</span>
@@ -133,7 +153,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-
             {% if profiles.has_other_pages %}
                 <ul class="pagination">
                     {% if profiles.has_previous %}
