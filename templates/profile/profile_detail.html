@@ -227,9 +227,8 @@
                             </p>
                         {% else %}
                             <span class="badge bg-gradient-danger"> <i
-                                    class="fas fa-exclamation-circle"></i></span></p>
+                                    class="fas fa-exclamation-circle"></i></span>
                         {% endif %}
-                    </p>
                     {% if profile.is_online %}
                         <p><strong>Статус онлайн:</strong> В сети</p>
                     {% else %}
@@ -242,66 +241,70 @@
                 <!-- Вкладка "Настройки" -->
                 <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                     <h3>Настройки</h3>
-                    <form method="POST" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="row row-10">
-                            <div class="col-md-12">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="id_name" type="text" name="name"
-                                           value="{{ form.name.value }}">
-                                    <label class="form-label" for="id_name">Имя</label>
+                    {% if can_edit %}
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row row-10">
+                                <div class="col-md-12">
+                                    <div class="form-wrap">
+                                        <input class="form-input" id="id_name" type="text" name="name"
+                                               value="{{ form.name.value }}">
+                                        <label class="form-label" for="id_name">Имя</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-wrap">
+                                        <input class="form-input" id="id_surnames" type="text" name="surnames"
+                                               value="{{ form.surnames.value }}">
+                                        <label class="form-label" for="id_surnames">Фамилия</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-wrap">
+                                        <input class="form-input" id="id_email" type="email" name="email"
+                                               value="{{ form.email.value }}">
+                                        <label class="form-label" for="id_email">Электронная почта</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-wrap">
+                                        <label class="custom-file-upload">
+                                            <input id="id_photo" type="file" name="photo"/>
+                                            <i class="fas fa-file-image-o"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-wrap">
+                                        <input class="form-input" id="id_nick_name" type="text" name="nick_name"
+                                               value="{{ form.nick_name.value }}">
+                                        <label class="form-label" for="id_nick_name">Игровой никнейм</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-wrap">
+                                        {{ form.role.label_tag }}
+                                        {{ form.role }}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-wrap">
+                                        <textarea class="form-input" id="id_bio"
+                                                  name="bio">{{ form.bio.value }}</textarea>
+                                        <label class="form-label" for="id_bio">Биография</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button type="submit" class="button button-size-1 button-block button-primary">
+                                        Сохранить изменения
+                                    </button>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="id_surnames" type="text" name="surnames"
-                                           value="{{ form.surnames.value }}">
-                                    <label class="form-label" for="id_surnames">Фамилия</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="id_email" type="email" name="email"
-                                           value="{{ form.email.value }}">
-                                    <label class="form-label" for="id_email">Электронная почта</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-wrap">
-                                    <label class="custom-file-upload">
-                                        <input id="id_photo" type="file" name="photo"/>
-                                        <i class="fas fa-file-image-o"></i>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-wrap">
-                                    <input class="form-input" id="id_nick_name" type="text" name="nick_name"
-                                           value="{{ form.nick_name.value }}">
-                                    <label class="form-label" for="id_nick_name">Игровой никнейм</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-wrap">
-                                    {{ form.role.label_tag }}
-                                    {{ form.role }}
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-wrap">
-                                    <textarea class="form-input" id="id_bio" name="bio">{{ form.bio.value }}</textarea>
-                                    <label class="form-label" for="id_bio">Биография</label>
-                                </div>
-                            </div>
-                            <div class="col-md-12 d-flex justify-content-end">
-                                <button type="submit" class="button button-size-1 button-block button-primary">Сохранить
-                                    изменения
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    {% else %}
+                        <p>У вас нет прав на редактирование этого профиля.</p>
+                    {% endif %}
                 </div>
-                <!-- Добавьте другие вкладки по необходимости -->
             </div>
         </div>
     </section>

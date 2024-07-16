@@ -9,6 +9,10 @@ from .forms import ProfileUpdateForm, SupportForm
 from django.views.generic import View
 from django.core.mail import send_mail
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 
 def register(request):
     if request.method == 'POST':
@@ -58,14 +62,23 @@ def user_logout(request):
     return redirect('departments:home')
 
 
+@method_decorator(login_required, name='dispatch')
 class ProfileDetailView(DetailView):
     model = Profile
     template_name = 'profile/profile_detail.html'
     context_object_name = 'profile'
     slug_field = 'slug'
 
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if request.method == "POST" and self.object.user != request.user:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
+        if self.object.user != request.user:
+            raise PermissionDenied
         form = ProfileUpdateForm(request.POST, request.FILES, instance=self.object)
         if form.is_valid():
             form.save()
@@ -77,6 +90,7 @@ class ProfileDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         if 'form' not in context:
             context['form'] = ProfileUpdateForm(instance=self.object)
+        context['can_edit'] = self.object.user == self.request.user
         return context
 
 

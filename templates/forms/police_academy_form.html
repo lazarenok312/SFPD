@@ -1,156 +1,190 @@
-<style>
-    /* Global styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-}
+{% load static %}
+{% include 'base.html' %}
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>Форма Police Academy</title>
+    <style>
+        /* Стили остаются без изменений */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
 
-/* Form container */
-.form-card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-}
+        .form-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
 
-/* Form group */
-.form-group {
-    margin-bottom: 15px;
-    position: relative;
-}
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
 
-/* Form labels */
-.form-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
 
-/* Form inputs */
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 16px;
-}
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
 
-/* Form errors */
-.form-error {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-}
+        .form-error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
 
-/* Submit button */
-.btn-submit {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
+        .form-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease-in-out;
+        }
 
-.btn-submit:hover {
-    background-color: #0056b3;
-}
+        input,
+        textarea,
+        select {
+            transition: all 0.3s ease;
+        }
 
-/* Card hover effect */
-.form-card:hover {
-    transform: translateY(-5px);
-    transition: transform 0.3s ease-in-out;
-}
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
 
-/* Adding smooth transition */
-input,
-textarea,
-select {
-    transition: all 0.3s ease;
-}
+        .img-preview {
+            display: block;
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
 
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
-    outline: none;
-}
-
-</style>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ formset.management_form }}
-    <div class="row">
-        {% for form in formset %}
-            <div class="col-md-4 form-card">
-                {{ form.id }}
-                <div class="form-group">
-                    {{ form.position.label_tag }}
-                    {{ form.position }}
-                    {% if form.position.errors %}
-                        <div class="form-error">{{ form.position.errors }}</div>
-                    {% endif %}
-                </div>
-
-                <div class="form-group">
-                    {{ form.nickname.label_tag }}
-                    {{ form.nickname }}
-                    {% if form.nickname.errors %}
-                        <div class="form-error">{{ form.nickname.errors }}</div>
-                    {% endif %}
-                </div>
-
-                <div class="form-group">
-                    {{ form.description.label_tag }}
-                    {{ form.description }}
-                    {% if form.description.errors %}
-                        <div class="form-error">{{ form.description.errors }}</div>
-                    {% endif %}
-                </div>
-
-                <div class="form-group">
-                    {{ form.photo.label_tag }}
-                    {{ form.photo }}
-                    {% if form.photo.errors %}
-                        <div class="form-error">{{ form.photo.errors }}</div>
-                    {% endif %}
-                </div>
-            </div>
-        {% endfor %}
+        .img-preview:hover {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Загрузка...</p>
     </div>
-    <button type="submit" class="btn-submit">Сохранить</button>
-</form>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <div class="rd-navbar-bg novi-background bg-image"
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
+    <section class="breadcrumbs-custom bg-image novi-background bg-primary">
+        <div class="container">
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                <li class="active">Форма Police Academy</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section section-md">
+        <div class="container">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ formset.management_form }}
+                <div class="row">
+                    {% for form in formset %}
+                        <div class="col-md-4 form-card">
+                            {{ form.id }}
+                            <div class="form-group">
+                                {{ form.position.label_tag }}
+                                {{ form.position }}
+                                {% if form.position.errors %}
+                                    <div class="form-error">{{ form.position.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.nickname.label_tag }}
+                                {{ form.nickname }}
+                                {% if form.nickname.errors %}
+                                    <div class="form-error">{{ form.nickname.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.description.label_tag }}
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="form-error">{{ form.description.errors }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.photo.label_tag }}
+                                {{ form.photo }}
+                                {% if form.photo.errors %}
+                                    <div class="form-error">{{ form.photo.errors }}</div>
+                                {% endif %}
+                                <img id="preview-{{ forloop.counter }}" class="img-preview" style="display: none;">
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </form>
+        </div>
+    </section>
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
 <script>
-    // Wait for the document to be fully loaded
-document.addEventListener("DOMContentLoaded", function() {
-    // Add focus and blur event listeners to all input fields for a better UX
-    const inputs = document.querySelectorAll('input, textarea, select');
+    document.addEventListener("DOMContentLoaded", function () {
+        const photoInputs = document.querySelectorAll('input[type="file"]');
 
-    inputs.forEach(input => {
-        input.addEventListener('focus', function() {
-            this.parentElement.classList.add('focused');
-        });
-
-        input.addEventListener('blur', function() {
-            if (this.value === "") {
-                this.parentElement.classList.remove('focused');
-            }
+        photoInputs.forEach(input => {
+            input.addEventListener('change', function () {
+                const previewId = 'preview-' + this.name.split('-').pop();
+                const preview = document.getElementById(previewId);
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    preview.style.display = 'none';
+                }
+            });
         });
     });
-
-    // Form submit button
-    const submitButton = document.querySelector('.btn-submit');
-    submitButton.addEventListener('click', function() {
-        this.classList.add('clicked');
-        setTimeout(() => this.classList.remove('clicked'), 300);
-    });
-});
-
 </script>
+</body>
+</html>
