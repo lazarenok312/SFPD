@@ -46,3 +46,28 @@ class PoliceAcademyPosition(models.Model):
 
     def __str__(self):
         return f"{self.get_position_display()} - {self.nickname}"
+
+
+class DepartmentStaff(models.Model):
+    RANKS = (
+        ('sheriff', 'Шериф департамента'),
+        ('colonel1', 'Полковник1'),
+        ('colonel2', 'Полковник2'),
+        ('colonel3', 'Полковник3'),
+        ('lcolonel1', 'Подполковник1'),
+        ('lcolonel2', 'Подполковник2'),
+        ('lcolonel3', 'Подполковник3'),
+        ('major1', 'Майор1'),
+        ('major2', 'Майор2'),
+        ('major3', 'Майор3'),
+        ('major4', 'Майор4'),
+    )
+
+    name = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, choices=RANKS)
+    photo = models.ImageField(upload_to='department_staff', blank=True, null=True)
+    discord_url = models.URLField(max_length=200, blank=True, null=True)
+    vk_url = models.URLField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.get_title_display()}"

@@ -1,0 +1,27 @@
+{% load static %}
+{% include 'base.html' %}
+<div class="container">
+    <h2>Редактировать Сотрудников</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            <div class="form-group">
+                {{ form.name.label_tag }} {{ form.name }}
+            </div>
+            <div class="form-group">
+                {{ form.title.label_tag }} {{ form.title }}
+            </div>
+            <div class="form-group">
+                {{ form.photo.label_tag }} {{ form.photo }}
+            </div>
+            <div class="form-group">
+                {{ form.discord_url.label_tag }} {{ form.discord_url }}
+            </div>
+            <div class="form-group">
+                {{ form.vk_url.label_tag }} {{ form.vk_url }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+</div>

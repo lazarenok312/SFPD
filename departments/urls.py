@@ -15,4 +15,5 @@ urlpatterns = [
     path('hall_of_fame/', views.hall_fame, name='hall_of_fame'),
     path('thank_board/', views.thank_board, name='thank_board'),
     path('police-academy/', views.police_academy_view, name='police_academy_view'),
+    path('department-staff/', views.edit_department_staff, name='edit_department_staff'),
 ]

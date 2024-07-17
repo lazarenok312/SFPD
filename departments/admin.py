@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Department, Role, ImportantInfo, PoliceAcademyPosition
+from .models import Department, Role, ImportantInfo, PoliceAcademyPosition, DepartmentStaff
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
@@ -24,3 +24,9 @@ class PoliceAcademyPositionAdmin(admin.ModelAdmin):
     list_display = ('position', 'nickname', 'description', 'photo')
     search_fields = ('nickname', 'position')
     list_filter = ('position',)
+
+@admin.register(DepartmentStaff)
+class DepartmentStaffAdmin(admin.ModelAdmin):
+    list_display = ('title', 'name', 'discord_url', 'vk_url', 'photo')
+    search_fields = ('name', 'title')
+    list_filter = ('title',)

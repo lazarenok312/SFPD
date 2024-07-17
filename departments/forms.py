@@ -1,5 +1,5 @@
 from django import forms
-from .models import PoliceAcademyPosition
+from .models import *
 from django.forms import modelformset_factory
 
 
@@ -23,6 +23,32 @@ class PoliceAcademyPositionForm(forms.ModelForm):
 PoliceAcademyPositionFormSet = forms.modelformset_factory(
     PoliceAcademyPosition,
     form=PoliceAcademyPositionForm,
+    extra=0,
+    can_delete=False
+)
+
+class DepartmentStaffForm(forms.ModelForm):
+    class Meta:
+        model = DepartmentStaff
+        fields = ['name', 'title', 'photo', 'discord_url', 'vk_url']
+        widgets = {
+            'title': forms.Select(attrs={'class': 'form-input'}),
+            'name': forms.TextInput(attrs={'class': 'form-input'}),
+            'discord_url': forms.TextInput(attrs={'class': 'form-input'}),
+            'vk_url': forms.TextInput(attrs={'class': 'form-input'}),
+            'photo': forms.FileInput(attrs={'class': 'form-input photo-input'}),
+        }
+        labels = {
+            'title': 'Должность',
+            'name': 'Никнейм',
+            'discord_url': 'Дискорд',
+            'vk_url': 'ВК',
+            'photo': 'Фотография',
+        }
+
+DepartmentStaffFormSet = modelformset_factory(
+    DepartmentStaff,
+    form=DepartmentStaffForm,
     extra=0,
     can_delete=False
 )

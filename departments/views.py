@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import PoliceAcademyPosition
 from .forms import *
 
@@ -39,7 +39,8 @@ def faq_view(request):
 
 
 def about_view(request):
-    return render(request, 'departments/about_detail.html')
+    staff_members = DepartmentStaff.objects.all()
+    return render(request, 'departments/about_detail.html', {'staff_members': staff_members})
 
 
 def hall_fame(request):
@@ -71,3 +72,19 @@ def police_academy_view(request):
         formset = PoliceAcademyPositionFormSet(queryset=positions_qs)
 
     return render(request, 'forms/police_academy_form.html', {'formset': formset})
+
+def edit_department_staff(request):
+    if request.method == 'POST':
+        formset = DepartmentStaffFormSet(request.POST, request.FILES)
+        if formset.is_valid():
+            formset.save()
+            return redirect('departments:about')
+        else:
+            print("Formset errors:", formset.errors)
+            for form in formset:
+                print(form.errors)
+    else:
+        queryset = DepartmentStaff.objects.all()
+        formset = DepartmentStaffFormSet(queryset=queryset)
+
+    return render(request, 'forms/department_staff_form.html', {'formset': formset})

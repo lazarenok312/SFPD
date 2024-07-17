@@ -2,9 +2,25 @@
 {% include 'base.html' %}
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <head>
     <title>О Департаменте</title>
     <style>
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icon {
+            margin-right: 10px;
+            font-size: 24px;
+            color: #303e48;
+            transition: color 0.3s;
+        }
+
+        .social-icon:hover {
+            color: #007bff;
+        }
+
         .history-item {
             position: relative;
         }
@@ -51,6 +67,7 @@
             font-weight: bold;
             color: #333;
         }
+
         .silver-frame {
             border-color: #bab7b7;
             border-width: 3px;
@@ -321,20 +338,24 @@
                         <h2 class="title-icon title-icon-2" style="color: white"><span
                                 class="icon icon-default mercury-icon-jobs"></span><span>Трудоуcстройство<br><span
                                 class="text-light">Вступай в SFPD</span></span></h2>
-                        <p class="big" style="color: white">У нас имеется ряд возможностей для вступления в наш департамент</p>
+                        <p class="big" style="color: white">У нас имеется ряд возможностей для вступления в наш
+                            департамент</p>
                         <div class="group-sm group-wrap-2">
                             <a
-                                class="button button-icon button-icon-right button-secondary"
-                                href="https://docs.google.com/forms/d/e/1FAIpQLSc3dyeczDSUIE3YEr9Igmivdmm0mKw-t0jibMBt7y-xImDUzw/viewform" target="_blank"><span>Контрактная служба</span><span
-                                class="icon fa fa-cogs"></span></a>
+                                    class="button button-icon button-icon-right button-secondary"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSc3dyeczDSUIE3YEr9Igmivdmm0mKw-t0jibMBt7y-xImDUzw/viewform"
+                                    target="_blank"><span>Контрактная служба</span><span
+                                    class="icon fa fa-cogs"></span></a>
                             <a
-                                class="button button-icon button-icon-right button-secondary"
-                                href="https://evolve-rp.su/threads/384319/" target="_blank"><span>Переводы</span><span
-                                class="icon fa fa-android"></span></a>
+                                    class="button button-icon button-icon-right button-secondary"
+                                    href="https://evolve-rp.su/threads/384319/"
+                                    target="_blank"><span>Переводы</span><span
+                                    class="icon fa fa-android"></span></a>
                             <a
-                                class="button button-icon button-icon-right button-secondary"
-                                href="https://docs.google.com/forms/d/e/1FAIpQLScsp2Ymkh5QFO8VjdQj9TyYwcW7D2HaLXpMuDwEVlWtr58V_g/viewform" target="_blank"><span>Полицейская академия</span><span
-                                class="icon fa fa-android"></span></a>
+                                    class="button button-icon button-icon-right button-secondary"
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLScsp2Ymkh5QFO8VjdQj9TyYwcW7D2HaLXpMuDwEVlWtr58V_g/viewform"
+                                    target="_blank"><span>Полицейская академия</span><span
+                                    class="icon fa fa-android"></span></a>
 
                         </div>
                     </div>
@@ -351,7 +372,7 @@
                  data-loop="false" data-margin="30" data-mouse-drag="false">
                 <div class="item">
                     <a class="link-image" href="javascript:void(0);" onclick="openModal('modal1');">
-                        <img src="{% static 'images/sherif/Dimentii.webp' %}"  width="200" height="90"/>
+                        <img src="{% static 'images/sherif/Dimentii.webp' %}" width="200" height="90"/>
                     </a>
                     <div class="nickname-text">
                         <div class="nickname-frame gold-frame">
@@ -417,10 +438,12 @@
         <div id="modal4" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('modal4')">&times;</span>
-                <p>Превосходный лидер SFPD 2021, смог вывести средний онлайн фракции из 10 до 45 и этим утёр нос другим департаментам</p>
+                <p>Превосходный лидер SFPD 2021, смог вывести средний онлайн фракции из 10 до 45 и этим утёр нос другим
+                    департаментам</p>
             </div>
         </div>
     </section>
+
     <section class="section section-lg bg-default">
         <div class="container text-center text-lg-left">
             <h2><span class="text-light">Руководство</span> Департамента</h2>
@@ -430,12 +453,19 @@
                         <div class="team-meta unit align-items-center">
                             <div class="unit-left">
                                 <img class="img" src="{% static 'images/testimonials-2-138x138.jpg' %}" alt=""
-                                     width="138"
-                                     height="69"/>
+                                     width="138" height="69"/>
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">Jennifer Ruthless</h5>
                                 <div class="subtitle">Шериф департамента</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -452,6 +482,14 @@
                             <div class="unit-body">
                                 <h5 class="title">Liviano Ruthless</h5>
                                 <div class="subtitle">Полковник</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -466,6 +504,14 @@
                             <div class="unit-body">
                                 <h5 class="title">John Harrelson</h5>
                                 <div class="subtitle">Полковник</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -480,6 +526,14 @@
                             <div class="unit-body">
                                 <h5 class="title">Daniel Gurinifero</h5>
                                 <div class="subtitle">Полковник</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -496,6 +550,14 @@
                             <div class="unit-body">
                                 <h5 class="title">Gabriel Holmberg</h5>
                                 <div class="subtitle">Подполковник</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -510,6 +572,14 @@
                             <div class="unit-body">
                                 <h5 class="title">-</h5>
                                 <div class="subtitle">Подполковник</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -524,6 +594,14 @@
                             <div class="unit-body">
                                 <h5 class="title">Vladik Pavlenko</h5>
                                 <div class="subtitle">Подполковник</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -540,6 +618,14 @@
                             <div class="unit-body">
                                 <h5 class="title">-</h5>
                                 <div class="subtitle">Майор</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -554,6 +640,14 @@
                             <div class="unit-body">
                                 <h5 class="title">-</h5>
                                 <div class="subtitle">Майор</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -568,6 +662,14 @@
                             <div class="unit-body">
                                 <h5 class="title">Mike Holmberg</h5>
                                 <div class="subtitle">Майор</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -585,6 +687,14 @@
                             <div class="unit-body">
                                 <h5 class="title">Ronnie Montes</h5>
                                 <div class="subtitle">Майор</div>
+                                <div class="social-icons">
+                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-discord"></i>
+                                    </a>
+                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                        <i class="fab fa-vk"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

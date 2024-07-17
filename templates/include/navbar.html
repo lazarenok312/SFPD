@@ -263,6 +263,7 @@
                                             <li><a href="{% url 'profile_list' %}">Все сотрудники</a></li>
                                             {% if user.is_superuser %}
                                             <li><a href="{% url 'departments:police_academy_view' %}">Форма данных</a></li>
+                                            <li><a href="{% url 'departments:edit_department_staff' %}">Staff</a></li>
                                             {% endif %}
                                         </ul>
                                     </li>
