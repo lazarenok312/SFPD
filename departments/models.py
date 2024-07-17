@@ -47,6 +47,10 @@ class PoliceAcademyPosition(models.Model):
     def __str__(self):
         return f"{self.get_position_display()} - {self.nickname}"
 
+    class Meta:
+        verbose_name = 'Должность ПА'
+        verbose_name_plural = 'Должности ПА'
+
 
 class DepartmentStaff(models.Model):
     RANKS = (
@@ -66,8 +70,13 @@ class DepartmentStaff(models.Model):
     name = models.CharField(max_length=100)
     title = models.CharField(max_length=100, choices=RANKS)
     photo = models.ImageField(upload_to='department_staff', blank=True, null=True)
+    job_title = models.TextField(max_length=50, blank=True, null=True)
     discord_url = models.URLField(max_length=200, blank=True, null=True)
     vk_url = models.URLField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         return f"{self.name} - {self.get_title_display()}"
+
+    class Meta:
+        verbose_name = 'Штаб'
+        verbose_name_plural = 'Штаб'

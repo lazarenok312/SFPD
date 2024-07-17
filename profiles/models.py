@@ -89,6 +89,7 @@ class ProfileChangeLog(models.Model):
         verbose_name = 'Логи изменений'
         verbose_name_plural = 'Логи изменений'
 
+
 class LikeDislike(models.Model):
     user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
     profile = models.ForeignKey(Profile, verbose_name="Профиль", on_delete=models.CASCADE)
@@ -96,3 +97,7 @@ class LikeDislike(models.Model):
 
     class Meta:
         unique_together = ('user', 'profile')
+
+    class Meta:
+        verbose_name = 'Лайки Дизлайки'
+        verbose_name_plural = 'Лайки Дизлайки'

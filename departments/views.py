@@ -100,7 +100,7 @@ def police_academy_view(request):
 
 def edit_department_staff(request):
     if request.method == 'POST':
-        formset = DepartmentStaffFormSet(request.POST, request.FILES)
+        formset = DepartmentStaffFormSet(request.POST, request.FILES, queryset=DepartmentStaff.objects.all())
         if formset.is_valid():
             formset.save()
             return redirect('departments:about')

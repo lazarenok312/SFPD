@@ -6,14 +6,10 @@
 <head>
     <title>О Департаменте</title>
     <style>
-        .social-icons {
-            margin-top: 10px;
-        }
-
         .social-icon {
             margin-right: 10px;
             font-size: 24px;
-            color: #303e48;
+            color: #0c2c51;
             transition: color 0.3s;
         }
 
@@ -456,13 +452,17 @@
                                      width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">{{ sheriff.name }}</h5>
+                                <h5 class="title">
+                                    {% if sheriff.name %}{{ sheriff.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Шериф департамента</div>
+                                <div class="subtitle">
+                                    {% if sheriff.job_title %}{{ sheriff.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ sheriff.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ sheriff.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>
@@ -480,13 +480,17 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Liviano Ruthless</h5>
+                                <h5 class="title">
+                                    {% if colonel1.name %}{{ colonel1.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Полковник</div>
+                                <div class="subtitle">
+                                    {% if colonel1.job_title %}{{ colonel1.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ colonel1.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ colonel1.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>
@@ -502,13 +506,17 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">John Harrelson</h5>
+                                <h5 class="title">
+                                    {% if colonel2.name %}{{ colonel2.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Полковник</div>
+                                <div class="subtitle">
+                                    {% if colonel2.job_title %}{{ colonel2.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ colonel2.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ colonel2.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>
@@ -524,13 +532,17 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Daniel Gurinifero</h5>
+                                <h5 class="title">
+                                    {% if colonel3.name %}{{ colonel3.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Полковник</div>
+                                <div class="subtitle">
+                                    {% if colonel3.job_title %}{{ colonel3.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ colonel3.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ colonel3.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>
@@ -548,13 +560,17 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Gabriel Holmberg</h5>
+                                <h5 class="title">
+                                    {% if lcolonel1.name %}{{ lcolonel1.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Подполковник</div>
+                                <div class="subtitle">
+                                    {% if lcolonel1.job_title %}{{ lcolonel1.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ lcolonel1.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ lcolonel1.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>
@@ -570,13 +586,17 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">-</h5>
+                                <h5 class="title">
+                                    {% if lcolonel2.name %}{{ lcolonel2.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Подполковник</div>
+                                <div class="subtitle">
+                                    {% if lcolonel2.job_title %}{{ lcolonel2.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ lcolonel2.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ lcolonel2.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>
@@ -592,13 +612,17 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Vladik Pavlenko</h5>
+                                <h5 class="title">
+                                    {% if lcolonel3.name %}{{ lcolonel3.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Подполковник</div>
+                                <div class="subtitle">
+                                    {% if lcolonel3.job_title %}{{ lcolonel3.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ lcolonel3.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ lcolonel3.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>
@@ -616,13 +640,17 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">-</h5>
+                                <h5 class="title">
+                                    {% if major1.name %}{{ major1.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Майор</div>
+                                <div class="subtitle">
+                                    {% if major1.job_title %}{{ major1.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ major1.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ major1.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>
@@ -638,13 +666,17 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">-</h5>
+                                <h5 class="title">
+                                    {% if major2.name %}{{ major2.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Майор</div>
+                                <div class="subtitle">
+                                    {% if major2.job_title %}{{ major2.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ major2.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ major2.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>
@@ -660,13 +692,17 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Mike Holmberg</h5>
+                                <h5 class="title">
+                                    {% if major3.name %}{{ major3.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Майор</div>
+                                <div class="subtitle">
+                                    {% if major3.job_title %}{{ major3.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ major3.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ major3.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>
@@ -685,13 +721,17 @@
                                      height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Ronnie Montes</h5>
+                                <h5 class="title">
+                                    {% if major4.name %}{{ major4.name }}{% else %}Имя не указано{% endif %}</h5>
                                 <div class="subtitle">Майор</div>
+                                <div class="subtitle">
+                                    {% if major4.job_title %}{{ major4.job_title }}{% else %}Должность не
+                                        указана{% endif %}</div>
                                 <div class="social-icons">
-                                    <a href="https://discord.com" target="_blank" class="social-icon">
+                                    <a href="{{ major4.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
                                     </a>
-                                    <a href="https://vk.com" target="_blank" class="social-icon">
+                                    <a href="{{ major3.vk_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-vk"></i>
                                     </a>
                                 </div>

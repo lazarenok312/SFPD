@@ -1,27 +1,224 @@
 {% load static %}
 {% include 'base.html' %}
-<div class="container">
-    <h2>Редактировать Сотрудников</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ formset.management_form }}
-        {% for form in formset %}
-            <div class="form-group">
-                {{ form.name.label_tag }} {{ form.name }}
-            </div>
-            <div class="form-group">
-                {{ form.title.label_tag }} {{ form.title }}
-            </div>
-            <div class="form-group">
-                {{ form.photo.label_tag }} {{ form.photo }}
-            </div>
-            <div class="form-group">
-                {{ form.discord_url.label_tag }} {{ form.discord_url }}
-            </div>
-            <div class="form-group">
-                {{ form.vk_url.label_tag }} {{ form.vk_url }}
-            </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-    </form>
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>Форма Staff</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .form-error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        input,
+        textarea,
+        select {
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        .img-preview {
+            display: block;
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #e0e0e0;
+        }
+
+        .custom-file-upload input[type=file] {
+            display: none;
+        }
+
+        .custom-file-upload i {
+            margin-right: 8px;
+        }
+
+        .custom-file-upload::before {
+            content: "\f0ee";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 5px;
+        }
+
+        .custom-file-upload::after {
+            content: "Выберите фото";
+        }
+
+        .custom-file-upload:hover::before {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Загрузка...</p>
+    </div>
 </div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <div class="rd-navbar-bg novi-background bg-image"
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
+    <section class="breadcrumbs-custom bg-image novi-background bg-primary">
+        <div class="container">
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                <li class="active">Форма Staff</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section section-md">
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <div class="row">
+                {% for form in formset %}
+                    <div class="col-md-4 mb-4">
+                        <div class="form-card">
+                            <div class="form-group">
+                                {{ form.title.label_tag }} {{ form.title }}
+                                {% if form.title.errors %}
+                                    <div class="form-error">{{ form.title.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.name.label_tag }} {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="form-error">{{ form.name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.job_title.label_tag }} {{ form.job_title }}
+                                {% if form.job_title.errors %}
+                                    <div class="form-error">{{ form.job_title.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.discord_url.label_tag }} {{ form.discord_url }}
+                                {% if form.discord_url.errors %}
+                                    <div class="form-error">{{ form.discord_url.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.vk_url.label_tag }} {{ form.vk_url }}
+                                {% if form.vk_url.errors %}
+                                    <div class="form-error">{{ form.vk_url.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.photo.label_tag }} {{ form.photo }}
+                                {% if form.photo.errors %}
+                                    <div class="form-error">{{ form.photo.errors }}</div>
+                                {% endif %}
+                                <img id="preview-{{ forloop.counter }}" class="img-preview" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+    </div>
+</section>
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const photoInputs = document.querySelectorAll('input[type="file"].photo-input');
+
+    photoInputs.forEach((input, index) => {
+        input.addEventListener('change', function () {
+            const preview = document.getElementById('preview-' + (index + 1));
+            const file = this.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.style.display = 'none';
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

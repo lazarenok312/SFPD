@@ -20,6 +20,7 @@ class PoliceAcademyPositionForm(forms.ModelForm):
             'photo': 'Фотография',
         }
 
+
 PoliceAcademyPositionFormSet = forms.modelformset_factory(
     PoliceAcademyPosition,
     form=PoliceAcademyPositionForm,
@@ -27,20 +28,23 @@ PoliceAcademyPositionFormSet = forms.modelformset_factory(
     can_delete=False
 )
 
+
 class DepartmentStaffForm(forms.ModelForm):
     class Meta:
         model = DepartmentStaff
-        fields = ['name', 'title', 'photo', 'discord_url', 'vk_url']
+        fields = ['title', 'name', 'job_title', 'discord_url', 'vk_url', 'photo']
         widgets = {
             'title': forms.Select(attrs={'class': 'form-input'}),
             'name': forms.TextInput(attrs={'class': 'form-input'}),
+            'job_title': forms.TextInput(attrs={'class': 'form-input'}),
             'discord_url': forms.TextInput(attrs={'class': 'form-input'}),
             'vk_url': forms.TextInput(attrs={'class': 'form-input'}),
             'photo': forms.FileInput(attrs={'class': 'form-input photo-input'}),
         }
         labels = {
-            'title': 'Должность',
+            'title': 'Звание',
             'name': 'Никнейм',
+            'job_title': 'Должность',
             'discord_url': 'Дискорд',
             'vk_url': 'ВК',
             'photo': 'Фотография',
