@@ -39,8 +39,32 @@ def faq_view(request):
 
 
 def about_view(request):
-    staff_members = DepartmentStaff.objects.all()
-    return render(request, 'departments/about_detail.html', {'staff_members': staff_members})
+    sheriff = DepartmentStaff.objects.filter(title='sheriff').first()
+    colonel1 = DepartmentStaff.objects.filter(title='colonel1').first()
+    colonel2 = DepartmentStaff.objects.filter(title='colonel2').first()
+    colonel3 = DepartmentStaff.objects.filter(title='colonel3').first()
+    lcolonel1 = DepartmentStaff.objects.filter(title='lcolonel1').first()
+    lcolonel2 = DepartmentStaff.objects.filter(title='lcolonel2').first()
+    lcolonel3 = DepartmentStaff.objects.filter(title='lcolonel3').first()
+    major1 = DepartmentStaff.objects.filter(title='major1').first()
+    major2 = DepartmentStaff.objects.filter(title='major2').first()
+    major3 = DepartmentStaff.objects.filter(title='major3').first()
+    major4 = DepartmentStaff.objects.filter(title='major4').first()
+
+    context = {
+        'sheriff': sheriff,
+        'colonel1': colonel1,
+        'colonel2': colonel2,
+        'colonel3': colonel3,
+        'lcolonel1': lcolonel1,
+        'lcolonel2': lcolonel2,
+        'lcolonel3': lcolonel3,
+        'major1': major1,
+        'major2': major2,
+        'major3': major3,
+        'major4': major4,
+    }
+    return render(request, 'departments/about_detail.html', context)
 
 
 def hall_fame(request):
@@ -72,6 +96,7 @@ def police_academy_view(request):
         formset = PoliceAcademyPositionFormSet(queryset=positions_qs)
 
     return render(request, 'forms/police_academy_form.html', {'formset': formset})
+
 
 def edit_department_staff(request):
     if request.method == 'POST':
