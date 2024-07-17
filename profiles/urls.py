@@ -9,4 +9,6 @@ urlpatterns = [
     path('profile/<slug:slug>/', ProfileDetailView.as_view(), name='profile_detail'),
     path('support/', views.SupportView.as_view(), name='support'),
     path('profiles_list/', profile_list, name='profile_list'),
+    path('profile/<slug:slug>/like/', views.like_profile, name='like_profile'),
+    path('profile/<slug:slug>/dislike/', views.dislike_profile, name='dislike_profile'),
 ]

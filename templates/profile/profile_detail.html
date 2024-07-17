@@ -2,7 +2,8 @@
 {% include 'base.html' %}
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="en">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <head>
     <title>Личный кабинет</title>
     <style>
@@ -144,6 +145,61 @@
         .form-wrap {
             margin-bottom: 20px;
         }
+
+        .btn-like, .btn-dislike {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s, color 0.2s;
+        }
+
+        .btn-like i, .btn-dislike i {
+            font-size: 24px;
+            transition: color 0.2s;
+        }
+
+        .btn-like i {
+            color: green;
+        }
+
+        .btn-dislike i {
+            color: #a10202;
+        }
+
+        .btn-like:hover i {
+            color: #00ff00;
+        }
+
+        .btn-dislike:hover i {
+            color: #ff0000;
+        }
+
+        .clicked-up {
+            animation: bounce-up 0.3s;
+        }
+
+        .clicked-down {
+            animation: bounce-down 0.3s;
+        }
+
+        @keyframes bounce-up {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes bounce-down {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(10px);
+            }
+        }
     </style>
 </head>
 <body>
@@ -215,18 +271,28 @@
                         {% endif %}
                         <div class="col-md-8">
                             <div class="profile-confirmation">
-                                <br>
+                                <p style="margin: 10px 0 10px 0;">
+                                    <button id="like-button" class="btn btn-success btn-like">
+                                        <i class="fas fa-thumbs-up"></i> <span
+                                            id="like-count">{{ profile.likes }}</span>
+                                    </button>
+                                    <button id="dislike-button" class="btn btn-danger btn-dislike">
+                                        <i class="fas fa-thumbs-down"></i> <span
+                                            id="dislike-count">{{ profile.dislikes }}</span>
+                                    </button>
+                                </p>
+
                                 {% if profile.profile_confirmed %}
                                     <span class="badge bg-gradient-success"> <i class="fas fa-check-circle mr-2"></i>Профиль подтвержден</span>
-                                    </p>
                                 {% else %}
                                     <span class="badge bg-gradient-danger"> <i
-                                            class="fas fa-exclamation-circle mr-2"></i>Профиль не подтвержден</span></p>
+                                            class="fas fa-exclamation-circle mr-2"></i>Профиль не подтвержден</span>
                                 {% endif %}
                             </div>
                             <p><strong>Имя:</strong> {{ profile.name }}</p>
                             <p><strong>Фамилия:</strong> {{ profile.surnames }}</p>
-                            <p><strong>Электронная почта:</strong> <a href="mailto:{{ profile.email }}" style="color: blue;">{{ profile.email }}</a></p>
+                            <p><strong>Электронная почта:</strong> <a href="mailto:{{ profile.email }}"
+                                                                      style="color: blue;">{{ profile.email }}</a></p>
                             <p><strong>Статус:</strong>
                                 {% if profile.user.is_staff %}
                                     <span class="badge bg-gradient-success">Администратор</span>
@@ -353,6 +419,64 @@
             } else {
                 previewPhoto.style.display = 'none';
             }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const likeButton = document.getElementById('like-button');
+        const dislikeButton = document.getElementById('dislike-button');
+        const likeCount = document.getElementById('like-count');
+        const dislikeCount = document.getElementById('dislike-count');
+
+        likeButton.addEventListener('click', function () {
+            fetch("{% url 'like_profile' profile.slug %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    likeCount.textContent = data.likes;
+                    dislikeCount.textContent = data.dislikes;
+                    likeButton.classList.add('clicked-up');
+                    setTimeout(() => likeButton.classList.remove('clicked-up'), 300);
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Лайк!',
+                        text: 'Чмок.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
+        });
+
+        dislikeButton.addEventListener('click', function () {
+            fetch("{% url 'dislike_profile' profile.slug %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    likeCount.textContent = data.likes;
+                    dislikeCount.textContent = data.dislikes;
+                    dislikeButton.classList.add('clicked-down');
+                    setTimeout(() => dislikeButton.classList.remove('clicked-down'), 300);
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Дизлайк!',
+                        text: 'За что! Минус уважение.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                });
         });
     });
 </script>

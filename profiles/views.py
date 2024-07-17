@@ -3,8 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import DetailView
-from .models import Profile
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ProfileUpdateForm, SupportForm
 from django.views.generic import View
 from django.core.mail import send_mail
@@ -12,9 +11,10 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from .models import ProfileChangeLog
+from .models import ProfileChangeLog, Profile, LikeDislike
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
+from django.http import JsonResponse
 
 
 def register(request):
@@ -172,3 +172,47 @@ def profile_list(request):
         profiles = paginator.page(paginator.num_pages)
 
     return render(request, 'profiles/profile_list.html', {'profiles': profiles})
+
+
+@login_required
+def like_profile(request, slug):
+    profile = get_object_or_404(Profile, slug=slug)
+    like_dislike, created = LikeDislike.objects.get_or_create(user=request.user, profile=profile)
+
+    if not created and like_dislike.is_like:
+        like_dislike.delete()
+        profile.likes -= 1
+    elif not created and not like_dislike.is_like:
+        like_dislike.is_like = True
+        like_dislike.save()
+        profile.likes += 1
+        profile.dislikes -= 1
+    else:
+        like_dislike.is_like = True
+        like_dislike.save()
+        profile.likes += 1
+
+    profile.save()
+    return JsonResponse({'likes': profile.likes, 'dislikes': profile.dislikes})
+
+
+@login_required
+def dislike_profile(request, slug):
+    profile = get_object_or_404(Profile, slug=slug)
+    like_dislike, created = LikeDislike.objects.get_or_create(user=request.user, profile=profile)
+
+    if not created and not like_dislike.is_like:
+        like_dislike.delete()
+        profile.dislikes -= 1
+    elif not created and like_dislike.is_like:
+        like_dislike.is_like = False
+        like_dislike.save()
+        profile.dislikes += 1
+        profile.likes -= 1
+    else:
+        like_dislike.is_like = False
+        like_dislike.save()
+        profile.dislikes += 1
+
+    profile.save()
+    return JsonResponse({'likes': profile.likes, 'dislikes': profile.dislikes})

@@ -23,6 +23,8 @@ class Profile(models.Model):
     nick_name = models.CharField(max_length=50, verbose_name="Игровой ник", blank=True)
     profile_confirmed = models.BooleanField(default=False, verbose_name="Подтверждение профиля")
     role_confirmed = models.BooleanField(default=False, verbose_name="Подтверждение должности")
+    likes = models.PositiveIntegerField(default=0, verbose_name="Лайки")
+    dislikes = models.PositiveIntegerField(default=0, verbose_name="Дизлайки")
 
     @property
     def status(self):
@@ -86,3 +88,11 @@ class ProfileChangeLog(models.Model):
     class Meta:
         verbose_name = 'Логи изменений'
         verbose_name_plural = 'Логи изменений'
+
+class LikeDislike(models.Model):
+    user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, verbose_name="Профиль", on_delete=models.CASCADE)
+    is_like = models.BooleanField(default=True, verbose_name="Лайк")
+
+    class Meta:
+        unique_together = ('user', 'profile')
