@@ -14,8 +14,8 @@ class Department(models.Model):
 
 
 class Role(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Должность")
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, verbose_name="Должность")
 
     def __str__(self):
         return f"{self.name} ({self.department.name})"

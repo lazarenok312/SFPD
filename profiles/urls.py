@@ -11,4 +11,5 @@ urlpatterns = [
     path('profiles_list/', profile_list, name='profile_list'),
     path('profile/<slug:slug>/like/', views.like_profile, name='like_profile'),
     path('profile/<slug:slug>/dislike/', views.dislike_profile, name='dislike_profile'),
+    path('load-roles/', views.LoadRolesView.as_view(), name='load_roles'),
 ]

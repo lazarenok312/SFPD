@@ -4,7 +4,7 @@ from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'name', 'surnames', 'email', 'department', 'role', 'profile_confirmed', 'role_confirmed', 'likes', 'dislikes', 'is_online'
+        'user', 'name', 'surnames', 'email', 'nick_name', 'department', 'role', 'profile_confirmed', 'role_confirmed', 'likes', 'dislikes', 'is_online'
     )
     list_filter = ('department', 'role', 'profile_confirmed', 'role_confirmed')
     search_fields = ('user__username', 'name', 'surnames', 'email', 'nick_name')

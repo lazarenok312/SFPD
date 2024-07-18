@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from profiles.models import Profile
 from .models import SupportRequest
+from departments.models import Department, Role
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -26,18 +27,29 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    department = forms.ModelChoiceField(queryset=Department.objects.all(), empty_label='Выберите отдел',
+                                        widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_department'}))
+    role = forms.ModelChoiceField(queryset=Role.objects.none(), empty_label='Выберите должность',
+                                  widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_role'}))
+
     class Meta:
         model = Profile
-        fields = ['name', 'surnames', 'nick_name', 'email', 'photo', 'bio', 'department', 'role']
+        fields = ['name', 'surnames', 'email', 'photo', 'bio', 'department', 'role']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'surnames': forms.TextInput(attrs={'class': 'form-control'}),
-            'nick_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'bio': forms.Textarea(attrs={'class': 'form-control'}),
             'photo': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'department': forms.Select(attrs={'class': 'form-control', 'id': 'id_department'}),
             'role': forms.Select(attrs={'class': 'form-control', 'id': 'id_role'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.instance.department:
+            self.fields['role'].queryset = Role.objects.filter(department=self.instance.department)
+        self.fields['department'].widget.attrs.update({'onchange': 'loadRoles()'})
 
 
 class SupportForm(forms.ModelForm):

@@ -15,7 +15,7 @@ from .models import ProfileChangeLog, Profile, LikeDislike
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import JsonResponse
-
+from .models import Role
 
 def register(request):
     if request.method == 'POST':
@@ -83,17 +83,14 @@ class ProfileDetailView(DetailView):
         if self.object.user != request.user:
             raise PermissionDenied
         form = ProfileUpdateForm(request.POST, request.FILES, instance=self.object)
-        # if form.is_valid():
-        #     form.save()
-        #     messages.success(request, 'Профиль успешно обновлен!')
-        #     return redirect('profile_detail', slug=self.object.slug)
-        # return self.render_to_response(self.get_context_data(form=form))
 
         if form.is_valid():
+            profile = form.save(commit=False)
+            profile.department = form.cleaned_data['department']
+            profile.role = form.cleaned_data['role']
+            profile.save()
+
             old_profile_data = Profile.objects.get(pk=self.object.pk)
-
-            new_profile_data = form.save()
-
             changes_logged = False
             for field_name, new_value in form.cleaned_data.items():
                 old_value = getattr(old_profile_data, field_name)
@@ -117,6 +114,13 @@ class ProfileDetailView(DetailView):
             context['form'] = ProfileUpdateForm(instance=self.object)
         context['can_edit'] = self.object.user == self.request.user
         return context
+
+
+class LoadRolesView(View):
+    def get(self, request):
+        department_id = request.GET.get('department_id')
+        roles = Role.objects.filter(department_id=department_id).values('id', 'name')
+        return JsonResponse(list(roles), safe=False)
 
 
 class SupportView(View):

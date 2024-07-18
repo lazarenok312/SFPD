@@ -308,7 +308,8 @@
                 <!-- Вкладка "Игровая информация" -->
                 <div class="tab-pane fade" id="game-info" role="tabpanel" aria-labelledby="game-info-tab">
                     <h3>Игровая информация</h3>
-                    <p><strong>Должность</strong> {{ profile.role }}</p>
+                    <p><strong>Отдел</strong> {{ profile.department }}</p>
+                    <p><strong>Должность</strong> {{ profile.role.name }}</p>
                     <p><strong>Nick_Name:</strong> {{ profile.nick_name }}
                         {% if profile.role_confirmed %}
                             <span class="badge bg-gradient-success"> <i class="fas fa-check-circle"></i></span>
@@ -373,22 +374,30 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-wrap">
-                                        {{ form.role.label_tag }}
-                                        {{ form.role }}
+                                    <div class="col-md-12">
+                                        <div class="form-wrap">
+                                            {{ form.department.label_tag }}
+                                            {{ form.department }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-wrap">
+                                    <div class="col-md-12">
+                                        <div class="form-wrap">
+                                            {{ form.role.label_tag }}
+                                            {{ form.role }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-wrap">
                                         <textarea class="form-input" id="id_bio"
                                                   name="bio">{{ form.bio.value }}</textarea>
-                                        <label class="form-label" for="id_bio">Биография</label>
+                                            <label class="form-label" for="id_bio">Биография</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12 d-flex justify-content-end">
-                                    <button type="submit" class="button button-size-1 button-block button-primary">
-                                        Сохранить изменения
-                                    </button>
+                                    <div class="col-md-12 d-flex justify-content-end">
+                                        <button type="submit" class="button button-size-1 button-block button-primary">
+                                            Сохранить изменения
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -401,6 +410,28 @@
     </section>
     {% include 'include/footer.html' %}
 </div>
+<script>
+    $(document).ready(function () {
+        $('#id_department').change(function () {
+            var departmentId = $(this).val();
+            $.ajax({
+                url: "{% url 'load_roles' %}",
+                data: {
+                    'department_id': departmentId
+                },
+                dataType: 'json',
+                success: function (data) {
+                    var roleSelect = $('#id_role');
+                    roleSelect.empty();
+                    roleSelect.append('<option value="">Выберите должность</option>');
+                    $.each(data, function (key, value) {
+                        roleSelect.append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                }
+            });
+        });
+    });
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const photoInput = document.getElementById('id_photo');
