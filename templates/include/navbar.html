@@ -262,8 +262,8 @@
                                             <li><a href="{% url 'departments:thank_board' %}">Благодарственная доска</a></li>
                                             <li><a href="{% url 'profile_list' %}">Все сотрудники</a></li>
                                             {% if user.is_superuser %}
-                                            <li><a href="{% url 'departments:police_academy_view' %}">Форма данных</a></li>
-                                            <li><a href="{% url 'departments:edit_department_staff' %}">Staff</a></li>
+                                            <li><a href="{% url 'departments:police_academy_view' %}">Форма PA</a></li>
+                                            <li><a href="{% url 'departments:edit_department_staff' %}">Форма Staff</a></li>
                                             {% endif %}
                                         </ul>
                                     </li>
