@@ -17,6 +17,7 @@ from django.db.models import Q
 from django.http import JsonResponse
 from .models import Role
 
+
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
@@ -88,7 +89,14 @@ class ProfileDetailView(DetailView):
             profile = form.save(commit=False)
             profile.department = form.cleaned_data['department']
             profile.role = form.cleaned_data['role']
+            profile.nick_name = form.cleaned_data['nick_name']
+            profile.bio = form.cleaned_data['bio']
+
+            if 'photo' in request.FILES:
+                profile.photo = request.FILES['photo']
+
             profile.save()
+            messages.success(request, 'Профиль успешно обновлен!')
 
             old_profile_data = Profile.objects.get(pk=self.object.pk)
             changes_logged = False
@@ -100,12 +108,8 @@ class ProfileDetailView(DetailView):
                                                     old_value=old_value, new_value=new_value)
                     changes_logged = True
 
-            if changes_logged:
-                messages.success(request, 'Профиль успешно обновлен!')
-            else:
-                messages.info(request, 'Нет изменений в профиле для логирования.')
-
             return redirect('profile_detail', slug=self.object.slug)
+
         return self.render_to_response(self.get_context_data(form=form))
 
     def get_context_data(self, **kwargs):
@@ -116,11 +120,10 @@ class ProfileDetailView(DetailView):
         return context
 
 
-class LoadRolesView(View):
-    def get(self, request):
-        department_id = request.GET.get('department_id')
-        roles = Role.objects.filter(department_id=department_id).values('id', 'name')
-        return JsonResponse(list(roles), safe=False)
+def load_roles(request):
+    department_id = request.GET.get('department')
+    roles = Role.objects.filter(department_id=department_id).order_by('name').values('id', 'name')
+    return JsonResponse(list(roles), safe=False)
 
 
 class SupportView(View):

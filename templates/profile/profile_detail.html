@@ -333,7 +333,8 @@
                 <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                     <h3>Настройки</h3>
                     {% if can_edit %}
-                        <form method="POST" enctype="multipart/form-data">
+                        <form method="post" enctype="multipart/form-data" id="profileForm"
+                              data-roles-url="{% url 'ajax_load_roles' %}" novalidate>
                             {% csrf_token %}
                             <div class="row row-10">
                                 <div class="col-md-12">
@@ -374,61 +375,62 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="col-md-12">
-                                        <div class="form-wrap">
-                                            {{ form.department.label_tag }}
-                                            {{ form.department }}
-                                        </div>
+                                    <div class="form-wrap">
+                                        {{ form.department.label_tag }}
+                                        {{ form.department }}
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-wrap">
-                                            {{ form.role.label_tag }}
-                                            {{ form.role }}
-                                        </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-wrap">
+                                        {{ form.role.label_tag }}
+                                        {{ form.role }}
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-wrap">
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-wrap">
                                         <textarea class="form-input" id="id_bio"
                                                   name="bio">{{ form.bio.value }}</textarea>
-                                            <label class="form-label" for="id_bio">Биография</label>
-                                        </div>
+                                        <label class="form-label" for="id_bio">Биография</label>
                                     </div>
-                                    <div class="col-md-12 d-flex justify-content-end">
-                                        <button type="submit" class="button button-size-1 button-block button-primary">
-                                            Сохранить изменения
-                                        </button>
-                                    </div>
+                                </div>
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button type="submit" class="button button-size-1 button-block button-primary">
+                                        Сохранить изменения
+                                    </button>
                                 </div>
                             </div>
                         </form>
                     {% else %}
                         <p>У вас нет прав на редактирование этого профиля.</p>
                     {% endif %}
-                </div>
             </div>
         </div>
-    </section>
-    {% include 'include/footer.html' %}
 </div>
+</section>
+{% include 'include/footer.html' %}
+</div>
+{#<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
 <script>
-    $(document).ready(function () {
-        $('#id_department').change(function () {
-            var departmentId = $(this).val();
-            $.ajax({
-                url: "{% url 'load_roles' %}",
-                data: {
-                    'department_id': departmentId
-                },
-                dataType: 'json',
-                success: function (data) {
-                    var roleSelect = $('#id_role');
-                    roleSelect.empty();
-                    roleSelect.append('<option value="">Выберите должность</option>');
-                    $.each(data, function (key, value) {
-                        roleSelect.append('<option value="' + value.id + '">' + value.name + '</option>');
-                    });
-                }
-            });
+    $("#id_department").change(function () {
+        var url = $("#profileForm").attr("data-roles-url");
+        var departmentId = $(this).val();
+
+        $.ajax({
+            url: url,
+            data: {
+                'department': departmentId
+            },
+            dataType: 'json',
+            success: function (data) {
+                var options = '<option value="">Выберите должность</option>';
+                $.each(data, function (key, role) {
+                    options += '<option value="' + role.id + '">' + role.name + '</option>';
+                });
+                $("#id_role").html(options);
+            },
+            error: function () {
+                alert('Произошла ошибка при загрузке должностей.');
+            }
         });
     });
 </script>
