@@ -26,6 +26,42 @@
         border-radius: var(--bs-badge-border-radius);
     }
 
+    .bg-gradient-curator {
+        background-image: linear-gradient(195deg, #ffc001 0%, #efd789 100%);
+    }
+
+    .bg-gradient-chief {
+        background-image: linear-gradient(195deg, #a61c00 0%, #a61c00 100%);
+    }
+
+    .bg-gradient-depchief {
+        background-image: linear-gradient(195deg, #c12803 0%, #a9321b 100%);
+    }
+
+    .bg-gradient-insperctr {
+        background-image: linear-gradient(195deg, #b97f02 0%, #f1d04d 100%);
+    }
+
+    .bg-gradient-instructor {
+        background-image: linear-gradient(195deg, #5a02b9 0%, #844df1 100%);
+    }
+
+    .bg-gradient-cmu {
+        background-image: linear-gradient(195deg, #156a02 0%, #20841e 100%);
+    }
+
+    .bg-gradient-cmu {
+        background-image: linear-gradient(195deg, #898989 0%, rgba(83, 83, 83, 0.79) 100%);
+    }
+
+    .bg-gradient-jragent {
+        background-image: linear-gradient(195deg, #bc6161 0%, #c75151 100%);
+    }
+
+    .bg-gradient-recruit {
+        background-image: linear-gradient(195deg, #76a5af 0%, #76a5af 100%);
+    }
+
     .bg-gradient-db {
         background-image: linear-gradient(195deg, #800303 0%, #b00707 100%);
     }
@@ -40,6 +76,14 @@
 
     .bg-gradient-swat {
         background-image: linear-gradient(195deg, #232222 0%, #434345 100%);
+    }
+
+    .bg-gradient-success {
+        background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+    }
+
+    .bg-gradient-danger {
+        background-image: linear-gradient(195deg, #EF5350 0%, #E53935 100%);
     }
 
     .text-center {
@@ -137,16 +181,34 @@
                         </td>
                         <td class="text-center">
                             {% if profile.role %}
-                                <a href="{{ profile.get_absolute_url }}">{{ profile.role.name }}</a>
+                                {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
+                                    <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
+                                {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
+                                    <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
+                                {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
+                                    <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
+                                {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
+                                    <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
+                                {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
+                                    <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
+                                {% elif profile.role.name == "Officer of CMU" %}
+                                    <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                                {% elif profile.role.name == "Officer of CPU" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
+                                    <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                                {% elif profile.role.name == "Jr.Agent" %}
+                                    <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
+                                {% elif profile.role.name == "Recruit of SWAT" %}
+                                    <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
+                                {% endif %}
                             {% else %}
                                 Отсутствует
                             {% endif %}
                         </td>
                         <td class="text-center">
                             {% if profile.is_online %}
-                                <span style="color:green">Онлайн</span>
+                                <span class="badge bg-gradient-success">Онлайн</span>
                             {% else %}
-                                <span style="color:red">Офлайн</span>
+                                <span class="badge bg-gradient-danger">Офлайн</span>
                             {% endif %}
                         </td>
                     </tr>

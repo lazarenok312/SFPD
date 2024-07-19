@@ -200,6 +200,58 @@
                 transform: translateY(10px);
             }
         }
+
+        .bg-gradient-curator {
+            background-image: linear-gradient(195deg, #ffc001 0%, #efd789 100%);
+        }
+
+        .bg-gradient-chief {
+            background-image: linear-gradient(195deg, #a61c00 0%, #a61c00 100%);
+        }
+
+        .bg-gradient-depchief {
+            background-image: linear-gradient(195deg, #c12803 0%, #a9321b 100%);
+        }
+
+        .bg-gradient-insperctr {
+            background-image: linear-gradient(195deg, #b97f02 0%, #f1d04d 100%);
+        }
+
+        .bg-gradient-instructor {
+            background-image: linear-gradient(195deg, #5a02b9 0%, #844df1 100%);
+        }
+
+        .bg-gradient-cmu {
+            background-image: linear-gradient(195deg, #156a02 0%, #20841e 100%);
+        }
+
+        .bg-gradient-cmu {
+            background-image: linear-gradient(195deg, #898989 0%, rgba(83, 83, 83, 0.79) 100%);
+        }
+
+        .bg-gradient-jragent {
+            background-image: linear-gradient(195deg, #bc6161 0%, #c75151 100%);
+        }
+
+        .bg-gradient-recruit {
+            background-image: linear-gradient(195deg, #76a5af 0%, #76a5af 100%);
+        }
+
+        .bg-gradient-db {
+            background-image: linear-gradient(195deg, #800303 0%, #b00707 100%);
+        }
+
+        .bg-gradient-pa {
+            background-image: linear-gradient(195deg, #00b4ff 0%, #1760e1 100%);
+        }
+
+        .bg-gradient-cpd {
+            background-image: linear-gradient(195deg, #959595 0%, #929292 100%);
+        }
+
+        .bg-gradient-swat {
+            background-image: linear-gradient(195deg, #232222 0%, #434345 100%);
+        }
     </style>
 </head>
 <body>
@@ -245,10 +297,16 @@
                     <a class="nav-link" id="game-info-tab" data-toggle="tab" href="#game-info" role="tab"
                        aria-controls="game-info" aria-selected="false">Игровая информация</a>
                 </li>
+                {% if can_edit %}
+                <li class="nav-item">
+                    <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab"
+                       aria-controls="update" aria-selected="false">Редактирование</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
                        aria-controls="settings" aria-selected="false">Настройки</a>
                 </li>
+                {% endif %}
                 <!-- Добавьте другие вкладки по необходимости -->
             </ul>
 
@@ -307,32 +365,70 @@
 
                 <!-- Вкладка "Игровая информация" -->
                 <div class="tab-pane fade" id="game-info" role="tabpanel" aria-labelledby="game-info-tab">
-                    <h3>Игровая информация</h3>
-                    <p><strong>Отдел</strong> {{ profile.department }}</p>
-                    <p><strong>Должность</strong> {{ profile.role.name }}</p>
-                    <p><strong>Nick_Name:</strong> {{ profile.nick_name }}
+                    <br>
+                    <p><strong>Отдел:</strong> {% if profile.department %}
+                        {% if profile.department.name == "Detective Bureau" %}
+                            <span class="badge bg-gradient-db">{{ profile.department.name }}</span>
+                        {% elif profile.department.name == "Police Academy" %}
+                            <span class="badge bg-gradient-pa">{{ profile.department.name }}</span>
+                        {% elif profile.department.name == "Speсial Weapons And Tactics" %}
+                            <span class="badge bg-gradient-swat">{{ profile.department.name }}</span>
+                        {% elif profile.department.name == "Central Patrol Division" %}
+                            <span class="badge bg-gradient-cpd">{{ profile.department.name }}</span>
+                        {% else %}
+                            <span class="badge bg-gradient-secondary">{{ profile.department.name }}</span>
+                        {% endif %}
+                    {% else %}
+                        Отсутствует
+                    {% endif %}</p>
+                    <p><strong>Должность:</strong> {% if profile.role %}
+                        {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
+                            <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
+                        {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
+                            <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
+                        {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
+                            <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
+                        {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
+                            <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
+                        {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
+                            <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
+                        {% elif profile.role.name == "Officer of CMU" %}
+                            <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                        {% elif profile.role.name == "Officer of CPU" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
+                            <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                        {% elif profile.role.name == "Jr.Agent" %}
+                            <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
+                        {% elif profile.role.name == "Recruit of SWAT" %}
+                            <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
+                        {% endif %}
+                    {% else %}
+                        Отсутствует
+                    {% endif %}</p>
+                    <p class="nick-name-wrapper">
+                        <strong>Ник:</strong>
                         {% if profile.role_confirmed %}
                             <span class="badge bg-gradient-success"> <i class="fas fa-check-circle"></i></span>
-                            </p>
                         {% else %}
-                            <span class="badge bg-gradient-danger"> <i
-                                    class="fas fa-exclamation-circle"></i></span>
+                            <span class="badge bg-gradient-danger"> <i class="fas fa-exclamation-circle"></i></span>
                         {% endif %}
+                        {{ profile.nick_name }}
+                    </p>
                     {% if profile.is_online %}
-                        <p><strong>Статус онлайн:</strong> В сети</p>
+                        <p><strong>Статус онлайн:</strong> <span class="badge bg-gradient-success">В сети</span></p>
                     {% else %}
-                        <p><strong>Статус онлайн:</strong> Не в сети</p>
+                        <p><strong>Статус онлайн:</strong> <span class="badge bg-gradient-danger">Офлайн</span></p>
                     {% endif %}
-                    <p><strong>Онлайн за неделю:</strong> 21:01:56</p>
-                    <p><strong>Онлайн за месяц:</strong> 48:25:05</p>
+                    <p><strong>Онлайн за неделю:</strong> В разработке</p>
+                    <p><strong>Онлайн за месяц:</strong> В разработке</p>
                     <p><strong>Биография:</strong></p>
                     <p>{{ profile.bio }}</p>
                 </div>
 
                 <!-- Вкладка "Настройки" -->
-                <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                    <h3>Настройки</h3>
-                    {% if can_edit %}
+                {% if can_edit %}
+                    <div class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab">
+                        <br>
+
                         <form method="post" enctype="multipart/form-data" id="profileForm"
                               data-roles-url="{% url 'ajax_load_roles' %}" novalidate>
                             {% csrf_token %}
@@ -400,16 +496,18 @@
                                 </div>
                             </div>
                         </form>
-                    {% else %}
-                        <p>У вас нет прав на редактирование этого профиля.</p>
-                    {% endif %}
+                    </div>
+
+                    <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                        <br>
+                        в разработке
+                    </div>
+                {% endif %}
             </div>
         </div>
+    </section>
+    {% include 'include/footer.html' %}
 </div>
-</section>
-{% include 'include/footer.html' %}
-</div>
-{#<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>#}
 <script>
     $("#id_department").change(function () {
         var url = $("#profileForm").attr("data-roles-url");

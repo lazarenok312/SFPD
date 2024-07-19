@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Department(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Отдел")
+    name = models.CharField(max_length=100, unique=True, verbose_name="Отдел")
     description = models.TextField(blank=True)
 
     def __str__(self):
@@ -15,12 +15,15 @@ class Department(models.Model):
 
 class Role(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, verbose_name="Должность")
+    name = models.CharField(max_length=100, unique=True, verbose_name="Должность")
 
     def __str__(self):
-        return f"{self.name} ({self.department.name})"
+        return self.name
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['department', 'name'], name='unique_role_per_department')
+        ]
         verbose_name = 'Должность'
         verbose_name_plural = 'Должности'
 
