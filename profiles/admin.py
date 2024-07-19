@@ -4,8 +4,7 @@ from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'name', 'surnames', 'email', 'nick_name', 'department', 'role', 'profile_confirmed', 'role_confirmed', 'likes', 'dislikes', 'is_online'
-    )
+        'user', 'name', 'surnames', 'nick_name', 'department', 'role', 'profile_confirmed', 'role_confirmed')
     list_filter = ('department', 'role', 'profile_confirmed', 'role_confirmed')
     search_fields = ('user__username', 'name', 'surnames', 'email', 'nick_name')
     readonly_fields = ('last_activity', 'is_online', 'slug')
@@ -14,13 +13,13 @@ class ProfileAdmin(admin.ModelAdmin):
         (None, {
             'fields': ('user', 'name', 'surnames', 'email', 'photo', 'bio', 'department', 'role', 'nick_name')
         }),
-        ('Confirmation', {
+        ('Подтверждения', {
             'fields': ('profile_confirmed', 'role_confirmed')
         }),
-        ('Statistics', {
+        ('Статистика', {
             'fields': ('likes', 'dislikes')
         }),
-        ('Additional Info', {
+        ('Дополнительная информация', {
             'fields': ('last_activity', 'slug', 'is_online')
         }),
     )
@@ -29,7 +28,7 @@ class ProfileAdmin(admin.ModelAdmin):
         return obj.is_online
 
     is_online.boolean = True
-    is_online.short_description = 'Online status'
+    is_online.short_description = 'Статус Онлайн'
 
 @admin.register(SupportRequest)
 class SupportRequestAdmin(admin.ModelAdmin):

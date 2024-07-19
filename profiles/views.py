@@ -85,28 +85,85 @@ class ProfileDetailView(DetailView):
             raise PermissionDenied
         form = ProfileUpdateForm(request.POST, request.FILES, instance=self.object)
 
+        # if form.is_valid():
+        #     old_profile_data = Profile.objects.get(pk=self.object.pk)
+        #
+        #     profile = form.save(commit=False)
+        #     profile.department = form.cleaned_data['department']
+        #     profile.role = form.cleaned_data['role']
+        #     profile.nick_name = form.cleaned_data['nick_name']
+        #     profile.bio = form.cleaned_data['bio']
+        #
+        #     if 'photo' in request.FILES:
+        #         profile.photo = request.FILES['photo']
+        #
+        #     profile.save()
+        #     print("Profile saved with new data")
+        #     messages.success(request, 'Профиль успешно обновлен!')
+        #
+        #     changes_logged = False
+        #     for field_name, old_value in old_profile_data.items():
+        #         new_value = getattr(profile, field_name)
+        #
+        #         if field_name == 'photo':
+        #             new_value = profile.photo.name if profile.photo else ''
+        #         elif field_name in ['department', 'role']:
+        #             new_value = new_value.id if new_value else None
+        #
+        #         old_value_str = str(old_value)
+        #         new_value_str = str(new_value)
+        #
+        #         print(
+        #             f"Comparing field '{field_name}': old_value={old_value_str}, new_value={new_value_str}")
+        #
+        #         if old_value_str != new_value_str:
+        #             change_type = f"Changed {field_name}"
+        #             print(f"Logging change: {change_type} from {old_value_str} to {new_value_str}")
+        #
+        #             log_entry = ProfileChangeLog.objects.create(
+        #                 user=request.user,
+        #                 change_type=change_type,
+        #                 old_value=old_value_str,
+        #                 new_value=new_value_str
+        #             )
+        #             print(f"Created log entry: {log_entry}")
+        #             changes_logged = True
+        #
+        #     if changes_logged:
+        #         print("Changes have been logged.")
+        #
+        #     return redirect('profile_detail', slug=self.object.slug)
+        #
+        # return self.render_to_response(self.get_context_data(form=form))
+
         if form.is_valid():
-            profile = form.save(commit=False)
-            profile.department = form.cleaned_data['department']
-            profile.role = form.cleaned_data['role']
-            profile.nick_name = form.cleaned_data['nick_name']
-            profile.bio = form.cleaned_data['bio']
-
-            if 'photo' in request.FILES:
-                profile.photo = request.FILES['photo']
-
-            profile.save()
-            messages.success(request, 'Профиль успешно обновлен!')
-
             old_profile_data = Profile.objects.get(pk=self.object.pk)
+
+            new_profile_data = form.save()
+
             changes_logged = False
             for field_name, new_value in form.cleaned_data.items():
                 old_value = getattr(old_profile_data, field_name)
+
+                if new_value is None:
+                    new_value = ''
+                if old_value is None:
+                    old_value = ''
+
                 if old_value != new_value:
                     change_type = f"Changed {field_name}"
-                    ProfileChangeLog.objects.create(user=request.user, change_type=change_type,
-                                                    old_value=old_value, new_value=new_value)
+                    ProfileChangeLog.objects.create(
+                        user=request.user,
+                        change_type=change_type,
+                        old_value=str(old_value),
+                        new_value=str(new_value)
+                    )
                     changes_logged = True
+
+            if changes_logged:
+                messages.success(request, 'Профиль успешно обновлен!')
+            else:
+                messages.info(request, 'Нет изменений в профиле для логирования.')
 
             return redirect('profile_detail', slug=self.object.slug)
 

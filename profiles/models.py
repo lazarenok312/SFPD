@@ -78,12 +78,12 @@ class SupportRequest(models.Model):
 class ProfileChangeLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     change_type = models.CharField(max_length=255)
-    old_value = models.TextField()
-    new_value = models.TextField()
+    old_value = models.TextField(blank=True)
+    new_value = models.TextField(blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} - {self.change_type} - {self.timestamp}"
+        return f"{self.user} {self.change_type} from {self.old_value} to {self.new_value}"
 
     class Meta:
         verbose_name = 'Логи изменений'
