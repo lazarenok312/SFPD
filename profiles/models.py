@@ -14,7 +14,7 @@ class Profile(models.Model):
     surnames = models.CharField(max_length=25, verbose_name="Фамилия", blank=True)
     email = models.EmailField(max_length=40, verbose_name="Электронная почта", blank=True)
     photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True, verbose_name="Фото",
-                              default='../static/img/default.png')
+                              default='../static/images/incognito.png')
     slug = models.SlugField("URL", max_length=50, blank=True)
     last_activity = models.DateTimeField(verbose_name="Последняя активность", default=timezone.now)
     bio = models.TextField(verbose_name="Биография", blank=True)

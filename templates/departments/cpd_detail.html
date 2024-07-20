@@ -12,6 +12,20 @@
         -1px 1px 0 #000000,
         1px 1px 0 #000000;
     }
+
+    .responsive-image {
+        background-size: cover;
+        width: 946px;
+        height: 485px;
+
+    }
+
+    @media (max-width: 768px) {
+        .responsive-image {
+            width: 380px;
+            height: 196px;
+        }
+    }
 </style>
 <body>
 <div class="preloader">
@@ -152,8 +166,8 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">James Ezar</h5>
-                                <div class="subtitle">Chief of PA</div>
+                                <h5 class="title">Levi Mel</h5>
+                                <div class="subtitle">Chief of CPD</div>
                             </div>
                         </div>
                         <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a fermentum
@@ -169,8 +183,8 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Kristina Gurinifero</h5>
-                                <div class="subtitle">Dep.Chief of PA</div>
+                                <h5 class="title">Carlos Harrizon</h5>
+                                <div class="subtitle">Dep.Chief of CPD</div>
                             </div>
                         </div>
                         <div class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
@@ -186,8 +200,8 @@
                                                         width="138" height="69"/>
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Infeless Montana</h5>
-                                <div class="subtitle">Dep.Chief of PA</div>
+                                <h5 class="title">Malierti Benec</h5>
+                                <div class="subtitle">Dep.Chief of CPD</div>
                             </div>
                         </div>
                         <div class="content">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
@@ -213,9 +227,9 @@
                                 </q>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>Sara Parker</cite>
+                                        <cite>Levi Mel</cite>
                                     </div>
-                                    <div class="position">Chief executive officer</div>
+                                    <div class="position">Chief of CPD</div>
                                 </div>
                             </blockquote>
                             <blockquote class="quote quote-simple">
@@ -223,9 +237,9 @@
                                     различными ситуациями, для совладания с которыми необходим опыт службы.</q>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>Sam Jackson</cite>
+                                        <cite>Levi Mel</cite>
                                     </div>
-                                    <div class="position">Lawyer</div>
+                                    <div class="position">Chief of CPD</div>
                                 </div>
                             </blockquote>
                         </div>
@@ -233,17 +247,17 @@
                 </div>
             </div>
         </div>
-        <div class="box-image-item novi-background bg-image"
-             style="background-image: url('{% static 'images/typography-1-946x485.jpg' %}'); background-size: cover; width: 946px; height: 485px;"></div>
+        <div class="box-image-item novi-background bg-image">
+            <div class="responsive-image" style="background-image: url('{% static 'images/cpd-info.png' %}')"></div>
     </section>
     <section class="parallax-container box-image-left"
-             data-parallax-img="{% static 'images/about.png' %}">
+             data-parallax-img="{% static 'images/bg-cpd-main.png' %}">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 wow fadeInLeft">
                     <div class="section-lg section-lg-top-100">
                         <h2 class="title-icon title-icon-2" style="color: white"><span
-                                class="icon icon-default mercury-icon-touch"></span><span>
+                                class="icon mercury-icon-touch"></span><span>
 Полезные ссылки<br></span></h2>
                         <p class="big" style="color: white">Ниже представлены полезные скрипты для комфортной игры в
                             нашем отделе</p>
@@ -254,7 +268,7 @@
                                 <img src="{% static 'images/discord.svg' %}" alt="Discord Icon" width="25">
                             </a>
                             <a class="button button-icon button-icon-right button-primary"
-                               href="https://launcher.evolve-rp.net/MOBILE/launcher.apk">
+                               href="https://vk.com/away.php?to=https%3A%2F%2Fvl4sov.dev%2FDownload%2Ffbitools.zip" target="_blank" >
                                 <span>FBI Tools</span>
                                 <span
                                         class="icon fa fa-cog"></span>

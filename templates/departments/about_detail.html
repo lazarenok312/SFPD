@@ -28,7 +28,8 @@
         }
 
         .history-item:hover .img-container {
-            max-height: 200px;
+            margin-top: 10px;
+            max-height: 300px;
         }
 
         .img-container img {
@@ -125,6 +126,22 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 72px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
     </style>
 </head>
 <body>
@@ -159,7 +176,7 @@
     <!-- Our Story-->
     <section class="section section-lg bg-default">
         <div class="container">
-            <h2><span class="text-light">Наша</span> история</h2>
+            <h2><span class="text-light">История</span> департамента</h2>
             <div class="row row-30 justify-content-xl-between">
                 <div class="col-md-6 col-xl-6">
                     <div class="history-item">
@@ -178,7 +195,7 @@
                                 </div>
                             </div>
                             <div class="">
-                                <img class="img-responsive" src="{% static 'images/about-sfpd.png' %}" alt=""
+                                <img class="img-responsive" src="{% static 'images/about/about-sfpd.png' %}" alt=""
                                      width="569"
                                      height="169"/>
                             </div>
@@ -188,46 +205,41 @@
                 <div class="col-md-6 col-xl-5">
                     <ul class="list-lg">
                         <li class="history-item">
-                            <div class="heading-5">2018</div>
-                            <p class="p-offset-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a
-                                fermentum turpis. Nulla metus diam, feugiat ac lectus vitae, tempus porttitor sem.
-                                Vestibulum non lacus vulputate, placerat ligula ut, dignissim tortor.</p>
-                            <div class="img-container">
-                                <img class="img-responsive hidden-image" src="{% static 'images/about-sfpd.png' %}"
-                                     alt="2018" width="569" height="169"/>
-                            </div>
-                        </li>
-                        <li class="history-item">
                             <div class="heading-5">2019</div>
-                            <p class="p-offset-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a
-                                fermentum turpis. Nulla metus diam, feugiat ac lectus vitae, tempus porttitor sem.
-                                Vestibulum non lacus vulputate, placerat ligula ut, dignissim tortor. Nulla facilisi.
-                                Curabitur accumsan metus mauris, non iaculis magna pulvinar sit amet. Aenean sagittis
-                                purus non egestas eleifend.</p>
+                            <p class="p-offset-1">Состоялся глобальный редизайн департамента города San-Fierro. Был
+                                обновлён интерьер, а также обновлено благоустройство рабочих мест. </p>
                             <div class="img-container">
-                                <img class="img-responsive hidden-image" src="{% static 'images/about-sfpd.png' %}"
-                                     alt="2019" width="569" height="169"/>
+                                <img class="img-responsive hidden-image" src="{% static 'images/about/about-1.png' %}"
+                                     alt="2019"/>
                             </div>
                         </li>
                         <li class="history-item">
-                            <div class="heading-5">2020</div>
-                            <p class="p-offset-1">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
-                                veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                            <div class="heading-5">2021</div>
+                            <p class="p-offset-1">На взятках с граждан были закуплены новые транспортные средства, спец.
+                                знаки и ограждения, была перестроена площадка для отработки личных навыков стрельбы
+                                каждого сотрудника департамента. Закуплены новые виды оружия такие как: "Desert Deagle",
+                                "Silenced 9mm". </p>
                             <div class="img-container">
-                                <img class="img-responsive hidden-image" src="{% static 'images/about-sfpd.png' %}"
-                                     alt="2020" width="569" height="169"/>
+                                <img class="img-responsive hidden-image" src="{% static 'images/about/about-2.png' %}"
+                                     alt="2021"/>
+                            </div>
+                        </li>
+                        <li class="history-item">
+                            <div class="heading-5">2023</div>
+                            <p class="p-offset-1">Была приобретена личная заправочная станция для обслуживания
+                                служебного транспорта. Были приобретены автомобили марки "Dodge Charger 2023". Служебные
+                                транспортные средства приобрели новую модификацию "<span
+                                        style="color: red; font-weight: bold;">E</span>-class"
+                            <div class="img-container">
+                                <img class="img-responsive hidden-image" src="{% static 'images/about/about-3.png' %}"
+                                     alt="2023"/>
                             </div>
                         </li>
                         <li class="history-item">
                             <div class="heading-5">2024</div>
-                            <p class="p-offset-1">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
-                                veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
-                                voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                            <p class="p-offset-1">История продолжается...</p>
                             <div class="img-container">
-                                <img class="img-responsive hidden-image" src="{% static 'images/about-sfpd.png' %}"
+                                <img class="img-responsive hidden-image" src="{% static 'images/about/about-4.png' %}"
                                      alt="2020" width="569" height="169"/>
                             </div>
                         </li>
@@ -273,7 +285,7 @@
                             <div class="index-counter">03</div>
                         </div>
                         <div class="unit-body">
-                            <h5 class="title">Профессиональное развитие</h5>
+                            <h5 class="title">Развитие</h5>
                             <div class="content">SFPD предлагает широкий спектр тренингов и программ повышения
                                 квалификации, что способствует карьерному росту и профессиональному развитию наших
                                 сотрудников.
@@ -289,7 +301,7 @@
                             <div class="index-counter">04</div>
                         </div>
                         <div class="unit-body">
-                            <h5 class="title">Сотрудничество с сообществом</h5>
+                            <h5 class="title">Сотрудничество</h5>
                             <div class="content">Мы активно взаимодействуем с местным сообществом, проводя совместные
                                 мероприятия и программы, направленные на улучшение общественной безопасности.
                             </div>
@@ -326,32 +338,34 @@
         </div>
     </section>
 
-    <section class="parallax-container box-image-left" data-parallax-img="{% static 'images/job.png' %}">
+    <section class="parallax-container box-image-left" data-parallax-img="{% static 'images/about/parallax-1.png' %}">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 wow fadeInLeft">
                     <div class="section-lg section-lg-top-100">
                         <h2 class="title-icon title-icon-2" style="color: white"><span
-                                class="icon icon-default mercury-icon-jobs"></span><span>Трудоуcстройство<br><span
+                                class="icon mercury-icon-jobs"></span><span>Трудоустройство<br><span
                                 class="text-light">Вступай в SFPD</span></span></h2>
                         <p class="big" style="color: white">У нас имеется ряд возможностей для вступления в наш
                             департамент</p>
                         <div class="group-sm group-wrap-2">
                             <a
                                     class="button button-icon button-icon-right button-secondary"
-                                    href="https://docs.google.com/forms/d/e/1FAIpQLSc3dyeczDSUIE3YEr9Igmivdmm0mKw-t0jibMBt7y-xImDUzw/viewform"
-                                    target="_blank"><span>Контрактная служба</span><span
-                                    class="icon fa fa-cogs"></span></a>
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLScsp2Ymkh5QFO8VjdQj9TyYwcW7D2HaLXpMuDwEVlWtr58V_g/viewform"
+                                    target="_blank"><span>Полицейская академия</span><span
+                                    class="icon fa fa-graduation-cap"></span></a>
                             <a
                                     class="button button-icon button-icon-right button-secondary"
                                     href="https://evolve-rp.su/threads/384319/"
                                     target="_blank"><span>Переводы</span><span
-                                    class="icon fa fa-android"></span></a>
+                                    class="icon fa fa-retweet"></span></a>
                             <a
                                     class="button button-icon button-icon-right button-secondary"
-                                    href="https://docs.google.com/forms/d/e/1FAIpQLScsp2Ymkh5QFO8VjdQj9TyYwcW7D2HaLXpMuDwEVlWtr58V_g/viewform"
-                                    target="_blank"><span>Полицейская академия</span><span
-                                    class="icon fa fa-android"></span></a>
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSc3dyeczDSUIE3YEr9Igmivdmm0mKw-t0jibMBt7y-xImDUzw/viewform"
+                                    target="_blank"><span>Контрактная служба      </span>
+                                <span class="icon fa fa-pencil-square-o"></span>
+                            </a>
+
 
                         </div>
                     </div>
@@ -388,7 +402,7 @@
                 </div>
                 <div class="item">
                     <a class="link-image" href="javascript:void(0);" onclick="openModal('modal3');">
-                        <img src="{% static 'images/bg-pattern-boxed.png' %}" alt="" width="200" height="90"/>
+                        <img src="{% static 'images/sherif/frolov.webp' %}" alt="" width="200" height="90"/>
                     </a>
                     <div class="nickname-text">
                         <div class="nickname-frame gold-frame">
@@ -398,11 +412,21 @@
                 </div>
                 <div class="item">
                     <a class="link-image" href="javascript:void(0);" onclick="openModal('modal4');">
-                        <img src="{% static 'images/sherif/DanielGurinifero.png' %}" alt="" width="200" height="90"/>
+                        <img src="{% static 'images/sherif/DanielGurinifero.webp' %}" alt="" width="200" height="90"/>
                     </a>
                     <div class="nickname-text">
                         <div class="nickname-frame gold-frame">
                             Daniel Gurinifero
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <a class="link-image" href="javascript:void(0);" onclick="openModal('modal5');">
+                        <img src="{% static 'images/sherif/Kimberly.webp' %}" alt="" width="200" height="90"/>
+                    </a>
+                    <div class="nickname-text">
+                        <div class="nickname-frame gold-frame">
+                            Kimberly Norton
                         </div>
                     </div>
                 </div>
@@ -415,19 +439,23 @@
         <div id="modal1" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('modal1')">&times;</span>
-                <p>4-х кратный шериф департамента, внес большой вклад в развитие</p>
+                <p>4-кратный шериф департамента, внёсший огромный вклад в развитие SFPD. Его лидерство и непоколебимая
+                    приверженность справедливости сделали департамент одним из самых уважаемых в штате. За время своей
+                    службы он раскрыл множество сложных дел и заслужил признание коллег и горожан. Вдохновленный своей
+                    командой, шериф продолжает работать над улучшением безопасности и правопорядка в городе.</p>
             </div>
         </div>
         <div id="modal2" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('modal2')">&times;</span>
-                <p>4-х кратный шериф департамента, внес большой вклад в развитие</p>
+                <p>Лох какой-то</p>
             </div>
         </div>
         <div id="modal3" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="closeModal('modal3')">&times;</span>
-                <p>4-х кратный шериф департамента, внес большой вклад в развитие</p>
+                <p>2-х кратный шериф департамента, вложил огромный вклад в SWAT SFPD, создал мануал по отработке
+                    похищений/терактов, дважды отстоял срок командира, признавался лучшим отрядом недели</p>
             </div>
         </div>
 
@@ -436,6 +464,13 @@
                 <span class="close" onclick="closeModal('modal4')">&times;</span>
                 <p>Превосходный лидер SFPD 2021, смог вывести средний онлайн фракции из 10 до 45 и этим утёр нос другим
                     департаментам</p>
+            </div>
+        </div>
+        <div id="modal5" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('modal5')">&times;</span>
+                <p>Из пепла дважды возрождала отдел Детективного Бюро и привила к нему любовь многим людям, собрала
+                    максимальный мемберс в департаменте за последние несколько лет</p>
             </div>
         </div>
     </section>

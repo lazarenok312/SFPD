@@ -5,91 +5,163 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <head>
     <title>База сотрудников</title>
+    <style>
+        .badge {
+            --bs-badge-padding-x: 0.9em;
+            --bs-badge-padding-y: 0.55em;
+            --bs-badge-font-size: 0.75em;
+            --bs-badge-font-weight: 700;
+            --bs-badge-color: #fff;
+            --bs-badge-border-radius: 0.45rem;
+            display: inline-block;
+            padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
+            font-size: var(--bs-badge-font-size);
+            font-weight: var(--bs-badge-font-weight);
+            line-height: 1;
+            color: var(--bs-badge-color);
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: var(--bs-badge-border-radius);
+        }
+
+        .bg-gradient-curator {
+            background-image: linear-gradient(195deg, #ffc001 0%, #efd789 100%);
+        }
+
+        .bg-gradient-chief {
+            background-image: linear-gradient(195deg, #a61c00 0%, #a61c00 100%);
+        }
+
+        .bg-gradient-depchief {
+            background-image: linear-gradient(195deg, #c12803 0%, #a9321b 100%);
+        }
+
+        .bg-gradient-insperctr {
+            background-image: linear-gradient(195deg, #b97f02 0%, #f1d04d 100%);
+        }
+
+        .bg-gradient-instructor {
+            background-image: linear-gradient(195deg, #5a02b9 0%, #844df1 100%);
+        }
+
+        .bg-gradient-cmu {
+            background-image: linear-gradient(195deg, #156a02 0%, #20841e 100%);
+        }
+
+        .bg-gradient-cmu {
+            background-image: linear-gradient(195deg, #898989 0%, rgba(83, 83, 83, 0.79) 100%);
+        }
+
+        .bg-gradient-jragent {
+            background-image: linear-gradient(195deg, #bc6161 0%, #c75151 100%);
+        }
+
+        .bg-gradient-recruit {
+            background-image: linear-gradient(195deg, #76a5af 0%, #76a5af 100%);
+        }
+
+        .bg-gradient-db {
+            background-image: linear-gradient(195deg, #800303 0%, #b00707 100%);
+        }
+
+        .bg-gradient-pa {
+            background-image: linear-gradient(195deg, #00b4ff 0%, #1760e1 100%);
+        }
+
+        .bg-gradient-cpd {
+            background-image: linear-gradient(195deg, #959595 0%, #929292 100%);
+        }
+
+        .bg-gradient-swat {
+            background-image: linear-gradient(195deg, #232222 0%, #434345 100%);
+        }
+
+        .bg-gradient-success {
+            background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+        }
+
+        .bg-gradient-danger {
+            background-image: linear-gradient(195deg, #EF5350 0%, #E53935 100%);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .filter-sidebar {
+            float: left;
+            width: 20%;
+            padding-right: 20px;
+        }
+
+        .filter-sidebar .form-group {
+            margin-bottom: 15px;
+        }
+
+        .filter-sidebar h4 {
+            margin-bottom: 10px;
+        }
+
+        .profile-table {
+            float: left;
+            width: 75%;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        @media (max-width: 768px) {
+            .filter-sidebar {
+                width: 100%;
+                float: none;
+            }
+
+            .profile-table {
+                width: 100%;
+                float: none;
+            }
+
+            .clearfix::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .table {
+            min-width: 600px;
+        }
+
+        .thead-fixed {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 1;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .record-pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+    </style>
 </head>
-<style>
-    .badge {
-        --bs-badge-padding-x: 0.9em;
-        --bs-badge-padding-y: 0.55em;
-        --bs-badge-font-size: 0.75em;
-        --bs-badge-font-weight: 700;
-        --bs-badge-color: #fff;
-        --bs-badge-border-radius: 0.45rem;
-        display: inline-block;
-        padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
-        font-size: var(--bs-badge-font-size);
-        font-weight: var(--bs-badge-font-weight);
-        line-height: 1;
-        color: var(--bs-badge-color);
-        text-align: center;
-        white-space: nowrap;
-        vertical-align: baseline;
-        border-radius: var(--bs-badge-border-radius);
-    }
-
-    .bg-gradient-curator {
-        background-image: linear-gradient(195deg, #ffc001 0%, #efd789 100%);
-    }
-
-    .bg-gradient-chief {
-        background-image: linear-gradient(195deg, #a61c00 0%, #a61c00 100%);
-    }
-
-    .bg-gradient-depchief {
-        background-image: linear-gradient(195deg, #c12803 0%, #a9321b 100%);
-    }
-
-    .bg-gradient-insperctr {
-        background-image: linear-gradient(195deg, #b97f02 0%, #f1d04d 100%);
-    }
-
-    .bg-gradient-instructor {
-        background-image: linear-gradient(195deg, #5a02b9 0%, #844df1 100%);
-    }
-
-    .bg-gradient-cmu {
-        background-image: linear-gradient(195deg, #156a02 0%, #20841e 100%);
-    }
-
-    .bg-gradient-cmu {
-        background-image: linear-gradient(195deg, #898989 0%, rgba(83, 83, 83, 0.79) 100%);
-    }
-
-    .bg-gradient-jragent {
-        background-image: linear-gradient(195deg, #bc6161 0%, #c75151 100%);
-    }
-
-    .bg-gradient-recruit {
-        background-image: linear-gradient(195deg, #76a5af 0%, #76a5af 100%);
-    }
-
-    .bg-gradient-db {
-        background-image: linear-gradient(195deg, #800303 0%, #b00707 100%);
-    }
-
-    .bg-gradient-pa {
-        background-image: linear-gradient(195deg, #00b4ff 0%, #1760e1 100%);
-    }
-
-    .bg-gradient-cpd {
-        background-image: linear-gradient(195deg, #959595 0%, #929292 100%);
-    }
-
-    .bg-gradient-swat {
-        background-image: linear-gradient(195deg, #232222 0%, #434345 100%);
-    }
-
-    .bg-gradient-success {
-        background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
-    }
-
-    .bg-gradient-danger {
-        background-image: linear-gradient(195deg, #EF5350 0%, #E53935 100%);
-    }
-
-    .text-center {
-        text-align: center;
-    }
-</style>
 <body>
 <div class="preloader">
     <div class="preloader-body">
@@ -123,133 +195,209 @@
         <div class="container">
             <h2>База сотрудников</h2>
             <br>
-            <div class="form-group">
-                <input type="text" class="form-control" id="search" placeholder="Поиск по таблице">
-            </div>
-            <hr/>
-            <table class="table-bordered table-hover table" id="my-search-table">
-                <thead>
-                <tr>
-                    <th>Имя</th>
-                    <th>Фамилия</th>
-                    <th>Игровой ник</th>
-                    <th>Отдел</th>
-                    <th>Должность</th>
-                    <th>Статус</th>
-                </tr>
-                </thead>
-                <tbody id="profile-table">
-                {% for profile in profiles %}
-                    <tr>
-                        <td class="text-center">
-                            {% if profile.name %}
-                                <a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a>
-                            {% else %}
-                                Нет данных
-                            {% endif %}
-                        </td>
-                        <td class="text-center">
-                            {% if profile.surnames %}
-                                <a href="{{ profile.get_absolute_url }}">{{ profile.surnames }}</a>
-                            {% else %}
-                                Нет данных
-                            {% endif %}
-                        </td>
-                        <td class="text-center">
-                            {% if profile.nick_name %}
-                                <a href="{{ profile.get_absolute_url }}">{{ profile.nick_name }}</a>
-                            {% else %}
-                                Нет данных
-                            {% endif %}
-                        </td>
-                        <td class="text-center">
-                            {% if profile.department %}
-                                {% if profile.department.name == "Detective Bureau" %}
-                                    <span class="badge bg-gradient-db">{{ profile.department.name }}</span>
-                                {% elif profile.department.name == "Police Academy" %}
-                                    <span class="badge bg-gradient-pa">{{ profile.department.name }}</span>
-                                {% elif profile.department.name == "Speсial Weapons And Tactics" %}
-                                    <span class="badge bg-gradient-swat">{{ profile.department.name }}</span>
-                                {% elif profile.department.name == "Central Patrol Division" %}
-                                    <span class="badge bg-gradient-cpd">{{ profile.department.name }}</span>
+            <div class="clearfix">
+                <div class="filter-sidebar">
+                    <div class="form-group">
+                        <select class="form-control" id="department-filter">
+                            <option value="">Все отделы</option>
+                            {% for department in departments %}
+                                <option value="{{ department.id }}">{{ department.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="role-filter">
+                            <option value="">Все должности</option>
+                            {% for role in roles %}
+                                <option value="{{ role.id }}">{{ role.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button id="reset-filters" class="button button-size-1 button-block button-primary">Сбросить
+                        </button>
+                    </div>
+                </div>
+                <div class="profile-table">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="search" placeholder="Поиск по таблице">
+                    </div>
+                    <hr/>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="my-search-table">
+                            <thead class="thead-fixed">
+                            <tr>
+                                <th class="text-center">Имя</th>
+                                <th class="text-center">Фамилия</th>
+                                <th class="text-center">Игровой ник</th>
+                                <th class="text-center">Отдел</th>
+                                <th class="text-center">Должность</th>
+                                <th class="text-center">Статус</th>
+                            </tr>
+                            </thead>
+                            <tbody id="profile-table">
+                            {% for profile in profiles %}
+                                <tr data-department="{{ profile.department.id }}" data-role="{{ profile.role.id }}">
+                                    <td class="text-center">
+                                        {% if profile.name %}
+                                            <a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a>
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if profile.surnames %}
+                                            <a href="{{ profile.get_absolute_url }}">{{ profile.surnames }}</a>
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if profile.nick_name %}
+                                            <a href="{{ profile.get_absolute_url }}">{{ profile.nick_name }}</a>
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if profile.department %}
+                                            {% if profile.department.name == "Detective Bureau" %}
+                                                <span class="badge bg-gradient-db">{{ profile.department.name }}</span>
+                                            {% elif profile.department.name == "Police Academy" %}
+                                                <span class="badge bg-gradient-pa">{{ profile.department.name }}</span>
+                                            {% elif profile.department.name == "Speсial Weapons And Tactics" %}
+                                                <span class="badge bg-gradient-swat">{{ profile.department.name }}</span>
+                                            {% elif profile.department.name == "Central Patrol Division" %}
+                                                <span class="badge bg-gradient-cpd">{{ profile.department.name }}</span>
+                                            {% else %}
+                                                <span class="badge bg-gradient-secondary">{{ profile.department.name }}</span>
+                                            {% endif %}
+                                        {% else %}
+                                            Отсутствует
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if profile.role %}
+                                            {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
+                                                <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
+                                                <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
+                                                <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
+                                                <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
+                                                <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Officer of CMU" %}
+                                                <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Officer of CPU" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
+                                                <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Jr.Agent" %}
+                                                <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Recruit of SWAT" %}
+                                                <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
+                                            {% endif %}
+                                        {% else %}
+                                            Отсутствует
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if profile.is_online %}
+                                            <span class="badge bg-gradient-success">В игре</span>
+                                        {% else %}
+                                            <span class="badge bg-gradient-danger">Не в игре</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+
+                        </table>
+                        <div class="record-pagination-container">
+                            <div class="record-info">
+                                Записи с {{ start_record }} до {{ end_record }} из {{ total_profiles }} записей
+                            </div>
+                            <ul class="pagination">
+                                {% if profiles.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link"
+                                           href="?page={{ profiles.previous_page_number }}">&laquo;</a>
+                                    </li>
                                 {% else %}
-                                    <span class="badge bg-gradient-secondary">{{ profile.department.name }}</span>
+                                    <li class="page-item disabled">
+                                        <span class="page-link">&laquo;</span>
+                                    </li>
                                 {% endif %}
-                            {% else %}
-                                Отсутствует
-                            {% endif %}
-                        </td>
-                        <td class="text-center">
-                            {% if profile.role %}
-                                {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
-                                    <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
-                                {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
-                                    <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
-                                {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
-                                    <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
-                                {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
-                                    <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
-                                {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
-                                    <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
-                                {% elif profile.role.name == "Officer of CMU" %}
-                                    <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
-                                {% elif profile.role.name == "Officer of CPU" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
-                                    <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
-                                {% elif profile.role.name == "Jr.Agent" %}
-                                    <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
-                                {% elif profile.role.name == "Recruit of SWAT" %}
-                                    <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
+
+                                {% for num in profiles.paginator.page_range %}
+                                    {% if profiles.number == num %}
+                                        <li class="page-item active">
+                                            <span class="page-link">{{ num }}</span>
+                                        </li>
+                                    {% elif num > profiles.number|add:'-3' and num < profiles.number|add:'3' %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if profiles.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ profiles.next_page_number }}">&raquo;</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link">&raquo;</span>
+                                    </li>
                                 {% endif %}
-                            {% else %}
-                                Отсутствует
-                            {% endif %}
-                        </td>
-                        <td class="text-center">
-                            {% if profile.is_online %}
-                                <span class="badge bg-gradient-success">Онлайн</span>
-                            {% else %}
-                                <span class="badge bg-gradient-danger">Офлайн</span>
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            {% if profiles.has_other_pages %}
-                <ul class="pagination">
-                    {% if profiles.has_previous %}
-                        <li><a href="?page=1">&laquo;</a></li>
-                        <li><a href="?page={{ profiles.previous_page_number }}">{{ profiles.previous_page_number }}</a>
-                        </li>
-                    {% endif %}
-                    <li class="active"><span>{{ profiles.number }}</span></li>
-                    {% if profiles.has_next %}
-                        <li><a href="?page={{ profiles.next_page_number }}">{{ profiles.next_page_number }}</a></li>
-                        <li><a href="?page={{ profiles.paginator.num_pages }}">&raquo;</a></li>
-                    {% endif %}
-                </ul>
-            {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     {% include 'include/footer.html' %}
 </div>
+</body>
 <div class="snackbars" id="form-output-global"></div>
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
-{% include 'include/notifications.html' %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7x5Yo7+ge6pI0I=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        $("#search").keyup(function () {
-            _this = this;
-            $.each($("#my-search-table tbody tr"), function () {
-                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1) {
-                    $(this).hide();
-                } else {
-                    $(this).show();
-                }
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#profile-table tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+
+        $('#department-filter').on('change', function () {
+            var department = $(this).val();
+            filterProfiles(department, $('#role-filter').val());
+        });
+
+        $('#role-filter').on('change', function () {
+            var role = $(this).val();
+            filterProfiles($('#department-filter').val(), role);
+        });
+
+        $('#reset-filters').on('click', function () {
+            $('#department-filter').val('');
+            $('#role-filter').val('');
+            $('#search').val('');
+            $("#profile-table tr").show();
+        });
+
+        function filterProfiles(department, role) {
+            $("#profile-table tr").each(function () {
+                var matchDepartment = department === "" || $(this).data("department") == department;
+                var matchRole = role === "" || $(this).data("role") == role;
+                $(this).toggle(matchDepartment && matchRole);
+            });
+        }
     });
 </script>
-</body>
 </html>

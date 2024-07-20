@@ -11,11 +11,10 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from .models import ProfileChangeLog, Profile, LikeDislike
+from .models import ProfileChangeLog, Profile, LikeDislike, Department, Role
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import JsonResponse
-from .models import Role
 
 
 def register(request):
@@ -219,23 +218,39 @@ class SupportView(View):
 #         return render(request, 'include/footer.html', {'form': form})
 
 def profile_list(request):
-    profiles = Profile.objects.order_by('id').all()  # Ensure ordering
+    profiles = Profile.objects.order_by('id').all()
     query = request.GET.get('q')
     if query:
         profiles = profiles.filter(
             Q(name__icontains=query) | Q(nick_name__icontains=query)
         )
 
-    paginator = Paginator(profiles, 10)
+    paginator = Paginator(profiles, 15)
     page = request.GET.get('page')
     try:
-        profiles = paginator.page(page)
+        profiles_page = paginator.page(page)
     except PageNotAnInteger:
-        profiles = paginator.page(1)
+        profiles_page = paginator.page(1)
     except EmptyPage:
-        profiles = paginator.page(paginator.num_pages)
+        profiles_page = paginator.page(paginator.num_pages)
 
-    return render(request, 'profiles/profile_list.html', {'profiles': profiles})
+    total_profiles = profiles.count()
+    start_record = (profiles_page.number - 1) * paginator.per_page + 1
+    end_record = start_record + profiles_page.paginator.per_page - 1
+    if end_record > total_profiles:
+        end_record = total_profiles
+
+    departments = Department.objects.all()
+    roles = Role.objects.all()
+
+    return render(request, 'profiles/profile_list.html', {
+        'profiles': profiles_page,
+        'departments': departments,
+        'roles': roles,
+        'total_profiles': total_profiles,
+        'start_record': start_record,
+        'end_record': end_record,
+    })
 
 
 @login_required

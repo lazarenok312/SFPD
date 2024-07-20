@@ -240,10 +240,10 @@
                                     <li class="rd-nav-item {% if request.path == '/' %}active{% endif %}">
                                         <a class="rd-nav-link" href="{% url 'departments:home' %}">Главная</a>
                                     </li>
-                                    <li class="rd-nav-item {% if request.path == '/department/about' %}active{% endif %}">
+                                    <li class="rd-nav-item {% if request.path == '/about/' %}active{% endif %}">
                                         <a class="rd-nav-link" href="{% url 'departments:about' %}">О нас</a>
                                     </li>
-                                    <li class="rd-nav-item">
+                                    <li class="rd-nav-item {% if request.path == '/police_academy/' or request.path == '/cpd/' or request.path == '/swat/' or request.path == '/db/' %}active{% endif %}">
                                         <a class="rd-nav-link" href="#">Отделы</a>
                                         <ul class="dropdown">
                                             <li><a href="{% url 'departments:pa_detail' %}">Police Academy</a></li>
