@@ -190,32 +190,22 @@ class SupportView(View):
     def post(self, request):
         form = SupportForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Ваше обращение успешно доставлено!')
+            support_request = form.save()
+
+            subject = 'Ваше обращение принято'
+            message = 'Благодарим вас за обращение. Мы обработаем его в ближайшее время.'
+            from_email = settings.EMAIL_HOST_USER
+            to_email = form.cleaned_data['email']
+
+            try:
+                send_mail(subject, message, from_email, [to_email])
+                messages.success(request, 'Ваше обращение успешно доставлено!')
+            except Exception as e:
+                messages.error(request, f'Ошибка при отправке письма: {e}')
+
             return redirect(request.META.get('HTTP_REFERER', 'departments:home'))
         return render(request, 'include/footer.html', {'form': form})
 
-
-# class SupportView(View):
-#     def get(self, request):
-#         form = SupportForm()
-#         return render(request, 'include/footer.html', {'form': form})
-#
-#     def post(self, request):
-#         form = SupportForm(request.POST)
-#         if form.is_valid():
-#             support_request = form.save()
-#
-#             # Отправляем ответное сообщение на указанный email
-#             subject = 'Ваше обращение принято'
-#             message = 'Благодарим вас за обращение. Мы обработаем его в ближайшее время.'
-#             from_email = settings.EMAIL_HOST_USER
-#             to_email = form.cleaned_data['email']
-#             send_mail(subject, message, from_email, [to_email])
-#
-#             messages.success(request, 'Ваше обращение успешно доставлено!')
-#             return redirect(request.META.get('HTTP_REFERER', 'departments:home'))
-#         return render(request, 'include/footer.html', {'form': form})
 
 def profile_list(request):
     profiles = Profile.objects.order_by('id').all()
