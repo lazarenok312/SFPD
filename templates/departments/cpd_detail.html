@@ -6,13 +6,6 @@
     <title>Central Patrol Division</title>
 </head>
 <style>
-    .text-with-border {
-        text-shadow: -1px -1px 0 #000000,
-        1px -1px 0 #000000,
-        -1px 1px 0 #000000,
-        1px 1px 0 #000000;
-    }
-
     .responsive-image {
         background-size: cover;
         width: 946px;
@@ -54,16 +47,13 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
-                                <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Central Patrol Division</span><span
-                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp" data-caption-delay="100">Central Patrol Division</span><span
+                                        class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Chief of CPD</span></h1>
-                                {% if pa_username %}
-                                    <p class="lead" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">{{ pa_username }}</p>
-                                {% else %}
-                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
-                                        Вакантно</p>
-                                {% endif %}
+                                    <p class="lead text-with-border" data-caption-animate="fadeInUp"
+                                       data-caption-delay="350">Levi Mel</p>
+{#                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">#}
+{#                                        Вакантно</p>#}
                             </div>
                         </div>
                     </div>
@@ -74,16 +64,11 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
-                                <h1><span class="d-block" data-caption-animate="fadeInUp" data-caption-delay="100">Central Patrol Division</span><span
-                                        class="d-block text-light" data-caption-animate="fadeInUp"
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp" data-caption-delay="100">Central Patrol Division</span><span
+                                        class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Chief of CPD</span></h1>
-                                {% if pa_username %}
-                                    <p class="lead" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">{{ pa_username }}</p>
-                                {% else %}
-                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
-                                        Вакантно</p>
-                                {% endif %}
+                                    <p class="lead text-with-border" data-caption-animate="fadeInUp"
+                                       data-caption-delay="350">Carlos Harrizon</p>
                             </div>
                         </div>
                     </div>
@@ -98,13 +83,8 @@
                                           data-caption-delay="100">Central Patrol Division</span><span
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Chief of CPD</span></h1>
-                                {% if pa_username %}
-                                    <p class="lead" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">{{ pa_username }}</p>
-                                {% else %}
-                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">
-                                        Вакантно</p>
-                                {% endif %}
+                                    <p class="lead text-with-border" data-caption-animate="fadeInUp"
+                                       data-caption-delay="350">Malierti Benec</p>
                             </div>
                         </div>
                     </div>
@@ -267,12 +247,12 @@
                                 <span>Спец. рация SFPD</span>
                                 <img src="{% static 'images/discord.svg' %}" alt="Discord Icon" width="25">
                             </a>
-                            <a class="button button-icon button-icon-right button-primary"
-                               href="https://vk.com/away.php?to=https%3A%2F%2Fvl4sov.dev%2FDownload%2Ffbitools.zip" target="_blank" >
-                                <span>FBI Tools</span>
-                                <span
-                                        class="icon fa fa-cog"></span>
-                            </a>
+{#                            <a class="button button-icon button-icon-right button-primary"#}
+{#                               href="https://vk.com/away.php?to=https%3A%2F%2Fvl4sov.dev%2FDownload%2Ffbitools.zip" target="_blank" >#}
+{#                                <span>FBI Tools</span>#}
+{#                                <span#}
+{#                                        class="icon fa fa-cog"></span>#}
+{#                            </a>#}
                             <a class="button button-icon button-icon-right button-excel"
                                href="https://docs.google.com/spreadsheets/d/10suCWj2o6Cy9J5tp-I9jMW9HinTgFq1T1yPlsAjJGPE/edit?gid=1800162722#gid=1800162722">
                                 <span>Таблица отдела</span>
@@ -321,18 +301,18 @@
                             <!--Box counter-->
                             <div class="box-counter">
                                 <div class="box-counter-main">
-                                    <div class="counter">25</div>
+                                    <div class="counter">1500+</div>
                                 </div>
-                                <p class="box-counter-title">Наша команда</p>
+                                <p class="box-counter-title">Проведено задержаний</p>
                             </div>
                         </div>
                         <div class="col-6">
                             <!--Box counter-->
                             <div class="box-counter">
                                 <div class="box-counter-main">
-                                    <div class="counter">243</div>
+                                    <div class="counter">2000+</div>
                                 </div>
-                                <p class="box-counter-title">Хейтеров SFPD</p>
+                                <p class="box-counter-title">Выписанных штрафов</p>
                             </div>
                         </div>
                         <div class="col-6">
