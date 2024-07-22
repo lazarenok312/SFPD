@@ -252,6 +252,31 @@
         .bg-gradient-swat {
             background-image: linear-gradient(195deg, #232222 0%, #434345 100%);
         }
+
+        .settings-links {
+            margin-top: 1rem;
+        }
+
+        .settings-link {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            border-radius: 0.3rem;
+            text-decoration: none;
+            color: #333;
+            font-size: 1rem;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .settings-link i {
+            margin-right: 0.5rem;
+        }
+
+        .settings-link:hover {
+            background-color: #f8f9fa;
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
@@ -298,14 +323,14 @@
                        aria-controls="game-info" aria-selected="false">Игровая информация</a>
                 </li>
                 {% if can_edit %}
-                <li class="nav-item">
-                    <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab"
-                       aria-controls="update" aria-selected="false">Редактирование</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
-                       aria-controls="settings" aria-selected="false">Настройки</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab"
+                           aria-controls="update" aria-selected="false">Редактирование</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
+                           aria-controls="settings" aria-selected="false">Настройки</a>
+                    </li>
                 {% endif %}
                 <!-- Добавьте другие вкладки по необходимости -->
             </ul>
@@ -383,28 +408,28 @@
                     {% endif %}</p>
                     <p><strong>Должность:</strong>
                         {% if profile.role %}
-                        {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
-                            <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
-                        {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
-                            <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
-                        {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
-                            <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
-                        {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
-                            <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
-                        {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
-                            <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
-                        {% elif profile.role.name == "Officer of CMU" %}
-                            <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
-                        {% elif profile.role.name == "Officer of CPU" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
-                            <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
-                        {% elif profile.role.name == "Jr.Agent" %}
-                            <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
-                        {% elif profile.role.name == "Recruit of SWAT" %}
-                            <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
+                            {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
+                                <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
+                            {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
+                                <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
+                            {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
+                                <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
+                            {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
+                                <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
+                            {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
+                                <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
+                            {% elif profile.role.name == "Officer of CMU" %}
+                                <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                            {% elif profile.role.name == "Officer of CPU" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
+                                <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                            {% elif profile.role.name == "Jr.Agent" %}
+                                <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
+                            {% elif profile.role.name == "Recruit of SWAT" %}
+                                <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
+                            {% endif %}
+                        {% else %}
+                            Отсутствует
                         {% endif %}
-                    {% else %}
-                        Отсутствует
-                    {% endif %}
                     </p>
                     <p class="nick-name-wrapper">
                         <strong>Ник:</strong>
@@ -430,7 +455,6 @@
                 {% if can_edit %}
                     <div class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab">
                         <br>
-
                         <form method="post" enctype="multipart/form-data" id="profileForm"
                               data-roles-url="{% url 'ajax_load_roles' %}" novalidate>
                             {% csrf_token %}
@@ -501,8 +525,17 @@
                     </div>
 
                     <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                        <br>
-                        в разработке
+                        <div class="settings-links">
+                            <ul>
+                                <li><a href="{% url 'password_change' %}" class="settings-link">
+                                    <i class="fas fa-key"></i> Сменить пароль
+                                </a>
+                                </li>
+                                <li><a href="{% url 'password_reset' %}" class="settings-link">
+                                    <i class="fas fa-exclamation-circle"></i> Забыли пароль?
+                                </a></li>
+                            </ul>
+                        </div>
                     </div>
                 {% endif %}
             </div>
