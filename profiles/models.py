@@ -95,9 +95,8 @@ class LikeDislike(models.Model):
     profile = models.ForeignKey(Profile, verbose_name="Профиль", on_delete=models.CASCADE)
     is_like = models.BooleanField(default=True, verbose_name="Лайк")
 
-    class Meta:
-        unique_together = ('user', 'profile')
 
     class Meta:
+        unique_together = ('user', 'profile')
         verbose_name = 'Лайки Дизлайки'
         verbose_name_plural = 'Лайки Дизлайки'
