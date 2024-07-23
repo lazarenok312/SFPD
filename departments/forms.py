@@ -50,6 +50,7 @@ class DepartmentStaffForm(forms.ModelForm):
             'photo': 'Фотография',
         }
 
+
 DepartmentStaffFormSet = modelformset_factory(
     DepartmentStaff,
     form=DepartmentStaffForm,

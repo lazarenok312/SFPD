@@ -47,7 +47,7 @@ class Profile(models.Model):
 
     class Meta:
         verbose_name = 'Профиль'
-        verbose_name_plural = 'Профиля'
+        verbose_name_plural = 'Профили'
 
 
 @receiver(post_save, sender=User)
@@ -76,14 +76,14 @@ class SupportRequest(models.Model):
 
 
 class ProfileChangeLog(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    change_type = models.CharField(max_length=255)
-    old_value = models.TextField(blank=True)
-    new_value = models.TextField(blank=True)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, verbose_name="Пользователь", on_delete=models.CASCADE)
+    change_type = models.CharField(max_length=255, verbose_name="Тип изменения")
+    old_value = models.TextField(blank=True, verbose_name="Старое значение")
+    new_value = models.TextField(blank=True, verbose_name="Новое значение")
+    timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время")
 
     def __str__(self):
-        return f"{self.user} {self.change_type} from {self.old_value} to {self.new_value}"
+        return f"{self.user} {self.change_type} с {self.old_value} на {self.new_value}"
 
     class Meta:
         verbose_name = 'Логи изменений'
@@ -95,8 +95,7 @@ class LikeDislike(models.Model):
     profile = models.ForeignKey(Profile, verbose_name="Профиль", on_delete=models.CASCADE)
     is_like = models.BooleanField(default=True, verbose_name="Лайк")
 
-
     class Meta:
         unique_together = ('user', 'profile')
-        verbose_name = 'Лайки Дизлайки'
-        verbose_name_plural = 'Лайки Дизлайки'
+        verbose_name = 'Лайк/Дизлайк'
+        verbose_name_plural = 'Лайки/Дизлайки'

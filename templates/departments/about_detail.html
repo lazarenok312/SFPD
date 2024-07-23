@@ -430,6 +430,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="item">
+                    <a class="link-image" href="javascript:void(0);" onclick="openModal('modal6');">
+                        <img src="{% static 'images/sherif/GabrielHolmberg.webp' %}" alt="" width="200" height="90"/>
+                    </a>
+                    <div class="nickname-text">
+                        <div class="nickname-frame silver-frame">
+                            Gabriel Holmberg
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Добавьте другие элементы слайдера здесь -->
             </div>
@@ -473,6 +483,14 @@
                     максимальный мемберс в департаменте за последние несколько лет</p>
             </div>
         </div>
+        <div id="modal6" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('modal6')">&times;</span>
+                <p>70-й шериф департамента полиции города San-Fierro. За время своего управления департаментом внедрил
+                    Отдел Внутренних Расследований Офис Специальных Операций и множество других доработок. Делал упор на
+                    проведение спецопераций и повышении профессиональных качеств офицеров департамента</p>
+            </div>
+        </div>
     </section>
 
     <section class="section section-lg bg-default">
@@ -483,16 +501,20 @@
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
                             <div class="unit-left">
-                                <img class="img" src="{% static 'images/testimonials-2-138x138.jpg' %}" alt=""
-                                     width="138" height="69"/>
+                                {% if sheriff.photo %}
+                                    <img class="img" src="{{ sheriff.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if sheriff.name %}{{ sheriff.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if sheriff.name %}{{ sheriff.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Шериф департамента</div>
                                 <div class="subtitle">
-                                    {% if sheriff.job_title %}{{ sheriff.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if sheriff.job_title %}{{ sheriff.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ sheriff.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
@@ -510,17 +532,21 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img"
-                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if colonel1.photo %}
+                                    <img class="img" src="{{ colonel1.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if colonel1.name %}{{ colonel1.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if colonel1.name %}{{ colonel1.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Полковник</div>
                                 <div class="subtitle">
-                                    {% if colonel1.job_title %}{{ colonel1.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if colonel1.job_title %}{{ colonel1.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ colonel1.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
@@ -536,17 +562,21 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img"
-                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if colonel2.photo %}
+                                    <img class="img" src="{{ colonel2.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if colonel2.name %}{{ colonel2.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if colonel2.name %}{{ colonel2.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Полковник</div>
                                 <div class="subtitle">
-                                    {% if colonel2.job_title %}{{ colonel2.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if colonel2.job_title %}{{ colonel2.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ colonel2.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
@@ -562,17 +592,21 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img"
-                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if colonel3.photo %}
+                                    <img class="img" src="{{ colonel3.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if colonel3.name %}{{ colonel3.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if colonel3.name %}{{ colonel3.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Полковник</div>
                                 <div class="subtitle">
-                                    {% if colonel3.job_title %}{{ colonel3.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if colonel3.job_title %}{{ colonel3.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ colonel3.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
@@ -590,17 +624,21 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img"
-                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if lcolonel1.photo %}
+                                    <img class="img" src="{{ lcolonel1.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if lcolonel1.name %}{{ lcolonel1.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if lcolonel1.name %}{{ lcolonel1.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Подполковник</div>
                                 <div class="subtitle">
-                                    {% if lcolonel1.job_title %}{{ lcolonel1.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if lcolonel1.job_title %}{{ lcolonel1.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ lcolonel1.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
@@ -616,17 +654,21 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img"
-                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if lcolonel2.photo %}
+                                    <img class="img" src="{{ lcolonel2.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if lcolonel2.name %}{{ lcolonel2.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if lcolonel2.name %}{{ lcolonel2.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Подполковник</div>
                                 <div class="subtitle">
-                                    {% if lcolonel2.job_title %}{{ lcolonel2.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if lcolonel2.job_title %}{{ lcolonel2.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ lcolonel2.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
@@ -642,17 +684,21 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img"
-                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if lcolonel3.photo %}
+                                    <img class="img" src="{{ lcolonel3.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if lcolonel3.name %}{{ lcolonel3.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if lcolonel3.name %}{{ lcolonel3.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Подполковник</div>
                                 <div class="subtitle">
-                                    {% if lcolonel3.job_title %}{{ lcolonel3.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if lcolonel3.job_title %}{{ lcolonel3.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ lcolonel3.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
@@ -670,17 +716,21 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img"
-                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if major1.photo %}
+                                    <img class="img" src="{{ major1.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if major1.name %}{{ major1.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if major1.name %}{{ major1.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Майор</div>
                                 <div class="subtitle">
-                                    {% if major1.job_title %}{{ major1.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if major1.job_title %}{{ major1.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ major1.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
@@ -696,17 +746,21 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img"
-                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if major2.photo %}
+                                    <img class="img" src="{{ major2.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if major2.name %}{{ major2.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if major2.name %}{{ major2.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Майор</div>
                                 <div class="subtitle">
-                                    {% if major2.job_title %}{{ major2.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if major2.job_title %}{{ major2.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ major2.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
@@ -722,17 +776,21 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img"
-                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if major3.photo %}
+                                    <img class="img" src="{{ major3.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if major3.name %}{{ major3.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if major3.name %}{{ major3.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Майор</div>
                                 <div class="subtitle">
-                                    {% if major3.job_title %}{{ major3.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if major3.job_title %}{{ major3.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ major3.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>
@@ -751,17 +809,20 @@
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
                             <div class="unit-left">
-                                <img class="img" src="{% static 'images/testimonials-2-138x138.jpg' %}" alt=""
-                                     width="138"
-                                     height="69"/>
+                                {% if major4.photo %}
+                                    <img class="img" src="{{ major4.photo.url }}" alt=""
+                                         width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt=""
+                                         width="138" height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
                                 <h5 class="title">
-                                    {% if major4.name %}{{ major4.name }}{% else %}Имя не указано{% endif %}</h5>
+                                    {% if major4.name %}{{ major4.name }}{% else %}Вакантно{% endif %}</h5>
                                 <div class="subtitle">Майор</div>
                                 <div class="subtitle">
-                                    {% if major4.job_title %}{{ major4.job_title }}{% else %}Должность не
-                                        указана{% endif %}</div>
+                                    {% if major4.job_title %}{{ major4.job_title }}{% else %}-{% endif %}</div>
                                 <div class="social-icons">
                                     <a href="{{ major4.discord_url }}" target="_blank" class="social-icon">
                                         <i class="fab fa-discord"></i>

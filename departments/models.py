@@ -3,7 +3,7 @@ from django.db import models
 
 class Department(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Отдел")
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=True, verbose_name="Описание")
 
     def __str__(self):
         return self.name
@@ -14,7 +14,7 @@ class Department(models.Model):
 
 
 class Role(models.Model):
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, verbose_name="Отдел")
     name = models.CharField(max_length=100, unique=True, verbose_name="Должность")
 
     def __str__(self):
@@ -29,10 +29,14 @@ class Role(models.Model):
 
 
 class ImportantInfo(models.Model):
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-    date_posted = models.DateTimeField(auto_now_add=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, verbose_name="Отдел")
+    title = models.CharField(max_length=100, verbose_name="Заголовок")
+    content = models.TextField(verbose_name="Содержание")
+    date_posted = models.DateTimeField(auto_now_add=True, verbose_name="Дата публикации")
+
+    class Meta:
+        verbose_name = 'Важная информация'
+        verbose_name_plural = 'Важная информация'
 
 
 class PoliceAcademyPosition(models.Model):
@@ -42,10 +46,10 @@ class PoliceAcademyPosition(models.Model):
         ('dep_chief2', 'Dep.Chief of PA'),
     ]
 
-    position = models.CharField(max_length=10, choices=POSITION_CHOICES)
-    nickname = models.CharField(max_length=100)
-    description = models.TextField()
-    photo = models.ImageField(upload_to='police_academy_photos/', blank=True, null=True)
+    position = models.CharField(max_length=10, choices=POSITION_CHOICES, verbose_name="Должность")
+    nickname = models.CharField(max_length=100, verbose_name="Ник")
+    description = models.TextField(verbose_name="Описание")
+    photo = models.ImageField(upload_to='police_academy_photos/', blank=True, null=True, verbose_name="Фото")
 
     def __str__(self):
         return f"{self.get_position_display()} - {self.nickname}"
@@ -70,12 +74,12 @@ class DepartmentStaff(models.Model):
         ('major4', 'Майор4'),
     )
 
-    name = models.CharField(max_length=100)
-    title = models.CharField(max_length=100, choices=RANKS)
-    photo = models.ImageField(upload_to='department_staff', blank=True, null=True)
-    job_title = models.TextField(max_length=50, blank=True, null=True)
-    discord_url = models.URLField(max_length=200, blank=True, null=True)
-    vk_url = models.URLField(max_length=200, blank=True, null=True)
+    name = models.CharField(max_length=100, verbose_name="Имя")
+    title = models.CharField(max_length=100, choices=RANKS, verbose_name="Звание")
+    photo = models.ImageField(upload_to='department_staff', blank=True, null=True, verbose_name="Фото")
+    job_title = models.TextField(max_length=50, blank=True, null=True, verbose_name="Должность")
+    discord_url = models.URLField(max_length=200, blank=True, null=True, verbose_name="Ссылка на Discord")
+    vk_url = models.URLField(max_length=200, blank=True, null=True, verbose_name="Ссылка на VK")
 
     def __str__(self):
         return f"{self.name} - {self.get_title_display()}"
