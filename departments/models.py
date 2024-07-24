@@ -163,3 +163,18 @@ class UnsubscribeToken(models.Model):
     class Meta:
         verbose_name = 'Токен отписки'
         verbose_name_plural = 'Токен отписки'
+
+
+class ChangeHistory(models.Model):
+    title = models.CharField(max_length=200, verbose_name="Название")
+    description = models.TextField(verbose_name="Описание")
+    created_at = models.DateTimeField(default=timezone.now, verbose_name="Дата создания")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата последнего обновления")
+
+    class Meta:
+        verbose_name = 'История изменений'
+        verbose_name_plural = 'Истории изменений'
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return self.title

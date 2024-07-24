@@ -80,6 +80,11 @@ def thank_board(request):
     return render(request, 'miscellaneous/thank_board.html')
 
 
+def change_history_list(request):
+    changes = ChangeHistory.objects.all()
+    return render(request, 'include/change_history_list.html', {'changes': changes})
+
+
 def police_academy_view(request):
     positions = ['chief', 'dep_chief1', 'dep_chief2']
 

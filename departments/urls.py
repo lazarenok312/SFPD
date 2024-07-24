@@ -18,4 +18,5 @@ urlpatterns = [
     path('department-staff/', views.edit_department_staff, name='edit_department_staff'),
     path('subscribe/', views.SubscribeView.as_view(), name='subscribe'),
     path('unsubscribe/<str:token>/', views.unsubscribe_view, name='unsubscribe'),
+    path('change-history/', views.change_history_list, name='change_history_list'),
 ]

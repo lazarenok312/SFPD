@@ -1,0 +1,118 @@
+{% load static %}
+{% include 'base.html' %}
+<!DOCTYPE html>
+
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>История изменений</title>
+    <style>
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .change-log {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .list-ordered {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+
+        .change-entry {
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .change-entry:last-child {
+            border-bottom: none;
+        }
+
+        .change-header {
+            margin-bottom: 0.5rem;
+        }
+
+        .change-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .change-date {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .change-description {
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .no-changes {
+            font-style: italic;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <img class="preloader-ico" src="{% static 'images/history.png' %}" alt="">
+        </div>
+        <H5>Загрузка...</H5>
+    </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <div class="rd-navbar-bg novi-background bg-image"
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
+    <section class="breadcrumbs-custom bg-image novi-background bg-primary">
+        <div class="container">
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                <li class="active">История изменений</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section section-md">
+        <div class="container">
+            <div class="row row-50">
+                <div class="col-12">
+                    <h2 class="section-title">История изменений</h2>
+                    <h6>Здесь вы можете отслеживать все изменения, исправления багов и доработки на сайте.</h6>
+                    <div class="change-log">
+                        <ol class="list-ordered">
+                            {% for change in changes %}
+                                <li class="change-entry">
+                                    <div class="change-header">
+                                        <h3 class="change-title">{{ change.title }}</h3>
+                                        <small class="change-date">Дата
+                                            добавления: {{ change.created_at|date:"d.m.Y" }}</small>
+                                    </div>
+                                    <p class="change-description">{{ change.description }}</p>
+                                </li>
+                            {% empty %}
+                                <li class="no-changes">История изменений пока пуста.</li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% include 'include/footer.html' %}
+
+    <div class="snackbars" id="form-output-global"></div>
+    <script src="{% static 'js/core.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    {% include 'include/notifications.html' %}
+</div>
+</body>
+</html>

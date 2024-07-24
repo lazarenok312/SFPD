@@ -142,7 +142,7 @@
     <section class="section section-md">
     <div class="container">
         {% for form in formset %}
-            <form method="post" enctype="multipart/form-data" action="{% url 'departments:edit_staff' form.instance.pk %}">
+            <form method="post" enctype="multipart/form-data" action="{% url 'departments:edit_department_staff' %}">
                 {% csrf_token %}
                 <div class="form-card">
                     <div class="form-group">

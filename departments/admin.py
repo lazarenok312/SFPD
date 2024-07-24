@@ -91,3 +91,10 @@ class UnsubscribeTokenAdmin(admin.ModelAdmin):
 
     is_valid.boolean = True
     is_valid.short_description = "Действителен"
+
+
+@admin.register(ChangeHistory)
+class ChangeHistoryAdmin(admin.ModelAdmin):
+    list_display = ('title', 'created_at', 'updated_at')
+    search_fields = ('title', 'description')
+    ordering = ('-created_at',)
