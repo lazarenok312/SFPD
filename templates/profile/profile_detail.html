@@ -376,6 +376,7 @@
                             <p><strong>Фамилия:</strong> {{ profile.surnames }}</p>
                             <p><strong>Электронная почта:</strong> <a href="mailto:{{ profile.email }}"
                                                                       style="color: blue;">{{ profile.email }}</a></p>
+                            <p><strong>День рождения:</strong> {{ profile.birthdate }}</p>
                             <p><strong>Статус:</strong>
                                 {% if profile.user.is_staff %}
                                     <span class="badge bg-gradient-success">Администратор</span>
