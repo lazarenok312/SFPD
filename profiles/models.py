@@ -25,6 +25,7 @@ class Profile(models.Model):
     role_confirmed = models.BooleanField(default=False, verbose_name="Подтверждение должности")
     likes = models.PositiveIntegerField(default=0, verbose_name="Лайки")
     dislikes = models.PositiveIntegerField(default=0, verbose_name="Дизлайки")
+    birthdate = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
 
     @property
     def status(self):

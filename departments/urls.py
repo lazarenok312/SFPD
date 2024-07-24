@@ -16,4 +16,6 @@ urlpatterns = [
     path('thank_board/', views.thank_board, name='thank_board'),
     path('police-academy/', views.police_academy_view, name='police_academy_view'),
     path('department-staff/', views.edit_department_staff, name='edit_department_staff'),
+    path('subscribe/', views.SubscribeView.as_view(), name='subscribe'),
+    path('unsubscribe/<str:token>/', views.unsubscribe_view, name='unsubscribe'),
 ]

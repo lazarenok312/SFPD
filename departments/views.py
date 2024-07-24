@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import PoliceAcademyPosition
 from .forms import *
+from django.views.generic.edit import UpdateView, View
+from django.http import HttpResponse
+from django.contrib import messages
 
 
 def home_view(request):
@@ -50,6 +53,7 @@ def about_view(request):
     major2 = DepartmentStaff.objects.filter(title='major2').first()
     major3 = DepartmentStaff.objects.filter(title='major3').first()
     major4 = DepartmentStaff.objects.filter(title='major4').first()
+    contract_service_status = ContractServiceStatus.objects.first()
 
     context = {
         'sheriff': sheriff,
@@ -63,6 +67,7 @@ def about_view(request):
         'major2': major2,
         'major3': major3,
         'major4': major4,
+        'contract_service_status': contract_service_status,
     }
     return render(request, 'departments/about_detail.html', context)
 
@@ -113,3 +118,39 @@ def edit_department_staff(request):
         formset = DepartmentStaffFormSet(queryset=queryset)
 
     return render(request, 'forms/department_staff_form.html', {'formset': formset})
+
+
+class ContractServiceStatusForm(forms.ModelForm):
+    class Meta:
+        model = ContractServiceStatus
+        fields = ['is_active']
+
+
+class SubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = Subscriber
+        fields = ['email']
+
+
+class SubscribeView(View):
+    def post(self, request):
+        form = SubscriptionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Вы успешно подписались на уведомления!")
+        else:
+            messages.error(request, "Произошла ошибка при подписке. Пожалуйста, попробуйте еще раз.")
+        return redirect('departments:about')
+
+
+def unsubscribe_view(request, token):
+    try:
+        unsubscribe_token = UnsubscribeToken.objects.get(token=token)
+        if unsubscribe_token.is_valid():
+            Subscriber.objects.filter(email=unsubscribe_token.email).delete()
+            unsubscribe_token.delete()
+            return HttpResponse("Вы успешно отписались от рассылки.")
+        else:
+            return HttpResponse("Этот токен для отписки недействителен или истек.")
+    except UnsubscribeToken.DoesNotExist:
+        return HttpResponse("Токен не найден.")

@@ -1,17 +1,21 @@
 from django.contrib import admin
 from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike
 
+
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'name', 'surnames', 'nick_name', 'department', 'role', 'profile_confirmed', 'role_confirmed')
+        'user', 'name', 'surnames', 'nick_name', 'department', 'role', 'profile_confirmed', 'role_confirmed',
+        'birthdate'
+    )
     list_filter = ('department', 'role', 'profile_confirmed', 'role_confirmed')
     search_fields = ('user__username', 'name', 'surnames', 'email', 'nick_name')
     readonly_fields = ('last_activity', 'is_online', 'slug')
 
     fieldsets = (
         (None, {
-            'fields': ('user', 'name', 'surnames', 'email', 'photo', 'bio', 'department', 'role', 'nick_name')
+            'fields': (
+            'user', 'name', 'surnames', 'email', 'photo', 'bio', 'department', 'role', 'nick_name', 'birthdate')
         }),
         ('Подтверждения', {
             'fields': ('profile_confirmed', 'role_confirmed')
@@ -30,17 +34,20 @@ class ProfileAdmin(admin.ModelAdmin):
     is_online.boolean = True
     is_online.short_description = 'Статус Онлайн'
 
+
 @admin.register(SupportRequest)
 class SupportRequestAdmin(admin.ModelAdmin):
     list_display = ('email', 'message', 'created_at')
     search_fields = ('email', 'message')
     readonly_fields = ('created_at',)
 
+
 @admin.register(ProfileChangeLog)
 class ProfileChangeLogAdmin(admin.ModelAdmin):
     list_display = ['user', 'change_type', 'old_value', 'new_value', 'timestamp']
     search_fields = ('user__username', 'change_type', 'old_value', 'new_value')
     readonly_fields = ('timestamp',)
+
 
 @admin.register(LikeDislike)
 class LikeDislikeAdmin(admin.ModelAdmin):

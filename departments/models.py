@@ -1,4 +1,17 @@
 from django.db import models
+from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.crypto import get_random_string
+from django.utils import timezone
+from datetime import timedelta
+from django.core.mail import send_mail
+from django.conf import settings
+
+
+def generate_token():
+    return get_random_string(length=64)
 
 
 class Department(models.Model):
@@ -87,3 +100,66 @@ class DepartmentStaff(models.Model):
     class Meta:
         verbose_name = 'Штаб'
         verbose_name_plural = 'Штаб'
+
+
+class ContractServiceStatus(models.Model):
+    is_active = models.BooleanField(default=False, verbose_name="Статус контракта")
+
+    def notify_subscribers(self):
+        if self.is_active:
+            subscribers = Subscriber.objects.all()
+            for subscriber in subscribers:
+                token, created = UnsubscribeToken.objects.get_or_create(email=subscriber.email)
+                domain = settings.SITE_DOMAIN if hasattr(settings, 'SITE_DOMAIN') else 'localhost:8000'
+                unsubscribe_link = f"https://{domain}/unsubscribe/{token.token}"
+                context = {
+                    'unsubscribe_link': unsubscribe_link,
+                }
+                message = render_to_string('emails/contract_service_open.html', context)
+                send_mail(
+                    'Контрактная служба SFPD открыта',
+                    message,
+                    'site@sfpd-gov.ru',
+                    [subscriber.email],
+                    html_message=message,
+                )
+
+    def save(self, *args, **kwargs):
+        previous_status = ContractServiceStatus.objects.first().is_active if ContractServiceStatus.objects.exists() else None
+        super().save(*args, **kwargs)
+        if self.is_active and not previous_status:
+            self.notify_subscribers()
+
+    def __str__(self):
+        return "Статус контракта"
+
+    class Meta:
+        verbose_name = 'Статус контракта'
+        verbose_name_plural = 'Статус контракта'
+
+
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True, verbose_name="Электронная почта")
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name = 'Подписки на рассылку'
+        verbose_name_plural = 'Подписки на рассылку'
+
+
+class UnsubscribeToken(models.Model):
+    email = models.EmailField(unique=True, verbose_name="Электронная почта")
+    token = models.CharField(max_length=64, unique=True, default=generate_token, verbose_name="Токен")
+    created_at = models.DateTimeField(default=timezone.now, verbose_name="Дата создания")
+
+    def is_valid(self):
+        return timezone.now() < self.created_at + timedelta(days=1)
+
+    def __str__(self):
+        return f"Токен отписки для {self.email}"
+
+    class Meta:
+        verbose_name = 'Токен отписки'
+        verbose_name_plural = 'Токен отписки'

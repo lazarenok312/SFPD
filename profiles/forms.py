@@ -51,21 +51,28 @@ class ProfileUpdateForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control'}),
         label='Игровой никнейм'
     )
+    birthdate = forms.DateField(
+        required=False,
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        label='Дата рождения'
+    )
 
     class Meta:
         model = Profile
-        fields = ['name', 'surnames', 'email', 'photo', 'bio', 'department', 'role', 'nick_name']
+        fields = ['name', 'surnames', 'email', 'photo', 'bio', 'department', 'role', 'nick_name', 'birthdate']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
             'surnames': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'bio': forms.Textarea(attrs={'class': 'form-control'}),
+            'birthdate': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
         labels = {
             'name': 'Имя',
             'surnames': 'Фамилия',
             'email': 'Электронная почта',
             'bio': 'Биография',
+            'birthdate': 'Дата рождения',
         }
 
     def __init__(self, *args, **kwargs):
