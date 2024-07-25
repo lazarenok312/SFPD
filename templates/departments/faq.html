@@ -1,71 +1,274 @@
+{% load static %}
+{% include 'base.html' %}
 <!DOCTYPE html>
-<html lang="en">
+<html class="wide wow-animation" lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Страница в разработке</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>FAQ</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #2c3e50;
-            font-family: 'Roboto', sans-serif;
-            color: #ecf0f1;
-            text-align: center;
+        .acor-container {
+            margin: 20px 0;
         }
 
-        .container {
-            max-width: 600px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        .acor-container .acor-body {
+            max-height: 0;
+            overflow: hidden;
+            color: rgba(0, 0, 0, 0);
+            background-color: #ffffff;
+            line-height: 18px;
+            padding: 0 30px;
+            box-sizing: border-box;
+            transition: max-height 0.5s ease, color 0.5s ease, padding 0.5s ease;
+            font-family: Verdana, sans-serif;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 10px 16px rgba(0, 0, 0, 0.2);
         }
 
-        h1 {
-            font-size: 3rem;
-            margin: 0 0 20px;
-            animation: fadeIn 1.5s ease-in-out;
+        .acor-container .acor-body p {
+            margin: 0 0 10px;
         }
 
-        p {
-            font-size: 1.2rem;
-            line-height: 1.5;
-            margin: 0 0 20px;
-            animation: fadeIn 2s ease-in-out;
+        .acor-container label {
+            cursor: pointer;
+            background-color: #2e3843;
+            display: block;
+            padding: 15px 20px;
+            width: 100%;
+            color: #ffffff;
+            font-weight: 300;
+            box-sizing: border-box;
+            z-index: 100;
+            font-family: Verdana, sans-serif;
+            font-size: 18px;
+            margin: 0 0 5px;
+            transition: color .35s;
         }
 
-        .loader {
-            border: 8px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 8px solid #3498db;
-            width: 60px;
-            height: 60px;
-            margin: 20px auto 0;
-            animation: spin 2s linear infinite;
+        .acor-container label:hover {
+            color: #FFF;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .acor-container input {
+            display: none;
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        .acor-container label:before {
+            content: '\276F';
+            float: right;
+            transition: transform .35s;
+        }
+
+        .acor-container input:checked + label {
+            background-color: #002157;
+            color: #FFF;
+            box-shadow: 0 8px 26px rgb(0, 33, 87), 0 28px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .acor-container input:checked + label:before {
+            transform: rotate(90deg);
+        }
+
+        .acor-container input:checked + label + .acor-body {
+            max-height: 500px;
+            color: #000;
+            padding: 20px 30px 10px;
+        }
+
+        .second-word {
+            display: block;
+            margin-top: -5px;
+        }
+
+        .img-faq {
+            max-width: 50%;
+        }
+
+        .title-link {
+            text-decoration: none; /* Убирает подчеркивание у ссылки */
+            color: inherit; /* Сохраняет цвет текста */
+            display: block; /* Обеспечивает, что вся область ссылки кликабельна */
+            padding: 10px; /* Добавляет отступы для большего кликабельного пространства */
+            transition: background-color 0.3s, color 0.3s; /* Анимация для плавного изменения цвета */
+            border-radius: 5px; /* Закругление углов */
+        }
+
+        .title-link:hover {
+            color: #ffffff; /* Цвет текста при наведении */
+        }
+
+        .title-link:hover .img-faq {
+            opacity: 0.8; /* Легкое затемнение изображения при наведении */
+        }
+
+        .first-word, .second-word {
+            display: block; /* Перенос слов на новую строку */
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Страница в разработке</h1>
-        <p>Наша страница скоро будет доступна. Мы работаем над её улучшением и добавлением новых функций. Пожалуйста, зайдите позже.</p>
-        <div class="loader"></div>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Загрузка...</p>
     </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <div class="rd-navbar-bg novi-background bg-image"
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
+    <section class="breadcrumbs-custom bg-image novi-background bg-primary">
+        <div class="container">
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                <li class="">FAQ</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section section-md">
+        <div class="container">
+            <div class="row row-50">
+                <div class="col-12">
+                    <h2 class="section-title">Часто задаваемые вопросы</h2>
+                    <h6>Здесь вы можете найти ответы на существующие вопросы</h6>
+                    <div class="acor-container">
+
+                        <input type="checkbox" name="chacor" id="chacor1" checked="checked"/>
+                        <label for="chacor1">Как вступить в полицейский департамент?</label>
+                        <div class="acor-body">
+                            <p>Вступить в нашу академию можно четырымя способами:</p>
+                            <ol class="list-ordered">
+                                <li> Первый способ — <a href="https://evolve-rp.su/threads/394667/" target="_blank"
+                                                        style="color: #2e3843; font-weight: bold; text-decoration: underline;">подать
+                                    заявление на службу с гражданки</a> на стажировку в
+                                    департамент.
+                                </li>
+                                <li> Второй способ — <a href="https://evolve-rp.su/threads/300762/" target="_blank"
+                                                        style="color: #2e3843; font-weight: bold; text-decoration: underline;">перевестись</a>
+                                    к нам в департамент из другой силовой структуры,
+                                    переводы
+                                    доступны с должности младшего сержанта.
+                                </li>
+                                <li> Третий способ — <a href="https://evolve-rp.su/threads/394668/" target="_blank"
+                                                        style="color: #2e3843; font-weight: bold; text-decoration: underline;">подать
+                                    заявление на контрактную службу</a>
+                                </li>
+                                <li> Четвертый способ — прийти на собеседование в департамент полиции SF, собеседования
+                                    проходят
+                                    каждый день в (увидеть сообщения о начале собеседования можно в /gov) на втором
+                                    этаже
+                                    департамента
+                                </li>
+                            </ol>
+                        </div>
+
+                        <input type="checkbox" name="chacor" id="chacor2"/>
+                        <label for="chacor2">Сколько времени проходит полицейская академия?</label>
+                        <div class="acor-body">
+                            <p>Академия для гражданских по собеседованию / заявлению с оф.сайта - три дня включая дату
+                                принятия</p>
+                            <p>Академия для контрактников, военнослужащих переведенных с Армии на звание "Офицер" и выше
+                                - 1 день (экзамены можно сдать сразу и получить повышение)</p>
+                        </div>
+
+                        <input type="checkbox" name="chacor" id="chacor3"/>
+                        <label for="chacor3">Кому я могу сдать экзамены, кто их принимает?</label>
+                        <div class="acor-body">
+                            <p>Экзамен принимает сотрудники <span style="color:#1d66af; font-weight: bold; ">PA (Police Academy),</span>
+                                вам необходимо связаться с
+                                сотрудниками PA по рации для сдачи экзамена.</p>
+                        </div>
+
+                        <input type="checkbox" name="chacor" id="chacor4"/>
+                        <label for="chacor4">У меня срок на повышение, как я могу получить повышение?</label>
+                        <div class="acor-body">
+                            <p> Начиная со звания Офицер [2], повышения проходят после <a
+                                    href="https://docs.google.com/forms/d/e/1FAIpQLSdOfgfBBZkItOu3jc0DV5Vgu86IzSfEPViYEA6EkmvoEtd9ZA/viewform"
+                                    target="_blank"
+                                    style="color: #2e3843; font-weight: bold; text-decoration: underline;">подачи
+                                рапорта , по данной форме</a>
+                                , более подробная информация указана в <a href="https://evolve-rp.su/threads/376357/"
+                                                                          target="_blank"
+                                                                          style="color: #2e3843; font-weight: bold; text-decoration: underline;">разделе</a>
+                            </p>
+                        </div>
+
+                        <input type="checkbox" name="chacor" id="chacor5"/>
+                        <label for="chacor5">Где можно подать жалобу на офицера полиции?</label>
+                        <div class="acor-body">
+                            <p>Если вы не согласны с действиями офицера полиции то вы можете <a
+                                    href="https://evolve-rp.su/forums/441/"
+                                    target="_blank"
+                                    style="color: #2e3843; font-weight: bold; text-decoration: underline;">подать на
+                                него жалобу</a></p>
+                        </div>
+
+                        <input type="checkbox" name="chacor" id="chacor6"/>
+                        <label for="chacor6">Будучи сотрудником полиции, куда я могу пожаловаться на коллегу?</label>
+                        <div class="acor-body">
+                            <p>Вы можете напрямую обратиться к старшим офицерам, Начальнику Штаба SFPD, Шерифу
+                                департамента и внутри организации будет разбирательство и наказание виновных.</p>
+                        </div>
+
+                        <input type="checkbox" name="chacor" id="chacor7"/>
+                        <label for="chacor7">Где я могу найти актуальное законодательство штата?</label>
+                        <div class="acor-body">
+                            <p><a href="https://evolve-rp.su/threads/383103/"
+                                  target="_blank"
+                                  style="color: #2e3843; font-weight: bold; text-decoration: underline;">Регламенты для
+                                работы в государственных структурах [ правила и кодексы ]</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        <div class="container">
+            <div class="row box-icon-1-wrap">
+                <div class="col-md-4 box-icon-1">
+                    <a href="https://evolve-rp.su/threads/383103/post-3832368" target="_blank" class="title-link">
+                        <img class="img-faq" src="{% static 'images/faq/fp.png' %}" alt="">
+
+                        <h5 class="title">
+                            <span class="first-word">Федеральное</span>
+                            <span class="second-word">Постановление</span>
+                        </h5>
+                    </a>
+                </div>
+                <div class="col-md-4 box-icon-1">
+                    <a href="https://evolve-rp.su/threads/383103/post-3832372" target="_blank" class="title-link">
+                        <img class="img-faq" src="{% static 'images/faq/yk.png' %}" alt="">
+
+                        <h5 class="title"><span class="first-word">Уголовный</span> <span
+                                class="second-word">кодекс</span>
+                        </h5>
+                    </a>
+                </div>
+                <div class="col-md-4 box-icon-1">
+                    <a href="https://evolve-rp.su/threads/383103/post-3832373" target="_blank" class="title-link">
+                        <img class="img-faq" src="{% static 'images/faq/ak.png' %}" alt="">
+
+                        <h5 class="title"><span class="first-word">Административный</span> <span
+                                class="second-word">Кодекс</span></h5>
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% include 'include/notifications.html' %}
+
 </body>
 </html>

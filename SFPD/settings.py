@@ -17,7 +17,6 @@ from django.urls import reverse_lazy
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -29,10 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,7 +76,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SFPD.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -87,7 +85,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -106,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 LANGUAGE_CODE = 'ru'
 
@@ -137,3 +133,81 @@ EMAIL_HOST_PASSWORD = '312LDD440247ldd!'
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SITE_DOMAIN = 'http://127.0.0.1:8000'
+
+JAZZMIN_SETTINGS = {
+    "site_title": "SFPD Admin",
+    "site_header": "SFPD Admin",
+    "site_brand": "SFPD Admin",
+    "site_icon": "images/sfpd.ico",
+    "site_logo": None,
+    "welcome_sign": "Добро пожаловать в SFPD Admin",
+    "copyright": "SFPD",
+    "user_avatar": None,
+
+    "topmenu_links": [
+        {"name": "SFPD Admin", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Поддержка", "url": "https://vk.com/lazarev312", "new_window": True},
+        {"model": "auth.User"},
+        {"name": "Основной сайт", "url": "https://sfpd-gov.ru", "new_window": True},
+    ],
+    "usermenu_links": [
+        {"name": "Аккаунт", "url": "admin:auth_user_change", "new_window": False},
+        {"name": "Настройки", "url": "admin:settings_changelist", "new_window": False},
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "users.User": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "admin.LogEntry": "fas fa-file",
+    },
+    "search_model": [
+        "auth.user",
+        "profiles.Profile"
+    ],
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-arrow-circle-right",
+    "related_modal_active": False,
+    "custom_js": None,
+    "show_ui_builder": True,
+    "changeform_format": "horizontal_tabs",
+    "changeform_format_overrides": {
+        "auth.user": "collapsible",
+        "auth.group": "vertical_tabs",
+    },
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": True,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-dark",
+    "accent": "accent-lightblue",
+    "navbar": "navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": True,
+    "sidebar_fixed": True,
+    "sidebar": "sidebar-dark-info",
+    "sidebar_nav_small_text": True,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": True,
+    "sidebar_nav_legacy_style": True,
+    "sidebar_nav_flat_style": True,
+    "theme": "slate",
+    "dark_mode_theme": "slate",
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    },
+    "actions_sticky_top": False
+}
