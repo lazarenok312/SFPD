@@ -116,11 +116,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
-                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp" data-caption-delay="100">Detective Bureau</span><span
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp"
+                                          data-caption-delay="100">Detective Bureau</span><span
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Head of DB</span></h1>
                                 <p class="lead text-with-border" data-caption-animate="fadeInUp"
-                                   data-caption-delay="350">Logan Takerlazz</p>
+                                   data-caption-delay="350">{{ head.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -131,11 +132,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
-                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp" data-caption-delay="100">Detective Bureau</span><span
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp"
+                                          data-caption-delay="100">Detective Bureau</span><span
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Head of DB</span></h1>
                                 <p class="lead text-with-border" data-caption-animate="fadeInUp"
-                                   data-caption-delay="350">Eivor Valison</p>
+                                   data-caption-delay="350">{{ dep_head1.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -146,11 +148,12 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
-                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp" data-caption-delay="100">Detective Bureau</span><span
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp"
+                                          data-caption-delay="100">Detective Bureau</span><span
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Head of DB</span></h1>
                                 <p class="lead text-with-border" data-caption-animate="fadeInUp"
-                                   data-caption-delay="350">Вакантно</p>
+                                   data-caption-delay="350">{{ dep_head2.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -221,53 +224,53 @@
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
                             <div class="unit-left">
-                                {% if chief_of_pa.photo %}
-                                    <img class="img" src="{{ chief_of_pa.photo.url }}" alt="" width="138" height="69"/>
+                                {% if head.photo %}
+                                    <img class="img" src="{{ head.photo.url }}" alt="" width="138" height="69"/>
                                 {% else %}
                                     <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
                                          height="69"/>
                                 {% endif %}
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Logan Takerlazz</h5>
+                                <h5 class="title">{{ head.nickname }}</h5>
                                 <div class="subtitle">Head of DB</div>
                             </div>
                         </div>
-                        <div class="content"></div>
+                        <div class="content">{{ head.description }}</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            {% if chief_of_pa.photo %}
-                                <img class="img" src="{{ chief_of_pa.photo.url }}" alt="" width="138" height="69"/>
+                            {% if dep_head1.photo %}
+                                <img class="img" src="{{ dep_head1.photo.url }}" alt="" width="138" height="69"/>
                             {% else %}
                                 <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
                                      height="69"/>
                             {% endif %}
                             <div class="unit-body">
-                                <h5 class="title">Eivor Valison</h5>
+                                <h5 class="title">{{ dep_head1.nickname }}</h5>
                                 <div class="subtitle">Dep.Head of DB</div>
                             </div>
                         </div>
-                        <div class="content"></div>
+                        <div class="content">{{ dep_head1.description }}</div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            {% if chief_of_pa.photo %}
-                                <img class="img" src="{{ chief_of_pa.photo.url }}" alt="" width="138" height="69"/>
+                            {% if dep_head2.photo %}
+                                <img class="img" src="{{ dep_head2.photo.url }}" alt="" width="138" height="69"/>
                             {% else %}
                                 <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
                                      height="69"/>
                             {% endif %}
                             <div class="unit-body">
-                                <h5 class="title">Вакантно</h5>
+                                <h5 class="title">{{ dep_head2.nickname }}</h5>
                                 <div class="subtitle">Dep.Head of DB</div>
                             </div>
                         </div>
-                        <div class="content"></div>
+                        <div class="content">{{ dep_head2.description }}</div>
                     </div>
                 </div>
             </div>
@@ -297,7 +300,7 @@
                                 </ul>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>Logan Takerlazz</cite>
+                                        <cite>{{ head.nickname }}</cite>
                                     </div>
                                     <div class="position">Head of DB</div>
                                 </div>
@@ -312,7 +315,7 @@
                                 </ul>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>Logan Takerlazz</cite>
+                                        <cite>{{ head.nickname }}</cite>
                                     </div>
                                     <div class="position">Head of DB</div>
                                 </div>
@@ -349,7 +352,8 @@
                                         class="icon fa fa-camera-retro"></span>
                             </a>
                             <a class="button button-icon button-icon-right button-excel"
-                               href="https://docs.google.com/spreadsheets/d/10suCWj2o6Cy9J5tp-I9jMW9HinTgFq1T1yPlsAjJGPE/edit?gid=586982702#gid=586982702" target="_blank">
+                               href="https://docs.google.com/spreadsheets/d/10suCWj2o6Cy9J5tp-I9jMW9HinTgFq1T1yPlsAjJGPE/edit?gid=586982702#gid=586982702"
+                               target="_blank">
                                 <span>Таблица отдела</span>
                                 <span
                                         class="icon fa fa-table"></span>

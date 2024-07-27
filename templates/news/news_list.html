@@ -1,0 +1,80 @@
+{% load static %}
+{% include 'base.html' %}
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>Новости</title>
+</head>
+<style>
+    .item-image {
+        background-size: cover;
+        background-position: center;
+        height: 200px;
+        border-radius: 8px;
+    }
+
+    .news-date {
+        color: #777;
+        font-size: 14px;
+    }
+
+    .news-title {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .news-description {
+        margin-top: 10px;
+        color: #333;
+    }
+
+
+    .divider hr {
+        border: 1px solid #ddd;
+        margin: 40px 0;
+    }
+
+    .rd-navbar-transparent.rd-navbar-static .rd-navbar-main-inner {
+        background-color: rgb(49 64 74);
+    }
+
+</style>
+<body>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <img class="preloader-ico" src="{% static 'images/sfpd.ico' %}" alt="">
+        </div>
+        <H5>Загрузка...</H5>
+    </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <section class="section bg-default section-md">
+        <div class="container">
+            <h2 class="title-icon"><span class="icon icon-default mercury-icon-news"></span><span>Все <span
+                    class="text-light">Новости</span></span></h2>
+            <div class="regular-news">
+                {% for news in news_list %}
+                    <div class="box-image-small {% cycle 'box-image-small-left' 'box-image-small-right' %}">
+                        <div class="item-image bg-image" style="background-image: url({{ news.image.image.url }});"></div>
+                        <div class="item-body wow {% cycle 'fadeInLeft' 'fadeInRight' %}">
+                            <h4 class="news-title"><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a></h4>
+                            <p class="news-description">{{ news.description|truncatewords:30 }}</p>
+                            <a class="btn button-primary" style="margin-top: 5px"
+                               href="{% url 'news_detail' news.pk %}">Подробнее</a>
+                            <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% include 'include/notifications.html' %}
+</body>
+</html>

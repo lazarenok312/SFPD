@@ -1,15 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import PoliceAcademyPosition
 from .forms import *
 from django.views.generic.edit import UpdateView, View
 from django.http import HttpResponse
 from django.contrib import messages
+from news.models import News
 
 
 def home_view(request):
-    chief_of_pa = PoliceAcademyPosition.objects.filter(position='chief').first()
+    pinned_news_list = News.objects.filter(is_pinned=True).order_by('-created_at')
+    news_list = News.objects.filter(is_pinned=False).order_by('-created_at')[:2]
 
-    return render(request, 'home/index.html', {'chief_of_pa': chief_of_pa})
+    return render(request, 'home/index.html', {
+        'pinned_news_list': pinned_news_list,
+        'news_list': news_list,
+    })
 
 
 def pa_view(request):
@@ -26,15 +30,42 @@ def pa_view(request):
 
 
 def cpd_view(request):
-    return render(request, 'departments/cpd_detail.html')
+    chief_of_cpd = CPDPosition.objects.filter(position='chief').first()
+    dep_chief1_of_cpd = CPDPosition.objects.filter(position='dep_chief1').first()
+    dep_chief2_of_cpd = CPDPosition.objects.filter(position='dep_chief2').first()
 
-
-def swat_view(request):
-    return render(request, 'departments/swat_detail.html')
+    context = {
+        'chief_of_cpd': chief_of_cpd,
+        'dep_chief1_of_cpd': dep_chief1_of_cpd,
+        'dep_chief2_of_cpd': dep_chief2_of_cpd,
+    }
+    return render(request, 'departments/cpd_detail.html', context)
 
 
 def db_view(request):
-    return render(request, 'departments/db_detail.html')
+    head = DBPosition.objects.filter(position='head').first()
+    dep_head1 = DBPosition.objects.filter(position='dep_head1').first()
+    dep_head2 = DBPosition.objects.filter(position='dep_head2').first()
+
+    context = {
+        'head': head,
+        'dep_head1': dep_head1,
+        'dep_head2': dep_head2,
+    }
+    return render(request, 'departments/db_detail.html', context)
+
+
+def swat_view(request):
+    commander = SWATPosition.objects.filter(position='commander').first()
+    dep_commander1 = SWATPosition.objects.filter(position='dep_commander1').first()
+    dep_commander2 = SWATPosition.objects.filter(position='dep_commander2').first()
+
+    context = {
+        'commander': commander,
+        'dep_commander1': dep_commander1,
+        'dep_commander2': dep_commander2,
+    }
+    return render(request, 'departments/swat_detail.html', context)
 
 
 def faq_view(request):

@@ -72,6 +72,66 @@ class PoliceAcademyPosition(models.Model):
         verbose_name_plural = 'Должности ПА'
 
 
+class CPDPosition(models.Model):
+    POSITION_CHOICES = [
+        ('chief', 'Chief of CPD'),
+        ('dep_chief1', 'Dep.Chief of CPD'),
+        ('dep_chief2', 'Dep.Chief of CPD'),
+    ]
+
+    position = models.CharField(max_length=10, choices=POSITION_CHOICES, verbose_name="Должность")
+    nickname = models.CharField(max_length=100, verbose_name="Ник")
+    description = models.TextField(verbose_name="Описание")
+    photo = models.ImageField(upload_to='cpd_photos/', blank=True, null=True, verbose_name="Фото")
+
+    def __str__(self):
+        return f"{self.get_position_display()} - {self.nickname}"
+
+    class Meta:
+        verbose_name = 'Должность CPD'
+        verbose_name_plural = 'Должности CPD'
+
+
+class DBPosition(models.Model):
+    POSITION_CHOICES = [
+        ('head', 'Head of DB'),
+        ('dep_head1', 'Dep.Head of DB'),
+        ('dep_head2', 'Dep.Head of DB'),
+    ]
+
+    position = models.CharField(max_length=10, choices=POSITION_CHOICES, verbose_name="Должность")
+    nickname = models.CharField(max_length=100, verbose_name="Ник")
+    description = models.TextField(verbose_name="Описание")
+    photo = models.ImageField(upload_to='db_photos/', blank=True, null=True, verbose_name="Фото")
+
+    def __str__(self):
+        return f"{self.get_position_display()} - {self.nickname}"
+
+    class Meta:
+        verbose_name = 'Должность DB'
+        verbose_name_plural = 'Должности DB'
+
+
+class SWATPosition(models.Model):
+    POSITION_CHOICES = [
+        ('commander', 'Сommander of SWAT'),
+        ('dep_commander1', 'Dep. Commander of SWAT'),
+        ('dep_commander2', 'Dep. Commander of SWAT'),
+    ]
+
+    position = models.CharField(max_length=20, choices=POSITION_CHOICES, verbose_name="Должность")
+    nickname = models.CharField(max_length=100, verbose_name="Ник")
+    description = models.TextField(verbose_name="Описание")
+    photo = models.ImageField(upload_to='swat_photos/', blank=True, null=True, verbose_name="Фото")
+
+    def __str__(self):
+        return f"{self.get_position_display()} - {self.nickname}"
+
+    class Meta:
+        verbose_name = 'Должность SWAT'
+        verbose_name_plural = 'Должности SWAT'
+
+
 class DepartmentStaff(models.Model):
     RANKS = (
         ('sheriff', 'Шериф департамента'),

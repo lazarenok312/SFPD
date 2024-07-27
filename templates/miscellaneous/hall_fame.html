@@ -1,71 +1,288 @@
+{% load static %}
+{% include 'base.html' %}
 <!DOCTYPE html>
-<html lang="en">
+<html class="wide wow-animation" lang="en">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Страница в разработке</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #2c3e50;
-            font-family: 'Roboto', sans-serif;
-            color: #ecf0f1;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 600px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin: 0 0 20px;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-
-        p {
-            font-size: 1.2rem;
-            line-height: 1.5;
-            margin: 0 0 20px;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        .loader {
-            border: 8px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 8px solid #3498db;
-            width: 60px;
-            height: 60px;
-            margin: 20px auto 0;
-            animation: spin 2s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-    </style>
+    <title>Доска почета</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Страница в разработке</h1>
-        <p>Наша страница скоро будет доступна. Мы работаем над её улучшением и добавлением новых функций. Пожалуйста, зайдите позже.</p>
-        <div class="loader"></div>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Загрузка...</p>
     </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <div class="rd-navbar-bg novi-background bg-image"
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
+    <section class="breadcrumbs-custom bg-image novi-background bg-primary">
+        <div class="container">
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                <li class="">Доска почета</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section section-lg bg-default">
+
+        <div class="container">
+            <h2>Лучшие сотрудники<span class="text-light"> недели</span></h2>
+            <div class="row row-50 ">
+                <div class="col-md-10 col-lg-4">
+                    <h3>PA</h3>
+                    <blockquote class="quote quote-left-align">
+                        <q class="big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut interdum quam.
+                            In hac habitasse platea dictumst. Phasellus ex metus, mattis et elit et, varius semper
+                            urna.</q>
+                        <div class="quote-meta unit">
+                            <div class="unit-left"><img class="quote-img"
+                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
+                                                        width="138" height="69"/>
+                            </div>
+                            <div class="unit-body">
+                                <div class="author">
+                                    <cite>Nick_Name</cite>
+                                </div>
+                                <div class="position">Должность</div>
+                            </div>
+                        </div>
+                    </blockquote>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row row-30">
+                        <div class="col-sm-6">
+                            <blockquote class="quote quote-center quote-center-active">
+                                <q class="big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut
+                                    interdum quam. In hac habitasse platea dictumst. Phasellus ex metus, mattis et elit
+                                    et.</q>
+                                <div class="quote-meta"><img class="quote-img"
+                                                             src="{% static 'images/testimonials-1-138x138.jpg' %}"
+                                                             alt="" width="138" height="69"/>
+                                    <div class="author">
+                                        <cite>Nick_Name</cite>
+                                    </div>
+                                    <div class="position">Должность</div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="owl-item-simulate">
+                                <blockquote class="quote quote-center">
+                                    <q class="big">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                        proident.</q>
+                                    <div class="quote-meta"><img class="quote-img"
+                                                                 src="{% static 'images/testimonials-1-138x138.jpg' %}"
+                                                                 alt=""
+                                                                 width="138" height="69"/>
+                                        <div class="author">
+                                            <cite>Nick_Name</cite>
+                                        </div>
+                                        <div class="position">Должность</div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-50">
+                <div class="col-md-10 col-lg-4">
+                    <h3>CPD</h3>
+                    <blockquote class="quote quote-left-align">
+                        <q class="big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut interdum quam.
+                            In hac habitasse platea dictumst. Phasellus ex metus, mattis et elit et, varius semper
+                            urna.</q>
+                        <div class="quote-meta unit">
+                            <div class="unit-left"><img class="quote-img"
+                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
+                                                        width="138" height="69"/>
+                            </div>
+                            <div class="unit-body">
+                                <div class="author">
+                                    <cite>Nick_Name</cite>
+                                </div>
+                                <div class="position">Должность</div>
+                            </div>
+                        </div>
+                    </blockquote>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row row-30">
+                        <div class="col-sm-6">
+                            <blockquote class="quote quote-center quote-center-active">
+                                <q class="big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut
+                                    interdum quam. In hac habitasse platea dictumst. Phasellus ex metus, mattis et elit
+                                    et.</q>
+                                <div class="quote-meta"><img class="quote-img"
+                                                             src="{% static 'images/testimonials-1-138x138.jpg' %}"
+                                                             alt="" width="138" height="69"/>
+                                    <div class="author">
+                                        <cite>Nick_Name</cite>
+                                    </div>
+                                    <div class="position">Должность</div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="owl-item-simulate">
+                                <blockquote class="quote quote-center">
+                                    <q class="big">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                        proident.</q>
+                                    <div class="quote-meta"><img class="quote-img"
+                                                                 src="{% static 'images/testimonials-1-138x138.jpg' %}"
+                                                                 alt=""
+                                                                 width="138" height="69"/>
+                                        <div class="author">
+                                            <cite>Nick_Name</cite>
+                                        </div>
+                                        <div class="position">Должность</div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-50">
+                <div class="col-md-10 col-lg-4">
+                    <h3>DB</h3>
+                    <blockquote class="quote quote-left-align">
+                        <q class="big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut interdum quam.
+                            In hac habitasse platea dictumst. Phasellus ex metus, mattis et elit et, varius semper
+                            urna.</q>
+                        <div class="quote-meta unit">
+                            <div class="unit-left"><img class="quote-img"
+                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
+                                                        width="138" height="69"/>
+                            </div>
+                            <div class="unit-body">
+                                <div class="author">
+                                    <cite>Nick_Name</cite>
+                                </div>
+                                <div class="position">Должность</div>
+                            </div>
+                        </div>
+                    </blockquote>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row row-30">
+                        <div class="col-sm-6">
+                            <blockquote class="quote quote-center quote-center-active">
+                                <q class="big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut
+                                    interdum quam. In hac habitasse platea dictumst. Phasellus ex metus, mattis et elit
+                                    et.</q>
+                                <div class="quote-meta"><img class="quote-img"
+                                                             src="{% static 'images/testimonials-1-138x138.jpg' %}"
+                                                             alt="" width="138" height="69"/>
+                                    <div class="author">
+                                        <cite>Nick_Name</cite>
+                                    </div>
+                                    <div class="position">Должность</div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="owl-item-simulate">
+                                <blockquote class="quote quote-center">
+                                    <q class="big">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                        proident.</q>
+                                    <div class="quote-meta"><img class="quote-img"
+                                                                 src="{% static 'images/testimonials-1-138x138.jpg' %}"
+                                                                 alt=""
+                                                                 width="138" height="69"/>
+                                        <div class="author">
+                                            <cite>Nick_Name</cite>
+                                        </div>
+                                        <div class="position">Должность</div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-50">
+                <div class="col-md-10 col-lg-4">
+                    <h3>SWAT</h3>
+                    <blockquote class="quote quote-left-align">
+                        <q class="big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut interdum quam.
+                            In hac habitasse platea dictumst. Phasellus ex metus, mattis et elit et, varius semper
+                            urna.</q>
+                        <div class="quote-meta unit">
+                            <div class="unit-left"><img class="quote-img"
+                                                        src="{% static 'images/testimonials-1-138x138.jpg' %}" alt=""
+                                                        width="138" height="69"/>
+                            </div>
+                            <div class="unit-body">
+                                <div class="author">
+                                    <cite>Nick_Name</cite>
+                                </div>
+                                <div class="position">Должность</div>
+                            </div>
+                        </div>
+                    </blockquote>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row row-30">
+                        <div class="col-sm-6">
+                            <blockquote class="quote quote-center quote-center-active">
+                                <q class="big">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ut
+                                    interdum quam. In hac habitasse platea dictumst. Phasellus ex metus, mattis et elit
+                                    et.</q>
+                                <div class="quote-meta"><img class="quote-img"
+                                                             src="{% static 'images/testimonials-1-138x138.jpg' %}"
+                                                             alt="" width="138" height="69"/>
+                                    <div class="author">
+                                        <cite>Nick_Name</cite>
+                                    </div>
+                                    <div class="position">Должность</div>
+                                </div>
+                            </blockquote>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="owl-item-simulate">
+                                <blockquote class="quote quote-center">
+                                    <q class="big">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                        proident.</q>
+                                    <div class="quote-meta"><img class="quote-img"
+                                                                 src="{% static 'images/testimonials-1-138x138.jpg' %}"
+                                                                 alt=""
+                                                                 width="138" height="69"/>
+                                        <div class="author">
+                                            <cite>Nick_Name</cite>
+                                        </div>
+                                        <div class="position">Должность</div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% include 'include/notifications.html' %}
+
 </body>
 </html>

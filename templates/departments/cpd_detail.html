@@ -52,7 +52,7 @@
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Chief of CPD</span></h1>
                                 <p class="lead text-with-border" data-caption-animate="fadeInUp"
-                                   data-caption-delay="350">Levi Mel</p>
+                                   data-caption-delay="350">{{ chief_of_cpd.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Chief of CPD</span></h1>
                                 <p class="lead text-with-border" data-caption-animate="fadeInUp"
-                                   data-caption-delay="350">Carlos Harrizon</p>
+                                   data-caption-delay="350">{{ dep_chief1_of_cpd.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep.Chief of CPD</span></h1>
                                 <p class="lead text-with-border" data-caption-animate="fadeInUp"
-                                   data-caption-delay="350">Malierti Benec</p>
+                                   data-caption-delay="350">{{ dep_chief2_of_cpd.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -142,51 +142,58 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img" src="{% static 'images/incognito.png' %}" alt=""
-                                                        width="138" height="69"/>
+                            <div class="unit-left">
+                                {% if chief_of_cpd.photo %}
+                                    <img class="img" src="{{ chief_of_cpd.photo.url }}" alt="" width="138" height="69"/>
+                                {% else %}
+                                    <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                         height="69"/>
+                                {% endif %}
                             </div>
                             <div class="unit-body">
-                                <h5 class="title">Levi Mel</h5>
+                                <h5 class="title">{{ chief_of_cpd.nickname }}</h5>
                                 <div class="subtitle">Chief of CPD</div>
                             </div>
                         </div>
-                        <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a fermentum
-                            turpis. Nulla metus diam, feugiat ac lectus vitae, tempus porttitor sem. Vestibulum non
-                            lacus vulputate, placerat ligula ut, dignissim tortor.
+                        <div class="content">{{ chief_of_cpd.description }}.
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img" src="{% static 'images/incognito.png' %}" alt=""
-                                                        width="138" height="69"/>
-                            </div>
+                            {% if dep_chief1_of_cpd.photo %}
+                                <img class="img" src="{{ dep_chief1_of_cpd.photo.url }}" alt="" width="138"
+                                     height="69"/>
+                            {% else %}
+                                <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                     height="69"/>
+                            {% endif %}
                             <div class="unit-body">
-                                <h5 class="title">Carlos Harrizon</h5>
+                                <h5 class="title">{{ dep_chief1_of_cpd.nickname }}</h5>
                                 <div class="subtitle">Dep.Chief of CPD</div>
                             </div>
                         </div>
-                        <div class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
-                            quasi architecto beatae vitae dicta sunt explicabo.
+                        <div class="content">{{ dep_chief1_of_cpd.description }}
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img" src="{% static 'images/incognito.png' %}" alt=""
-                                                        width="138" height="69"/>
-                            </div>
+                            {% if dep_chief2_of_cpd.photo %}
+                                <img class="img" src="{{ dep_chief2_of_cpd.photo.url }}" alt="" width="138"
+                                     height="69"/>
+                            {% else %}
+                                <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                     height="69"/>
+                            {% endif %}
                             <div class="unit-body">
-                                <h5 class="title">Malierti Benec</h5>
+                                <h5 class="title">{{ dep_chief2_of_cpd.nickname }}</h5>
                                 <div class="subtitle">Dep.Chief of CPD</div>
                             </div>
                         </div>
-                        <div class="content">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                            consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
-                            dolore magnam aliquam quaerat voluptatem. Ut enim ad minima.
+                        <div class="content">{{ dep_chief2_of_cpd.description }}
                         </div>
                     </div>
                 </div>
@@ -207,7 +214,7 @@
                                 </q>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>Levi Mel</cite>
+                                        <cite>{{ chief_of_cpd.nickname }}</cite>
                                     </div>
                                     <div class="position">Chief of CPD</div>
                                 </div>
@@ -217,7 +224,7 @@
                                     различными ситуациями, для совладания с которыми необходим опыт службы.</q>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>Levi Mel</cite>
+                                        <cite>{{ chief_of_cpd.nickname }}</cite>
                                     </div>
                                     <div class="position">Chief of CPD</div>
                                 </div>

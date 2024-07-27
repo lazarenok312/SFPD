@@ -21,6 +21,57 @@
         -webkit-font-feature-settings: 'liga';
         -webkit-font-smoothing: antialiased;
     }
+
+    .pinned-news, .regular-news {
+        margin-bottom: 40px;
+    }
+
+    .sub-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-weight: bold;
+    }
+
+    .item-image {
+        background-size: cover;
+        background-position: center;
+        height: 200px;
+        border-radius: 8px;
+    }
+
+    .news-date {
+        color: #777;
+        font-size: 14px;
+    }
+
+    .news-title {
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    .news-description {
+        margin-top: 10px;
+        color: #333;
+    }
+
+
+    .divider hr {
+        border: 1px solid #ddd;
+        margin: 40px 0;
+    }
+
+    .pinned-news .pinned-icon {
+        color: #d9534f;
+        margin-right: 8px;
+        font-size: 1.2em;
+        vertical-align: middle;
+    }
+
+    .news-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+    }
 </style>
 <body>
 <div class="preloader">
@@ -33,7 +84,6 @@
 </div>
 <div class="page">
     {% include 'include/navbar.html' %}
-    <!--Swiper-->
     <section class="section swiper-container swiper-slider swiper-slider-1 context-dark" data-loop="true"
              data-autoplay="5000" data-simulate-touch="false">
         <div class="swiper-wrapper">
@@ -138,30 +188,6 @@
             </div>
         </div>
     </section>
-    {% if messages %}
-        {% for message in messages %}
-            <div class="position-fixed bottom-1 end-1 z-index-2">
-                <div class="toast fade hide p-2 mt-2 {{ message.extra_tags }}" role="alert" aria-live="assertive"
-                     id="infoToast"
-                     aria-atomic="true">
-                    <div class="toast-header bg-transparent border-0">
-                        <i class="material-icons text-white me-2">
-                            notifications
-                        </i>
-                        <span class="me-auto text-white font-weight-bold">Оповещение</span>
-                        <small class="text-white">Только что</small>
-                        <i class="fas fa-times text-md text-white ms-3 cursor-pointer" data-bs-dismiss="toast"
-                           aria-label="Close"></i>
-                    </div>
-                    <hr class="horizontal light m-0">
-                    <div class="toast-body text-white">
-                        {{ message }}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
-    <!--Icon List 2-->
     <section class="section section-sm section-sm-bottom-100 bg-primary text-center">
         <div class="container">
             <div class="row row-30">
@@ -342,42 +368,46 @@
             </div>
         </div>
     </section>
-
     <section class="section bg-default section-md">
         <div class="container">
             <h2 class="title-icon"><span class="icon icon-default mercury-icon-news"></span><span>Последние <span
                     class="text-light">Новости</span></span></h2>
-            <div class="box-image-small box-image-small-right">
-                <div class="item-image bg-image novi-nackground"
-                     style="background-image: url({% static 'images/news1.png)' %}"></div>
-                <div class="item-body wow fadeInLeft">
-                    <p>Июль 23, 2024 </p>
-                    <h4><a href="https://evolve-rp.su/threads/422485/" target="_blank">Конкурс!!!!!</a></h4>
-                    <h4><a href="https://evolve-rp.su/threads/422485/" target="_blank">"С любовью к SFPD"</a></h4>
-                    <p class="big">Уважаемые офицеры департамента!
-                        В период с 27.07.24 по 13.08.24 в департаменте проводится конкурс "С Любовью к SFPD". Принять
-                        участие в нём могут офицеры департамента, но необходимо выполнить ряд условий, все подробности
-                        на форуме департамента</p>
-                </div>
+
+            <div class="pinned-news">
+                {% for news in pinned_news_list %}
+                    <div class="box-image-small {% cycle 'box-image-small-left' 'box-image-small-right' %}">
+                        <div class="item-image bg-image" style="background-image: url({{ news.image.image.url }});"></div>
+                        <div class="item-body wow {% cycle 'fadeInLeft' 'fadeInRight' %}">
+                            <div class="news-header">
+                                <i class="fa fa-thumb-tack pinned-icon" aria-hidden="true"></i>
+                                <h4 class="news-title"><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a>
+                                </h4>
+                            </div>
+                            <p class="news-description">{{ news.description|truncatewords:30 }}</p>
+                            <a class="btn button-primary" style="margin-top: 5px"
+                               href="{% url 'news_detail' news.pk %}">Подробнее</a>
+                            <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="box-image-small box-image-small-left">
-                <div class="item-image bg-image novi-nackground"
-                     style="background-image: url({% static 'images/staff.png' %})"></div>
-                <div class="item-body wow fadeInRight">
-                    <p>Июль 18, 2024</p>
-                    <h4>Назначение шерифа</h4>
-                    <p class="big">По итогу тяжелейших собеседований и долгих обсуждений, на пост Шерифа департамента
-                        г.Сан-Фиерро был назначен Daniel Gurinifero. </p>
-                </div>
+
+            <div class="regular-news">
+                {% for news in news_list %}
+                    <div class="box-image-small {% cycle 'box-image-small-left' 'box-image-small-right' %}">
+                        <div class="item-image bg-image" style="background-image: url({{ news.image.image.url }});"></div>
+                        <div class="item-body wow {% cycle 'fadeInLeft' 'fadeInRight' %}">
+                            <h4 class="news-title"><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a></h4>
+                            <p class="news-description">{{ news.description|truncatewords:30 }}</p>
+                            <a class="btn button-primary" style="margin-top: 5px"
+                               href="{% url 'news_detail' news.pk %}">Подробнее</a>
+                            <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="box-image-small box-image-small-right">
-                <div class="item-image bg-image novi-nackground"
-                     style="background-image: url({% static 'images/cpd.png)' %}"></div>
-                <div class="item-body wow fadeInLeft">
-                    <p>Июль 08, 2024 </p>
-                    <h4>Назначение на должность</h4>
-                    <p class="big">Eivor Valison снят с должности Chief of CPD по окончании срока</p>
-                </div>
+            <div class="text-center mt-4">
+                <a class="btn btn-secondary btn-lg" href="{% url 'news_list' %}">Читать все новости</a>
             </div>
         </div>
     </section>

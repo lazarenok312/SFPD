@@ -36,10 +36,8 @@
                                           data-caption-delay="100">SWAT</span><span
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Сommander of SWAT</span></h1>
-                                    <p class="lead text-with-border" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">Elio Druf</p>
-{#                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">#}
-{#                                        Вакантно</p>#}
+                                <p class="lead text-with-border" data-caption-animate="fadeInUp"
+                                   data-caption-delay="350">{{ commander.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -54,10 +52,8 @@
                                           data-caption-delay="100">SWAT</span><span
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep. Commander of SWAT</span></h1>
-                                    <p class="lead text-with-border" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">Walter Maloney</p>
-{#                                    <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">#}
-{#                                        Вакантно</p>#}
+                                <p class="lead text-with-border" data-caption-animate="fadeInUp"
+                                   data-caption-delay="350">{{ dep_commander1.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -72,8 +68,8 @@
                                           data-caption-delay="100">SWAT</span><span
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Dep. Commander of SWAT</span></h1>
-                                    <p class="lead text-with-border" data-caption-animate="fadeInUp"
-                                       data-caption-delay="350">Desmond Norton</p>
+                                <p class="lead text-with-border" data-caption-animate="fadeInUp"
+                                   data-caption-delay="350">{{ dep_commander2.nickname }}</p>
                             </div>
                         </div>
                     </div>
@@ -133,54 +129,59 @@
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img" src="{% static 'images/incognito.png' %}" alt=""
-                                                        width="138" height="69"/>
-                            </div>
+                            {% if commander.photo %}
+                                <img class="img" src="{{ commander.photo.url }}" alt="" width="138" height="69"/>
+                            {% else %}
+                                <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                     height="69"/>
+                            {% endif %}
                             <div class="unit-body">
-                                <h5 class="title">Elio Druf</h5>
+                                <h5 class="title">{{ commander.nickname }}</h5>
                                 <div class="subtitle">Сommander of SWAT</div>
                             </div>
                         </div>
-                        <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a fermentum
-                            turpis. Nulla metus diam, feugiat ac lectus vitae, tempus porttitor sem. Vestibulum non
-                            lacus vulputate, placerat ligula ut, dignissim tortor.
+                        <div class="content">{{ commander.description }}
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img" src="{% static 'images/incognito.png' %}" alt=""
-                                                        width="138" height="69"/>
-                            </div>
+                            {% if dep_commander1.photo %}
+                                <img class="img" src="{{ dep_commander1.photo.url }}" alt="" width="138" height="69"/>
+                            {% else %}
+                                <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                     height="69"/>
+                            {% endif %}
                             <div class="unit-body">
-                                <h5 class="title">Walter Maloney</h5>
+                                <h5 class="title">{{ dep_commander1.nickname }}</h5>
                                 <div class="subtitle">Dep. Commander of SWAT</div>
                             </div>
                         </div>
-                        <div class="content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
-                            doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et
-                            quasi architecto beatae vitae dicta sunt explicabo.
+                        <div class="content">{{ dep_commander1.description }}
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="team-box-left">
                         <div class="team-meta unit align-items-center">
-                            <div class="unit-left"><img class="img" src="{% static 'images/incognito.png' %}" alt=""
-                                                        width="138" height="69"/>
-                            </div>
+                            {% if dep_commander2.photo %}
+                                <img class="img" src="{{ dep_commander2.photo.url }}" alt="" width="138" height="69"/>
+                            {% else %}
+                                <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                     height="69"/>
+                            {% endif %}
                             <div class="unit-body">
-                                <h5 class="title">Desmond Norton</h5>
+                                <h5 class="title">{{ dep_commander2.nickname }}</h5>
                                 <div class="subtitle">Dep. Commander of SWAT</div>
                             </div>
                         </div>
-                        <div class="content">Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-                            consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
-                            dolore magnam aliquam quaerat voluptatem. Ut enim ad minima.
+                        <div class="content">{{ dep_commander2.description }}
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
     </section>
     <section class="section bg-gray-100 box-image-left">
         <div class="container">
@@ -199,7 +200,7 @@
                                     преступлением.</q>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>Elio Druf</cite>
+                                        <cite>{{ commander.nickname }}</cite>
                                     </div>
                                     <div class="position">Сommander of SWAT</div>
                                 </div>
@@ -212,7 +213,7 @@
                                     условиях.</q>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>Elio Druf</cite>
+                                        <cite>{{ commander.nickname }}</cite>
                                     </div>
                                     <div class="position">Сommander of SWAT</div>
                                 </div>
@@ -224,7 +225,7 @@
                                     преступностью.</q>
                                 <div class="quote-meta">
                                     <div class="author">
-                                        <cite>Elio Druf</cite>
+                                        <cite>{{ commander.nickname }}</cite>
                                     </div>
                                     <div class="position">Сommander of SWAT</div>
                                 </div>
@@ -255,7 +256,8 @@
                                 <img src="{% static 'images/discord.svg' %}" alt="Discord Icon" width="25">
                             </a>
                             <a class="button button-icon button-icon-right button-swat"
-                               href="https://vk.com/away.php?to=https%3A%2F%2Fvl4sov.dev%2FDownload%2Ffbitools.zip" target="_blank" >
+                               href="https://vk.com/away.php?to=https%3A%2F%2Fvl4sov.dev%2FDownload%2Ffbitools.zip"
+                               target="_blank">
                                 <span>FBI Tools</span>
                                 <span
                                         class="icon fa fa-cog"></span>
@@ -271,9 +273,10 @@
                 </div>
             </div>
         </div>
-        <div class="box-image-item box-image-video novi-background bg-image"><a class="icon novi-icon fa fa-youtube-play"
-                                                                                href="https://www.youtube.com/watch?v=1ehhpTuivWg"
-                                                                                data-lightgallery="item"></a></div>
+        <div class="box-image-item box-image-video novi-background bg-image"><a
+                class="icon novi-icon fa fa-youtube-play"
+                href="https://www.youtube.com/watch?v=1ehhpTuivWg"
+                data-lightgallery="item"></a></div>
     </section>
     <!-- Our Mission-->
     <section class="section bg-default section-md">
