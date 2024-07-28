@@ -86,7 +86,13 @@ class ProfileDetailView(DetailView):
         if form.is_valid():
             old_profile_data = Profile.objects.get(pk=self.object.pk)
 
-            new_profile_data = form.save()
+            new_profile_data = form.save(commit=False)
+
+            for field in form.cleaned_data:
+                if field == 'photo' or form.cleaned_data[field]:
+                    setattr(new_profile_data, field, form.cleaned_data[field])
+
+            new_profile_data.save()
 
             changes_logged = False
             for field_name, new_value in form.cleaned_data.items():

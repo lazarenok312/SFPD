@@ -28,12 +28,14 @@ class UserRegistrationForm(forms.ModelForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     department = forms.ModelChoiceField(
+        required=False,
         queryset=Department.objects.exclude(name="Staff SFPD"),
         empty_label='Выберите отдел',
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_department'}),
         label='Отдел'
     )
     role = forms.ModelChoiceField(
+        required=False,
         queryset=Role.objects.none(),
         empty_label='Выберите должность',
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_role'}),

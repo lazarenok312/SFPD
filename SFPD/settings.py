@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'ckeditor',
+    'ckeditor_uploader',
     'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -117,6 +119,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -211,4 +215,53 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success"
     },
     "actions_sticky_top": False
+}
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+        'toolbarCanCollapse': True,
+        'mathJaxLib': 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+        'extraPlugins': ','.join([
+            'codesnippet',
+            'uploadimage',
+            'mathjax',
+            'youtube',
+        ]),
+    },
+    'custom': {
+        'toolbar': [
+            {'name': 'basicstyles', 'items': ['Bold', 'Italic', 'Underline', 'Strike']},
+            {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList', 'Blockquote']},
+            {'name': 'insert', 'items': ['Image', 'Embed', 'Table', 'HorizontalRule', 'Youtube']},
+            {'name': 'links', 'items': ['Link', 'Unlink']},
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+        ],
+        'height': 400,
+        'width': '80%',
+        'toolbarCanCollapse': True,
+        'removePlugins': 'elementspath',
+        'resize_enabled': False,
+        'extraPlugins': ','.join([
+            'uploadimage',
+            'div',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath',
+            'youtube'
+        ]),
+        'filebrowserUploadUrl': '/ckeditor/upload/',
+        'filebrowserBrowseUrl': '/ckeditor/browse/',
+    },
 }

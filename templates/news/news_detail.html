@@ -213,7 +213,7 @@
                 <h1 class="news-title">{{ news.title }}</h1>
             </div>
             <div class="news-description">
-                {{ news.description|linebreaks }}
+                {{ news.description|safe|linebreaks}}
             </div>
             <p class="news-meta">Опубликовано {{ news.created_at|date:"d M Y" }}</p>
             <div class="news-actions">

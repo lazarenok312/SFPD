@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 class NewsImage(models.Model):
@@ -16,7 +17,7 @@ class NewsImage(models.Model):
 
 class News(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
-    description = models.TextField(verbose_name="Описание")
+    description = RichTextField(verbose_name="Описание")
     image = models.ForeignKey(NewsImage, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Изображение")
     created_at = models.DateTimeField(verbose_name="Дата создания")
     updated_at = models.DateTimeField(verbose_name="Дата обновления", auto_now=True)

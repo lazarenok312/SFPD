@@ -32,7 +32,7 @@ def add_comment(request, pk):
             data = {
                 'success': True,
                 'comment': {
-                    'id': comment.pk,  # ID комментария
+                    'id': comment.pk,
                     'user': {
                         'username': comment.user.username,
                     },

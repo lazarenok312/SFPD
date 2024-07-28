@@ -60,7 +60,7 @@
                         <div class="item-image bg-image" style="background-image: url({{ news.image.image.url }});"></div>
                         <div class="item-body wow {% cycle 'fadeInLeft' 'fadeInRight' %}">
                             <h4 class="news-title"><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a></h4>
-                            <p class="news-description">{{ news.description|truncatewords:30 }}</p>
+                            <p class="news-description">{{ news.description|truncatewords:30|safe }}</p>
                             <a class="btn button-primary" style="margin-top: 5px"
                                href="{% url 'news_detail' news.pk %}">Подробнее</a>
                             <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>

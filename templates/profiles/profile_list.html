@@ -73,6 +73,10 @@
             background-image: linear-gradient(195deg, #959595 0%, #929292 100%);
         }
 
+        .bg-gradient-staff {
+            background-image: linear-gradient(195deg, #5b1e79 0%, #6d2890 100%);
+        }
+
         .bg-gradient-swat {
             background-image: linear-gradient(195deg, #232222 0%, #434345 100%);
         }
@@ -269,6 +273,8 @@
                                                 <span class="badge bg-gradient-swat">{{ profile.department.name }}</span>
                                             {% elif profile.department.name == "Central Patrol Division" %}
                                                 <span class="badge bg-gradient-cpd">{{ profile.department.name }}</span>
+                                            {% elif profile.department.name == "Staff SFPD" %}
+                                                <span class="badge bg-gradient-staff">{{ profile.department.name }}</span>
                                             {% else %}
                                                 <span class="badge bg-gradient-secondary">{{ profile.department.name }}</span>
                                             {% endif %}

@@ -68,6 +68,19 @@
             color: white;
             cursor: pointer;
         }
+
+        .box-image-item {
+            background-size: cover;
+            width: 946px;
+            height: 485px;
+        }
+
+        @media (max-width: 767px) {
+            .box-image-item {
+                width: auto;
+                height: auto;
+            }
+        }
     </style>
 
 </head>
@@ -292,7 +305,7 @@
             </div>
         </div>
         <div class="box-image-item novi-background bg-image"
-             style="background-image: url('{% static 'images/policeacademy/important.png' %}'); background-size: cover; width: 946px; height: 485px;"></div>
+             style="background-image: url('{% static 'images/policeacademy/important.png' %}');"></div>
     </section>
     <section class="parallax-container box-image-left"
              data-parallax-img="{% static 'images/123.png' %}">
