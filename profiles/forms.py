@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from profiles.models import Profile
 from .models import SupportRequest
 from departments.models import Department, Role
-from django.shortcuts import render
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -29,7 +28,7 @@ class UserRegistrationForm(forms.ModelForm):
 
 class ProfileUpdateForm(forms.ModelForm):
     department = forms.ModelChoiceField(
-        queryset=Department.objects.all(),
+        queryset=Department.objects.exclude(name="Staff SFPD"),
         empty_label='Выберите отдел',
         widget=forms.Select(attrs={'class': 'form-control', 'id': 'id_department'}),
         label='Отдел'
@@ -82,11 +81,13 @@ class ProfileUpdateForm(forms.ModelForm):
         if 'department' in self.data:
             try:
                 department_id = int(self.data.get('department'))
-                self.fields['role'].queryset = Role.objects.filter(department_id=department_id)
+                self.fields['role'].queryset = Role.objects.filter(department_id=department_id).order_by('order')
             except (ValueError, TypeError):
                 pass
         elif self.instance.pk and self.instance.department:
-            self.fields['role'].queryset = self.instance.department.role_set.all()
+            self.fields['role'].queryset = self.instance.department.role_set.all().order_by('order')
+        else:
+            self.fields['role'].queryset = Role.objects.none()
 
 
 class SupportForm(forms.ModelForm):

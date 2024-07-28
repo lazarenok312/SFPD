@@ -2,10 +2,9 @@ from profiles.forms import UserRegistrationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.urls import reverse_lazy
-from django.views.generic import DetailView
+from django.views.generic import DetailView, View
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ProfileUpdateForm, SupportForm
-from django.views.generic import View
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -122,12 +121,17 @@ class ProfileDetailView(DetailView):
         if 'form' not in context:
             context['form'] = ProfileUpdateForm(instance=self.object)
         context['can_edit'] = self.object.user == self.request.user
+        context['departments'] = Department.objects.all()
+        if self.object and self.object.department:
+            context['roles'] = self.object.department.role_set.all().order_by('order')
+        else:
+            context['roles'] = Role.objects.none()
         return context
 
 
 def load_roles(request):
     department_id = request.GET.get('department')
-    roles = Role.objects.filter(department_id=department_id).order_by('name').values('id', 'name')
+    roles = Role.objects.filter(department_id=department_id).order_by('order').values('id', 'name')
     return JsonResponse(list(roles), safe=False)
 
 

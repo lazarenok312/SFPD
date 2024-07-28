@@ -242,6 +242,9 @@
                                     <li class="rd-nav-item {% if request.path == '/' %}active{% endif %}">
                                         <a class="rd-nav-link" href="{% url 'departments:home' %}">Главная</a>
                                     </li>
+                                    <li class="rd-nav-item {% if request.path == '/news/news/' %}active{% endif %}">
+                                        <a class="rd-nav-link" href="{% url 'news_list' %}">Новости</a>
+                                    </li>
                                     <li class="rd-nav-item {% if request.path == '/about/' %}active{% endif %}">
                                         <a class="rd-nav-link" href="{% url 'departments:about' %}">О нас</a>
                                     </li>
@@ -258,9 +261,7 @@
                                     <li class="rd-nav-item {% if request.path == '/faq/' %}active{% endif %}">
                                         <a class="rd-nav-link" href="{% url 'departments:faq' %}">FAQ</a>
                                     </li>
-                                    <li class="rd-nav-item {% if request.path == '/news/news/' %}active{% endif %}">
-                                        <a class="rd-nav-link" href="{% url 'departments:faq' %}">Новости</a>
-                                    </li>
+
                                     <li class="rd-nav-item {% if request.path == '/profiles/profiles_list/' %}active{% endif %}">
                                         <a class="rd-nav-link" href="#">Разное</a>
                                         <ul class="dropdown">

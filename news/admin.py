@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import News, NewsImage
+from .models import News, NewsImage, LikeDislike, Comment
 from django.utils.html import format_html
+
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
@@ -9,24 +10,25 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = ('is_pinned', 'created_at')
     date_hierarchy = 'created_at'
     ordering = ('-created_at',)
-    readonly_fields = ('created_at',)
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'description', 'image', 'is_pinned')
+            'fields': ('title', 'description', 'image', 'is_pinned', 'created_at')
         }),
         ('Date Information', {
-            'fields': ('created_at',),
+            'fields': ('updated_at',),
             'classes': ('collapse',),
         }),
     )
+
+    readonly_fields = ('updated_at',)
 
     def image_display(self, obj):
         if obj.image and obj.image.image:
             return format_html('<img src="{}" style="height: 50px; width: auto;" />', obj.image.image.url)
         return 'No Image'
 
-    image_display.short_description = 'Image Preview'
+    image_display.short_description = 'Превью'
 
     def has_add_permission(self, request):
         return True
@@ -58,7 +60,45 @@ class NewsImageAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" style="height: 100px; width: auto;" />', obj.image.url)
         return 'No Image'
 
-    image_display.short_description = 'Image Preview'
+    image_display.short_description = 'Превью'
+
+    def has_add_permission(self, request):
+        return True
+
+    def has_change_permission(self, request, obj=None):
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        return True
+
+    def has_view_permission(self, request, obj=None):
+        return True
+
+
+@admin.register(LikeDislike)
+class LikeDislikeAdmin(admin.ModelAdmin):
+    list_display = ('user', 'news', 'vote', 'created_at')
+    search_fields = ('user__username', 'news__title')
+    list_filter = ('vote', 'created_at')
+
+    def has_add_permission(self, request):
+        return True
+
+    def has_change_permission(self, request, obj=None):
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        return True
+
+    def has_view_permission(self, request, obj=None):
+        return True
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('user', 'news', 'content', 'created_at')
+    search_fields = ('user__username', 'news__title', 'content')
+    list_filter = ('created_at',)
 
     def has_add_permission(self, request):
         return True

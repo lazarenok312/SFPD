@@ -1,71 +1,388 @@
+{% load static %}
+{% include 'base.html' %}
 <!DOCTYPE html>
-<html lang="en">
+<html class="wide wow-animation" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Страница в разработке</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>{{ news.title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #2c3e50;
-            font-family: 'Roboto', sans-serif;
-            color: #ecf0f1;
+        .news-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-header, .comments-section {
             text-align: center;
         }
 
-        .container {
-            max-width: 600px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
+        .news-title {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .news-meta {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        .news-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
         }
 
-        h1 {
-            font-size: 3rem;
-            margin: 0 0 20px;
-            animation: fadeIn 1.5s ease-in-out;
+        .news-description {
+            font-size: 1.1em;
+            line-height: 1.6;
         }
 
-        p {
-            font-size: 1.2rem;
-            line-height: 1.5;
-            margin: 0 0 20px;
-            animation: fadeIn 2s ease-in-out;
+        .news-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
         }
 
-        .loader {
-            border: 8px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 8px solid #3498db;
-            width: 60px;
-            height: 60px;
-            margin: 20px auto 0;
-            animation: spin 2s linear infinite;
+        .btn-like, .btn-dislike {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s, color 0.2s;
+            font-size: 1.2em;
+            margin-right: 20px;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .btn-like i, .btn-dislike i {
+            font-size: 24px;
+            transition: color 0.2s;
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        .btn-like i {
+            color: #4da851;
+        }
+
+        .btn-dislike i {
+            color: #e53d39;
+        }
+
+        .btn-like:hover i {
+            color: #00ff00;
+        }
+
+        .btn-dislike:hover i {
+            color: #ff0000;
+        }
+
+        .clicked-up {
+            animation: bounce-up 0.3s;
+        }
+
+        .clicked-down {
+            animation: bounce-down 0.3s;
+        }
+
+        @keyframes bounce-up {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes bounce-down {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        .comments-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .comment-input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: 1px solid #ced4da;
+            font-size: 1em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            resize: none;
+        }
+
+        .comment-submit {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .comment-submit:hover {
+            background-color: #218838;
+        }
+
+        .comment-list {
+            margin-top: 20px;
+        }
+
+        .comment-item {
+            padding: 10px;
+            border-bottom: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        .comment-author {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+
+        .comment-content {
+            margin-top: 5px;
+            font-size: 1em;
+        }
+
+
+        .delete-comment-form {
+            display: inline;
+        }
+
+        .delete-button {
+            background: none;
+            border: none;
+            color: #ff0000;
+            font-size: 20px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .delete-button:hover {
+            color: #cc0000;
+        }
+
+        .comment-content {
+            margin-top: 5px;
+            margin-left: 20px;
+        }
+
+        .rd-navbar-transparent.rd-navbar-static .rd-navbar-main-inner {
+            background-color: rgb(49 64 74);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Страница в разработке</h1>
-        <p>Наша страница скоро будет доступна. Работаем над дизайном. Пожалуйста, зайдите позже.</p>
-        <div class="loader"></div>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <img class="preloader-ico" src="{% static 'images/sfpd.ico' %}" alt="">
+        </div>
+        <h5>Загрузка...</h5>
     </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <section class="section bg-default section-md">
+        <div class="news-container">
+            {% if news.image %}
+                <img src="{{ news.image.image.url }}" alt="{{ news.title }}" class="news-image">
+            {% endif %}
+            <div class="news-header">
+                <h1 class="news-title">{{ news.title }}</h1>
+            </div>
+            <div class="news-description">
+                {{ news.description|linebreaks }}
+            </div>
+            <p class="news-meta">Опубликовано {{ news.created_at|date:"d M Y" }}</p>
+            <div class="news-actions">
+                <div>
+                    <div id="like-button" class="btn-like">
+                        <i class="fas fa-thumbs-up"></i>
+                        <span id="like-count" style="margin-left:10px">{{ news.total_likes }}</span>
+                    </div>
+                    <div id="dislike-button" class="btn-dislike">
+                        <i class="fas fa-thumbs-down"></i>
+                        <span id="dislike-count" style="margin-left:10px">{{ news.total_dislikes }}</span>
+                    </div>
+                </div>
+                <div class="comment-button">💬 Комментарии (<span id="comment-count">{{ news.total_comments }}</span>)
+                </div>
+            </div>
+            <div class="comments-section">
+                <form method="post" action="{% url 'add_comment' news.pk %}" class="comment-form">
+                    {% csrf_token %}
+                    <textarea class="comment-input" name="content" placeholder="Ваш комментарий..." required></textarea>
+                    <button type="submit" class="comment-submit">Добавить комментарий</button>
+                </form>
+                <div class="comment-list">
+                    {% for comment in news.comments.all %}
+                        <div class="comment-item" id="comment-{{ comment.pk }}">
+                            <div class="comment-header">
+                                <span class="comment-author">{{ comment.user.username }}</span>
+                                <span>прокомментировал(а):</span>
+                                {% if comment.user == request.user %}
+                                    <button class="delete-button" data-comment-id="{{ comment.pk }}"
+                                            title="Удалить комментарий">
+                                        &times;
+                                    </button>
+                                {% endif %}
+                            </div>
+                            <div class="comment-content">{{ comment.content }}</div>
+                            <div class="comment-meta">{{ comment.created_at|date:"d M Y H:i" }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.delete-button').forEach(function (button) {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                let commentId = this.getAttribute('data-comment-id');
+                let commentCountElement = document.getElementById('comment-count');
+
+                if (confirm('Вы уверены, что хотите удалить этот комментарий?')) {
+                    fetch(`{% url 'delete_comment' 0 %}`.replace('0', commentId), {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: JSON.stringify({}),
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Удаление комментария из DOM
+                                document.getElementById(`comment-${commentId}`).remove();
+
+                                // Обновление количества комментариев
+                                let currentCount = parseInt(commentCountElement.textContent);
+                                commentCountElement.textContent = currentCount - 1;
+                            } else {
+                                alert('Ошибка: ' + data.error);
+                            }
+                        });
+                }
+            });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const commentForm = document.querySelector('.comment-form');
+        const commentList = document.querySelector('.comment-list');
+        const commentCountElement = document.getElementById('comment-count');
+
+        commentForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(commentForm);
+
+            fetch("{% url 'add_comment' news.pk %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const newComment = document.createElement('div');
+                        newComment.classList.add('comment-item');
+                        newComment.innerHTML = `
+                        <div class="comment-header">
+                            <span class="comment-author">${data.comment.user.username}</span>
+                            <span>прокомментировал(а):</span>
+                            <button class="delete-button" data-comment-id="${data.comment.id}" title="Удалить комментарий">&times;</button>
+                        </div>
+                        <div class="comment-content">${data.comment.content}</div>
+                        <div class="comment-meta">${data.comment.created_at}</div>
+                    `;
+                        commentList.insertBefore(newComment, commentList.firstChild);
+                        commentForm.reset();
+
+                        let currentCount = parseInt(commentCountElement.textContent);
+                        commentCountElement.textContent = currentCount + 1;
+                    } else {
+                        alert('Ошибка при добавлении комментария.');
+                    }
+                });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const likeButton = document.getElementById('like-button');
+        const dislikeButton = document.getElementById('dislike-button');
+        const likeCount = document.getElementById('like-count');
+        const dislikeCount = document.getElementById('dislike-count');
+
+        likeButton.addEventListener('click', function () {
+            likeButton.classList.add('clicked-up');
+            fetch("{% url 'like_news' news.pk %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    likeCount.textContent = data.total_likes;
+                    dislikeCount.textContent = data.total_dislikes;
+                    likeButton.classList.remove('clicked-up');
+                });
+        });
+
+        dislikeButton.addEventListener('click', function () {
+            dislikeButton.classList.add('clicked-down');
+            fetch("{% url 'dislike_news' news.pk %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    likeCount.textContent = data.total_likes;
+                    dislikeCount.textContent = data.total_dislikes;
+                    dislikeButton.classList.remove('clicked-down');
+                });
+        });
+    });
+</script>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% include 'include/notifications.html' %}
 </body>
 </html>

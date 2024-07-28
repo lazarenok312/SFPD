@@ -1,5 +1,10 @@
 from django.views.generic import ListView, DetailView
-from .models import News
+from .models import News, Comment, LikeDislike
+from django.shortcuts import get_object_or_404, redirect
+from django.http import JsonResponse
+from django.views import View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 
 class NewsListView(ListView):
@@ -16,3 +21,69 @@ class NewsDetailView(DetailView):
     model = News
     template_name = 'news/news_detail.html'
     context_object_name = 'news'
+
+
+def add_comment(request, pk):
+    news = get_object_or_404(News, pk=pk)
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        if content:
+            comment = Comment.objects.create(user=request.user, news=news, content=content)
+            data = {
+                'success': True,
+                'comment': {
+                    'id': comment.pk,  # ID комментария
+                    'user': {
+                        'username': comment.user.username,
+                    },
+                    'content': comment.content,
+                    'created_at': comment.created_at.strftime("%d %b %Y %H:%M"),
+                }
+            }
+            return JsonResponse(data)
+    return JsonResponse({'success': False})
+
+
+@method_decorator(login_required, name='dispatch')
+class DeleteCommentView(View):
+    def post(self, request, pk):
+        comment = get_object_or_404(Comment, pk=pk)
+        if comment.user == request.user:
+            comment.delete()
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'У вас нет прав на удаление этого комментария.'})
+
+
+def like_news(request, pk):
+    news = get_object_or_404(News, pk=pk)
+    user = request.user
+    liked = LikeDislike.objects.filter(news=news, user=user, vote=LikeDislike.LIKE).exists()
+    disliked = LikeDislike.objects.filter(news=news, user=user, vote=LikeDislike.DISLIKE).exists()
+
+    if not liked:
+        LikeDislike.objects.update_or_create(news=news, user=user, defaults={'vote': LikeDislike.LIKE})
+        if disliked:
+            LikeDislike.objects.filter(news=news, user=user, vote=LikeDislike.DISLIKE).delete()
+
+    return JsonResponse({
+        'total_likes': news.total_likes(),
+        'total_dislikes': news.total_dislikes(),
+    })
+
+
+def dislike_news(request, pk):
+    news = get_object_or_404(News, pk=pk)
+    user = request.user
+    liked = LikeDislike.objects.filter(news=news, user=user, vote=LikeDislike.LIKE).exists()
+    disliked = LikeDislike.objects.filter(news=news, user=user, vote=LikeDislike.DISLIKE).exists()
+
+    if not disliked:
+        LikeDislike.objects.update_or_create(news=news, user=user, defaults={'vote': LikeDislike.DISLIKE})
+        if liked:
+            LikeDislike.objects.filter(news=news, user=user, vote=LikeDislike.LIKE).delete()
+
+    return JsonResponse({
+        'total_likes': news.total_likes(),
+        'total_dislikes': news.total_dislikes(),
+    })

@@ -10,9 +10,11 @@ class DepartmentAdmin(admin.ModelAdmin):
 
 @admin.register(Role)
 class RoleAdmin(admin.ModelAdmin):
-    list_display = ('name', 'department')
+    list_display = ('name', 'department', 'order')
     search_fields = ('name', 'department__name')
     list_filter = ('department',)
+    list_editable = ('order',)
+    ordering = ('department', 'order')
 
 
 @admin.register(ImportantInfo)

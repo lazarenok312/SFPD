@@ -8,7 +8,7 @@ from news.models import News
 
 def home_view(request):
     pinned_news_list = News.objects.filter(is_pinned=True).order_by('-created_at')
-    news_list = News.objects.filter(is_pinned=False).order_by('-created_at')[:2]
+    news_list = News.objects.filter(is_pinned=False).order_by('-created_at')[:3]
 
     return render(request, 'home/index.html', {
         'pinned_news_list': pinned_news_list,
