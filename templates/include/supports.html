@@ -55,8 +55,8 @@
         padding: 1rem;
     }
 </style>
-<button type="button" class="button button-size-1 button-block button-primary" data-toggle="modal"
-        data-target="#supportModal">
+<button type="button" class="btn button-size-1 button-block button-primary" data-toggle="modal"
+        data-target="#supportModal" style="margin-top: 10px">
     Форма поддержки
 </button>
 
@@ -83,7 +83,7 @@
                     <div class="form-group">
                         {{ support_form.message }}
                     </div>
-                    <button type="submit" class="button button-size-1 button-block button-primary">Отправить</button>
+                    <button type="submit" class="btn button-size-1 button-block button-primary">Отправить</button>
                 </form>
             </div>
         </div>
@@ -94,10 +94,7 @@
 
 <script>
     $(document).ready(function () {
-        // Custom JavaScript for form validation and interaction
         $('#supportForm').on('submit', function (event) {
-            // Add any custom form validation here
-            // For example, check if all required fields are filled
             let isValid = true;
             $(this).find('input[required], textarea[required]').each(function () {
                 if ($(this).val() === '') {
@@ -113,7 +110,6 @@
             }
         });
 
-        // Close modal on successful submission
         $('#supportForm').on('submit', function () {
             if ($(this).find('input.is-invalid, textarea.is-invalid').length === 0) {
                 $('#supportModal').modal('hide');

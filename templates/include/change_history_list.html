@@ -86,21 +86,21 @@
                 <div class="col-12">
                     <h2 class="section-title">История изменений</h2>
                     <h6>Здесь вы можете отслеживать все изменения, исправления багов и доработки на сайте.</h6>
+
                     <div class="change-log">
-                        <ol class="list-ordered">
-                            {% for change in changes %}
-                                <li class="change-entry">
-                                    <div class="change-header">
-                                        <h3 class="change-title">{{ change.title }}</h3>
-                                        <small class="change-date">Дата
-                                            добавления: {{ change.created_at|date:"d.m.Y" }}</small>
+                        {% for change in changes %}
+                            <div class="change-entry mb-4">
+                                <div class="box-icon-3 unit flex-column flex-lg-row">
+                                    <div class="unit-left">
+                                        <div class="icon novi-icon random-icon"></div>
                                     </div>
-                                    <p class="change-description">{{ change.description }}</p>
-                                </li>
-                            {% empty %}
-                                <li class="no-changes">История изменений пока пуста.</li>
-                            {% endfor %}
-                        </ol>
+                                    <div class="unit-body">
+                                        <h5 class="title">{{ change.title }}</h5>
+                                        <p class="text">{{ change.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -113,6 +113,22 @@
     <script src="{% static 'js/core.min.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
     {% include 'include/notifications.html' %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var icons = [
+                "mercury-icon-gears",
+                "mercury-icon-gear",
+                "mercury-icon-lightbulb-gears",
+                "mercury-icon-tools"
+            ];
+
+            var iconElements = document.querySelectorAll('.random-icon');
+            iconElements.forEach(function (element) {
+                var randomIcon = icons[Math.floor(Math.random() * icons.length)];
+                element.classList.add(randomIcon);
+            });
+        });
+    </script>
 </div>
 </body>
 </html>

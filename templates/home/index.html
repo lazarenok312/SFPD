@@ -24,18 +24,14 @@
 
     .pinned-news, .regular-news {
         margin-bottom: 40px;
+        margin-top: 20px;
     }
 
-    .sub-title {
-        font-size: 24px;
-        margin-bottom: 20px;
-        font-weight: bold;
-    }
 
     .item-image {
         background-size: cover;
         background-position: center;
-        height: 200px;
+        height: 240px;
         border-radius: 8px;
     }
 
@@ -69,8 +65,57 @@
 
     .news-header {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        margin-bottom: 5px;
+        margin-bottom: 15px;
+    }
+
+    .news-title {
+        margin: 0;
+        font-size: 1.5rem;
+        color: #333;
+        flex: 1;
+    }
+
+    .news-date {
+        margin: 0;
+        font-size: 1rem;
+        color: #777;
+    }
+
+    .custom-btn {
+        position: relative;
+        display: inline-block;
+        padding: 2px 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #6c757d;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .custom-btn:hover {
+        box-shadow: 5px 5px 5px 5px rgba(90, 98, 104, 0.6);
+        text-decoration: underline;
+        color: #f8f9fa;
+        background-color: #5a6268;
+    }
+
+    .custom-btn::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    .custom-btn:hover::after {
+        width: 100%;
+        left: 0;
     }
 </style>
 <body>
@@ -119,8 +164,6 @@
                                         data-caption-delay="200">Curator of CPD</span></h1>
                                 <p class="lead text-with-border" data-caption-animate="fadeInUp"
                                    data-caption-delay="350">Vladik Pavlenko</p>
-                                {#                                <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">#}
-                                {#                                    Вакантно</p>#}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
                                      data-caption-delay="450"><a class="button button-secondary-cpd"
                                                                  href="{% url 'departments:cpd_detail' %}">Читать
@@ -131,7 +174,7 @@
                 </div>
             </div>
             <div class="swiper-slide"
-                 data-slide-bg="{% static 'images/DB/bg-db-main1.png' %}">
+                 data-slide-bg="{% static 'images/DB/db-main-4.png' %}">
                 <div class="swiper-slide-caption section-lg">
                     <div class="container">
                         <div class="row">
@@ -142,8 +185,6 @@
                                         data-caption-delay="200">Curator of DB</span></h1>
                                 <p class="lead text-with-border" data-caption-animate="fadeInUp"
                                    data-caption-delay="350">Darion Mograine</p>
-                                {#                                <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">#}
-                                {#                                    Вакантно</p>#}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
                                      data-caption-delay="450"><a class="button button-secondary-text"
                                                                  href="{% url 'departments:db_detail' %}">Читать
@@ -165,8 +206,6 @@
                                         data-caption-delay="200">Curator of SWAT</span></h1>
                                 <p class="lead text-with-border" data-caption-animate="fadeInUp"
                                    data-caption-delay="350">Elio Druf</p>
-                                {#                                <p class="lead" data-caption-animate="fadeInUp" data-caption-delay="350">#}
-                                {#                                    Вакантно</p>#}
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
                                      data-caption-delay="450"><a class="button button-secondary-swat"
                                                                  href="{% url 'departments:swat_detail' %}">Читать
@@ -375,39 +414,48 @@
 
             <div class="pinned-news">
                 {% for news in pinned_news_list %}
-                    <div class="box-image-small {% cycle 'box-image-small-left' 'box-image-small-right' %}">
-                        <div class="item-image bg-image" style="background-image: url({{ news.image.image.url }});"></div>
-                        <div class="item-body wow {% cycle 'fadeInLeft' 'fadeInRight' %}">
-                            <div class="news-header">
+                    <div class="box-image-small box-image-small-left">
+                        <div class="item-image bg-image"
+                             style="background-image: url({{ news.image.image.url }});"></div>
+                        <div class="item-body wow fadeInRight">
+                            <div class="news-header d-flex justify-content-between align-items-center">
                                 <i class="fa fa-thumb-tack pinned-icon" aria-hidden="true"></i>
-                                <h4 class="news-title"><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a>
+                                <h4 class="news-title">
+                                    <a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a>
                                 </h4>
+                                <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>
                             </div>
                             <p class="news-description">{{ news.description|truncatewords:30 |safe }}</p>
-                            <a class="btn button-primary" style="margin-top: 5px"
+                            <a class="btn button-primary" style="margin-top: 10px"
                                href="{% url 'news_detail' news.pk %}">Подробнее</a>
-                            <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>
                         </div>
                     </div>
+                    <br>
                 {% endfor %}
             </div>
 
             <div class="regular-news">
                 {% for news in news_list %}
-                    <div class="box-image-small {% cycle 'box-image-small-left' 'box-image-small-right' %}">
-                        <div class="item-image bg-image" style="background-image: url({{ news.image.image.url }});"></div>
-                        <div class="item-body wow {% cycle 'fadeInLeft' 'fadeInRight' %}">
-                            <h4 class="news-title"><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a></h4>
-                            <p class="news-description">{{ news.description|truncatewords:30 }}</p>
-                            <a class="btn button-primary" style="margin-top: 5px"
+                    <div class="box-image-small box-image-small-left">
+                        <div class="item-image bg-image"
+                             style="background-image: url({{ news.image.image.url }});"></div>
+                        <div class="item-body wow fadeInRight">
+                            <div class="news-header d-flex justify-content-between align-items-center">
+                                <h4 class="news-title">
+                                    <a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a>
+                                </h4>
+                                <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>
+                            </div>
+                            <p class="news-description">{{ news.description|truncatewords:30 |safe }}</p>
+                            <a class="btn button-primary" style="margin-top: 10px"
                                href="{% url 'news_detail' news.pk %}">Подробнее</a>
-                            <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>
                         </div>
                     </div>
+                    <br>
                 {% endfor %}
             </div>
             <div class="text-center mt-4">
-                <a class="btn btn-secondary btn-lg" href="{% url 'news_list' %}">Читать все новости</a>
+                <a class="btn btn-secondary btn-lg custom-btn" href="{% url 'news_list' %}">Читать все новости</a>
             </div>
         </div>
     </section>
