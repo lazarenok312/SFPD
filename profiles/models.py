@@ -43,7 +43,11 @@ class Profile(models.Model):
         return reverse('profile_detail', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
-        self.slug = "{}".format(self.user.username)
+        if self.pk:
+            original = Profile.objects.get(pk=self.pk)
+            if original.role != self.role:
+                self.role_confirmed = False
+
         super().save(*args, **kwargs)
 
     class Meta:

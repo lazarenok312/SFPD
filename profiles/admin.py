@@ -5,9 +5,9 @@ from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'name', 'surnames', 'nick_name', 'department', 'role', 'profile_confirmed', 'role_confirmed',
-        'birthdate'
+        'user', 'name', 'surnames', 'nick_name', 'department', 'role', 'profile_confirmed', 'role_confirmed'
     )
+    list_editable = ('profile_confirmed', 'role_confirmed')
     list_filter = ('department', 'role', 'profile_confirmed', 'role_confirmed')
     search_fields = ('user__username', 'name', 'surnames', 'email', 'nick_name')
     readonly_fields = ('last_activity', 'is_online', 'slug')
@@ -33,7 +33,8 @@ class ProfileAdmin(admin.ModelAdmin):
 
     is_online.boolean = True
     is_online.short_description = 'Статус Онлайн'
-
+    save_on_top = True
+    save_as = True
 
 @admin.register(SupportRequest)
 class SupportRequestAdmin(admin.ModelAdmin):
