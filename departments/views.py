@@ -4,6 +4,7 @@ from django.views.generic.edit import UpdateView, View
 from django.http import HttpResponse
 from django.contrib import messages
 from news.models import News
+from profiles.models import Profile
 
 
 def home_view(request):
@@ -113,6 +114,10 @@ def thank_board(request):
 
 def change_history_list(request):
     changes = ChangeHistory.objects.all()
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
+        profile.last_viewed_changes = timezone.now()
+        profile.save()
     return render(request, 'include/change_history_list.html', {'changes': changes})
 
 

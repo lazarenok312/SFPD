@@ -17,12 +17,11 @@ class RoleAdmin(admin.ModelAdmin):
     ordering = ('department', 'order')
 
 
-@admin.register(ImportantInfo)
-class ImportantInfoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'department', 'date_posted')
-    search_fields = ('title', 'content', 'department__name')
-    list_filter = ('department', 'date_posted')
-    date_hierarchy = 'date_posted'
+@admin.register(ImportantNotification)
+class ImportantNotificationAdmin(admin.ModelAdmin):
+    list_display = ('title', 'is_active', 'created_at')
+    list_filter = ('is_active', 'created_at')
+    search_fields = ('title', 'message')
 
 
 @admin.register(PoliceAcademyPosition)
@@ -97,23 +96,23 @@ class ContractServiceStatusAdmin(admin.ModelAdmin):
     set_inactive.short_description = "Деактивировать выбранные службы"
 
 
-@admin.register(Subscriber)
-class SubscriberAdmin(admin.ModelAdmin):
-    list_display = ('email',)
-
-
-@admin.register(UnsubscribeToken)
-class UnsubscribeTokenAdmin(admin.ModelAdmin):
-    list_display = ('email', 'token', 'created_at', 'is_valid')
-    search_fields = ('email', 'token')
-    list_filter = ('created_at',)
-    readonly_fields = ('token', 'created_at')
-
-    def is_valid(self, obj):
-        return obj.is_valid()
-
-    is_valid.boolean = True
-    is_valid.short_description = "Действителен"
+# @admin.register(Subscriber)
+# class SubscriberAdmin(admin.ModelAdmin):
+#     list_display = ('email',)
+#
+#
+# @admin.register(UnsubscribeToken)
+# class UnsubscribeTokenAdmin(admin.ModelAdmin):
+#     list_display = ('email', 'token', 'created_at', 'is_valid')
+#     search_fields = ('email', 'token')
+#     list_filter = ('created_at',)
+#     readonly_fields = ('token', 'created_at')
+#
+#     def is_valid(self, obj):
+#         return obj.is_valid()
+#
+#     is_valid.boolean = True
+#     is_valid.short_description = "Действителен"
 
 
 @admin.register(ChangeHistory)

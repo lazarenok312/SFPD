@@ -589,6 +589,13 @@
                                 <li><a href="{% url 'password_reset' %}" class="settings-link">
                                     <i class="fas fa-exclamation-circle"></i> Забыли пароль?
                                 </a></li>
+                                <li>
+                                    {% if not user.profile.profile_confirmed %}
+                                        <li><a href="{% url 'send_confirmation_email' %}" class="settings-link">
+                                            <i class="fas fa-check-square"></i> Подтвердить
+                                            профиль
+                                        </a></li>
+                                    {% endif %}
                             </ul>
                         </div>
                     </div>

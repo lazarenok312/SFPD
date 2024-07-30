@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from departments.models import Role, Department
+from django.utils.crypto import get_random_string
 
 
 class Profile(models.Model):
@@ -26,6 +27,9 @@ class Profile(models.Model):
     likes = models.PositiveIntegerField(default=0, verbose_name="Лайки")
     dislikes = models.PositiveIntegerField(default=0, verbose_name="Дизлайки")
     birthdate = models.DateField(null=True, blank=True, verbose_name="Дата рождения")
+    last_viewed_news = models.DateTimeField(null=True, blank=True, verbose_name="Последнее посещение новостей")
+    last_viewed_changes = models.DateTimeField(null=True, blank=True,
+                                               verbose_name="Последнее посещение истории изменений")
 
     @property
     def status(self):
@@ -104,3 +108,35 @@ class LikeDislike(models.Model):
         unique_together = ('user', 'profile')
         verbose_name = 'Лайк/Дизлайк'
         verbose_name_plural = 'Лайки/Дизлайки'
+
+
+class ProfileConfirmationToken(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='confirmation_token')
+    token = models.CharField(max_length=64, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def generate_token(self):
+        self.token = get_random_string(64)
+        self.save()
+
+    def is_expired(self):
+        return self.created_at < timezone.now() - timezone.timedelta(hours=24)
+
+    class Meta:
+        verbose_name = 'Токен подтверждения'
+        verbose_name_plural = 'Токены подтверждения'
+
+
+class EmailLog(models.Model):
+    recipient = models.EmailField()
+    subject = models.CharField(max_length=255)
+    body = models.TextField()
+    sent_at = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        return f"Email to {self.recipient} at {self.sent_at}"
+
+    class Meta:
+        verbose_name = 'Логи Email'
+        verbose_name_plural = 'Логи Email'

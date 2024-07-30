@@ -30,4 +30,7 @@ urlpatterns = [
     path('profile/<slug:slug>/like/', views.like_profile, name='like_profile'),
     path('profile/<slug:slug>/dislike/', views.dislike_profile, name='dislike_profile'),
     path('ajax/load-roles/', views.load_roles, name='ajax_load_roles'),
+
+    path('confirm/<str:token>/', views.confirm_profile, name='confirm_profile'),
+    path('send-confirmation-email/', views.send_confirmation_email_view, name='send_confirmation_email'),
 ]

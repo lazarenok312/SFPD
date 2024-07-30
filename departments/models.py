@@ -41,11 +41,15 @@ class Role(models.Model):
         ordering = ['department', 'order']
 
 
-class ImportantInfo(models.Model):
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, verbose_name="Отдел")
-    title = models.CharField(max_length=100, verbose_name="Заголовок")
-    content = models.TextField(verbose_name="Содержание")
-    date_posted = models.DateTimeField(auto_now_add=True, verbose_name="Дата публикации")
+class ImportantNotification(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Заголовок")
+    message = models.TextField(verbose_name="Содержание")
+    is_active = models.BooleanField(default=True, verbose_name="Активно")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+
+    def __str__(self):
+        return self.title
+
 
     class Meta:
         verbose_name = 'Важная информация'

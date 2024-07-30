@@ -4,6 +4,7 @@
 <html class="wide wow-animation" lang="en">
 <head>
     <title>Главная страница</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <style>
     .material-icons {
@@ -117,6 +118,78 @@
         width: 100%;
         left: 0;
     }
+
+    .modal-dialog-custom {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: calc(100vh - 1rem);
+    }
+
+    .modal-content-custom {
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.3rem;
+    }
+
+    .modal-header-custom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid #dee2e6;
+        border-top-left-radius: 0.3rem;
+        border-top-right-radius: 0.3rem;
+    }
+
+    .modal-title {
+        margin-bottom: 0;
+        line-height: 1.5;
+    }
+
+    .close {
+        padding: 0.75rem;
+        margin: -0.75rem -0.75rem -0.75rem auto;
+    }
+
+    .close span {
+        position: relative;
+        display: inline-block;
+        width: 1.5em;
+        height: 1.5em;
+        background-color: #acb7be;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 1.5em;
+        font-size: 1.25em;
+        cursor: pointer;
+    }
+
+    .close span:hover {
+        background-color: #e9ecef;
+    }
+
+    .modal-body-custom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    .modal-body-custom .icon {
+        font-size: 4rem;
+        color: #f39c12;
+        margin-bottom: 1rem;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: center;
+        border-top: 1px solid #dee2e6;
+        padding: 1rem;
+    }
 </style>
 <body>
 <div class="preloader">
@@ -129,6 +202,28 @@
 </div>
 <div class="page">
     {% include 'include/navbar.html' %}
+    {% if important_notification %}
+        <div class="modal fade" id="importantNotificationModal" tabindex="-1" role="dialog"
+             aria-labelledby="importantNotificationLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-custom" role="document">
+                <div class="modal-content modal-content-custom">
+                    <div class="modal-header modal-header-custom">
+                        <h5 class="modal-title" id="importantNotificationLabel">{{ important_notification.title }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body modal-body-custom">
+                        <i class="fas fa-bell icon"></i> <!-- Значок колокольчика -->
+                        <p>{{ important_notification.message }}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <section class="section swiper-container swiper-slider swiper-slider-1 context-dark" data-loop="true"
              data-autoplay="5000" data-simulate-touch="false">
         <div class="swiper-wrapper">
@@ -465,5 +560,10 @@
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
 {% include 'include/notifications.html' %}
+<script>
+    $(document).ready(function () {
+        $('#importantNotificationModal').modal('show');
+    });
+</script>
 </body>
 </html>

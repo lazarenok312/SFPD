@@ -72,6 +72,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'profiles.context_processors.add_support_form',
+                'profiles.context_processors.notification_counts',
+                'departments.context_processors.important_notification',
             ],
         },
     },

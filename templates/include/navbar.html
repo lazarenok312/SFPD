@@ -184,6 +184,28 @@
             display: block;
         }
     }
+
+    .rd-nav-link {
+        position: relative;
+        display: inline-block;
+    }
+
+    .notification-badge {
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 6px 8px;
+        font-size: 9px;
+        top: -2px;
+        right: -8px;
+        position: absolute;
+        transform: translate(50%, -50%);
+        display: inline-block;
+        line-height: 1;
+        min-width: 20px;
+        text-align: center;
+        vertical-align: middle;
+    }
 </style>
 
 <header class="section page-header rd-navbar-transparent-wrap">
@@ -235,7 +257,6 @@
                                     <img class="brand-logo-light" src="{% static 'images/logo.png' %}" alt=""
                                          width="200" height="220"/>
                                 </a>
-                                {#                                <h6 style="color: white">БЕТА ВЕРСИЯ</h6>#}
                             </div>
                         </div>
                         <div class="rd-navbar-main-element">
@@ -245,7 +266,13 @@
                                         <a class="rd-nav-link" href="{% url 'departments:home' %}">Главная</a>
                                     </li>
                                     <li class="rd-nav-item {% if request.path == '/news/news/' %}active{% endif %}">
-                                        <a class="rd-nav-link" href="{% url 'news_list' %}">Новости</a>
+                                        <a class="rd-nav-link" href="{% url 'news_list' %}">Новости
+                                            <sup>
+                                            {% if new_news_count > 0 %}
+                                                <span class="notification-badge">{{ new_news_count }}</span>
+                                            {% endif %}
+                                            </sup>
+                                        </a>
                                     </li>
                                     <li class="rd-nav-item {% if request.path == '/about/' %}active{% endif %}">
                                         <a class="rd-nav-link" href="{% url 'departments:about' %}">О нас</a>
@@ -265,14 +292,18 @@
                                     </li>
 
                                     <li class="rd-nav-item {% if request.path == '/profiles/profiles_list/' %}active{% endif %}">
-                                        <a class="rd-nav-link" href="#">Разное</a>
+                                        <a class="rd-nav-link" href="#">Разное<sup>{% if new_changes_count > 0 %}
+                                                    <span class="notification-badge">{{ new_changes_count }}</span>
+                                                {% endif %}</sup></a>
                                         <ul class="dropdown">
                                             <li><a href="{% url 'departments:hall_of_fame' %}">Доска почета</a></li>
                                             <li><a href="{% url 'departments:thank_board' %}">Благодарственная доска</a>
                                             </li>
                                             <li><a href="{% url 'profile_list' %}">Все сотрудники</a></li>
                                             <li><a href="{% url 'departments:change_history_list' %}">История
-                                                изменений</a></li>
+                                                изменений <sup>{% if new_changes_count > 0 %}
+                                                    <span class="notification-badge">{{ new_changes_count }}</span>
+                                                {% endif %}</sup></a></li>
                                             {% if user.is_superuser %}
                                                 <li><a href="{% url 'admin:index' %}">Админ панель</a>
                                                 </li>

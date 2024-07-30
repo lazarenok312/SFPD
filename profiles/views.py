@@ -1,3 +1,4 @@
+from SFPD.settings import SITE_DOMAIN, DEFAULT_FROM_EMAIL
 from profiles.forms import UserRegistrationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -6,14 +7,17 @@ from django.views.generic import DetailView, View
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ProfileUpdateForm, SupportForm
 from django.core.mail import send_mail
-from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
-from .models import ProfileChangeLog, Profile, LikeDislike, Department, Role
+from .models import *
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import JsonResponse
+from django.conf import settings
+
+from departments.models import ChangeHistory
+from news.models import News
 
 
 def register(request):
@@ -244,3 +248,59 @@ def dislike_profile(request, slug):
 
     profile.save()
     return JsonResponse({'likes': profile.likes, 'dislikes': profile.dislikes})
+
+
+@login_required
+def send_confirmation_email_view(request):
+    user = request.user
+    profile = user.profile
+
+    token, created = ProfileConfirmationToken.objects.get_or_create(user=user)
+    if not created:
+        token.token = get_random_string(64)
+        token.save()
+
+    send_confirmation_email(user.email, token.token)
+    messages.success(request, 'Письмо с подтверждением отправлено на вашу почту.')
+    return redirect('profile_detail', slug=profile.slug)
+
+
+def send_confirmation_email(email, token, user):
+    confirmation_link = reverse('confirm_profile', kwargs={'token': token})
+    full_link = f'{SITE_DOMAIN}{confirmation_link}'
+    subject = 'Подтверждение профиля'
+    message = f'Для подтверждения профиля перейдите по ссылке: {full_link}'
+    send_mail(subject, message, DEFAULT_FROM_EMAIL, [email])
+
+    EmailLog.objects.create(
+        recipient=user.email,
+        subject=subject,
+        body=message,
+        user=user
+    )
+
+def confirm_profile(request, token):
+    confirmation_token = get_object_or_404(ProfileConfirmationToken, token=token)
+    if confirmation_token.is_expired():
+        messages.error(request, 'Срок действия токена истек.')
+        return redirect('home')
+
+    profile = confirmation_token.user.profile
+    profile.profile_confirmed = True
+    profile.save()
+    messages.success(request, 'Профиль успешно подтвержден.')
+    return redirect('profile_detail', slug=profile.slug)
+
+
+def get_unseen_counts(user):
+    if not user.is_authenticated:
+        return {'new_news_count': 0, 'new_changes_count': 0}
+
+    profile = user.profile
+    now = timezone.now()
+    new_news_count = News.objects.filter(
+        created_at__gt=profile.last_viewed_news).count() if profile.last_viewed_news else News.objects.count()
+    new_changes_count = ChangeHistory.objects.filter(
+        created_at__gt=profile.last_viewed_changes).count() if profile.last_viewed_changes else ChangeHistory.objects.count()
+
+    return {'new_news_count': new_news_count, 'new_changes_count': new_changes_count}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike
+from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike, ProfileConfirmationToken, EmailLog
 
 
 @admin.register(Profile)
@@ -7,7 +7,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user', 'name', 'surnames', 'nick_name', 'department', 'role', 'profile_confirmed', 'role_confirmed'
     )
-    list_editable = ('profile_confirmed', 'role_confirmed')
+    list_editable = ('role_confirmed',)
     list_filter = ('department', 'role', 'profile_confirmed', 'role_confirmed')
     search_fields = ('user__username', 'name', 'surnames', 'email', 'nick_name')
     readonly_fields = ('last_activity', 'is_online', 'slug')
@@ -15,7 +15,7 @@ class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-            'user', 'name', 'surnames', 'email', 'photo', 'bio', 'department', 'role', 'nick_name', 'birthdate')
+                'user', 'name', 'surnames', 'email', 'photo', 'bio', 'department', 'role', 'nick_name', 'birthdate')
         }),
         ('Подтверждения', {
             'fields': ('profile_confirmed', 'role_confirmed')
@@ -36,6 +36,7 @@ class ProfileAdmin(admin.ModelAdmin):
     save_on_top = True
     save_as = True
 
+
 @admin.register(SupportRequest)
 class SupportRequestAdmin(admin.ModelAdmin):
     list_display = ('email', 'message', 'created_at')
@@ -55,3 +56,23 @@ class LikeDislikeAdmin(admin.ModelAdmin):
     list_display = ('user', 'profile', 'is_like')
     search_fields = ('user__username', 'profile__user__username')
     list_filter = ('is_like',)
+
+
+@admin.register(ProfileConfirmationToken)
+class ProfileConfirmationTokenAdmin(admin.ModelAdmin):
+    list_display = ('user', 'token', 'created_at', 'is_expired')
+    search_fields = ('user__username', 'token')
+    list_filter = ('created_at',)
+
+    def is_expired(self, obj):
+        return obj.is_expired()
+
+    is_expired.boolean = True
+    is_expired.short_description = 'Истек'
+
+
+@admin.register(EmailLog)
+class EmailLogAdmin(admin.ModelAdmin):
+    list_display = ('recipient', 'subject', 'sent_at', 'user')
+    search_fields = ('recipient', 'subject')
+    list_filter = ('sent_at', 'user')

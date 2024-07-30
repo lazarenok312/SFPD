@@ -1,10 +1,12 @@
 from django.views.generic import ListView, DetailView
 from .models import News, Comment, LikeDislike
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.views import View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.utils import timezone
+from profiles.models import Profile
 
 
 class NewsListView(ListView):
@@ -15,6 +17,14 @@ class NewsListView(ListView):
 
     def get_queryset(self):
         return News.objects.order_by('-created_at')
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        if request.user.is_authenticated:
+            profile = Profile.objects.get(user=request.user)
+            profile.last_viewed_news = timezone.now()
+            profile.save()
+        return response
 
 
 class NewsDetailView(DetailView):
