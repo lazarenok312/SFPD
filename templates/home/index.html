@@ -202,7 +202,7 @@
 </div>
 <div class="page">
     {% include 'include/navbar.html' %}
-    {% if important_notification %}
+    {% if user.is_authenticated and important_notification %}
         <div class="modal fade" id="importantNotificationModal" tabindex="-1" role="dialog"
              aria-labelledby="importantNotificationLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-custom" role="document">
@@ -575,7 +575,7 @@
         const setCookie = () => {
             const expiryDate = new Date();
             expiryDate.setTime(expiryDate.getTime() + (60 * 60 * 1000));
-            Cookies.set('importantNotificationClosed', 'true', { expires: expiryDate });
+            Cookies.set('importantNotificationClosed', 'true', {expires: expiryDate});
         };
 
         $('#importantNotificationModal').on('hidden.bs.modal', function () {
