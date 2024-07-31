@@ -214,7 +214,7 @@
                         </button>
                     </div>
                     <div class="modal-body modal-body-custom">
-                        <i class="fas fa-bell icon"></i> <!-- Значок колокольчика -->
+                        <i class="fas fa-bell icon"></i>
                         <p>{{ important_notification.message }}</p>
                     </div>
                     <div class="modal-footer">
@@ -560,9 +560,29 @@
 <script src="{% static 'js/core.min.js' %}"></script>
 <script src="{% static 'js/script.js' %}"></script>
 {% include 'include/notifications.html' %}
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"></script>
+
 <script>
     $(document).ready(function () {
-        $('#importantNotificationModal').modal('show');
+        const showModal = () => {
+            const lastClosed = Cookies.get('importantNotificationClosed');
+            if (!lastClosed) {
+                $('#importantNotificationModal').modal('show');
+            }
+        };
+
+        const setCookie = () => {
+            const expiryDate = new Date();
+            expiryDate.setTime(expiryDate.getTime() + (60 * 60 * 1000));
+            Cookies.set('importantNotificationClosed', 'true', { expires: expiryDate });
+        };
+
+        $('#importantNotificationModal').on('hidden.bs.modal', function () {
+            setCookie();
+        });
+
+        showModal();
     });
 </script>
 </body>

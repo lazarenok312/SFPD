@@ -4,6 +4,20 @@
 <html class="wide wow-animation" lang="en">
 <head>
     <title>SWAT</title>
+    <style>
+        .box-image-item {
+            background-size: cover;
+            width: 946px;
+            height: 485px;
+        }
+
+        @media (max-width: 767px) {
+            .box-image-item {
+                width: auto;
+                height: auto;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="preloader">
@@ -236,7 +250,7 @@
             </div>
         </div>
         <div class="box-image-item novi-background bg-image"
-             style="background-image: url('{% static 'images/swat/swat-important.png' %}'); background-size: cover; width: 946px; height: 485px;"></div>
+             style="background-image: url('{% static 'images/swat/swat-important.png' %}');"></div>
     </section>
     <section class="parallax-container box-image-left"
              data-parallax-img="{% static 'images/swat/parallax-swat.png' %}">

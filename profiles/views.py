@@ -257,15 +257,19 @@ def send_confirmation_email_view(request):
 
     token, created = ProfileConfirmationToken.objects.get_or_create(user=user)
     if not created:
-        token.token = get_random_string(64)
-        token.save()
+        token.generate_token()
 
-    send_confirmation_email(user.email, token.token)
+    if not token.token:
+        token.generate_token()
+
+    send_confirmation_email(user.email, token.token, user)
     messages.success(request, 'Письмо с подтверждением отправлено на вашу почту.')
     return redirect('profile_detail', slug=profile.slug)
 
-
 def send_confirmation_email(email, token, user):
+    if not token:
+        raise ValueError("Токен не может быть пустым.")
+
     confirmation_link = reverse('confirm_profile', kwargs={'token': token})
     full_link = f'{SITE_DOMAIN}{confirmation_link}'
     subject = 'Подтверждение профиля'

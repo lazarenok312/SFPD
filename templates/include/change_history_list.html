@@ -29,6 +29,10 @@
             border-bottom: none;
         }
 
+        .date-right {
+            text-align: right;
+        }
+
     </style>
 </head>
 <body>
@@ -69,6 +73,7 @@
                                     <div class="unit-body">
                                         <h5 class="title">{{ change.title }}</h5>
                                         <p class="text">{{ change.description }}</p>
+                                        <p class="text date-right">{{ change.created_at|date:"Y-m-d" }}</p>
                                     </div>
                                 </div>
                             </div>

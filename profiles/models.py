@@ -6,7 +6,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from departments.models import Role, Department
 from django.utils.crypto import get_random_string
-
+from django.utils.text import slugify
 
 class Profile(models.Model):
     id = models.AutoField(primary_key=True)
@@ -16,7 +16,7 @@ class Profile(models.Model):
     email = models.EmailField(max_length=40, verbose_name="Электронная почта", blank=True)
     photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True, verbose_name="Фото",
                               default='../static/images/incognito.png')
-    slug = models.SlugField("URL", max_length=50, blank=True)
+    slug = models.SlugField("URL", max_length=50, blank=True, unique=True)
     last_activity = models.DateTimeField(verbose_name="Последняя активность", default=timezone.now)
     bio = models.TextField(verbose_name="Биография", blank=True)
     department = models.ForeignKey(Department, verbose_name="Отдел", on_delete=models.CASCADE, blank=True, null=True)
@@ -52,6 +52,9 @@ class Profile(models.Model):
             if original.role != self.role:
                 self.role_confirmed = False
 
+        if not self.slug:
+            self.slug = slugify(self.user.username)
+
         super().save(*args, **kwargs)
 
     class Meta:
@@ -62,13 +65,20 @@ class Profile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
-
+        Profile.objects.create(
+            user=instance,
+            email=instance.email,
+            name=instance.first_name,
+            surnames=instance.last_name
+        )
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
+    profile = instance.profile
+    profile.name = instance.first_name
+    profile.surnames = instance.last_name
+    profile.email = instance.email
+    profile.save()
 
 class SupportRequest(models.Model):
     name = models.CharField(max_length=100, verbose_name='Ваше имя', blank=True)
