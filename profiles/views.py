@@ -132,10 +132,17 @@ class ProfileDetailView(DetailView):
             context['form'] = ProfileUpdateForm(instance=self.object)
         context['can_edit'] = self.object.user == self.request.user
         context['departments'] = Department.objects.all()
+        context['is_editor'] = self.object.is_editor()
         if self.object and self.object.department:
             context['roles'] = self.object.department.role_set.all().order_by('order')
         else:
             context['roles'] = Role.objects.none()
+
+        user_groups = self.object.user.groups.all()
+        context['user_groups'] = user_groups
+        context['is_moderator'] = self.object.user.groups.filter(
+            name__in=["Модератор", "Редактор", "Руководитель"]).exists()
+
         return context
 
 
@@ -178,7 +185,7 @@ def profile_list(request):
             Q(name__icontains=query) | Q(nick_name__icontains=query)
         )
 
-    paginator = Paginator(profiles, 20)
+    paginator = Paginator(profiles, 15)
     page = request.GET.get('page')
     try:
         profiles_page = paginator.page(page)
@@ -266,6 +273,7 @@ def send_confirmation_email_view(request):
     messages.success(request, 'Письмо с подтверждением отправлено на вашу почту.')
     return redirect('profile_detail', slug=profile.slug)
 
+
 def send_confirmation_email(email, token, user):
     if not token:
         raise ValueError("Токен не может быть пустым.")
@@ -282,6 +290,7 @@ def send_confirmation_email(email, token, user):
         body=message,
         user=user
     )
+
 
 def confirm_profile(request, token):
     confirmation_token = get_object_or_404(ProfileConfirmationToken, token=token)

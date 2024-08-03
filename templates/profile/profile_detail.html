@@ -48,6 +48,7 @@
             background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
         }
 
+
         .bg-gradient-danger {
             background-image: linear-gradient(195deg, #EF5350 0%, #E53935 100%);
         }
@@ -55,6 +56,19 @@
         .bg-gradient-secondary {
             background-image: linear-gradient(195deg, #747b8a 0%, #495361 100%);
         }
+
+        .bg-gradient-editor {
+            background-image: linear-gradient(195deg, #e58421 0%, #f68706 100%);
+        }
+
+        .bg-gradient-moderator {
+            background-image: linear-gradient(195deg, #a29333 0%, #bb6604 100%);
+        }
+
+        .bg-gradient-spec {
+            background-image: linear-gradient(195deg, #de0c3d 0%, #ef050d 100%);
+        }
+
 
         .custom-file-upload {
             display: inline-block;
@@ -358,7 +372,14 @@
                         <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
                            aria-controls="settings" aria-selected="false">Настройки</a>
                     </li>
+                    {% if is_moderator %}
+                        <li class="nav-item">
+                            <a class="nav-link" id="moderation-tab" data-toggle="tab" href="#moderation" role="tab"
+                               aria-controls="moderation" aria-selected="false">Модерация</a>
+                        </li>
+                    {% endif %}
                 {% endif %}
+
                 <!-- Добавьте другие вкладки по необходимости -->
             </ul>
 
@@ -405,8 +426,20 @@
                                                                       style="color: blue;">{{ profile.email }}</a></p>
                             <p><strong>День рождения:</strong> {{ profile.birthdate }}</p>
                             <p><strong>Статус:</strong>
-                                {% if profile.user.is_staff %}
+                                {% if user.is_superuser %}
                                     <span class="badge bg-gradient-success">Администратор</span>
+                                {% elif user_groups %}
+                                    {% for group in user_groups %}
+                                        {% if group.name == "Редактор" %}
+                                            <span class="badge bg-gradient-editor">Редактор</span>
+                                        {% elif group.name == "Модератор" %}
+                                            <span class="badge bg-gradient-moderator">Модератор</span>
+                                        {% elif group.name == "Руководитель" %}
+                                            <span class="badge bg-gradient-spec">Руководитель</span>
+                                        {% else %}
+                                            <span class="badge bg-gradient-default">{{ group.name }}</span>
+                                        {% endif %}
+                                    {% endfor %}
                                 {% else %}
                                     <span class="badge bg-gradient-secondary">Пользователь</span>
                                 {% endif %}
@@ -599,7 +632,20 @@
                             </ul>
                         </div>
                     </div>
+                    {% if is_editor %}
+                        <div class="tab-pane fade" id="moderation" role="tabpanel" aria-labelledby="settings-tab">
+                            <div class="settings-links">
+                                <ul>
+                                    <li><a href="{% url 'admin:index' %}" class="settings-link">
+                                        <i class="fas fa-pencil-square-o"></i> Панель редактора
+                                    </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
                 {% endif %}
+
             </div>
         </div>
     </section>

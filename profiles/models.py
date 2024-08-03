@@ -8,6 +8,7 @@ from departments.models import Role, Department
 from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 
+
 class Profile(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
@@ -35,6 +36,9 @@ class Profile(models.Model):
     def status(self):
         return "Администратор" if self.user.is_staff else "Пользователь"
 
+    def is_editor(self):
+        return self.user.groups.filter(name="Редактор").exists()
+
     @property
     def is_online(self):
         now = timezone.now()
@@ -57,6 +61,7 @@ class Profile(models.Model):
 
         super().save(*args, **kwargs)
 
+
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
@@ -72,6 +77,7 @@ def create_user_profile(sender, instance, created, **kwargs):
             surnames=instance.last_name
         )
 
+
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     profile = instance.profile
@@ -79,6 +85,7 @@ def save_user_profile(sender, instance, **kwargs):
     profile.surnames = instance.last_name
     profile.email = instance.email
     profile.save()
+
 
 class SupportRequest(models.Model):
     name = models.CharField(max_length=100, verbose_name='Ваше имя', blank=True)
