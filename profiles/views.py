@@ -185,7 +185,7 @@ def profile_list(request):
             Q(name__icontains=query) | Q(nick_name__icontains=query)
         )
 
-    paginator = Paginator(profiles, 15)
+    paginator = Paginator(profiles, 25)
     page = request.GET.get('page')
     try:
         profiles_page = paginator.page(page)

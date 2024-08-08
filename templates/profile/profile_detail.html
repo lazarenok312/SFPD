@@ -65,6 +65,10 @@
             background-image: linear-gradient(195deg, #a29333 0%, #bb6604 100%);
         }
 
+        .bg-gradient-gmoderator {
+            background-image: linear-gradient(195deg, #ba490c 0%, #eb830c 100%);
+        }
+
         .bg-gradient-spec {
             background-image: linear-gradient(195deg, #de0c3d 0%, #ef050d 100%);
         }
@@ -258,6 +262,10 @@
             background-image: linear-gradient(195deg, #232222 0%, #434345 100%);
         }
 
+        .bg-gradient-staff {
+            background-image: linear-gradient(195deg, #5b1e79 0%, #6d2890 100%);
+        }
+
         .settings-links {
             margin-top: 1rem;
         }
@@ -265,7 +273,6 @@
         .settings-link {
             display: flex;
             align-items: center;
-            margin-bottom: 0.75rem;
             padding: 0.5rem;
             border-radius: 0.3rem;
             text-decoration: none;
@@ -318,6 +325,19 @@
             left: 11px;
             z-index: 1;
         }
+
+        .profile-badges {
+            margin-top: 10px;
+        }
+
+        .badges-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .badge-item {
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
@@ -345,23 +365,22 @@
         <div class="container">
             <ul class="breadcrumbs-custom-path">
                 <li><a href="{% url 'departments:home' %}">Главная</a></li>
-                <li class="active">О нас</li>
+                <li class="active">Личный профиль</li>
             </ul>
         </div>
     </section>
     <section class="section section-md">
         <div class="container">
             <h1>Личный кабинет</h1>
-
             <!-- Вкладки для различных разделов -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="personal-info-tab" data-toggle="tab" href="#personal-info" role="tab"
-                       aria-controls="personal-info" aria-selected="true">Личная информация</a>
+                    <a class="nav-link active" id="game-info-tab" data-toggle="tab" href="#game-info" role="tab"
+                       aria-controls="game-info" aria-selected="false">Игровая информация</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="game-info-tab" data-toggle="tab" href="#game-info" role="tab"
-                       aria-controls="game-info" aria-selected="false">Игровая информация</a>
+                    <a class="nav-link" id="personal-info-tab" data-toggle="tab" href="#personal-info" role="tab"
+                       aria-controls="personal-info" aria-selected="true">Личная информация</a>
                 </li>
                 {% if can_edit %}
                     <li class="nav-item">
@@ -379,30 +398,146 @@
                         </li>
                     {% endif %}
                 {% endif %}
-
                 <!-- Добавьте другие вкладки по необходимости -->
             </ul>
-
             <!-- Содержимое вкладок -->
             <div class="tab-content" id="myTabContent">
-                <!-- Вкладка "Личная информация" -->
-                <div class="tab-pane fade show active" id="personal-info" role="tabpanel"
-                     aria-labelledby="personal-info-tab">
+                <!-- Вкладка "Игровая информация" -->
+                <div class="tab-pane fade show active" id="game-info" role="tabpanel" aria-labelledby="game-info-tab">
                     <div class="row">
-                        {% if profile.photo %}
-                            <div class="col-md-3 text-center">
+                        <div class="col-md-3 text-center">
+                            {% if profile.photo %}
                                 <img src="{{ profile.photo.url }}" alt="{{ profile.user.username }}'s photo"
                                      class="img-thumbnail" style="width: 100%; height: auto; max-width: 300px;">
-                            </div>
-                        {% else %}
-                            <div class="col-md-3 text-center">
+                            {% else %}
                                 <img src="{% static 'images/incognito.png' %}" alt="Default photo"
                                      class="img-thumbnail" style="width: 100%; height: auto; max-width: 300px;">
+                            {% endif %}
+
+                            {% if profile.is_online %}
+                                <span class="badge bg-gradient-success"><i
+                                        class="fas fa-check-circle"></i> В сети</span>
+
+                            {% else %}
+                                <span class="badge bg-gradient-danger"><i
+                                        class="fas fa-exclamation-circle"></i> Офлайн</span>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div style="display: flex; align-items: baseline; margin-top: 20px;">
+                                <h5 style="margin-right: 10px; margin-bottom: 0;">{{ profile.nick_name|default:"Ник не установлен" }}</h5>
+                                <div class="profile-badges">
+                                    {% if profile.badges.exists %}
+                                        <div class="badges-list" style="display: flex; flex-wrap: nowrap;">
+                                            {% for badge in profile.badges.all %}
+                                                <div class="badge-item" style="margin-right: 5px;">
+                                                    <img src="{{ badge.image.url }}" alt="{{ badge.name }}" width="30px"
+                                                         height="30px"
+                                                         style="vertical-align: middle;">
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
-                        {% endif %}
+                            <p>
+                                <strong><i class="fas fa-building"></i> Отдел:</strong>
+                                {% if profile.department %}
+                                    {% if profile.department.name == "Detective Bureau" %}
+                                        <span class="badge bg-gradient-db">{{ profile.department.name }}</span>
+                                    {% elif profile.department.name == "Police Academy" %}
+                                        <span class="badge bg-gradient-pa">{{ profile.department.name }}</span>
+                                    {% elif profile.department.name == "Speсial Weapons And Tactics" %}
+                                        <span class="badge bg-gradient-swat">{{ profile.department.name }}</span>
+                                    {% elif profile.department.name == "Central Patrol Division" %}
+                                        <span class="badge bg-gradient-cpd">{{ profile.department.name }}</span>
+                                    {% elif profile.department.name == "Staff SFPD" %}
+                                        <span class="badge bg-gradient-staff">{{ profile.department.name }}</span>
+                                    {% else %}
+                                        <span class="badge bg-gradient-secondary">{{ profile.department.name }}</span>
+                                    {% endif %}
+                                {% else %}
+                                    Отсутствует
+                                {% endif %}</p>
+                            <p><strong><i class="fas fa-id-badge"></i> Должность:</strong>
+                                {% if profile.role %}
+                                    {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
+                                        <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
+                                    {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
+                                        <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
+                                    {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
+                                        <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
+                                    {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
+                                        <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
+                                    {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
+                                        <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
+                                    {% elif profile.role.name == "Officer of CPD" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
+                                        <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                                    {% elif profile.role.name == "Jr.Agent" %}
+                                        <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
+                                    {% elif profile.role.name == "Recruit of SWAT" %}
+                                        <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
+                                    {% endif %}
+                                    {% if profile.role_confirmed %}
+                                        <span class="badge bg-gradient-success"> <i
+                                                class="fas fa-check-circle"></i></span>
+                                    {% else %}
+                                        <span class="badge bg-gradient-danger"> <i
+                                                class="fas fa-exclamation-circle"></i></span>
+                                    {% endif %}
+                                {% else %}
+                                    Отсутствует
+                                {% endif %}
+                            </p>
+                            <p><strong><i class="fas fa-book"></i> Биография:</strong></p>
+                            <p>{{ profile.bio|default:"Биография в данный момент отсутствует" }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade " id="personal-info" role="tabpanel"
+                     aria-labelledby="personal-info-tab">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            {% if profile.photo %}
+                                <img src="{{ profile.photo.url }}" alt="{{ profile.user.username }}'s photo"
+                                     class="img-thumbnail" style="width: 100%; height: auto; max-width: 300px;">
+                            {% else %}
+                                <img src="{% static 'images/incognito.png' %}" alt="Default photo"
+                                     class="img-thumbnail" style="width: 100%; height: auto; max-width: 300px;">
+                            {% endif %}
+
+                            {% if profile.user.is_superuser %}
+                                <span class="badge bg-gradient-success"><i class="fas fa-shield-alt"></i> Администратор</span>
+                            {% elif profile.user.groups.exists %}
+                                {% for group in profile.user.groups.all %}
+                                    {% if group.name == "Редактор" %}
+                                        <span class="badge bg-gradient-editor"><i class="fas fa-pencil-alt"></i> Редактор</span>
+                                    {% elif group.name == "Куратор редакторов" %}
+                                        <span class="badge bg-gradient-gmoderator"><i class="fas fa-user-edit"></i> Куратор редакторов</span>
+                                    {% elif group.name == "Модератор" %}
+                                        <span class="badge bg-gradient-moderator"><i class="fas fa-gavel"></i> Модератор</span>
+                                    {% elif group.name == "Руководитель" %}
+                                        <span class="badge bg-gradient-spec"><i class="fas fa-user-tie"></i> Руководитель</span>
+                                    {% else %}
+                                        <span class="badge bg-gradient-default"><i
+                                                class="fas fa-user"></i> {{ group.name }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <span class="badge bg-gradient-secondary"><i
+                                        class="fas fa-user"></i> Пользователь</span>
+                            {% endif %}
+                        </div>
                         <div class="col-md-8">
                             <div class="profile-confirmation">
-                                <p style="margin: 10px 0 10px 0;">
+                                {% if profile.profile_confirmed %}
+                                    <span class="badge bg-gradient-success" style="margin: 10px 0 5px 0;"> <i
+                                            class="fas fa-check-circle mr-2"></i>Профиль подтвержден</span>
+                                {% else %}
+                                    <span class="badge bg-gradient-danger" style="margin: 10px 0 5px 0;"> <i
+                                            class="fas fa-exclamation-circle mr-2"></i>Профиль не подтвержден</span>
+                                {% endif %}
+                                <p>
                                     <button id="like-button" class="btn btn-success btn-like">
                                         <i class="fas fa-thumbs-up"></i> <span
                                             id="like-count" style="margin-left:10px"> {{ profile.likes }}</span>
@@ -413,114 +548,31 @@
                                     </button>
                                 </p>
 
-                                {% if profile.profile_confirmed %}
-                                    <span class="badge bg-gradient-success"> <i class="fas fa-check-circle mr-2"></i>Профиль подтвержден</span>
-                                {% else %}
-                                    <span class="badge bg-gradient-danger"> <i
-                                            class="fas fa-exclamation-circle mr-2"></i>Профиль не подтвержден</span>
-                                {% endif %}
                             </div>
-                            <p><strong>Имя:</strong> {{ profile.name }}</p>
-                            <p><strong>Фамилия:</strong> {{ profile.surnames }}</p>
-                            <p><strong>Электронная почта:</strong> <a href="mailto:{{ profile.email }}"
-                                                                      style="color: blue;">{{ profile.email }}</a></p>
-                            <p><strong>День рождения:</strong> {{ profile.birthdate }}</p>
-                            <p><strong>Статус:</strong>
-                                {% if user.is_superuser %}
-                                    <span class="badge bg-gradient-success">Администратор</span>
-                                {% elif user_groups %}
-                                    {% for group in user_groups %}
-                                        {% if group.name == "Редактор" %}
-                                            <span class="badge bg-gradient-editor">Редактор</span>
-                                        {% elif group.name == "Модератор" %}
-                                            <span class="badge bg-gradient-moderator">Модератор</span>
-                                        {% elif group.name == "Руководитель" %}
-                                            <span class="badge bg-gradient-spec">Руководитель</span>
-                                        {% else %}
-                                            <span class="badge bg-gradient-default">{{ group.name }}</span>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% else %}
-                                    <span class="badge bg-gradient-secondary">Пользователь</span>
-                                {% endif %}
+                            <p><strong><i class="fas fa-user"></i> Имя:</strong> {{ profile.name|default:"нет данных" }}
                             </p>
-                            <p><strong>Последняя активность:</strong> {{ profile.last_activity }}</p>
+                            <p><strong><i class="fas fa-user"></i>
+                                Фамилия:</strong> {{ profile.surnames|default:"нет данных" }}</p>
+                            <p><strong><i class="fas fa-envelope"></i> Электронная почта:</strong>
+                                <a href="mailto:{{ profile.email }}" style="color: blue;">
+                                    {{ profile.email|default:"нет данных" }}
+                                </a>
+                            </p>
+                            <p><strong><i class="fas fa-birthday-cake"></i> День
+                                рождения:</strong> {{ profile.birthdate|default:"нет данных" }}</p>
+                            <p><strong><i class="fas fa-clock"></i> Последняя
+                                активность:</strong> {{ profile.last_activity }}</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- Вкладка "Игровая информация" -->
-                <div class="tab-pane fade" id="game-info" role="tabpanel" aria-labelledby="game-info-tab">
-                    <br>
-                    <p><strong>Отдел:</strong> {% if profile.department %}
-                        {% if profile.department.name == "Detective Bureau" %}
-                            <span class="badge bg-gradient-db">{{ profile.department.name }}</span>
-                        {% elif profile.department.name == "Police Academy" %}
-                            <span class="badge bg-gradient-pa">{{ profile.department.name }}</span>
-                        {% elif profile.department.name == "Speсial Weapons And Tactics" %}
-                            <span class="badge bg-gradient-swat">{{ profile.department.name }}</span>
-                        {% elif profile.department.name == "Central Patrol Division" %}
-                            <span class="badge bg-gradient-cpd">{{ profile.department.name }}</span>
-                        {% else %}
-                            <span class="badge bg-gradient-secondary">{{ profile.department.name }}</span>
-                        {% endif %}
-                    {% else %}
-                        Отсутствует
-                    {% endif %}</p>
-                    <p><strong>Должность:</strong>
-                        {% if profile.role %}
-                            {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
-                                <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
-                            {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
-                                <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
-                            {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
-                                <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
-                            {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
-                                <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
-                            {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
-                                <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
-                            {% elif profile.role.name == "Officer of CMU" %}
-                                <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
-                            {% elif profile.role.name == "Officer of CPU" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
-                                <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
-                            {% elif profile.role.name == "Jr.Agent" %}
-                                <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
-                            {% elif profile.role.name == "Recruit of SWAT" %}
-                                <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
-                            {% endif %}
-                        {% else %}
-                            Отсутствует
-                        {% endif %}
-                    </p>
-                    <p class="nick-name-wrapper">
-                        <strong>Ник:</strong>
-                        {% if profile.role_confirmed %}
-                            <span class="badge bg-gradient-success"> <i class="fas fa-check-circle"></i></span>
-                        {% else %}
-                            <span class="badge bg-gradient-danger"> <i class="fas fa-exclamation-circle"></i></span>
-                        {% endif %}
-                        {{ profile.nick_name }}
-                    </p>
-                    {% if profile.is_online %}
-                        <p><strong>Статус онлайн:</strong> <span class="badge bg-gradient-success">В сети</span></p>
-                    {% else %}
-                        <p><strong>Статус онлайн:</strong> <span class="badge bg-gradient-danger">Офлайн</span></p>
-                    {% endif %}
-                    <p><strong>Онлайн за неделю:</strong> В разработке</p>
-                    <p><strong>Онлайн за месяц:</strong> В разработке</p>
-                    <p><strong>Биография:</strong></p>
-                    <p>{{ profile.bio }}</p>
-                </div>
-
                 <!-- Вкладка "Настройки" -->
                 {% if can_edit %}
                     <div class="tab-pane fade" id="update" role="tabpanel" aria-labelledby="update-tab">
-                        <br>
                         <form method="post" enctype="multipart/form-data" id="profileForm"
                               data-roles-url="{% url 'ajax_load_roles' %}" novalidate>
                             {% csrf_token %}
-                            <div class="row row-10">
-                                <div class="col-md-6 mb-3">
+                            <div class="row">
+                                <div class="col-md-6">
                                     <div class="form-wrap d-flex align-items-center">
                                         <span class="form-icon"><i class="fas fa-user"></i></span>
                                         <input class="form-input" id="id_name" type="text" name="name"
@@ -528,7 +580,7 @@
                                         <label class="form-label" for="id_name">Имя</label>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6">
                                     <div class="form-wrap d-flex align-items-center">
                                         <span class="form-icon"><i class="fas fa-user"></i></span>
                                         <input class="form-input" id="id_surnames" type="text" name="surnames"
@@ -536,15 +588,15 @@
                                         <label class="form-label" for="id_surnames">Фамилия</label>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12">
                                     <div class="form-wrap d-flex align-items-center">
                                         <span class="form-icon"><i class="fas fa-calendar-alt"></i></span>
                                         <input class="form-input" id="id_birthdate" type="date" name="birthdate"
-                                               value="{{ form.birthdate.value }}" style="color: #2e3842;"
+                                               value="{{ form.birthdate.value|date:"Y-m-d" }}" style="color: #2e3842;"
                                                placeholder="ГГГГ-ММ-ДД">
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12">
                                     <div class="form-wrap d-flex align-items-center">
                                         <span class="form-icon"><i class="fas fa-envelope"></i></span>
                                         <input class="form-input" id="id_email" type="email" name="email"
@@ -552,8 +604,7 @@
                                         <label class="form-label" for="id_email">Электронная почта</label>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12 mb-3">
+                                <div class="col-md-12">
                                     <div class="form-wrap d-flex align-items-center">
                                         <span class="form-icon"><i class="fas fa-gamepad"></i></span>
                                         <input class="form-input" id="id_nick_name" type="text" name="nick_name"
@@ -561,7 +612,7 @@
                                         <label class="form-label" for="id_nick_name">Игровой никнейм</label>
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6">
                                     <div class="form-wrap d-flex align-items-center">
                                         <span class="form-icon"><i class="fas fa-building"></i></span>
                                         <select class="form-input" id="id_department" name="department">
@@ -574,7 +625,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-6">
                                     <div class="form-wrap d-flex align-items-center">
                                         <span class="form-icon"><i class="fas fa-briefcase"></i></span>
                                         <select class="form-input" id="id_role" name="role">
@@ -586,7 +637,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3" id="bio-form-wrap">
+                                <div class="col-md-12" id="bio-form-wrap">
                                     <div class="form-wrap d-flex align-items-center">
                                         <span class="form-icon"><i class="fas fa-align-left"></i></span>
                                         <textarea class="form-input" id="id_bio"
@@ -594,7 +645,7 @@
                                         <label class="form-label" for="id_bio">Биография</label>
                                     </div>
                                 </div>
-                                <div class="col-md-12 mb-3 text-center">
+                                <div class="col-md-12 text-center">
                                     <div class="form-wrap">
                                         <label class="custom-file-upload">
                                             <input id="id_photo" type="file" name="photo"/>

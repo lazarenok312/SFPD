@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike, ProfileConfirmationToken, EmailLog
+from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike, ProfileConfirmationToken, EmailLog, Badge
+
+
+@admin.register(Badge)
+class BadgeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
 
 
 @admin.register(Profile)
@@ -15,7 +20,8 @@ class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                'user', 'name', 'surnames', 'email', 'photo', 'bio', 'department', 'role', 'nick_name', 'birthdate')
+                'user', 'name', 'surnames', 'email', 'photo', 'bio', 'department', 'role', 'nick_name', 'birthdate',
+                'badges')
         }),
         ('Подтверждения', {
             'fields': ('profile_confirmed', 'role_confirmed')

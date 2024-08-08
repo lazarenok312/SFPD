@@ -22,6 +22,7 @@ class News(models.Model):
     created_at = models.DateTimeField(verbose_name="Дата создания")
     updated_at = models.DateTimeField(verbose_name="Дата обновления", auto_now=True)
     is_pinned = models.BooleanField(default=False, verbose_name="Закреплено")
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Автор")
 
     def __str__(self):
         return self.title

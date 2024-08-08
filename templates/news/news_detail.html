@@ -185,7 +185,7 @@
 
         .comment-content {
             margin-top: 5px;
-            margin-left: 20px;
+            margin-bottom: 10px;
         }
 
         .rd-navbar-transparent.rd-navbar-static .rd-navbar-main-inner {
@@ -213,7 +213,7 @@
                 <h1 class="news-title">{{ news.title }}</h1>
             </div>
             <div class="news-description">
-                {{ news.description|safe|linebreaks}}
+                {{ news.description|safe|linebreaks }}
             </div>
             <p class="news-meta">Опубликовано {{ news.created_at|date:"d M Y" }}</p>
             <div class="news-actions">
@@ -237,10 +237,12 @@
                     <button type="submit" class="comment-submit">Добавить комментарий</button>
                 </form>
                 <div class="comment-list">
-                    {% for comment in news.comments.all %}
+                    {% for comment in comments %}
                         <div class="comment-item" id="comment-{{ comment.pk }}">
                             <div class="comment-header">
-                                <span class="comment-author">{{ comment.user.username }}</span>
+            <span class="comment-author">
+                {{ comment.user.profile.nick_name|default:comment.user.username }}
+            </span>
                                 <span>прокомментировал(а):</span>
                                 {% if comment.user == request.user %}
                                     <button class="delete-button" data-comment-id="{{ comment.pk }}"

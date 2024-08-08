@@ -32,6 +32,11 @@ class NewsDetailView(DetailView):
     template_name = 'news/news_detail.html'
     context_object_name = 'news'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = self.object.comments.order_by('-created_at')
+        return context
+
 
 def add_comment(request, pk):
     news = get_object_or_404(News, pk=pk)

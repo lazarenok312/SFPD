@@ -9,6 +9,19 @@ from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 
 
+class Badge(models.Model):
+    name = models.CharField(max_length=100, verbose_name="Название значка")
+    image = models.ImageField(upload_to='badges/', verbose_name="Изображение значка")
+    description = models.TextField(verbose_name="Описание значка", blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Значок'
+        verbose_name_plural = 'Значки'
+
+
 class Profile(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
@@ -31,6 +44,7 @@ class Profile(models.Model):
     last_viewed_news = models.DateTimeField(null=True, blank=True, verbose_name="Последнее посещение новостей")
     last_viewed_changes = models.DateTimeField(null=True, blank=True,
                                                verbose_name="Последнее посещение истории изменений")
+    badges = models.ManyToManyField(Badge, blank=True, related_name="profiles", verbose_name="Значки")
 
     @property
     def status(self):
@@ -60,7 +74,6 @@ class Profile(models.Model):
             self.slug = slugify(self.user.username)
 
         super().save(*args, **kwargs)
-
 
     class Meta:
         verbose_name = 'Профиль'

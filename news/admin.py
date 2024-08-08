@@ -5,15 +5,15 @@ from django.utils.html import format_html
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at', 'is_pinned', 'image_display')
+    list_display = ('title', 'created_at', 'is_pinned', 'image_display', 'created_by')
     search_fields = ('title', 'description')
-    list_filter = ('is_pinned', 'created_at')
+    list_filter = ('is_pinned', 'created_at', 'created_by')
     date_hierarchy = 'created_at'
     ordering = ('-created_at',)
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'description', 'image', 'is_pinned', 'created_at')
+            'fields': ('title', 'description', 'image', 'is_pinned', 'created_at', 'created_by')
         }),
         ('Date Information', {
             'fields': ('updated_at',),
@@ -21,7 +21,7 @@ class NewsAdmin(admin.ModelAdmin):
         }),
     )
 
-    readonly_fields = ('updated_at',)
+    readonly_fields = ('updated_at', 'created_by')
 
     def image_display(self, obj):
         if obj.image and obj.image.image:
@@ -29,6 +29,11 @@ class NewsAdmin(admin.ModelAdmin):
         return 'No Image'
 
     image_display.short_description = 'Превью'
+
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            obj.created_by = request.user
+        super().save_model(request, obj, form, change)
 
     def has_add_permission(self, request):
         return True
