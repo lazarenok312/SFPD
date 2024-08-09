@@ -75,6 +75,10 @@ class Profile(models.Model):
 
         super().save(*args, **kwargs)
 
+    @classmethod
+    def get_birthdays_in_month(cls, month, year):
+        return cls.objects.filter(birthdate__month=month, birthdate__year=year)
+
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'

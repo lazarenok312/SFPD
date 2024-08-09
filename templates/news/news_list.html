@@ -63,6 +63,43 @@
         background-color: rgb(49 64 74);
     }
 
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .page-item {
+        margin: 0 2px;
+    }
+
+    .page-link {
+        display: block;
+        padding: 4px 0px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        font-size: 0.875rem;
+        color: #002258;
+        text-decoration: none;
+        text-align: center;
+        min-width: 35px;
+
+    }
+
+    .page-link:hover {
+        background-color: #f8f9fa;
+    }
+
+    .active .page-link {
+        background-color: #002258;
+        color: white;
+        border: 1px solid #002258;
+    }
+
+    .disabled .page-link {
+        color: #6c757d;
+        pointer-events: none;
+    }
 </style>
 <body>
 <div class="preloader">
@@ -93,12 +130,76 @@
                             </div>
                             <p class="news-description">{{ news.description|truncatewords:30|safe }}</p>
                             <a class="btn button-primary" style="margin-top: 5px"
-                               href="{% url 'news_detail' news.pk %}">Подробнее</a>
+                               href="{% url 'news_detail' news.pk %}"><i class="fa fa-external-link" aria-hidden="true"></i> Подробнее</a>
                         </div>
                     </div>
                     <br>
                 {% endfor %}
             </div>
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">&laquo;</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo;</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">&lsaquo;</span>
+                    </li>
+                {% endif %}
+
+                {% if page_obj.number > 4 %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1">1</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if num == page_obj.number %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.number < page_obj.paginator.num_pages|add:'-3' %}
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link"
+                           href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+                    </li>
+                {% endif %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">&rsaquo;</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&rsaquo;</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">&raquo;</span>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </section>
     {% include 'include/footer.html' %}

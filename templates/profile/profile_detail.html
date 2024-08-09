@@ -371,30 +371,41 @@
     </section>
     <section class="section section-md">
         <div class="container">
-            <h1>Личный кабинет</h1>
+            <h1><i class="fa fa-user-o" aria-hidden="true"></i> Личный кабинет</h1>
+            <br>
             <!-- Вкладки для различных разделов -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="game-info-tab" data-toggle="tab" href="#game-info" role="tab"
-                       aria-controls="game-info" aria-selected="false">Игровая информация</a>
+                       aria-controls="game-info" aria-selected="false">
+                        <i class="fas fa-gamepad"></i> Игровая информация
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="personal-info-tab" data-toggle="tab" href="#personal-info" role="tab"
-                       aria-controls="personal-info" aria-selected="true">Личная информация</a>
+                       aria-controls="personal-info" aria-selected="true">
+                        <i class="fas fa-user"></i> Личная информация
+                    </a>
                 </li>
                 {% if can_edit %}
                     <li class="nav-item">
                         <a class="nav-link" id="update-tab" data-toggle="tab" href="#update" role="tab"
-                           aria-controls="update" aria-selected="false">Редактирование</a>
+                           aria-controls="update" aria-selected="false">
+                            <i class="fas fa-edit"></i> Редактирование
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab"
-                           aria-controls="settings" aria-selected="false">Настройки</a>
+                           aria-controls="settings" aria-selected="false">
+                            <i class="fas fa-cogs"></i> Настройки
+                        </a>
                     </li>
                     {% if is_moderator %}
                         <li class="nav-item">
                             <a class="nav-link" id="moderation-tab" data-toggle="tab" href="#moderation" role="tab"
-                               aria-controls="moderation" aria-selected="false">Модерация</a>
+                               aria-controls="moderation" aria-selected="false">
+                                <i class="fas fa-shield-alt"></i> Модерация
+                            </a>
                         </li>
                     {% endif %}
                 {% endif %}

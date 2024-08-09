@@ -210,12 +210,13 @@
                 <img src="{{ news.image.image.url }}" alt="{{ news.title }}" class="news-image">
             {% endif %}
             <div class="news-header">
-                <h1 class="news-title">{{ news.title }}</h1>
+                <h1 class="news-title"><i class="fa fa-bullhorn" aria-hidden="true"></i> {{ news.title }}</h1>
             </div>
             <div class="news-description">
                 {{ news.description|safe|linebreaks }}
             </div>
-            <p class="news-meta">Опубликовано {{ news.created_at|date:"d M Y" }}</p>
+            <p class="news-meta"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                Опубликовано {{ news.created_at|date:"d M Y" }}</p>
             <div class="news-actions">
                 <div>
                     <div id="like-button" class="btn-like">
@@ -234,14 +235,17 @@
                 <form method="post" action="{% url 'add_comment' news.pk %}" class="comment-form">
                     {% csrf_token %}
                     <textarea class="comment-input" name="content" placeholder="Ваш комментарий..." required></textarea>
-                    <button type="submit" class="comment-submit">Добавить комментарий</button>
+                    <button type="submit" class="comment-submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        Добавить комментарий
+                    </button>
                 </form>
                 <div class="comment-list">
                     {% for comment in comments %}
                         <div class="comment-item" id="comment-{{ comment.pk }}">
                             <div class="comment-header">
             <span class="comment-author">
-                {{ comment.user.profile.nick_name|default:comment.user.username }}
+                <i class="fa fa-user-o"
+                   aria-hidden="true"></i> {{ comment.user.profile.nick_name|default:comment.user.username }}
             </span>
                                 <span>прокомментировал(а):</span>
                                 {% if comment.user == request.user %}
@@ -251,8 +255,11 @@
                                     </button>
                                 {% endif %}
                             </div>
-                            <div class="comment-content">{{ comment.content }}</div>
-                            <div class="comment-meta">{{ comment.created_at|date:"d M Y H:i" }}</div>
+                            <div class="comment-content"><i class="fa fa-commenting-o"
+                                                            aria-hidden="true"></i> {{ comment.content }}</div>
+                            <div class="comment-meta"><i class="fa fa-clock-o"
+                                                         aria-hidden="true"></i> {{ comment.created_at|date:"d M Y H:i" }}
+                            </div>
                         </div>
                     {% endfor %}
                 </div>

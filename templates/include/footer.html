@@ -10,8 +10,8 @@
                             <div class="unit unit-spacing-xs">
                                 <div class="unit-left">
                                     <div class="icon icon-sm icon-primary novi-icon">
-                                        <img src="{% static 'images/discord.svg' %}" alt="Discord Icon" width="24px"
-                                             height="24px">
+                                        <img src="{% static 'images/discord.svg' %}" alt="Discord Icon" width="16px"
+                                             height="16px">
                                     </div>
                                 </div>
                                 <div class="unit-body">
@@ -19,37 +19,28 @@
                                 </div>
                             </div>
                         </li>
-
                         <li>
                             <div class="unit unit-spacing-xs">
-                                <div class="icon icon-sm icon-primary novi-icon">
-                                        <img src="{% static 'images/board-forum-information-svgrepo-com.svg' %}" alt="Discord Icon" width="24px"
-                                             height="24px">
-                                    </div>
-                                <div class="unit-body"><a href="https://evolve-rp.su/index.php?forums/46/" target="_blank">Форум</a>
+                                <div class="unit-body"><a href="https://evolve-rp.su/index.php?forums/46/"
+                                                          target="_blank"><i class="fa fa-newspaper-o"
+                                                                             aria-hidden="true"></i> Форум</a>
                                 </div>
                             </div>
                         </li>
                         <li>
                             <div class="unit unit-spacing-xs">
-                                <div class="unit-left">
-                                    <div class="icon icon-sm icon-primary novi-icon">
-                                        <svg fill="#ffffff" height="24px" width="24px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 455 455" xml:space="preserve" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="1.8199999999999998"></g><g id="SVGRepo_iconCarrier"> <path style="fill-rule:evenodd;clip-rule:evenodd;" d="M0,0v455h455V0H0z M341.098,251.727c10.445,10.19,21.49,19.784,30.865,31.049 c4.142,4.978,8.06,10.113,11.046,15.881c4.239,8.264,0.397,17.318-6.985,17.817l-45.875-0.02 c-11.841,0.973-21.277-3.801-29.235-11.902c-6.328-6.45-12.243-13.354-18.352-20.023c-2.486-2.746-5.115-5.314-8.239-7.362 c-6.267-4.061-11.703-2.828-15.285,3.699c-3.643,6.649-4.499,14.031-4.835,21.435c-0.499,10.807-3.76,13.634-14.607,14.154 c-23.208,1.075-45.218-2.451-65.659-14.134c-18.052-10.307-32.022-24.879-44.184-41.356 c-23.702-32.124-41.855-67.391-58.154-103.673c-3.684-8.177-0.993-12.559,7.999-12.717c14.99-0.296,29.974-0.26,44.943-0.02 c6.089,0.102,10.129,3.582,12.458,9.334c8.101,19.906,18.01,38.85,30.448,56.427c3.327,4.677,6.71,9.334,11.504,12.636 c5.314,3.663,9.375,2.466,11.881-3.485c1.595-3.78,2.293-7.8,2.629-11.841c1.192-13.833,1.335-27.681-0.718-41.473 c-1.274-8.621-6.149-14.195-14.745-15.825c-4.382-0.836-3.725-2.446-1.615-4.958c3.704-4.315,7.189-7.006,14.093-7.006h51.847 c8.177,1.595,10.011,5.278,11.122,13.497l0.041,57.619c-0.097,3.184,1.595,12.615,7.306,14.704 c4.575,1.513,7.622-2.171,10.368-5.075c12.417-13.176,21.277-28.756,29.194-44.877c3.505-7.087,6.532-14.449,9.477-21.817 c2.17-5.452,5.553-8.137,11.703-8.04l49.916,0.061c1.472,0,2.986,0,4.438,0.239c8.396,1.452,10.705,5.075,8.096,13.293 c-4.076,12.875-12.06,23.625-19.84,34.391c-8.341,11.525-17.216,22.647-25.495,34.233 C331.087,237.201,331.683,242.535,341.098,251.727z"></path> </g></svg>
-                                    </div>
-                                </div>
                                 <div class="unit-body">
-                                    <a href="https://vk.com/saintlouis_sfpd" target="_blank">Официальное сообщество<br>департамента</a>
+                                    <a href="https://vk.com/saintlouis_sfpd" target="_blank"><i class="fa fa-vk"
+                                                                                                aria-hidden="true"></i>
+                                        Официальное сообщество<br>департамента</a>
                                 </div>
                             </div>
                         </li>
                         <li>
                             <div class="unit unit-spacing-xs">
-                                <div class="unit-left">
-                                    <div class="icon icon-sm icon-primary novi-icon mdi mdi-clock"></div>
-                                </div>
                                 <div class="unit-body">
                                     <ul class="list-0">
-                                        Рабочее время департамента
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i> Рабочее время департамента
                                         <li>Будни: 9:00–21:00</li>
                                         <li>Выходные: 10:00–20:00</li>
                                     </ul>
@@ -63,34 +54,47 @@
                     <div class="row row-5 justify-content-between">
                         <div class="col-sm-6">
                             <ul class="font-weight-bold">
-                                <li><a href="{% url 'departments:home' %}">Главная</a></li>
-                                <li><a href="{% url 'departments:about' %}">О департаменте</a></li>
-                                <li><a href="{% url 'departments:faq' %}">FAQ</a></li>
-{#                                <li><a href="{% url 'departments:hall_of_fame' %}">Доска почета</a></li>#}
-                                <li><a href="{% url 'departments:thank_board' %}">Доска благодарностей</a></li>
+                                <li><a href="{% url 'departments:home' %}"><i
+                                        class="fas fa-home" style="margin-right: 2px;"></i>Главная</a></li>
+                                <li><a href="{% url 'news_list' %}"><i
+                                        class="fas fa-newspaper" style="margin-right: 2px;"></i>Новости</a></li>
+                                <li><a href="{% url 'departments:about' %}"><i
+                                        class="fas fa-book" style="margin-right: 2px;"></i>О департаменте</a></li>
+                                <li><a href="{% url 'departments:faq' %}"><i
+                                        class="fas fa-question-circle" style="margin-right: 2px;"></i> FAQ</a></li>
+                                {#                                <li><a href="{% url 'departments:hall_of_fame' %}">Доска почета</a></li>#}
+                                <li><a href="{% url 'departments:thank_board' %}"><i
+                                        class="fas fa-desktop"></i> Благодарственная доска</a></li>
+                                <li><a href="{% url 'profile_list' %}"><i
+                                        class="fas fa-users"></i> Список пользователей</a></li>
                             </ul>
                         </div>
                         <div class="col-sm-4 col-lg-6 col-xxl-5">
                             <ul class="font-weight-bold">
-                                <li><a href="{% url 'departments:pa_detail' %}">Police Academy</a></li>
-                                <li><a href="{% url 'departments:cpd_detail' %}">CPD</a></li>
-                                <li><a href="{% url 'departments:db_detail' %}">Detective Bureau</a></li>
-                                <li><a href="{% url 'departments:swat_detail' %}">SWAT</a></li>
+                                <li><a href="{% url 'departments:pa_detail' %}"><i
+                                        class="fas fa-graduation-cap"></i> Police Academy</a></li>
+                                <li><a href="{% url 'departments:cpd_detail' %}"><i
+                                        class="fas fa-car"></i> CPD</a></li>
+                                <li><a href="{% url 'departments:db_detail' %}"><i
+                                        class="fas fa-user-secret"></i> Detective Bureau</a></li>
+                                <li><a href="{% url 'departments:swat_detail' %}"><i
+                                        class="fas fa-hand-peace-o"></i> SWAT</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12 col-lg-4">
-                <h5>Поддержка</h5>
+                    <h5>Поддержка</h5>
                     {% include 'include/supports.html' %}
-              </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="footer-inner-2">
         <div class="container">
-            <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"> </span> San-Fierro Police Department. Все права защищены.
-                Developer by <a href="https://vk.com/lazarev312" target="_blank" >Dimentii Lazarev</a></p>
+            <p class="rights"><span>&copy;&nbsp;</span><span class="copyright-year"> </span> San-Fierro Police
+                Department. Все права защищены.
+                Developer by <a href="https://vk.com/lazarev312" target="_blank">Dimentii Lazarev</a></p>
         </div>
     </div>
 </footer>
