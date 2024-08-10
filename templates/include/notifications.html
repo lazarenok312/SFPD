@@ -99,16 +99,19 @@
 {% if messages %}
     <div class="toast-container">
         {% for message in messages %}
-            <div class="toast" role="alert">
-                <div class="toast-header">
-                    <strong>Оповещение:</strong>
-                    <button type="button" class="close" aria-label="Close" onclick="closeToast(this)">&times;</button>
+            {% if message.tags == 'success' %}
+                <div class="toast" role="alert">
+                    <div class="toast-header">
+                        <strong>Оповещение:</strong>
+                        <button type="button" class="close" aria-label="Close" onclick="closeToast(this)">&times;
+                        </button>
+                    </div>
+                    <div class="toast-progress"></div>
+                    <div class="toast-body">
+                        {{ message|safe }}
+                    </div>
                 </div>
-                <div class="toast-progress"></div>
-                <div class="toast-body">
-                    {{ message|safe }}
-                </div>
-            </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% endif %}

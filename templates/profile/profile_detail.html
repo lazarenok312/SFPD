@@ -452,6 +452,25 @@
                                 </div>
                             </div>
                             <p>
+                                <strong><i class="fas fa-building"></i> Фракция:</strong>
+                                {% if profile.reg_role %}
+                                    {% if profile.reg_role.name == "Detective Bureau" %}
+                                        <span class="badge bg-gradient-db">{{ profile.reg_role.name }}</span>
+                                    {% elif profile.reg_role.name == "Police Academy" %}
+                                        <span class="badge bg-gradient-pa">{{ profile.reg_role.name }}</span>
+                                    {% elif profile.reg_role.name == "Speсial Weapons And Tactics" %}
+                                        <span class="badge bg-gradient-swat">{{ profile.reg_role.name }}</span>
+                                    {% elif profile.reg_role.name == "Central Patrol Division" %}
+                                        <span class="badge bg-gradient-cpd">{{ profile.reg_role.name }}</span>
+                                    {% elif profile.reg_role.name == "Staff SFPD" %}
+                                        <span class="badge bg-gradient-staff">{{ profile.reg_role.name }}</span>
+                                    {% else %}
+                                        <span class="badge bg-gradient-secondary">{{ profile.reg_role.name }}</span>
+                                    {% endif %}
+                                {% else %}
+                                    Отсутствует
+                                {% endif %}</p>
+                            <p>
                                 <strong><i class="fas fa-building"></i> Отдел:</strong>
                                 {% if profile.department %}
                                     {% if profile.department.name == "Detective Bureau" %}

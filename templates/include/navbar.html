@@ -222,29 +222,54 @@
                 <div class="rd-navbar-aside">
                     <div class="rd-navbar-info">
                         <ul class="list-lined">
-                            <li><a href="https://discord.gg/ddnRXcQJCV" target="_blank"><i
-                                    class="fas fa-reddit-alien" style="margin-right: 2px;"></i> Discord</a></li>
-                            <li><a href="https://vk.com/saintlouis_sfpd" target="_blank"><i class="fa fa-vk"
-                                                                                            aria-hidden="true"></i>
-                                Группа ВК</a></li>
-                            <li><a href="https://evolve-rp.su/index.php?forums/46/" target="_blank"><i
-                                    class="fa fa-newspaper-o"
-                                    aria-hidden="true"></i> Форум</a></li>
+                            <li>
+                                <a href="https://discord.gg/ddnRXcQJCV" target="_blank">
+                                    <img src="{% static 'images/discord.svg' %}" alt="Discord Icon" width="16px"
+                                         height="16px" style="margin-right: 2px;">
+                                    Discord
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://vk.com/saintlouis_sfpd" target="_blank">
+                                    <i class="fa fa-vk" aria-hidden="true" style="margin-right: 2px;"></i> Группа ВК
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://evolve-rp.su/index.php?forums/46/" target="_blank">
+                                    <i class="fa fa-newspaper-o" aria-hidden="true" style="margin-right: 2px;"></i>
+                                    Форум
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://docs.google.com/spreadsheets/d/10suCWj2o6Cy9J5tp-I9jMW9HinTgFq1T1yPlsAjJGPE/edit?gid=1836015645#gid=1836015645" target="_blank">
+                                    <i class="fa fa-table" aria-hidden="true" style="margin-right: 2px;"></i>
+                                    Таблица
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <ul class="list-lined">
                         {% if user.is_authenticated %}
                             <li class="rd-nav-item">
-                                <a href="#" class="rd-nav-link"><i class="fa fa-user-circle" aria-hidden="true"></i> {{ user.username }}</a>
+                                <a href="#" class="rd-nav-link"><i class="fa fa-user-circle"
+                                                                   aria-hidden="true"></i> {{ user.username }}</a>
                                 <ul class="dropdown-auth">
-                                    <li><a href="{% url 'profile_detail' slug=user.profile.slug %}"><i class="fa fa-share-square-o" aria-hidden="true"></i> Личный кабинет</a>
+                                    <li><a href="{% url 'profile_detail' slug=user.profile.slug %}"><i
+                                            class="fa fa-share-square-o" aria-hidden="true"></i> Личный кабинет</a>
                                     </li>
-                                    <li><a href="{% url 'user_logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Выход</a></li>
+                                    <li><a href="{% url 'user_logout' %}"><i class="fa fa-sign-out"
+                                                                             aria-hidden="true"></i> Выход</a></li>
                                 </ul>
                             </li>
                         {% else %}
-                            <li><a href="{% url 'user_login' %}" class="rd-nav-link"><i class="fa fa-sign-out" aria-hidden="true" style="margin-right: 2px;"></i> Вход</a></li>
-                            <li><a href="{% url 'register' %}" class="rd-nav-link"><i class="fa fa-user-plus" aria-hidden="true" style="margin-right: 2px;"></i> Регистрация</a></li>
+                            <li><a href="{% url 'user_login' %}" class="rd-nav-link"><i class="fa fa-sign-out"
+                                                                                        aria-hidden="true"
+                                                                                        style="margin-right: 2px;"></i>
+                                Вход</a></li>
+                            <li><a href="{% url 'register' %}" class="rd-nav-link"><i class="fa fa-user-plus"
+                                                                                      aria-hidden="true"
+                                                                                      style="margin-right: 2px;"></i>
+                                Регистрация</a></li>
                         {% endif %}
                     </ul>
                 </div>

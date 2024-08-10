@@ -27,6 +27,11 @@ def register(request):
             user = user_form.save(commit=False)
             user.set_password(user_form.cleaned_data['password'])
             user.save()
+
+            if not Profile.objects.filter(user=user).exists():
+                reg_role = user_form.cleaned_data.get('reg_role')
+                Profile.objects.create(user=user, reg_role=reg_role)
+
             login(request, user)
             messages.success(request, f"Аккаунт для пользователя {user.username} создан,<br>Добро пожаловать!")
             return redirect(reverse_lazy('departments:home'))
@@ -38,7 +43,20 @@ def register(request):
                 messages.error(request, error)
     else:
         user_form = UserRegistrationForm()
-    return render(request, 'profiles/register.html', {'user_form': user_form})
+
+    context = {
+        'user_form': user_form,
+    }
+
+    return render(request, 'profiles/register.html', context)
+
+
+def check_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username=username).exists()
+    }
+    return JsonResponse(data)
 
 
 def user_login(request):

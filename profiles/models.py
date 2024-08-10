@@ -9,6 +9,17 @@ from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 
 
+class RegRole(models.Model):
+    name = models.CharField(max_length=50, unique=True, verbose_name="Название")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Фракция'
+        verbose_name_plural = 'Фракция'
+
+
 class Badge(models.Model):
     name = models.CharField(max_length=100, verbose_name="Название значка")
     image = models.ImageField(upload_to='badges/', verbose_name="Изображение значка")
@@ -25,6 +36,7 @@ class Badge(models.Model):
 class Profile(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
+    reg_role = models.ForeignKey(RegRole, verbose_name="Фракция", on_delete=models.SET_NULL, null=True, blank=True, default=None)
     name = models.CharField(max_length=25, verbose_name="Имя", blank=True)
     surnames = models.CharField(max_length=25, verbose_name="Фамилия", blank=True)
     email = models.EmailField(max_length=40, verbose_name="Электронная почта", blank=True)

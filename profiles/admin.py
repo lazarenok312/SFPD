@@ -1,5 +1,14 @@
 from django.contrib import admin
-from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike, ProfileConfirmationToken, EmailLog, Badge
+from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike, ProfileConfirmationToken, EmailLog, Badge, \
+    RegRole
+
+
+@admin.register(RegRole)
+class RegRoleAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+    search_fields = ('name',)
+    ordering = ('name',)
+    list_filter = ('name',)
 
 
 @admin.register(Badge)
@@ -20,7 +29,7 @@ class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                'user', 'name', 'surnames', 'email', 'photo', 'bio', 'department', 'role', 'nick_name', 'birthdate',
+                'user', 'name', 'surnames', 'email', 'photo', 'bio', 'reg_role', 'department', 'role', 'nick_name', 'birthdate',
                 'badges')
         }),
         ('Подтверждения', {
