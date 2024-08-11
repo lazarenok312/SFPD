@@ -48,6 +48,17 @@
             z-index: 2;
             pointer-events: all;
         }
+
+        .alert-message {
+            color: #ff0018;
+            font-weight: bold;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .alert-danger i {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -86,8 +97,13 @@
                     </span>
                     </span>
                 </div>
-
-
+                {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert-message text-center">
+                                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{ message }}
+                            </div>
+                        {% endfor %}
+                {% endif %}
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn button button-size-1 button-block button-primary" type="submit">
                         Войти

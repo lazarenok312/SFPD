@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{% static 'Login/images/sfpd.ico' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'Login/vendor/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Login/vendor/animate/animate.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Login/vendor/css-hamburgers/hamburgers.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Login/vendor/select2/select2.min.css' %}">
@@ -77,6 +78,28 @@
             z-index: 2;
             pointer-events: all;
         }
+
+        .custom-arrow {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #666666;
+            pointer-events: none;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-message i {
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -89,13 +112,15 @@
                 </a>
             </div>
 
-            <form class="login100-form validate-form" action="{% url 'register' %}" method="post" onsubmit="return validateForm()">
+            <form class="login100-form validate-form" action="{% url 'register' %}" method="post"
+                  onsubmit="return validateForm()">
                 {% csrf_token %}
                 <span class="login100-form-title">Регистрация</span>
 
                 <div class="form-row">
                     <div class="wrap-input100 validate-input" data-validate="Имя обязательно">
-                        <input class="input100" id="first_name" type="text" name="first_name" placeholder="Имя" data-constraints="@Required">
+                        <input class="input100" id="first_name" type="text" name="first_name" placeholder="Имя"
+                               data-constraints="@Required">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
@@ -103,7 +128,8 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Фамилия тоже">
-                        <input class="input100" id="last_name" type="text" name="last_name" placeholder="Фамилия" data-constraints="@Required">
+                        <input class="input100" id="last_name" type="text" name="last_name" placeholder="Фамилия"
+                               data-constraints="@Required">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
@@ -112,18 +138,22 @@
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Логин обязателен">
-                    <input class="input100" id="username" type="text" name="username" placeholder="Логин" data-constraints="@Required">
+                    <input class="input100" id="username" type="text" name="username" placeholder="Логин"
+                           data-constraints="@Required">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </span>
                 </div>
-                <div class="wrap-input100">
-                    <p id="username-error" style="color:red; display:none;">Пользователь с таким именем уже существует</p>
+                <div class="text-center" style="margin-bottom: 10px">
+                    <p id="username-error" class="error-message" style="display:none;">
+                        <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                        <span>Пользователь с таким логином уже существует</span>
+                    </p>
                 </div>
-
                 <div class="wrap-input100 validate-input" data-validate="E-mail обязателен">
-                    <input class="input100" id="email" type="email" name="email" placeholder="E-mail" data-constraints="@Email @Required">
+                    <input class="input100" id="email" type="email" name="email" placeholder="E-mail"
+                           data-constraints="@Email @Required">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -131,7 +161,8 @@
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Пароль обязателен">
-                    <input class="input100" id="password" type="password" name="password" placeholder="Пароль" data-constraints="@Required" oninput="checkPasswords()">
+                    <input class="input100" id="password" type="password" name="password" placeholder="Пароль"
+                           data-constraints="@Required" oninput="checkPasswords()">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -143,7 +174,8 @@
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Подтвердите пароль">
-                    <input class="input100" id="password2" type="password" name="password2" placeholder="Подтвердите пароль" data-constraints="@Required" oninput="checkPasswords()">
+                    <input class="input100" id="password2" type="password" name="password2"
+                           placeholder="Подтвердите пароль" data-constraints="@Required" oninput="checkPasswords()">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -154,16 +186,16 @@
                     </span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate="Выбор роли обязателен">
-                    <select class="input100" name="reg_role" required>
+                    <select style="appearance: none;padding-right: 30px; border: 1px solid #ccc;" class="input100"
+                            name="reg_role" required>
                         <option value="" disabled selected>Выберите фракцию</option>
                         {% for role in user_form.fields.reg_role.queryset %}
                             <option value="{{ role.id }}">{{ role.name }}</option>
                         {% endfor %}
                     </select>
                     <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-                        <i class="fa fa-briefcase" aria-hidden="true"></i>
-                    </span>
+                    <span class="symbol-input100"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
+                    <span class="custom-arrow">&#9660;</span>
                 </div>
                 {% if form_errors %}
                     <div class="form-errors">
@@ -183,13 +215,11 @@
                         Зарегистрироваться
                     </button>
                 </div>
-
                 <div class="text-center p-t-12">
                     <a class="txt2" href="{% url 'password_reset' %}">
                         Забыли пароль? Сбросьте!
                     </a>
                 </div>
-
                 <div class="text-center">
                     <a class="txt2" href="{% url 'user_login' %}">
                         Уже есть аккаунт? Войдите!
@@ -260,6 +290,26 @@
             return true;
         }
     }
+
+    $(document).ready(function () {
+        $('#username').on('input', function () {
+            var username = $(this).val();
+            $.ajax({
+                url: '{% url "check_username" %}',
+                data: {
+                    'username': username
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.is_taken) {
+                        $('#username-error').html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i> Пользователь с таким логином уже существует').show();
+                    } else {
+                        $('#username-error').hide();
+                    }
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>

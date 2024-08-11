@@ -64,6 +64,10 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
+        if not User.objects.filter(username=username).exists():
+            messages.error(request, 'Пользователь с таким именем не найден.')
+            return render(request, 'profiles/login.html')
+
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
