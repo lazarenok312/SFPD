@@ -14,6 +14,41 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Login/vendor/select2/select2.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Login/css/util.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Login/css/main.css' %}">
+    <style>
+        .wrap-input100 {
+            position: relative;
+        }
+
+        .input100 {
+            padding-right: 40px;
+        }
+
+        .fa-eye, .fa-eye-slash {
+            display: none;
+        }
+
+        .fa-eye {
+            display: block;
+        }
+
+        .fa-eye-slash {
+            display: none;
+        }
+
+        .glaz {
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666666;
+            cursor: pointer;
+            z-index: 2;
+            pointer-events: all;
+        }
+    </style>
 </head>
 <body>
 <div class="limiter">
@@ -31,23 +66,27 @@
                    Авторизация
                 </span>
 
-                <div class="wrap-input100 validate-input" data-validate="Valid username is required: ex@abc.xyz">
-                    <input class="input100 form-input" id="username" type="text" name="username" placeholder="Логин"
-                           data-constraints="@Required">
+                <div class="wrap-input100 validate-input" data-validate="Требуется действительное имя пользователя">
+                    <input class="input100 form-input" id="username" type="text" name="username" placeholder="Логин">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </span>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate="Password is required">
-                    <input class="input100 form-input" id="password" type="password" name="password"
-                           placeholder="Пароль" data-constraints="@Required" oninput="checkPasswords()">
+                <div class="wrap-input100 validate-input" data-validate="Требуется пароль">
+                    <input class="input100 form-input" id="password-input" type="password" name="password"
+                           placeholder="Пароль">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
+                        <span class="glaz">
+                        <i class="fa fa-eye" id="toggle-password" onclick="togglePassword()"></i>
+                        <i class="fa fa-eye-slash" id="toggle-password-slash" onclick="togglePassword()"></i>
+                    </span>
                     </span>
                 </div>
+
 
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn button button-size-1 button-block button-primary" type="submit">
@@ -77,9 +116,26 @@
 <script src="{% static 'Login/vendor/select2/select2.min.js' %}"></script>
 <script src="{% static 'Login/vendor/tilt/tilt.jquery.min.js' %}"></script>
 <script>
+    function togglePassword() {
+        var passwordInput = document.getElementById('password-input');
+        var eyeIcon = document.getElementById('toggle-password');
+        var eyeSlashIcon = document.getElementById('toggle-password-slash');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.style.display = 'none';
+            eyeSlashIcon.style.display = 'block';
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.style.display = 'block';
+            eyeSlashIcon.style.display = 'none';
+        }
+    }
+</script>
+<script>
     $('.js-tilt').tilt({
         scale: 1.1
-    })
+    });
 </script>
 <script src="{% static 'Login/js/main.js' %}"></script>
 </body>

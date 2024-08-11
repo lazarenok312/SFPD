@@ -1,10 +1,23 @@
 from django.contrib import admin
 from .models import News, NewsImage, LikeDislike, Comment
 from django.utils.html import format_html
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from django import forms
+from django.utils.safestring import mark_safe
+
+
+class NewsAdminForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorUploadingWidget())
+
+    class Meta:
+        model = News
+        fields = '__all__'
 
 
 @admin.register(News)
 class NewsAdmin(admin.ModelAdmin):
+    form = NewsAdminForm
+
     list_display = ('title', 'created_at', 'is_pinned', 'image_display', 'created_by')
     search_fields = ('title', 'description')
     list_filter = ('is_pinned', 'created_at', 'created_by')
@@ -34,18 +47,6 @@ class NewsAdmin(admin.ModelAdmin):
         if not obj.pk:
             obj.created_by = request.user
         super().save_model(request, obj, form, change)
-
-    def has_add_permission(self, request):
-        return True
-
-    def has_change_permission(self, request, obj=None):
-        return True
-
-    def has_delete_permission(self, request, obj=None):
-        return True
-
-    def has_view_permission(self, request, obj=None):
-        return True
 
 
 @admin.register(NewsImage)

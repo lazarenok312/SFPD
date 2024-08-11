@@ -215,13 +215,13 @@
         <div class="container">
             <ul class="breadcrumbs-custom-path">
                 <li><a href="{% url 'departments:home' %}">Главная</a></li>
-                <li class="active">База сотрудников</li>
+                <li class="active">Список пользователей</li>
             </ul>
         </div>
     </section>
     <section class="section section-md">
         <div class="container">
-            <h2><i class="fa fa-users" aria-hidden="true"></i> База сотрудников</h2>
+            <h2><i class="fa fa-users" aria-hidden="true"></i> Список пользователей</h2>
             <br>
             <div class="clearfix">
                 <div class="filter-sidebar">
@@ -242,13 +242,15 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <button id="reset-filters" class="button button-size-1 button-block button-primary"><i class="fa fa-times" aria-hidden="true"></i> Сбросить
+                        <button id="reset-filters" class="button button-size-1 button-block button-primary"><i
+                                class="fa fa-times" aria-hidden="true"></i> Сбросить
                         </button>
                     </div>
                 </div>
                 <div class="profile-table">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="search" placeholder="Поиск по таблице">
+                        <input type="text" class="form-control" id="search" placeholder="Поиск по таблице"
+                               onkeyup="searchTable()">
                     </div>
                     <hr/>
                     <div class="table-responsive">
@@ -264,103 +266,7 @@
                                 <th class="text-center">Статус</th>
                             </tr>
                             </thead>
-                            <tbody id="profile-table">
-                            {% for profile in profiles %}
-                                <tr data-department="{{ profile.department.id }}" data-role="{{ profile.role.id }}">
-                                    <td class="text-center">
-                                        {% if profile.name %}
-                                            <a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a>
-                                        {% else %}
-                                            Нет данных
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center">
-                                        {% if profile.surnames %}
-                                            <a href="{{ profile.get_absolute_url }}">{{ profile.surnames }}</a>
-                                        {% else %}
-                                            Нет данных
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center">
-                                        {% if profile.nick_name %}
-                                            <a href="{{ profile.get_absolute_url }}">{{ profile.nick_name }}</a>
-                                        {% else %}
-                                            Нет данных
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center">
-                                        {% if profile.department %}
-                                            {% if profile.department.name == "Detective Bureau" %}
-                                                <span class="badge bg-gradient-db">{{ profile.department.name }}</span>
-                                            {% elif profile.department.name == "Police Academy" %}
-                                                <span class="badge bg-gradient-pa">{{ profile.department.name }}</span>
-                                            {% elif profile.department.name == "Speсial Weapons And Tactics" %}
-                                                <span class="badge bg-gradient-swat">{{ profile.department.name }}</span>
-                                            {% elif profile.department.name == "Central Patrol Division" %}
-                                                <span class="badge bg-gradient-cpd">{{ profile.department.name }}</span>
-                                            {% elif profile.department.name == "Staff SFPD" %}
-                                                <span class="badge bg-gradient-staff">{{ profile.department.name }}</span>
-                                            {% else %}
-                                                <span class="badge bg-gradient-secondary">{{ profile.department.name }}</span>
-                                            {% endif %}
-                                        {% else %}
-                                            Отсутствует
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center">
-                                        {% if profile.role %}
-                                            {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
-                                                <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
-                                            {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
-                                                <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
-                                            {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
-                                                <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
-                                            {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
-                                                <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
-                                            {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
-                                                <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
-                                            {% elif profile.role.name == "Officer of CPD" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
-                                                <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
-                                            {% elif profile.role.name == "Jr.Agent" %}
-                                                <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
-                                            {% elif profile.role.name == "Recruit of SWAT" %}
-                                                <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
-                                            {% endif %}
-                                        {% else %}
-                                            Отсутствует
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center">
-                                        {% if profile.is_online %}
-                                            <span class="badge bg-gradient-success">Онлайн</span>
-                                        {% else %}
-                                            <span class="badge bg-gradient-danger">Офлайн</span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center"> <!-- Новый столбец для группы -->
-                                        {% if profile.user.groups.exists %}
-                                            {% for group in profile.user.groups.all %}
-                                                {% if group.name == "Редактор" %}
-                                                    <span class="badge bg-gradient-editor">Редактор</span>
-                                                {% elif group.name == "Куратор редакторов" %}
-                                                    <span class="badge bg-gradient-gmoderator">Куратор редакторов</span>
-                                                {% elif group.name == "Модератор" %}
-                                                    <span class="badge bg-gradient-moderator">Модератор</span>
-                                                {% elif group.name == "Руководитель" %}
-                                                    <span class="badge bg-gradient-spec">Руководитель</span>
-                                                {% elif group.name == "Администратор" %}
-                                                    <span class="badge bg-gradient-success">Администратор</span>
-                                                {% else %}
-                                                    <span class="badge bg-gradient-default">{{ group.name }}</span>
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% else %}
-                                            <span class="badge bg-gradient-secondary">Пользователь</span>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
+                            {% include 'profiles/profile_table_body.html' %}
                         </table>
                         <div class="record-pagination-container">
                             <div class="record-info">
@@ -414,6 +320,42 @@
 <script src="{% static 'js/script.js' %}"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7x5Yo7+ge6pI0I=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function () {
+        $('#search').on('keyup', function () {
+            var query = $(this).val();
+            var currentPage = getUrlParameter('page') || 1;
+            $.ajax({
+                url: "{% url 'profile_list' %}",
+                data: {
+                    'q': query,
+                    'page': currentPage
+                },
+                success: function (data) {
+                    $('#my-search-table').html(data.html);
+                    updatePagination(query, currentPage);
+                }
+            });
+        });
+
+        function getUrlParameter(name) {
+            var regex = new RegExp('[?&]' + name + '=([^&#]*)');
+            var results = regex.exec(window.location.href);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        function updatePagination(query, currentPage) {
+            // Обновите ссылки пагинации, если необходимо
+            $('.pagination a').each(function () {
+                var href = $(this).attr('href');
+                if (href) {
+                    var newHref = href.split('?')[0] + '?q=' + encodeURIComponent(query);
+                    $(this).attr('href', newHref);
+                }
+            });
+        }
+    });
+</script>
 <script>
     $(document).ready(function () {
         $("#search").on("keyup", function () {

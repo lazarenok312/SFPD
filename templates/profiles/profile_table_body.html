@@ -1,0 +1,99 @@
+<tbody id="profile-table">
+{% for profile in profiles %}
+    <tr data-department="{{ profile.department.id }}" data-role="{{ profile.role.id }}">
+        <td class="text-center">
+            {% if profile.name %}
+                <a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a>
+            {% else %}
+                Нет данных
+            {% endif %}
+        </td>
+        <td class="text-center">
+            {% if profile.surnames %}
+                <a href="{{ profile.get_absolute_url }}">{{ profile.surnames }}</a>
+            {% else %}
+                Нет данных
+            {% endif %}
+        </td>
+        <td class="text-center">
+            {% if profile.nick_name %}
+                <a href="{{ profile.get_absolute_url }}">{{ profile.nick_name }}</a>
+            {% else %}
+                Нет данных
+            {% endif %}
+        </td>
+        <td class="text-center">
+            {% if profile.department %}
+                {% if profile.department.name == "Detective Bureau" %}
+                    <span class="badge bg-gradient-db">{{ profile.department.name }}</span>
+                {% elif profile.department.name == "Police Academy" %}
+                    <span class="badge bg-gradient-pa">{{ profile.department.name }}</span>
+                {% elif profile.department.name == "Speсial Weapons And Tactics" %}
+                    <span class="badge bg-gradient-swat">{{ profile.department.name }}</span>
+                {% elif profile.department.name == "Central Patrol Division" %}
+                    <span class="badge bg-gradient-cpd">{{ profile.department.name }}</span>
+                {% elif profile.department.name == "Staff SFPD" %}
+                    <span class="badge bg-gradient-staff">{{ profile.department.name }}</span>
+                {% else %}
+                    <span class="badge bg-gradient-secondary">{{ profile.department.name }}</span>
+                {% endif %}
+            {% else %}
+                Отсутствует
+            {% endif %}
+        </td>
+        <td class="text-center">
+            {% if profile.role %}
+                {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
+                    <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
+                {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
+                    <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
+                {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
+                    <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
+                {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
+                    <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
+                {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
+                    <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
+                {% elif profile.role.name == "Officer of CPD" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
+                    <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                {% elif profile.role.name == "Jr.Agent" %}
+                    <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
+                {% elif profile.role.name == "Recruit of SWAT" %}
+                    <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
+                {% elif profile.role.name %}
+                    <span class="badge bg-gradient-staff">{{ profile.role.name }}</span>
+                {% endif %}
+            {% else %}
+                Отсутствует
+            {% endif %}
+        </td>
+        <td class="text-center">
+            {% if profile.is_online %}
+                <span class="badge bg-gradient-success">Онлайн</span>
+            {% else %}
+                <span class="badge bg-gradient-danger">Офлайн</span>
+            {% endif %}
+        </td>
+        <td class="text-center">
+            {% if profile.user.groups.exists %}
+                {% for group in profile.user.groups.all %}
+                    {% if group.name == "Редактор" %}
+                        <span class="badge bg-gradient-editor">Редактор</span>
+                    {% elif group.name == "Куратор редакторов" %}
+                        <span class="badge bg-gradient-gmoderator">Куратор редакторов</span>
+                    {% elif group.name == "Модератор" %}
+                        <span class="badge bg-gradient-moderator">Модератор</span>
+                    {% elif group.name == "Руководитель" %}
+                        <span class="badge bg-gradient-spec">Руководитель</span>
+                    {% elif group.name == "Администратор" %}
+                        <span class="badge bg-gradient-success">Администратор</span>
+                    {% else %}
+                        <span class="badge bg-gradient-default">{{ group.name }}</span>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <span class="badge bg-gradient-secondary">Пользователь</span>
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
+</tbody>

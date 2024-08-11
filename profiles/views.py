@@ -15,7 +15,7 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import JsonResponse
 from django.conf import settings
-
+from django.template.loader import render_to_string
 from departments.models import ChangeHistory
 from news.models import News
 
@@ -196,15 +196,16 @@ class SupportView(View):
 
 
 def profile_list(request):
-    profiles = Profile.objects.order_by('id').all()
-    query = request.GET.get('q')
+    query = request.GET.get('q', '')
+    profiles = Profile.objects.all()
+
     if query:
         profiles = profiles.filter(
-            Q(name__icontains=query) | Q(nick_name__icontains=query)
+            Q(name__icontains=query) | Q(surnames__icontains=query) | Q(nick_name__icontains=query)
         )
 
     paginator = Paginator(profiles, 25)
-    page = request.GET.get('page')
+    page = request.GET.get('page', 1)
     try:
         profiles_page = paginator.page(page)
     except PageNotAnInteger:
@@ -217,6 +218,15 @@ def profile_list(request):
     end_record = start_record + profiles_page.paginator.per_page - 1
     if end_record > total_profiles:
         end_record = total_profiles
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        html = render_to_string('profiles/profile_table_body.html', {
+            'profiles': profiles_page,
+            'total_profiles': total_profiles,
+            'start_record': start_record,
+            'end_record': end_record,
+        }, request=request)
+        return JsonResponse({'html': html})
 
     departments = Department.objects.all()
     roles = Role.objects.all()

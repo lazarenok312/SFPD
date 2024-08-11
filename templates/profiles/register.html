@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{% static 'Login/images/sfpd.ico' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'Login/vendor/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css"
-          href="{% static 'Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Login/vendor/animate/animate.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Login/vendor/css-hamburgers/hamburgers.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'Login/vendor/select2/select2.min.css' %}">
@@ -24,6 +23,7 @@
         .wrap-input100 {
             flex: 1;
             min-width: 40%;
+            position: relative;
         }
 
         .login100-form {
@@ -43,6 +43,40 @@
             }
         }
 
+        .input100 {
+            padding-right: 40px;
+        }
+
+        .symbol-input100 {
+            display: flex;
+            align-items: center;
+        }
+
+        .fa-eye, .fa-eye-slash {
+            display: none;
+        }
+
+        .fa-eye {
+            display: block;
+        }
+
+        .fa-eye-slash {
+            display: none;
+        }
+
+        .glaz {
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666666;
+            cursor: pointer;
+            z-index: 2;
+            pointer-events: all;
+        }
     </style>
 </head>
 <body>
@@ -55,65 +89,69 @@
                 </a>
             </div>
 
-            <form class="login100-form validate-form" action="{% url 'register' %}" method="post"
-                  onsubmit="return validateForm()">
+            <form class="login100-form validate-form" action="{% url 'register' %}" method="post" onsubmit="return validateForm()">
                 {% csrf_token %}
                 <span class="login100-form-title">Регистрация</span>
 
                 <div class="form-row">
                     <div class="wrap-input100 validate-input" data-validate="Имя обязательно">
-                        <input class="input100" id="first_name" type="text" name="first_name" placeholder="Имя"
-                               data-constraints="@Required">
+                        <input class="input100" id="first_name" type="text" name="first_name" placeholder="Имя" data-constraints="@Required">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                </span>
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
                     </div>
 
-                    <div class="wrap-input100 validate-input" data-validate="Фамилия обязательна">
-                        <input class="input100" id="last_name" type="text" name="last_name" placeholder="Фамилия"
-                               data-constraints="@Required">
+                    <div class="wrap-input100 validate-input" data-validate="Фамилия тоже">
+                        <input class="input100" id="last_name" type="text" name="last_name" placeholder="Фамилия" data-constraints="@Required">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                </span>
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </span>
                     </div>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Логин обязателен">
-                    <input class="input100" id="username" type="text" name="username" placeholder="Логин"
-                           data-constraints="@Required">
+                    <input class="input100" id="username" type="text" name="username" placeholder="Логин" data-constraints="@Required">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
-                <i class="fa fa-user" aria-hidden="true"></i></span>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </span>
                 </div>
                 <div class="wrap-input100">
-                    <p id="username-error" style="color:red; display:none;">Пользователь с таким именем уже
-                        существует</p>
+                    <p id="username-error" style="color:red; display:none;">Пользователь с таким именем уже существует</p>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate="E-mail обязателен: ex@abc.xyz">
-                    <input class="input100" id="email" type="email" name="email" placeholder="E-mail"
-                           data-constraints="@Email @Required">
+                <div class="wrap-input100 validate-input" data-validate="E-mail обязателен">
+                    <input class="input100" id="email" type="email" name="email" placeholder="E-mail" data-constraints="@Email @Required">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
-                <i class="fa fa-envelope" aria-hidden="true"></i></span>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Пароль обязателен">
-                    <input class="input100" id="password" type="password" name="password" placeholder="Пароль"
-                           data-constraints="@Required" oninput="checkPasswords()">
+                    <input class="input100" id="password" type="password" name="password" placeholder="Пароль" data-constraints="@Required" oninput="checkPasswords()">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
-                <i class="fa fa-lock" aria-hidden="true"></i></span>
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                    <span class="glaz">
+                        <i class="fa fa-eye" id="toggle-password" onclick="togglePassword()"></i>
+                        <i class="fa fa-eye-slash" id="toggle-password-slash" onclick="togglePassword()"></i>
+                    </span>
                 </div>
 
                 <div class="wrap-input100 validate-input" data-validate="Подтвердите пароль">
-                    <input class="input100" id="password2" type="password" name="password2"
-                           placeholder="Подтвердите пароль" data-constraints="@Required" oninput="checkPasswords()">
+                    <input class="input100" id="password2" type="password" name="password2" placeholder="Подтвердите пароль" data-constraints="@Required" oninput="checkPasswords()">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
-                <i class="fa fa-lock" aria-hidden="true"></i></span>
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                    </span>
+                    <span class="glaz">
+                        <i class="fa fa-eye" id="toggle-password2" onclick="togglePassword2()"></i>
+                        <i class="fa fa-eye-slash" id="toggle-password-slash2" onclick="togglePassword2()"></i>
+                    </span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate="Выбор роли обязателен">
                     <select class="input100" name="reg_role" required>
@@ -123,7 +161,9 @@
                         {% endfor %}
                     </select>
                     <span class="focus-input100"></span>
-                    <span class="symbol-input100"><i class="fa fa-briefcase" aria-hidden="true"></i></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                    </span>
                 </div>
                 {% if form_errors %}
                     <div class="form-errors">
@@ -166,56 +206,60 @@
 <script src="{% static 'Login/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'Login/vendor/select2/select2.min.js' %}"></script>
 <script src="{% static 'Login/vendor/tilt/tilt.jquery.min.js' %}"></script>
+<script src="{% static 'Login/js/main.js' %}"></script>
 <script>
-    $(document).ready(function () {
-        $('#username').on('input', function () {
-            var username = $(this).val();
-            $.ajax({
-                url: '{% url "check_username" %}',
-                data: {
-                    'username': username
-                },
-                dataType: 'json',
-                success: function (data) {
-                    if (data.is_taken) {
-                        $('#username-error').text('Пользователь с таким логином уже существует').show();
-                    } else {
-                        $('#username-error').hide();
-                    }
-                }
-            });
-        });
-    });
-</script>
-<script>
-    $('.js-tilt').tilt({
-        scale: 1.1
-    })
-</script>
-<script>
-    function checkPasswords() {
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('password2').value;
-        const errorElement = document.getElementById('password-error');
-
-        if (password !== confirmPassword) {
-            errorElement.style.display = 'block';
+    function togglePassword() {
+        var passwordField = document.getElementById('password');
+        var togglePassword = document.getElementById('toggle-password');
+        var togglePasswordSlash = document.getElementById('toggle-password-slash');
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            togglePassword.style.display = 'none';
+            togglePasswordSlash.style.display = 'block';
         } else {
-            errorElement.style.display = 'none';
+            passwordField.type = 'password';
+            togglePassword.style.display = 'block';
+            togglePasswordSlash.style.display = 'none';
+        }
+    }
+
+    function togglePassword2() {
+        var passwordField = document.getElementById('password2');
+        var togglePassword = document.getElementById('toggle-password2');
+        var togglePasswordSlash = document.getElementById('toggle-password-slash2');
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            togglePassword.style.display = 'none';
+            togglePasswordSlash.style.display = 'block';
+        } else {
+            passwordField.type = 'password';
+            togglePassword.style.display = 'block';
+            togglePasswordSlash.style.display = 'none';
+        }
+    }
+
+    function checkPasswords() {
+        var password = document.getElementById('password').value;
+        var password2 = document.getElementById('password2').value;
+        var passwordError = document.getElementById('password-error');
+        if (password !== password2) {
+            passwordError.style.display = 'block';
+        } else {
+            passwordError.style.display = 'none';
         }
     }
 
     function validateForm() {
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('password2').value;
-
-        if (password !== confirmPassword) {
-            document.getElementById('password-error').style.display = 'block';
+        var username = document.getElementById('username').value;
+        var usernameError = document.getElementById('username-error');
+        if (username === 'existing_user') {
+            usernameError.style.display = 'block';
             return false;
+        } else {
+            usernameError.style.display = 'none';
+            return true;
         }
-        return true;
     }
 </script>
-<script src="{% static 'Login/js/main.js' %}"></script>
 </body>
 </html>
