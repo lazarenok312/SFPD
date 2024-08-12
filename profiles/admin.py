@@ -13,7 +13,8 @@ class RegRoleAdmin(admin.ModelAdmin):
 
 @admin.register(Badge)
 class BadgeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description')
+    list_display = ('name', 'description', 'priority')
+    list_editable = ('priority',)
 
 
 @admin.register(Profile)

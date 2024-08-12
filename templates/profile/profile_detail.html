@@ -327,16 +327,56 @@
         }
 
         .profile-badges {
-            margin-top: 10px;
+            display: flex;
+            align-items: center;
         }
 
         .badges-list {
             display: flex;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
         }
 
         .badge-item {
             margin-right: 5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .badge-tooltip {
+            visibility: hidden;
+            width: 250px;
+            max-width: 500px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            border-radius: 6px;
+            position: absolute;
+            z-index: 1;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .badge-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .badge-item:hover .badge-tooltip {
+            visibility: visible;
+            opacity: 1;
         }
     </style>
 </head>
@@ -437,39 +477,42 @@
                         <div class="col-md-8">
                             <div style="display: flex; align-items: baseline; margin-top: 20px;">
                                 <h5 style="margin-right: 10px; margin-bottom: 0;">{{ profile.nick_name|default:"Ник не установлен" }}</h5>
-                                <div class="profile-badges">
+                                <div class="profile-badges" style="display: flex; align-items: center;">
+                                    <!-- Центрирование по вертикали -->
                                     {% if profile.badges.exists %}
                                         <div class="badges-list" style="display: flex; flex-wrap: nowrap;">
-                                            {% for badge in profile.badges.all %}
-                                                <div class="badge-item" style="margin-right: 5px;">
-                                                    <img src="{{ badge.image.url }}" alt="{{ badge.name }}" width="30px"
-                                                         height="30px"
-                                                         style="vertical-align: middle;">
+                                            {% for badge in profile.badges.all|dictsort:"priority" %}
+                                                <div class="badge-item" style="margin-right: 5px; position: relative;">
+                                                    <img src="{{ badge.image.url }}" alt="{{ badge.description }}"
+                                                         width="30px" height="30px" style="vertical-align: middle;">
+                                                    {% if badge.description %}
+                                                        <span class="badge-tooltip">{{ badge.description }}</span>
+                                                    {% endif %}
                                                 </div>
                                             {% endfor %}
                                         </div>
                                     {% endif %}
                                 </div>
                             </div>
-{#                            <p>#}
-{#                                <strong><i class="fas fa-suitcase"></i> Фракция:</strong>#}
-{#                                {% if profile.reg_role %}#}
-{#                                    {% if profile.reg_role.name == "Detective Bureau" %}#}
-{#                                        <span class="badge bg-gradient-db">{{ profile.reg_role.name }}</span>#}
-{#                                    {% elif profile.reg_role.name == "Police Academy" %}#}
-{#                                        <span class="badge bg-gradient-pa">{{ profile.reg_role.name }}</span>#}
-{#                                    {% elif profile.reg_role.name == "Speсial Weapons And Tactics" %}#}
-{#                                        <span class="badge bg-gradient-swat">{{ profile.reg_role.name }}</span>#}
-{#                                    {% elif profile.reg_role.name == "Central Patrol Division" %}#}
-{#                                        <span class="badge bg-gradient-cpd">{{ profile.reg_role.name }}</span>#}
-{#                                    {% elif profile.reg_role.name == "Staff SFPD" %}#}
-{#                                        <span class="badge bg-gradient-staff">{{ profile.reg_role.name }}</span>#}
-{#                                    {% else %}#}
-{#                                        <span class="badge bg-gradient-secondary">{{ profile.reg_role.name }}</span>#}
-{#                                    {% endif %}#}
-{#                                {% else %}#}
-{#                                    Отсутствует#}
-{#                                {% endif %}</p>#}
+                            {#                            <p>#}
+                            {#                                <strong><i class="fas fa-suitcase"></i> Фракция:</strong>#}
+                            {#                                {% if profile.reg_role %}#}
+                            {#                                    {% if profile.reg_role.name == "Detective Bureau" %}#}
+                            {#                                        <span class="badge bg-gradient-db">{{ profile.reg_role.name }}</span>#}
+                            {#                                    {% elif profile.reg_role.name == "Police Academy" %}#}
+                            {#                                        <span class="badge bg-gradient-pa">{{ profile.reg_role.name }}</span>#}
+                            {#                                    {% elif profile.reg_role.name == "Speсial Weapons And Tactics" %}#}
+                            {#                                        <span class="badge bg-gradient-swat">{{ profile.reg_role.name }}</span>#}
+                            {#                                    {% elif profile.reg_role.name == "Central Patrol Division" %}#}
+                            {#                                        <span class="badge bg-gradient-cpd">{{ profile.reg_role.name }}</span>#}
+                            {#                                    {% elif profile.reg_role.name == "Staff SFPD" %}#}
+                            {#                                        <span class="badge bg-gradient-staff">{{ profile.reg_role.name }}</span>#}
+                            {#                                    {% else %}#}
+                            {#                                        <span class="badge bg-gradient-secondary">{{ profile.reg_role.name }}</span>#}
+                            {#                                    {% endif %}#}
+                            {#                                {% else %}#}
+                            {#                                    Отсутствует#}
+                            {#                                {% endif %}</p>#}
                             <p>
                                 <strong><i class="fas fa-building"></i> Отдел:</strong>
                                 {% if profile.department %}

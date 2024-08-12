@@ -24,6 +24,7 @@ class Badge(models.Model):
     name = models.CharField(max_length=100, verbose_name="Название значка")
     image = models.ImageField(upload_to='badges/', verbose_name="Изображение значка")
     description = models.TextField(verbose_name="Описание значка", blank=True)
+    priority = models.IntegerField(default=0, verbose_name="Приоритет")
 
     def __str__(self):
         return self.name
@@ -31,6 +32,7 @@ class Badge(models.Model):
     class Meta:
         verbose_name = 'Значок'
         verbose_name_plural = 'Значки'
+        ordering = ['-priority']
 
 
 class Profile(models.Model):

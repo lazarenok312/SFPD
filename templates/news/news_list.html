@@ -40,6 +40,28 @@
         margin-bottom: 15px;
     }
 
+    .news-date {
+        margin: 0;
+        font-size: 14px;
+        color: #777;
+    }
+
+    @media (max-width: 767px) {
+        .news-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .news-title {
+            margin-bottom: 10px;
+        }
+
+        .news-date {
+            font-size: 10px;
+            color: #777;
+        }
+    }
+
     .news-title {
         margin: 0;
         font-size: 1.5rem;
@@ -47,11 +69,7 @@
         flex: 1;
     }
 
-    .news-date {
-        margin: 0;
-        font-size: 1rem;
-        color: #777;
-    }
+
 
 
     .divider hr {
@@ -130,7 +148,8 @@
                             </div>
                             <p class="news-description">{{ news.description|truncatewords:30|safe }}</p>
                             <a class="btn button-primary" style="margin-top: 5px"
-                               href="{% url 'news_detail' news.pk %}"><i class="fa fa-external-link" aria-hidden="true"></i> Подробнее</a>
+                               href="{% url 'news_detail' news.pk %}"><i class="fa fa-external-link"
+                                                                         aria-hidden="true"></i> Подробнее</a>
                         </div>
                     </div>
                     <br>
