@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Profile, SupportRequest, ProfileChangeLog, LikeDislike, ProfileConfirmationToken, EmailLog, Badge, \
-    RegRole
+from .models import *
 
 
 @admin.register(RegRole)
@@ -20,7 +19,8 @@ class BadgeAdmin(admin.ModelAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = (
-        'user', 'name', 'surnames', 'nick_name', 'department', 'role', 'profile_confirmed', 'role_confirmed'
+        'user', 'name', 'surnames', 'nick_name', 'department', 'role', 'profile_confirmed', 'role_confirmed', 'level',
+        'rating',
     )
     list_editable = ('role_confirmed',)
     list_filter = ('department', 'role', 'profile_confirmed', 'role_confirmed')
@@ -30,8 +30,10 @@ class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
-                'user', 'name', 'surnames', 'email', 'photo', 'bio', 'reg_role', 'department', 'role', 'nick_name', 'birthdate',
-                'badges')
+                'user', 'name', 'surnames', 'email', 'photo', 'bio', 'reg_role', 'department', 'role', 'nick_name',
+                'birthdate',
+                'badges'
+            )
         }),
         ('Подтверждения', {
             'fields': ('profile_confirmed', 'role_confirmed')
@@ -39,8 +41,11 @@ class ProfileAdmin(admin.ModelAdmin):
         ('Статистика', {
             'fields': ('likes', 'dislikes')
         }),
+        ('Активность и Рейтинг', {
+            'fields': ('rating', 'level', 'last_activity')
+        }),
         ('Дополнительная информация', {
-            'fields': ('last_activity', 'slug', 'is_online')
+            'fields': ('slug', 'is_online')
         }),
     )
 

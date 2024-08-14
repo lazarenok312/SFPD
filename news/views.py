@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.utils import timezone
 from profiles.models import Profile
+from profiles.views import award_points_for_action
 
 
 class NewsListView(ListView):
@@ -44,6 +45,7 @@ def add_comment(request, pk):
         content = request.POST.get('content')
         if content:
             comment = Comment.objects.create(user=request.user, news=news, content=content)
+            award_points_for_action(request.user, 'comment')
             data = {
                 'success': True,
                 'comment': {
@@ -78,6 +80,7 @@ def like_news(request, pk):
 
     if not liked:
         LikeDislike.objects.update_or_create(news=news, user=user, defaults={'vote': LikeDislike.LIKE})
+        award_points_for_action(user, 'like')
         if disliked:
             LikeDislike.objects.filter(news=news, user=user, vote=LikeDislike.DISLIKE).delete()
 
@@ -95,6 +98,7 @@ def dislike_news(request, pk):
 
     if not disliked:
         LikeDislike.objects.update_or_create(news=news, user=user, defaults={'vote': LikeDislike.DISLIKE})
+        award_points_for_action(user, 'like')
         if liked:
             LikeDislike.objects.filter(news=news, user=user, vote=LikeDislike.LIKE).delete()
 

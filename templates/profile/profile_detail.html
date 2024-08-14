@@ -378,6 +378,135 @@
             visibility: visible;
             opacity: 1;
         }
+
+        .rating-progress {
+            margin: 20px 0 35px 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .level-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .level-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .meter {
+            box-sizing: content-box;
+            height: 20px;
+            width: 100%;
+            background: rgba(190, 187, 187, 0.82);
+            border-radius: 5px;
+            margin-left: 10px;
+            position: relative;
+        }
+
+        .meter > .meter-filled {
+            display: flex;
+            height: 100%;
+            border-radius: 5px;
+            background-color: {{ progress_color }};
+            transition: width 0.5s ease-in-out;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .progress-info {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .current-value {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .max-value {
+            font-size: 14px;
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .rating-progress {
+                margin: 15px 0 25px 0;
+                font-size: 12px;
+            }
+
+            .level-circle {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+                margin-right: 5px;
+            }
+
+            .meter {
+                height: 15px;
+                margin-left: 5px;
+            }
+
+            .meter > .meter-filled {
+                font-size: 12px;
+                padding-left: 5px;
+            }
+
+
+            .current-value,
+            .max-value {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .rating-progress {
+                margin: 10px 0 20px 0;
+                font-size: 10px;
+            }
+
+            .level-circle {
+                width: 25px;
+                height: 25px;
+                font-size: 12px;
+                margin-right: 5px;
+            }
+
+            .meter {
+                height: 12px;
+                margin-left: 5px;
+            }
+
+            .meter > .meter-filled {
+                font-size: 10px;
+                padding-left: 3px;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .progress-info {
+                font-size: 10px;
+            }
+
+            .current-value,
+            .max-value {
+                font-size: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -412,7 +541,22 @@
     <section class="section section-md">
         <div class="container">
             <h1><i class="fa fa-user-o" aria-hidden="true"></i> Личный кабинет</h1>
-            <br>
+            <div class="rating-progress">
+                <div class="level-container">
+                    <div class="level-circle" style="background-color: {{ progress_color }};">{{ profile.level }}</div>
+                    <div class="meter">
+                        <div class="meter-filled" role="progressbar"
+                             style="width: {{ rating_percentage }}%;" aria-valuenow="{{ rating_percentage }}"
+                             aria-valuemin="0"
+                             aria-valuemax="100">{{ rating_percentage }}%
+                        </div>
+                        <p class="progress-info">
+                            <span class="current-value">{{ profile.rating }}</span>
+                            <span class="max-value">{{ profile.get_next_level_threshold }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
             <!-- Вкладки для различных разделов -->
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">

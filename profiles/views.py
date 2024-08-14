@@ -18,6 +18,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from departments.models import ChangeHistory
 from news.models import News
+from datetime import timedelta
 
 
 def register(request):
@@ -111,7 +112,6 @@ class ProfileDetailView(DetailView):
 
         if form.is_valid():
             old_profile_data = Profile.objects.get(pk=self.object.pk)
-
             new_profile_data = form.save(commit=False)
 
             for field in form.cleaned_data:
@@ -142,7 +142,7 @@ class ProfileDetailView(DetailView):
             if changes_logged:
                 messages.success(request, 'Профиль успешно обновлен!')
             else:
-                messages.info(request, 'Нет изменений в профиле для логирования.')
+                messages.info(request, 'Нет изменений для логирования.')
 
             return redirect('profile_detail', slug=self.object.slug)
 
@@ -150,11 +150,14 @@ class ProfileDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
         if 'form' not in context:
             context['form'] = ProfileUpdateForm(instance=self.object)
+
         context['can_edit'] = self.object.user == self.request.user
         context['departments'] = Department.objects.all()
         context['is_editor'] = self.object.is_editor()
+
         if self.object and self.object.department:
             context['roles'] = self.object.department.role_set.all().order_by('order')
         else:
@@ -165,7 +168,44 @@ class ProfileDetailView(DetailView):
         context['is_moderator'] = self.object.user.groups.filter(
             name__in=["Модератор", "Редактор", "Руководитель"]).exists()
 
+        next_level_threshold = self.object.get_next_level_threshold()
+
+        if next_level_threshold > 0:
+            context['rating_percentage'] = int(min((self.object.rating / next_level_threshold) * 100, 100))
+        else:
+            context['rating_percentage'] = 0
+
+        if context['rating_percentage'] < 33:
+            context['progress_color'] = '#ff4c4c'
+        elif context['rating_percentage'] < 66:
+            context['progress_color'] = '#ffc107'
+        else:
+            context['progress_color'] = '#28a745'
+
         return context
+
+
+def award_points_for_action(user, action_type):
+    profile = user.profile
+    if action_type == 'like':
+        points = 3
+    elif action_type == 'comment':
+        points = 5
+    elif action_type == 'visit':
+        points = 1
+    else:
+        points = 0
+
+    recent_activity = ActivityLog.objects.filter(
+        profile=profile,
+        activity_type=action_type,
+        timestamp__gte=timezone.now() - timedelta(minutes=2)
+    ).exists()
+
+    if not recent_activity:
+        ActivityLog.objects.create(profile=profile, activity_type=action_type, points=points)
+
+        profile.update_rating(points)
 
 
 def load_roles(request):
@@ -262,6 +302,7 @@ def like_profile(request, slug):
         like_dislike.is_like = True
         like_dislike.save()
         profile.likes += 1
+        award_points_for_action(request.user, 'like')
 
     profile.save()
     return JsonResponse({'likes': profile.likes, 'dislikes': profile.dislikes})
@@ -284,6 +325,7 @@ def dislike_profile(request, slug):
         like_dislike.is_like = False
         like_dislike.save()
         profile.dislikes += 1
+        award_points_for_action(request.user, 'like')
 
     profile.save()
     return JsonResponse({'likes': profile.likes, 'dislikes': profile.dislikes})

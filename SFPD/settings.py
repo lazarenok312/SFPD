@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'profiles.middleware.UpdateLastActivityMiddleware',
-
+    'profiles.middleware.AwardPointsMiddleware',
 ]
 
 ROOT_URLCONF = 'SFPD.urls'

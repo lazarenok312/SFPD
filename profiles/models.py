@@ -38,7 +38,8 @@ class Badge(models.Model):
 class Profile(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
-    reg_role = models.ForeignKey(RegRole, verbose_name="Фракция", on_delete=models.SET_NULL, null=True, blank=True, default=None)
+    reg_role = models.ForeignKey(RegRole, verbose_name="Фракция", on_delete=models.SET_NULL, null=True, blank=True,
+                                 default=None)
     name = models.CharField(max_length=25, verbose_name="Имя", blank=True)
     surnames = models.CharField(max_length=25, verbose_name="Фамилия", blank=True)
     email = models.EmailField(max_length=40, verbose_name="Электронная почта", blank=True)
@@ -59,6 +60,25 @@ class Profile(models.Model):
     last_viewed_changes = models.DateTimeField(null=True, blank=True,
                                                verbose_name="Последнее посещение истории изменений")
     badges = models.ManyToManyField(Badge, blank=True, related_name="profiles", verbose_name="Значки")
+    rating = models.PositiveIntegerField(default=0, verbose_name="Рейтинг")
+    level = models.PositiveIntegerField(default=1, verbose_name="Уровень")
+
+    def update_rating(self, points):
+        self.rating += points
+        if self.rating >= self.get_next_level_threshold():
+            self.level_up()
+        self.save()
+
+    def level_up(self):
+        self.level += 1
+        self.rating = 0
+
+    def get_next_level_threshold(self):
+        return self.level * 100
+
+    def reset_rating(self):
+        self.rating = 0
+        self.save()
 
     @property
     def status(self):
@@ -96,6 +116,21 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
+
+
+class ActivityLog(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name="Профиль")
+    activity_type = models.CharField(max_length=50, verbose_name="Тип активности")
+    points = models.PositiveIntegerField(default=0, verbose_name="Очки за активность")
+    timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата и время")
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.profile.update_rating(self.points)
+
+    class Meta:
+        verbose_name = 'Лог активности'
+        verbose_name_plural = 'Логи активности'
 
 
 @receiver(post_save, sender=User)

@@ -191,6 +191,13 @@
         .rd-navbar-transparent.rd-navbar-static .rd-navbar-main-inner {
             background-color: rgb(49 64 74);
         }
+
+        .btn-like.disabled,
+        .btn-dislike.disabled {
+            color: gray;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
     </style>
 </head>
 <body>
@@ -218,27 +225,54 @@
             <p class="news-meta"><i class="fa fa-clock-o" aria-hidden="true"></i>
                 Опубликовано {{ news.created_at|date:"d M Y" }}</p>
             <div class="news-actions">
-                <div>
-                    <div id="like-button" class="btn-like">
-                        <i class="fas fa-thumbs-up"></i>
-                        <span id="like-count" style="margin-left:10px">{{ news.total_likes }}</span>
+                {% if user.is_authenticated %}
+                    <div>
+                        <div id="like-button" class="btn-like" onclick="likeNews()">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span id="like-count" style="margin-left:10px">{{ news.total_likes }}</span>
+                        </div>
+                        <div id="dislike-button" class="btn-dislike" onclick="dislikeNews()">
+                            <i class="fas fa-thumbs-down"></i>
+                            <span id="dislike-count" style="margin-left:10px">{{ news.total_dislikes }}</span>
+                        </div>
                     </div>
-                    <div id="dislike-button" class="btn-dislike">
-                        <i class="fas fa-thumbs-down"></i>
-                        <span id="dislike-count" style="margin-left:10px">{{ news.total_dislikes }}</span>
+                {% else %}
+                    <div>
+                        <div id="like-button" class="btn-like disabled" title="Войдите, чтобы поставить лайк">
+                            <i class="fas fa-thumbs-up"></i>
+                            <span id="like-count" style="margin-left:10px">{{ news.total_likes }}</span>
+                        </div>
+                        <div id="dislike-button" class="btn-dislike disabled" title="Войдите, чтобы поставить дизлайк">
+                            <i class="fas fa-thumbs-down"></i>
+                            <span id="dislike-count" style="margin-left:10px">{{ news.total_dislikes }}</span>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
                 <div class="comment-button">💬 Комментарии (<span id="comment-count">{{ news.total_comments }}</span>)
                 </div>
             </div>
             <div class="comments-section">
-                <form method="post" action="{% url 'add_comment' news.pk %}" class="comment-form">
-                    {% csrf_token %}
-                    <textarea class="comment-input" name="content" placeholder="Ваш комментарий..." required></textarea>
-                    <button type="submit" class="comment-submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>
-                        Добавить комментарий
-                    </button>
-                </form>
+                {% if user.is_authenticated %}
+                    <form method="post" action="{% url 'add_comment' news.pk %}" class="comment-form">
+                        {% csrf_token %}
+                        <textarea class="comment-input" name="content" placeholder="Ваш комментарий..."
+                                  required></textarea>
+                        <button type="submit" class="comment-submit">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i> Добавить комментарий
+                        </button>
+                    </form>
+                {% else %}
+                    <form class="comment-form">
+                        <textarea class="comment-input" name="content"
+                                  placeholder="Вы должны войти, чтобы оставить комментарий..." disabled></textarea>
+                        <button type="submit" class="comment-submit"
+                                style="color: #ffffff; cursor: not-allowed; opacity: 0.6; pointer-events: none;">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i> Добавить комментарий
+                        </button>
+                    </form>
+                    <p>Пожалуйста, <a href="{% url 'user_login' %}">войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a>,
+                        чтобы оставить комментарий.</p>
+                {% endif %}
                 <div class="comment-list">
                     {% for comment in comments %}
                         <div class="comment-item" id="comment-{{ comment.pk }}">
