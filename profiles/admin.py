@@ -25,7 +25,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_editable = ('role_confirmed',)
     list_filter = ('department', 'role', 'profile_confirmed', 'role_confirmed')
     search_fields = ('user__username', 'name', 'surnames', 'email', 'nick_name')
-    readonly_fields = ('last_activity', 'is_online', 'slug')
+    readonly_fields = ('last_activity', 'is_online', 'slug', 'level', 'rating')
 
     fieldsets = (
         (None, {
