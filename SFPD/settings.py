@@ -157,10 +157,6 @@ JAZZMIN_SETTINGS = {
         {"model": "auth.User"},
         {"name": "Основной сайт", "url": "https://sfpd-gov.ru", "new_window": True},
     ],
-    "usermenu_links": [
-        {"name": "Аккаунт", "url": "admin:auth_user_change", "new_window": False},
-        {"name": "Настройки", "url": "admin:settings_changelist", "new_window": False},
-    ],
     "show_sidebar": True,
     "navigation_expanded": True,
     "icons": {
@@ -178,7 +174,7 @@ JAZZMIN_SETTINGS = {
     "default_icon_children": "fas fa-arrow-circle-right",
     "related_modal_active": False,
     "custom_js": None,
-    "show_ui_builder": True,
+    "show_ui_builder": False,
     "changeform_format": "horizontal_tabs",
     "changeform_format_overrides": {
         "auth.user": "collapsible",

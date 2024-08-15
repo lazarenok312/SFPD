@@ -188,9 +188,9 @@ class ProfileDetailView(DetailView):
 def award_points_for_action(user, action_type):
     profile = user.profile
     if action_type == 'like':
-        points = 3
+        points = 8
     elif action_type == 'comment':
-        points = 5
+        points = 12
     elif action_type == 'visit':
         points = 1
     else:
@@ -206,6 +206,7 @@ def award_points_for_action(user, action_type):
         ActivityLog.objects.create(profile=profile, activity_type=action_type, points=points)
 
         profile.update_rating(points)
+
 
 
 def load_roles(request):
