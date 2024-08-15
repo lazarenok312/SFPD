@@ -249,7 +249,7 @@ def profile_list(request):
             Q(name__icontains=query) | Q(surnames__icontains=query) | Q(nick_name__icontains=query)
         )
 
-    profiles = profiles.order_by('-rating')
+    profiles = profiles.order_by('-level')
 
     paginator = Paginator(profiles, 25)
     page = request.GET.get('page', 1)
