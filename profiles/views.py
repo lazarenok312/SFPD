@@ -248,6 +248,8 @@ def profile_list(request):
             Q(name__icontains=query) | Q(surnames__icontains=query) | Q(nick_name__icontains=query)
         )
 
+    profiles = profiles.order_by('-rating')
+
     paginator = Paginator(profiles, 25)
     page = request.GET.get('page', 1)
     try:
@@ -256,6 +258,19 @@ def profile_list(request):
         profiles_page = paginator.page(1)
     except EmptyPage:
         profiles_page = paginator.page(paginator.num_pages)
+
+    def get_level_class(level):
+        if level < 5:
+            return 'bg-gradient-blue'
+        elif level < 10:
+            return 'bg-gradient-green'
+        elif level < 20:
+            return 'bg-gradient-yellow'
+        else:
+            return 'bg-gradient-danger'
+
+    for profile in profiles_page:
+        profile.level_class = get_level_class(profile.level)
 
     total_profiles = profiles.count()
     start_record = (profiles_page.number - 1) * paginator.per_page + 1

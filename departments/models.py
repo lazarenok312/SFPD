@@ -24,6 +24,10 @@ class Department(models.Model):
     class Meta:
         verbose_name = 'Отдел'
         verbose_name_plural = 'Отделы'
+        permissions = [
+            ("can_view_departments", "Может просматривать отделы"),
+            ("can_edit_departments", "Может редактировать отделы"),
+        ]
 
 
 class Role(models.Model):
@@ -39,6 +43,10 @@ class Role(models.Model):
         verbose_name = 'Должность'
         verbose_name_plural = 'Должности'
         ordering = ['department', 'order']
+        permissions = [
+            ("can_view_roles", "Может просматривать должности"),
+            ("can_edit_roles", "Может редактировать должности"),
+        ]
 
 
 class ImportantNotification(models.Model):
@@ -50,10 +58,13 @@ class ImportantNotification(models.Model):
     def __str__(self):
         return self.title
 
-
     class Meta:
         verbose_name = 'Важная информация'
         verbose_name_plural = 'Важная информация'
+        permissions = [
+            ("can_view_important_notifications", "Может просматривать важную информацию"),
+            ("can_edit_important_notifications", "Может редактировать важную информацию"),
+        ]
 
 
 class PoliceAcademyPosition(models.Model):
@@ -74,6 +85,10 @@ class PoliceAcademyPosition(models.Model):
     class Meta:
         verbose_name = 'Должность ПА'
         verbose_name_plural = 'Должности ПА'
+        permissions = [
+            ("can_view_pa_positions", "Может просматривать должности ПА"),
+            ("can_edit_pa_positions", "Может редактировать должности ПА"),
+        ]
 
 
 class CPDPosition(models.Model):
@@ -94,6 +109,10 @@ class CPDPosition(models.Model):
     class Meta:
         verbose_name = 'Должность CPD'
         verbose_name_plural = 'Должности CPD'
+        permissions = [
+            ("can_view_cpd_positions", "Может просматривать должности CPD"),
+            ("can_edit_cpd_positions", "Может редактировать должности CPD"),
+        ]
 
 
 class DBPosition(models.Model):
@@ -114,6 +133,10 @@ class DBPosition(models.Model):
     class Meta:
         verbose_name = 'Должность DB'
         verbose_name_plural = 'Должности DB'
+        permissions = [
+            ("can_view_db_positions", "Может просматривать должности DB"),
+            ("can_edit_db_positions", "Может редактировать должности DB"),
+        ]
 
 
 class SWATPosition(models.Model):
@@ -134,6 +157,10 @@ class SWATPosition(models.Model):
     class Meta:
         verbose_name = 'Должность SWAT'
         verbose_name_plural = 'Должности SWAT'
+        permissions = [
+            ("can_view_swat_positions", "Может просматривать должности SWAT"),
+            ("can_edit_swat_positions", "Может редактировать должности SWAT"),
+        ]
 
 
 class DepartmentStaff(models.Model):
@@ -164,6 +191,10 @@ class DepartmentStaff(models.Model):
     class Meta:
         verbose_name = 'Штаб'
         verbose_name_plural = 'Штаб'
+        permissions = [
+            ("can_view_department_staff", "Может просматривать штаб"),
+            ("can_edit_department_staff", "Может редактировать штаб"),
+        ]
 
 
 class ContractServiceStatus(models.Model):
@@ -200,6 +231,10 @@ class ContractServiceStatus(models.Model):
     class Meta:
         verbose_name = 'Статус контракта'
         verbose_name_plural = 'Статус контракта'
+        permissions = [
+            ("can_view_contract_service_status", "Может просматривать статус контракта"),
+            ("can_edit_contract_service_status", "Может редактировать статус контракта"),
+        ]
 
 
 class Subscriber(models.Model):

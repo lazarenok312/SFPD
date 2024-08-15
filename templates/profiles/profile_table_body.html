@@ -2,6 +2,9 @@
 {% for profile in profiles %}
     <tr data-department="{{ profile.department.id }}" data-role="{{ profile.role.id }}">
         <td class="text-center">
+            <span class="badge {{ profile.level_class }}">{{ profile.level }}</span>
+        </td>
+        <td class="text-center">
             {% if profile.name %}
                 <a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a>
             {% else %}
