@@ -17,7 +17,7 @@ class NewsListView(ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        return News.objects.order_by('-created_at')
+        return News.objects.order_by('-is_pinned', '-created_at')
 
     def get(self, request, *args, **kwargs):
         response = super().get(request, *args, **kwargs)
