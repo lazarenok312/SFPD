@@ -208,7 +208,6 @@ def award_points_for_action(user, action_type):
         profile.update_rating(points)
 
 
-
 def load_roles(request):
     department_id = request.GET.get('department')
     roles = Role.objects.filter(department_id=department_id).order_by('order').values('id', 'name')

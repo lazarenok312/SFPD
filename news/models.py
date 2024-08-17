@@ -45,8 +45,8 @@ class LikeDislike(models.Model):
     LIKE = 1
     DISLIKE = -1
     VOTE_CHOICES = (
-        (LIKE, 'Like'),
-        (DISLIKE, 'Dislike')
+        (LIKE, 'Лайк'),
+        (DISLIKE, 'Дизлайк')
     )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь",

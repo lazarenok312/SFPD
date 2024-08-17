@@ -116,6 +116,23 @@
         color: #6c757d;
         pointer-events: none;
     }
+
+    .item-image {
+        position: relative;
+    }
+
+    .btn-full-width {
+        display: block;
+        width: 100%;
+        height: 36px;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(49, 63, 73, 0.2);
+        color: #fff;
+        border-radius: 0 0 8px 8px;
+    }
 </style>
 <body>
 <div class="preloader">
@@ -135,8 +152,11 @@
             <div class="regular-news">
                 {% for news in news_list %}
                     <div class="box-image-small box-image-small-left">
-                        <div class="item-image bg-image"
-                             style="background-image: url({{ news.image.image.url }});"></div>
+                        <div class="item-image bg-image" style="background-image: url({{ news.image.image.url }});">
+                            <a class="btn button-primary btn-full-width" href="{% url 'news_detail' news.pk %}">
+                                <i class="fa fa-external-link" aria-hidden="true"></i> Подробнее
+                            </a>
+                        </div>
                         <div class="item-body wow fadeInRight">
                             <div class="news-header d-flex justify-content-between align-items-center">
                                 <h4 class="news-title">
@@ -144,10 +164,7 @@
                                 </h4>
                                 <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>
                             </div>
-                            <p class="news-description">{{ news.description|truncatewords:30|safe }}</p>
-                            <a class="btn button-primary" style="margin-top: 5px"
-                               href="{% url 'news_detail' news.pk %}"><i class="fa fa-external-link"
-                                                                         aria-hidden="true"></i> Подробнее</a>
+                            <p class="news-description">{{ news.description|truncatewords:30 |safe }}</p>
                         </div>
                     </div>
                     <br>

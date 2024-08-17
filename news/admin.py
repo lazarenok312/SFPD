@@ -5,6 +5,7 @@ from django import forms
 from .models import News, NewsImage, LikeDislike, Comment
 from django.utils.safestring import mark_safe
 
+
 class NewsAdminForm(forms.ModelForm):
     description = forms.CharField(widget=CKEditorUploadingWidget())
 
@@ -24,6 +25,7 @@ class NewsAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     ordering = ('-is_pinned', '-created_at')
     list_editable = ('is_pinned',)
+    list_per_page = 20
 
     fieldsets = (
         (None, {
@@ -69,8 +71,9 @@ class NewsImageAdmin(admin.ModelAdmin):
 class LikeDislikeAdmin(admin.ModelAdmin):
     list_display = ('user', 'news', 'vote', 'created_at')
     search_fields = ('user__username', 'news__title')
-    list_filter = ('vote', 'created_at')
+    list_filter = ('vote', 'created_at', 'news')
     autocomplete_fields = ('user', 'news')
+    list_per_page = 20
 
 
 @admin.register(Comment)
@@ -79,3 +82,4 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ('user__username', 'news__title', 'content')
     list_filter = ('created_at',)
     autocomplete_fields = ('user', 'news')
+    list_per_page = 20

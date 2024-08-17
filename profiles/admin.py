@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from django.utils.html import format_html
 
 
 @admin.register(RegRole)
@@ -12,8 +13,16 @@ class RegRoleAdmin(admin.ModelAdmin):
 
 @admin.register(Badge)
 class BadgeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'priority')
+    list_display = ('name', 'description', 'image_tag', 'priority')
     list_editable = ('priority',)
+    list_per_page = 20
+
+    def image_tag(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="width: 50px; height: 50px;"/>', obj.image.url)
+        return 'Нет значка'
+
+    image_tag.short_description = 'Значок'
 
 
 @admin.register(Profile)
@@ -26,6 +35,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ('department', 'role', 'profile_confirmed', 'role_confirmed')
     search_fields = ('user__username', 'name', 'surnames', 'email', 'nick_name')
     readonly_fields = ('last_activity', 'is_online', 'slug', 'level', 'rating')
+    list_per_page = 20
 
     fieldsets = (
         (None, {
@@ -70,6 +80,7 @@ class ProfileChangeLogAdmin(admin.ModelAdmin):
     list_display = ['user', 'change_type', 'old_value', 'new_value', 'timestamp']
     search_fields = ('user__username', 'change_type', 'old_value', 'new_value')
     readonly_fields = ('timestamp',)
+    list_per_page = 20
 
 
 @admin.register(LikeDislike)
@@ -77,6 +88,7 @@ class LikeDislikeAdmin(admin.ModelAdmin):
     list_display = ('user', 'profile', 'is_like')
     search_fields = ('user__username', 'profile__user__username')
     list_filter = ('is_like',)
+    list_per_page = 20
 
 
 @admin.register(ProfileConfirmationToken)
@@ -97,3 +109,4 @@ class EmailLogAdmin(admin.ModelAdmin):
     list_display = ('recipient', 'subject', 'sent_at', 'user')
     search_fields = ('recipient', 'subject')
     list_filter = ('sent_at', 'user')
+    list_per_page = 20

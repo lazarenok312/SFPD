@@ -6,118 +6,6 @@
     <title>Главная страница</title>
 </head>
 <style>
-    .material-icons {
-        font-family: 'Material Icons';
-        font-weight: normal;
-        font-style: normal;
-        font-size: 72px;
-        line-height: 1;
-        letter-spacing: normal;
-        text-transform: none;
-        display: inline-block;
-        white-space: nowrap;
-        word-wrap: normal;
-        direction: ltr;
-        -webkit-font-feature-settings: 'liga';
-        -webkit-font-smoothing: antialiased;
-    }
-
-    .pinned-news, .regular-news {
-        margin-bottom: 40px;
-        margin-top: 20px;
-    }
-
-
-    .item-image {
-        background-size: cover;
-        background-position: center;
-        height: 240px;
-        border-radius: 8px;
-    }
-
-    .news-date {
-        color: #777;
-        font-size: 14px;
-    }
-
-    .news-title {
-        font-size: 20px;
-        margin-top: 10px;
-    }
-
-    .news-description {
-        margin-top: 10px;
-        color: #333;
-    }
-
-
-    .divider hr {
-        border: 1px solid #ddd;
-        margin: 40px 0;
-    }
-
-    .pinned-news .pinned-icon {
-        color: #d9534f;
-        margin-right: 8px;
-        font-size: 2.2em;
-        vertical-align: middle;
-    }
-
-    .news-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-
-    .news-title {
-        margin: 0;
-        font-size: 1.5rem;
-        color: #333;
-        flex: 1;
-    }
-
-    .news-date {
-        margin: 0;
-        font-size: 1rem;
-        color: #777;
-    }
-
-    .custom-btn {
-        position: relative;
-        display: inline-block;
-        padding: 2px 20px;
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #fff;
-        background-color: #6c757d;
-        border-radius: 8px;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-    .custom-btn:hover {
-        box-shadow: 5px 5px 5px 5px rgba(90, 98, 104, 0.6);
-        text-decoration: underline;
-        color: #f8f9fa;
-        background-color: #5a6268;
-    }
-
-    .custom-btn::after {
-        content: '';
-        position: absolute;
-        bottom: -5px;
-        left: 50%;
-        width: 0;
-        height: 3px;
-        transition: width 0.3s ease, left 0.3s ease;
-    }
-
-    .custom-btn:hover::after {
-        width: 100%;
-        left: 0;
-    }
-
     .modal-dialog-custom {
         display: flex;
         align-items: center;
@@ -189,6 +77,132 @@
         border-top: 1px solid #dee2e6;
         padding: 1rem;
     }
+
+    .material-icons {
+        font-family: 'Material Icons';
+        font-size: 72px;
+        line-height: 1;
+        display: inline-block;
+        white-space: nowrap;
+        -webkit-font-feature-settings: 'liga';
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .pinned-news,
+    .regular-news {
+        margin: 20px 0 40px;
+    }
+
+    .item-image {
+        background-size: cover;
+        background-position: center;
+        height: 240px;
+        border-radius: 8px;
+        position: relative;
+    }
+
+    .news-description {
+        margin-top: 10px;
+        color: #333;
+    }
+
+    .divider hr {
+        border: 1px solid #ddd;
+        margin: 40px 0;
+    }
+
+    .pinned-news .pinned-icon {
+        color: #d9534f;
+        font-size: 2.2em;
+        vertical-align: middle;
+        margin-right: 10px;
+        align-self: center;
+    }
+
+    .news-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .news-title {
+        font-size: 18px;
+        color: #333;
+        flex: 1;
+    }
+
+    .news-date {
+        margin: 0;
+        font-size: 12px;
+        color: #777;
+    }
+
+    .btn-full-width {
+        display: block;
+        width: 100%;
+        height: 36px;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(49, 63, 73, 0.2);
+        color: #fff;
+        border-radius: 0 0 8px 8px;
+    }
+
+    @media (max-width: 576px) {
+        .news-header {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .news-title {
+            font-size: 18px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .news-date {
+            align-self: center;
+            margin-top: 5px;
+        }
+    }
+
+    .custom-btn {
+        display: inline-block;
+        padding: 2px 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #6c757d;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+    .custom-btn:hover {
+        box-shadow: 5px 5px 5px rgba(90, 98, 104, 0.6);
+        text-decoration: underline;
+        color: #f8f9fa;
+        background-color: #5a6268;
+    }
+
+    .custom-btn::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 3px;
+        transition: width 0.3s ease, left 0.3s ease;
+    }
+
+    .custom-btn:hover::after {
+        width: 100%;
+        left: 0;
+    }
 </style>
 <body>
 <div class="preloader">
@@ -239,7 +253,8 @@
                                    data-caption-delay="350">James Gurinifero</p>
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
                                      data-caption-delay="450">
-                                    <a class="button button-secondary-pa" href="{% url 'departments:pa_detail' %}"><i class="fa fa-search" aria-hidden="true"></i> Читать
+                                    <a class="button button-secondary-pa" href="{% url 'departments:pa_detail' %}"><i
+                                            class="fa fa-search" aria-hidden="true"></i> Читать
                                         далее</a>
                                 </div>
                             </div>
@@ -260,7 +275,8 @@
                                    data-caption-delay="350">Rayn Hudson</p>
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
                                      data-caption-delay="450"><a class="button button-secondary-cpd"
-                                                                 href="{% url 'departments:cpd_detail' %}"><i class="fa fa-search" aria-hidden="true"></i> Читать
+                                                                 href="{% url 'departments:cpd_detail' %}"><i
+                                        class="fa fa-search" aria-hidden="true"></i> Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -281,7 +297,8 @@
                                    data-caption-delay="350">Darion Mograine</p>
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
                                      data-caption-delay="450"><a class="button button-secondary-text"
-                                                                 href="{% url 'departments:db_detail' %}"><i class="fa fa-search" aria-hidden="true"></i> Читать
+                                                                 href="{% url 'departments:db_detail' %}"><i
+                                        class="fa fa-search" aria-hidden="true"></i> Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -299,10 +316,11 @@
                                         class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
                                         data-caption-delay="200">Curator of SWAT</span></h1>
                                 <p class="lead text-with-border" data-caption-animate="fadeInUp"
-                                   data-caption-delay="350">Elio Druf</p>
+                                   data-caption-delay="350">Walter Maloney</p>
                                 <div class="button-wrap-default" data-caption-animate="fadeInUp"
                                      data-caption-delay="450"><a class="button button-secondary-swat"
-                                                                 href="{% url 'departments:swat_detail' %}"><i class="fa fa-search" aria-hidden="true"></i> Читать
+                                                                 href="{% url 'departments:swat_detail' %}"><i
+                                        class="fa fa-search" aria-hidden="true"></i> Читать
                                     далее</a></div>
                             </div>
                         </div>
@@ -397,7 +415,9 @@
                         <li>Поддержка профессионального роста и развития сотрудников</li>
                         <li>Предоставление полной помощи и сопровождения для всех сотрудников департамента</li>
                     </ul>
-                    <a class="button button-primary" href="{% url 'departments:about' %}"><i class="fa fa-search" aria-hidden="true"></i> Читать далее</a>
+                    <a class="button button-primary" href="{% url 'departments:about' %}"><i class="fa fa-search"
+                                                                                             aria-hidden="true"></i>
+                        Читать далее</a>
                 </div>
                 <div class="col-md-6">
                     <div class="row">
@@ -509,10 +529,13 @@
             <div class="pinned-news">
                 {% for news in pinned_news_list %}
                     <div class="box-image-small box-image-small-left">
-                        <div class="item-image bg-image"
-                             style="background-image: url({{ news.image.image.url }});"></div>
+                        <div class="item-image bg-image" style="background-image: url({{ news.image.image.url }});">
+                            <a class="btn button-primary btn-full-width" href="{% url 'news_detail' news.pk %}">
+                                <i class="fa fa-external-link" aria-hidden="true"></i> Подробнее
+                            </a>
+                        </div>
                         <div class="item-body wow fadeInRight">
-                            <div class="news-header d-flex justify-content-between align-items-center">
+                            <div class="news-header">
                                 <i class="fa fa-thumb-tack pinned-icon" aria-hidden="true"></i>
                                 <h4 class="news-title">
                                     <a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a>
@@ -520,8 +543,6 @@
                                 <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>
                             </div>
                             <p class="news-description">{{ news.description|truncatewords:30 |safe }}</p>
-                            <a class="btn button-primary" style="margin-top: 10px"
-                               href="{% url 'news_detail' news.pk %}"><i class="fa fa-external-link" aria-hidden="true"></i> Подробнее</a>
                         </div>
                     </div>
                     <br>
@@ -531,25 +552,28 @@
             <div class="regular-news">
                 {% for news in news_list %}
                     <div class="box-image-small box-image-small-left">
-                        <div class="item-image bg-image"
-                             style="background-image: url({{ news.image.image.url }});"></div>
+                        <div class="item-image bg-image" style="background-image: url({{ news.image.image.url }});">
+                            <a class="btn button-primary btn-full-width" href="{% url 'news_detail' news.pk %}">
+                                <i class="fa fa-external-link" aria-hidden="true"></i> Подробнее
+                            </a>
+                        </div>
                         <div class="item-body wow fadeInRight">
-                            <div class="news-header d-flex justify-content-between align-items-center">
+                            <div class="news-header">
                                 <h4 class="news-title">
                                     <a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a>
                                 </h4>
                                 <p class="news-date">{{ news.created_at|date:"F d, Y" }}</p>
                             </div>
                             <p class="news-description">{{ news.description|truncatewords:30 |safe }}</p>
-                            <a class="btn button-primary" style="margin-top: 10px"
-                               href="{% url 'news_detail' news.pk %}"><i class="fa fa-external-link" aria-hidden="true"></i> Подробнее</a>
                         </div>
                     </div>
                     <br>
                 {% endfor %}
             </div>
             <div class="text-center mt-4">
-                <a class="btn btn-secondary btn-lg custom-btn" href="{% url 'news_list' %}"><i class="fa fa-newspaper-o" aria-hidden="true"></i> Читать все новости</a>
+                <a class="btn btn-secondary btn-lg custom-btn" href="{% url 'news_list' %}"><i class="fa fa-newspaper-o"
+                                                                                               aria-hidden="true"></i>
+                    Читать все новости</a>
             </div>
         </div>
     </section>
