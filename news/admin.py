@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 from django import forms
 from .models import News, NewsImage, LikeDislike, Comment
-from django.utils.safestring import mark_safe
+from django.utils import timezone
 
 
 class NewsAdminForm(forms.ModelForm):
@@ -29,15 +29,15 @@ class NewsAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'description', 'image', 'is_pinned', 'created_by')
+            'fields': ('title', 'description', 'image', 'is_pinned', 'created_by', 'created_at')
         }),
         ('Date Information', {
-            'fields': ('created_at', 'updated_at'),
+            'fields': ('updated_at',),
             'classes': ('collapse',),
         }),
     )
 
-    readonly_fields = ('created_at', 'updated_at', 'created_by')
+    readonly_fields = ('updated_at', 'created_by')
     autocomplete_fields = ('created_by',)
 
     def image_display(self, obj):
@@ -50,6 +50,8 @@ class NewsAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         if not obj.pk:
             obj.created_by = request.user
+        if not obj.created_at:
+            obj.created_at = timezone.now()
         super().save_model(request, obj, form, change)
 
 

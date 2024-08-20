@@ -35,6 +35,11 @@ class NewsDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        news = self.get_object()
+        likers = news.likes_dislikes.filter(vote=LikeDislike.LIKE).select_related('user', 'user__profile')
+        dislikers = news.likes_dislikes.filter(vote=LikeDislike.DISLIKE).select_related('user', 'user__profile')
+        context['likers'] = likers
+        context['dislikers'] = dislikers
         context['comments'] = self.object.comments.order_by('-created_at')
         return context
 

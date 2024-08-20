@@ -198,15 +198,63 @@
             cursor: not-allowed;
             opacity: 0.6;
         }
+
+        .likers-popup {
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .more-likers {
+            color: #888;
+            font-style: italic;
+        }
+
+        .close span {
+            position: relative;
+            display: inline-block;
+            width: 1.5em;
+            height: 1.5em;
+            background-color: #acb7be;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 1.5em;
+            font-size: 1.25em;
+            cursor: pointer;
+        }
+
+        .close span:hover {
+            background-color: #e9ecef;
+        }
+
+
+        .likers-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .likers-list h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
-<div class="preloader">
+<div class="preloader" style="background-color: rgb(49,63,73)">
     <div class="preloader-body">
         <div class="loader">
-            <img class="preloader-ico" src="{% static 'images/sfpd.ico' %}" alt="">
+            <img class="preloader-ico" src="{% static 'images/news.png' %}" alt="">
         </div>
-        <h5>Загрузка...</h5>
+        <H5 style="color:#f7f7f7;">Загрузка...</H5>
     </div>
 </div>
 <div class="page">
@@ -227,13 +275,99 @@
             <div class="news-actions">
                 {% if user.is_authenticated %}
                     <div>
-                        <div id="like-button" class="btn-like" onclick="likeNews()">
+                        <div id="like-button" class="btn-like" onmouseover="showLikers('likers-popup')"
+                             onmouseout="hideLikers()" onclick="likeNews()">
                             <i class="fas fa-thumbs-up"></i>
                             <span id="like-count" style="margin-left:10px">{{ news.total_likes }}</span>
                         </div>
-                        <div id="dislike-button" class="btn-dislike" onclick="dislikeNews()">
+                        <div id="dislike-button" class="btn-dislike" onmouseover="showLikers('dislikers-popup')"
+                             onmouseout="hideLikers()" onclick="dislikeNews()">
                             <i class="fas fa-thumbs-down"></i>
                             <span id="dislike-count" style="margin-left:10px">{{ news.total_dislikes }}</span>
+                        </div>
+                    </div>
+
+                    <div id="likers-popup" class="likers-popup" style="display:none;"
+                         onclick="showModal('likers-modal')">
+                        <div class="arrow"></div>
+                        <div class="likers-content">
+                            {% for like in likers|slice:":5" %}
+                                <div class="liker-item">{{ like.user.profile.nick_name|default:like.user.username }}</div>
+                            {% endfor %}
+                            {% if likers|length > 5 %}
+                                <div class="more-likers">...и ещё {{ likers|length|add:"-5" }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div id="dislikers-popup" class="likers-popup" style="display:none;"
+                         onclick="showModal('dislikers-modal')">
+                        <div class="arrow"></div>
+                        <div class="likers-content">
+                            {% for dislike in dislikers|slice:":5" %}
+                                <div class="liker-item">{{ dislike.user.profile.nick_name|default:dislike.user.username }}</div>
+                            {% endfor %}
+                            {% if dislikers|length > 5 %}
+                                <div class="more-likers">...и ещё {{ dislikers|length|add:"-5" }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div id="likers-modal" class="modal fade" tabindex="-1" aria-labelledby="likersModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header d-flex align-items-center justify-content-between">
+                                    <h5 class="modal-title" id="likersModalLabel">Лайкнувшие</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            {% for like in likers %}
+                                                <td><i class="fa fa-user-o" aria-hidden="true"></i> {{ like.user.profile.nick_name|default:like.user.username }}</td>
+                                                {% if forloop.counter0|add:1|divisibleby:2 %}
+                                                    </tr>
+                                                    <tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="dislikers-modal" class="modal fade" tabindex="-1" aria-labelledby="dislikersModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header d-flex align-items-center justify-content-between">
+                                    <h5 class="modal-title" id="dislikersModalLabel">Заслуживают бан</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr>
+                                            {% for dislike in dislikers %}
+                                                <td><i class="fa fa-user-o" aria-hidden="true"></i> {{ dislike.user.profile.nick_name|default:dislike.user.username }}</td>
+                                                {% if forloop.counter0|add:1|divisibleby:2 %}
+                                                    </tr>
+                                                    <tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {% else %}
@@ -277,10 +411,12 @@
                     {% for comment in comments %}
                         <div class="comment-item" id="comment-{{ comment.pk }}">
                             <div class="comment-header">
-            <span class="comment-author">
-                <i class="fa fa-user-o"
-                   aria-hidden="true"></i> {{ comment.user.profile.nick_name|default:comment.user.username }}
-            </span>
+                <span class="comment-author">
+                    <i class="fa fa-user-o" aria-hidden="true"></i>
+                    <a href="{% url 'profile_detail' slug=comment.user.profile.slug %}">
+                        {{ comment.user.profile.nick_name|default:comment.user.username }}
+                    </a>
+                </span>
                                 <span>прокомментировал(а):</span>
                                 {% if comment.user == request.user %}
                                     <button class="delete-button" data-comment-id="{{ comment.pk }}"
@@ -290,8 +426,9 @@
                                 {% endif %}
                             </div>
                             <div class="comment-content">{{ comment.content }}</div>
-                            <div class="comment-meta"><i class="fa fa-clock-o"
-                                                         aria-hidden="true"></i> {{ comment.created_at|date:"d M Y H:i" }}
+                            <div class="comment-meta">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                {{ comment.created_at|date:"d M Y H:i" }}
                             </div>
                         </div>
                     {% endfor %}
@@ -302,40 +439,57 @@
     {% include 'include/footer.html' %}
 </div>
 <div class="snackbars" id="form-output-global"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('.delete-button').forEach(function (button) {
-            button.addEventListener('click', function (e) {
-                e.preventDefault();
-                let commentId = this.getAttribute('data-comment-id');
-                let commentCountElement = document.getElementById('comment-count');
+    let hideLikersTimeout;
 
-                if (confirm('Вы уверены, что хотите удалить этот комментарий?')) {
-                    fetch(`{% url 'delete_comment' 0 %}`.replace('0', commentId), {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRFToken': '{{ csrf_token }}',
-                            'X-Requested-With': 'XMLHttpRequest'
-                        },
-                        body: JSON.stringify({}),
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Удаление комментария из DOM
-                                document.getElementById(`comment-${commentId}`).remove();
+    function showLikers(popupId) {
+        clearTimeout(hideLikersTimeout);
 
-                                // Обновление количества комментариев
-                                let currentCount = parseInt(commentCountElement.textContent);
-                                commentCountElement.textContent = currentCount - 1;
-                            } else {
-                                alert('Ошибка: ' + data.error);
-                            }
-                        });
-                }
-            });
-        });
+        const popup = document.getElementById(popupId);
+        const likersContent = popup.querySelector('.likers-content');
+
+        if (likersContent.children.length === 0) {
+            return;
+        }
+
+        const button = popupId === 'likers-popup' ? document.getElementById('like-button') : document.getElementById('dislike-button');
+        const buttonRect = button.getBoundingClientRect();
+
+        const offset = 10;
+
+        popup.style.display = 'block';
+        popup.style.top = (buttonRect.bottom + window.scrollY + offset) + 'px';
+        popup.style.left = (buttonRect.left + buttonRect.width / 2 - popup.offsetWidth / 2) + 'px';
+    }
+
+    function hideLikers() {
+        hideLikersTimeout = setTimeout(() => {
+            document.getElementById('likers-popup').style.display = 'none';
+            document.getElementById('dislikers-popup').style.display = 'none';
+        }, 200);
+    }
+
+    document.getElementById('likers-popup').addEventListener('mouseover', () => {
+        clearTimeout(hideLikersTimeout);
     });
+
+    document.getElementById('likers-popup').addEventListener('mouseout', hideLikers);
+
+    document.getElementById('dislikers-popup').addEventListener('mouseover', () => {
+        clearTimeout(hideLikersTimeout);
+    });
+
+    document.getElementById('dislikers-popup').addEventListener('mouseout', hideLikers);
+
+    function showModal(modalId) {
+        $('#' + modalId).modal('show');
+    }
+
+    function closeModal(modalId) {
+        $('#' + modalId).modal('hide');
+    }
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
