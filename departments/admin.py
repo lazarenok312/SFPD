@@ -52,6 +52,13 @@ class SWATPositionAdmin(admin.ModelAdmin):
     list_filter = ('position',)
 
 
+@admin.register(SEBPosition)
+class SEBPositionAdmin(admin.ModelAdmin):
+    list_display = ('position', 'nickname', 'description', 'photo')
+    search_fields = ('nickname', 'position')
+    list_filter = ('position',)
+
+
 @admin.register(DepartmentStaff)
 class DepartmentStaffAdmin(admin.ModelAdmin):
     list_display = ('title', 'name', 'discord_url', 'vk_url', 'photo')

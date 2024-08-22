@@ -69,6 +69,19 @@ def swat_view(request):
     return render(request, 'departments/swat_detail.html', context)
 
 
+def seb_view(request):
+    commander = SWATPosition.objects.filter(position='commander').first()
+    dep_commander1 = SWATPosition.objects.filter(position='dep_commander1').first()
+    dep_commander2 = SWATPosition.objects.filter(position='dep_commander2').first()
+
+    context = {
+        'commander': commander,
+        'dep_commander1': dep_commander1,
+        'dep_commander2': dep_commander2,
+    }
+    return render(request, 'departments/seb_detail.html', context)
+
+
 def faq_view(request):
     return render(request, 'departments/faq.html')
 

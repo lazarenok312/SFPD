@@ -8,6 +8,7 @@ urlpatterns = [
     path('police_academy/', views.pa_view, name='pa_detail'),
     path('cpd/', views.cpd_view, name='cpd_detail'),
     path('swat/', views.swat_view, name='swat_detail'),
+    path('seb/', views.seb_view, name='seb_detail'),
     path('db/', views.db_view, name='db_detail'),
     path('about/', views.about_view, name='about'),
     path('faq/', views.faq_view, name='faq'),

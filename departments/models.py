@@ -163,6 +163,30 @@ class SWATPosition(models.Model):
         ]
 
 
+class SEBPosition(models.Model):
+    POSITION_CHOICES = [
+        ('commander', 'Commander of SEB'),
+        ('dep_commander1', 'Dep.Com. of SEB'),
+        ('dep_commander2', 'Dep.Com. of SEB'),
+    ]
+
+    position = models.CharField(max_length=20, choices=POSITION_CHOICES, verbose_name="Должность")
+    nickname = models.CharField(max_length=100, verbose_name="Ник")
+    description = models.TextField(verbose_name="Описание")
+    photo = models.ImageField(upload_to='seb_photos/', blank=True, null=True, verbose_name="Фото")
+
+    def __str__(self):
+        return f"{self.get_position_display()} - {self.nickname}"
+
+    class Meta:
+        verbose_name = 'Должность SEB'
+        verbose_name_plural = 'Должности SEB'
+        permissions = [
+            ("can_view_swat_positions", "Может просматривать должности SEB"),
+            ("can_edit_swat_positions", "Может редактировать должности SEB"),
+        ]
+
+
 class DepartmentStaff(models.Model):
     RANKS = (
         ('sheriff', 'Шериф департамента'),
