@@ -1,0 +1,10 @@
+{% include 'base.html' %}
+
+{% block content %}
+  <h2>Подать заявление на расследование</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Отправить заявление</button>
+  </form>
+{% endblock %}

@@ -4,6 +4,7 @@ from profiles.models import Profile
 from .models import SupportRequest
 from departments.models import Department, Role
 from profiles.models import RegRole
+from .models import InvestigationRequest
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -115,4 +116,18 @@ class SupportForm(forms.ModelForm):
                 'rows': 4,
                 'required': True
             }),
+        }
+
+
+class InvestigationRequestForm(forms.ModelForm):
+    class Meta:
+        model = InvestigationRequest
+        fields = ['first_name', 'last_name', 'title', 'description', 'contact_details', 'image']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+            'contact_details': forms.Textarea(attrs={'class': 'form-control'}),
+            'image': forms.FileInput(attrs={'class': 'form-control'}),
         }

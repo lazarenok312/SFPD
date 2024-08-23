@@ -223,3 +223,27 @@ class EmailLog(models.Model):
     class Meta:
         verbose_name = 'Логи Email'
         verbose_name_plural = 'Логи Email'
+
+class InvestigationRequest(models.Model):
+    first_name = models.CharField(max_length=100, verbose_name="Имя заявителя", blank=True)
+    last_name = models.CharField(max_length=100, verbose_name="Фамилия заявителя", blank=True)
+    title = models.CharField(max_length=255, verbose_name="Название")
+    description = models.TextField(verbose_name="Описание")
+    contact_details = models.TextField(verbose_name="Контактные данные")
+    image = models.ImageField(upload_to='investigation_requests/', verbose_name="Изображение", blank=True, null=True)
+    created_at = models.DateTimeField(default=timezone.now, verbose_name="Дата создания")
+    assigned_to = models.ForeignKey('Profile', on_delete=models.SET_NULL, null=True, blank=True, related_name="assigned_requests", verbose_name="Назначено профилю")
+    completed_at = models.DateTimeField(null=True, blank=True, verbose_name="Дата завершения")
+    response = models.TextField(verbose_name="Ответ", blank=True, null=True)
+    confirmed_by_admin = models.BooleanField(default=False, verbose_name="Подтверждено администратором")
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('investigation_detail', kwargs={'pk': self.pk})
+
+    class Meta:
+        verbose_name = 'Заявление на расследование'
+        verbose_name_plural = 'Заявления на расследование'
+        ordering = ['-created_at']

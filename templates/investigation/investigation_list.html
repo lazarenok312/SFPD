@@ -1,0 +1,15 @@
+{% include 'base.html' %}
+
+{% block content %}
+  <h2>Заявления на расследование</h2>
+  <ul>
+    {% for request in requests %}
+      <li>
+        <a href="{% url 'investigation_detail' request.pk %}">{{ request.title }}</a>
+        {% if investigation_request.assigned_to %}
+  <p>Выполняет: <a href="{{ investigation_request.assigned_to.get_absolute_url }}">{{ investigation_request.assigned_to.user.username }}</a></p>
+{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

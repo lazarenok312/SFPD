@@ -1,0 +1,40 @@
+{% include 'base.html' %}
+
+{% block content %}
+  <h2>{{ investigation_request.title }}</h2>
+  <p>{{ investigation_request.description }}</p>
+  <p>Контактные данные: {{ investigation_request.contact_details }}</p>
+
+  {% if investigation_request.image %}
+    <img src="{{ investigation_request.image.url }}" alt="{{ investigation_request.title }}">
+  {% endif %}
+
+  {% if investigation_request.assigned_to %}
+    <p><strong>Выполняет:</strong> {{ investigation_request.assigned_to.user.username }}</p>
+  {% else %}
+    <p><strong>Статус:</strong> Свободно для выполнения</p>
+  {% endif %}
+
+  {% if user.is_authenticated and user.profile.department.name == 'Detective Bureau' and not investigation_request.assigned_to %}
+    <form method="post" action="{% url 'take_investigation' investigation_request.pk %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">Взять заявление</button>
+    </form>
+  {% endif %}
+
+  {% if investigation_request.response %}
+    <h3>Ответ:</h3>
+    <p>{{ investigation_request.response }}</p>
+  {% endif %}
+
+  {% if user.is_authenticated and user.profile.department.name == 'Detective Bureau' and investigation_request.assigned_to == user.profile %}
+    <form method="post" action="{% url 'submit_response' investigation_request.pk %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="response">Ответ:</label>
+        <textarea id="response" name="response" class="form-control" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Отправить ответ</button>
+    </form>
+  {% endif %}
+{% endblock %}

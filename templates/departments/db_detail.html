@@ -94,6 +94,35 @@
             text-align: center;
         }
 
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 0.25rem;
+            box-shadow: 0 0 1rem rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 1.5rem rgba(0, 0, 0, 0.2);
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: auto;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+            margin-bottom: 1rem;
+        }
     </style>
 
 </head>
@@ -484,6 +513,41 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+    <section class="section section-lg bg-default">
+        <div class="container text-center text-lg-left">
+            <h2><span class="text-light">Заявления</span> отдела</h2>
+
+            <div class="row row-40">
+                {% for request in investigation_requests %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            {% if request.image %}
+                                <img class="card-img-top" src="{{ request.image.url }}" alt="{{ request.title }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ request.title }}</h5>
+                            <p class="card-text">
+                                <strong>Имя заявителя:</strong> {{ request.first_name }}<br>
+                                <strong>Фамилия заявителя:</strong> {{ request.last_name }}<br>
+                                <strong>Дата заявления:</strong> {{ request.created_at|date:"d M Y" }}
+                            </p>
+                                <p class="card-text">
+                                    {% if request.assigned_to %}
+                                        <strong>Выполняется: {{ request.assigned_to.user.username }}</strong>
+                                    {% else %}
+                                       <strong> Свободно для выполнения</strong>
+                                    {% endif %}
+                                </p>
+                                <a href="{% url 'investigation_detail' request.pk %}" class="btn button-size-1 button-block button-primary"><i class="fa fa-external-link" aria-hidden="true"></i> Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            <a href="{% url 'create_investigation_request' %}" class="btn button-size-1 button-block button-primary"><i class="fa fa-file-o" aria-hidden="true"></i> Создать заявление</a>
+            </div>
+
         </div>
     </section>
     <div id="overlay" class="overlay">

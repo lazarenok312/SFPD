@@ -4,7 +4,7 @@ from django.views.generic.edit import UpdateView, View
 from django.http import HttpResponse
 from django.contrib import messages
 from news.models import News
-from profiles.models import Profile
+from profiles.models import Profile, InvestigationRequest
 
 
 def home_view(request):
@@ -48,10 +48,14 @@ def db_view(request):
     dep_head1 = DBPosition.objects.filter(position='dep_head1').first()
     dep_head2 = DBPosition.objects.filter(position='dep_head2').first()
 
+    # Получаем все заявления
+    investigation_requests = InvestigationRequest.objects.all()
+
     context = {
         'head': head,
         'dep_head1': dep_head1,
         'dep_head2': dep_head2,
+        'investigation_requests': investigation_requests,  # Добавляем заявления в контекст
     }
     return render(request, 'departments/db_detail.html', context)
 
