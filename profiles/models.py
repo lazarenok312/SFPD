@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from departments.models import Role, Department
 from django.utils.crypto import get_random_string
 from django.utils.text import slugify
+from django.core.validators import RegexValidator, URLValidator
 
 
 class RegRole(models.Model):
@@ -224,24 +225,46 @@ class EmailLog(models.Model):
         verbose_name = 'Логи Email'
         verbose_name_plural = 'Логи Email'
 
+
 class InvestigationRequest(models.Model):
-    first_name = models.CharField(max_length=100, verbose_name="Имя заявителя", blank=True)
-    last_name = models.CharField(max_length=100, verbose_name="Фамилия заявителя", blank=True)
-    title = models.CharField(max_length=255, verbose_name="Название")
-    description = models.TextField(verbose_name="Описание")
-    contact_details = models.TextField(verbose_name="Контактные данные")
+    first_name = models.CharField(max_length=100, verbose_name="Имя заявителя", blank=False)
+    last_name = models.CharField(max_length=100, verbose_name="Фамилия заявителя", blank=False)
+    address = models.CharField(max_length=255, verbose_name="Адрес проживания", blank=False)
+    passport_link = models.URLField(verbose_name="Ссылка на паспорт", blank=False, validators=[URLValidator()])
+    phone_number = models.CharField(
+        max_length=20,
+        verbose_name="Телефон",
+        blank=False,
+        validators=[RegexValidator(r'^\d{3}-\d{3}(-\d{1,3})?$',
+                                   'Номер телефона должен содержать от 4 до 6 цифр, возможно с тире.')]
+    )
+    title = models.CharField(max_length=255, verbose_name="Название", blank=False)
+    description = models.TextField(verbose_name="Описание", blank=False)
     image = models.ImageField(upload_to='investigation_requests/', verbose_name="Изображение", blank=True, null=True)
     created_at = models.DateTimeField(default=timezone.now, verbose_name="Дата создания")
-    assigned_to = models.ForeignKey('Profile', on_delete=models.SET_NULL, null=True, blank=True, related_name="assigned_requests", verbose_name="Назначено профилю")
+    assigned_to = models.ForeignKey('Profile', on_delete=models.SET_NULL, null=True, blank=True,
+                                    related_name="assigned_requests", verbose_name="Выполняющий дело")
     completed_at = models.DateTimeField(null=True, blank=True, verbose_name="Дата завершения")
+    response_profile = models.ForeignKey('Profile', on_delete=models.SET_NULL, null=True, blank=True,
+                                         related_name='responses', verbose_name="Профиль ответившего")
+    response_date = models.DateTimeField(null=True, blank=True, verbose_name="Дата ответа")
     response = models.TextField(verbose_name="Ответ", blank=True, null=True)
-    confirmed_by_admin = models.BooleanField(default=False, verbose_name="Подтверждено администратором")
+    is_closed = models.BooleanField(default=False, verbose_name="Закрыто")
+    closed_by = models.ForeignKey('Profile', on_delete=models.SET_NULL, null=True, blank=True,
+                                  related_name='closed_requests', verbose_name="Закрыл дело")
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('investigation_detail', kwargs={'pk': self.pk})
+
+    def close(self, profile):
+        self.closed_by = profile
+        self.closed_at = timezone.now()
+        self.save()
+        # Начисление баллов
+        profile.update_rating(110)  # Например, 10 баллов за закрытие дела
 
     class Meta:
         verbose_name = 'Заявление на расследование'

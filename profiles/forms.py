@@ -122,12 +122,17 @@ class SupportForm(forms.ModelForm):
 class InvestigationRequestForm(forms.ModelForm):
     class Meta:
         model = InvestigationRequest
-        fields = ['first_name', 'last_name', 'title', 'description', 'contact_details', 'image']
+        fields = [
+            'first_name', 'last_name', 'address', 'passport_link',
+            'phone_number', 'title', 'description', 'image'
+        ]
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control'}),
-            'contact_details': forms.Textarea(attrs={'class': 'form-control'}),
-            'image': forms.FileInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'address': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'passport_link': forms.URLInput(attrs={'class': 'form-control', 'required': True}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control', 'required': True, 'pattern': r'\d{3}-\d{3}(-\d{1,3})?'}),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'required': True}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'required': True}),
+            'image': forms.FileInput(attrs={'class': 'form-control-file'}),
         }

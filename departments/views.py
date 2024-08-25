@@ -48,14 +48,13 @@ def db_view(request):
     dep_head1 = DBPosition.objects.filter(position='dep_head1').first()
     dep_head2 = DBPosition.objects.filter(position='dep_head2').first()
 
-    # Получаем все заявления
-    investigation_requests = InvestigationRequest.objects.all()
+    investigation_requests = InvestigationRequest.objects.filter(is_closed=False)
 
     context = {
         'head': head,
         'dep_head1': dep_head1,
         'dep_head2': dep_head2,
-        'investigation_requests': investigation_requests,  # Добавляем заявления в контекст
+        'investigation_requests': investigation_requests,
     }
     return render(request, 'departments/db_detail.html', context)
 

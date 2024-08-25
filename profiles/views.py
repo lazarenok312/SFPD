@@ -19,6 +19,8 @@ from django.template.loader import render_to_string
 from departments.models import ChangeHistory
 from news.models import News
 from datetime import timedelta
+from departments.models import DepartmentStaff
+
 
 def register(request):
     if request.method == 'POST':
@@ -406,47 +408,64 @@ def get_unseen_counts(user):
 
     return {'new_news_count': new_news_count, 'new_changes_count': new_changes_count}
 
-@login_required
+
 def create_investigation_request(request):
     if request.method == 'POST':
         form = InvestigationRequestForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('investigation_list')
+            investigation_request = form.save()
+            return redirect('investigation_detail', pk=investigation_request.pk)
     else:
         form = InvestigationRequestForm()
     return render(request, 'investigation/create_investigation_request.html', {'form': form})
 
+
 def investigation_list(request):
-    requests = InvestigationRequest.objects.all()
-    return render(request, 'investigation/investigation_list.html', {'requests': requests})
+    closed_requests = InvestigationRequest.objects.filter(is_closed=True)
+    return render(request, 'investigation/investigation_list.html', {'requests': closed_requests})
+
 
 def investigation_detail(request, pk):
     investigation_request = get_object_or_404(InvestigationRequest, pk=pk)
-    return render(request, 'investigation/investigation_detail.html', {'investigation_request': investigation_request})
+    sheriff = DepartmentStaff.objects.filter(title='sheriff').first()
+
+    allowed_roles = ['Head of DB', 'Dep.Head of DB', 'Inspector of DB']
+
+    context = {
+        'investigation_request': investigation_request,
+        'sheriff': sheriff,
+        'response_profile': investigation_request.response_profile,
+        'allowed_roles': allowed_roles,
+    }
+    return render(request, 'investigation/investigation_detail.html', context)
+
 
 @login_required
 def take_investigation(request, pk):
-    investigation_request = get_object_or_404(InvestigationRequest, pk=pk)
-    user_profile = request.user.profile
+    if request.method == 'POST':
+        investigation_request = get_object_or_404(InvestigationRequest, pk=pk)
+        user_profile = request.user.profile
 
-    if not investigation_request.assigned_to and user_profile.department.name == 'Detective Bureau':
-        investigation_request.assigned_to = user_profile
-        investigation_request.save()  # Убедитесь, что это сохранение выполнено
+        if not investigation_request.assigned_to and user_profile.department.name == 'Detective Bureau':
+            investigation_request.assigned_to = user_profile
+            investigation_request.save()
+            return JsonResponse({'success': True})
 
-    return redirect('investigation_detail', pk=pk)
+    return JsonResponse({'success': False, 'error': 'Ошибка при обработке запроса'})
+
 
 @login_required
-def confirm_investigation(request, pk):
-    if request.user.is_staff:
+def release_investigation(request, pk):
+    if request.method == 'POST':
         investigation_request = get_object_or_404(InvestigationRequest, pk=pk)
-        if investigation_request.assigned_to and not investigation_request.confirmed_by_admin:
-            investigation_request.confirmed_by_admin = True
+        user_profile = request.user.profile
+
+        if investigation_request.assigned_to == user_profile:
+            investigation_request.assigned_to = None
             investigation_request.save()
-            # Добавляем баллы рейтинга профилю
-            profile = investigation_request.assigned_to
-            profile.update_rating(50)  # например, 50 баллов за выполнение расследования
-    return redirect('investigation_detail', pk=pk)
+            return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Ошибка при обработке запроса'})
 
 
 @login_required
@@ -454,14 +473,34 @@ def submit_response(request, pk):
     investigation_request = get_object_or_404(InvestigationRequest, pk=pk)
 
     if request.method == 'POST':
-        # Проверяем, что текущий пользователь - это тот, кто выполняет заявление
         if investigation_request.assigned_to == request.user.profile:
             response = request.POST.get('response')
             investigation_request.response = response
+            investigation_request.response_profile = request.user.profile
+            investigation_request.response_date = timezone.now()
             investigation_request.save()
             return redirect('investigation_detail', pk=pk)
         else:
-            # Возможно, выводить сообщение об ошибке или перенаправлять куда-то еще
+
             return redirect('investigation_detail', pk=pk)
+
+    return redirect('investigation_detail', pk=pk)
+
+
+@login_required
+def close_investigation(request, pk):
+    investigation_request = get_object_or_404(InvestigationRequest, pk=pk)
+    user_profile = request.user.profile
+
+    allowed_roles = ['Head of DB', 'Dep.Head of DB', 'Inspector of DB']
+    if user_profile.role and user_profile.role.name in allowed_roles:
+        if not investigation_request.is_closed:
+            investigation_request.is_closed = True
+            investigation_request.completed_at = timezone.now()
+            investigation_request.closed_by = user_profile
+            investigation_request.save()
+
+            if investigation_request.response_profile:
+                investigation_request.response_profile.update_rating(50)
 
     return redirect('investigation_detail', pk=pk)

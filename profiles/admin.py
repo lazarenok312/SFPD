@@ -110,3 +110,57 @@ class EmailLogAdmin(admin.ModelAdmin):
     search_fields = ('recipient', 'subject')
     list_filter = ('sent_at', 'user')
     list_per_page = 20
+
+
+@admin.register(InvestigationRequest)
+class InvestigationRequestAdmin(admin.ModelAdmin):
+    list_display = (
+        'first_name', 'last_name', 'address', 'title', 'created_at', 'get_assigned_to', 'get_response_profile',
+        'response_date', 'is_closed', 'get_closed_by'
+    )
+    list_filter = ('created_at', 'assigned_to', 'response_profile', 'closed_by', 'is_closed')
+    search_fields = ('first_name', 'last_name', 'address', 'title', 'description', 'response')
+    readonly_fields = ('created_at', 'completed_at', 'response_date', 'closed_by', 'is_closed')
+    fieldsets = (
+        (None, {
+            'fields': (
+                'first_name', 'last_name', 'address', 'passport_link', 'phone_number', 'title', 'description', 'image'
+            )
+        }),
+        ('Дата и статус', {
+            'fields': (
+                'created_at', 'completed_at', 'response', 'response_profile', 'response_date', 'assigned_to',
+                'closed_by', 'is_closed'
+            ),
+            'classes': ('collapse',),
+        }),
+    )
+    ordering = ('-created_at',)
+
+    def get_assigned_to(self, obj):
+        if obj.assigned_to:
+            return obj.assigned_to.user.get_full_name()
+        return 'Не назначено'
+
+    get_assigned_to.short_description = 'Назначено профилю'
+
+    def get_response_profile(self, obj):
+        if obj.response_profile:
+            return obj.response_profile.user.get_full_name()
+        return 'Не указан'
+
+    get_response_profile.short_description = 'Ответивший профиль'
+
+    def get_closed_by(self, obj):
+        if obj.closed_by:
+            return obj.closed_by.user.get_full_name()
+        return 'Не закрыто'
+
+    get_closed_by.short_description = 'Закрыто профилем'
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            if obj.response:
+                return self.readonly_fields + ('assigned_to', 'closed_by')
+            return self.readonly_fields
+        return self.readonly_fields

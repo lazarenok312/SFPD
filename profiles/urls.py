@@ -36,17 +36,10 @@ urlpatterns = [
     path('send-confirmation-email/', views.send_confirmation_email_view, name='send_confirmation_email'),
 
     path('investigations/', views.investigation_list, name='investigation_list'),
-
-    # Создание нового заявления
     path('investigation/new/', views.create_investigation_request, name='create_investigation_request'),
-
-    # Просмотр деталей заявления
     path('investigation/<int:pk>/', views.investigation_detail, name='investigation_detail'),
-
-    # Взять заявление на выполнение
-    path('investigation/<int:pk>/take/', views.take_investigation, name='take_investigation'),
-
-    # Подтверждение выполнения расследования администратором
-    path('investigation/<int:pk>/confirm/', views.confirm_investigation, name='confirm_investigation'),
+    path('take-investigation/<int:pk>/', views.take_investigation, name='take_investigation'),
+    path('release-investigation/<int:pk>/', views.release_investigation, name='release_investigation'),
     path('investigation/<int:pk>/response/', views.submit_response, name='submit_response'),
+    path('close-investigation/<int:pk>/', close_investigation, name='close_investigation'),
 ]

@@ -6,6 +6,33 @@
     <title>Detective Bureau</title>
 
     <style>
+        .badge {
+            --bs-badge-padding-x: 0.9em;
+            --bs-badge-padding-y: 0.55em;
+            --bs-badge-font-size: 0.75em;
+            --bs-badge-font-weight: 700;
+            --bs-badge-color: #fff;
+            --bs-badge-border-radius: 0.45rem;
+            display: inline-block;
+            padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
+            font-size: var(--bs-badge-font-size);
+            font-weight: var(--bs-badge-font-weight);
+            line-height: 1;
+            color: var(--bs-badge-color);
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: var(--bs-badge-border-radius);
+        }
+
+        .bg-gradient-success {
+            background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+        }
+
+
+        .bg-gradient-danger {
+            background-image: linear-gradient(195deg, #EF5350 0%, #E53935 100%);
+        }
 
         .title-icon {
             font-size: 2em;
@@ -517,35 +544,67 @@
     </section>
     <section class="section section-lg bg-default">
         <div class="container text-center text-lg-left">
-            <h2><span class="text-light">Заявления</span> отдела</h2>
-
+            <h2><span class="text-light">Расследования</span> отдела</h2>
             <div class="row row-40">
                 {% for request in investigation_requests %}
                     <div class="col-md-4 mb-4">
                         <div class="card">
-                            {% if request.image %}
-                                <img class="card-img-top" src="{{ request.image.url }}" alt="{{ request.title }}">
-                            {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ request.title }}</h5>
-                            <p class="card-text">
-                                <strong>Имя заявителя:</strong> {{ request.first_name }}<br>
-                                <strong>Фамилия заявителя:</strong> {{ request.last_name }}<br>
-                                <strong>Дата заявления:</strong> {{ request.created_at|date:"d M Y" }}
-                            </p>
                                 <p class="card-text">
-                                    {% if request.assigned_to %}
-                                        <strong>Выполняется: {{ request.assigned_to.user.username }}</strong>
-                                    {% else %}
-                                       <strong> Свободно для выполнения</strong>
-                                    {% endif %}
+                                    <strong><i class="fa fa-user-o" aria-hidden="true"></i> Имя
+                                        заявителя:</strong> {{ request.first_name }}<br>
+                                    <strong><i class="fa fa-user-o" aria-hidden="true"></i> Фамилия
+                                        заявителя:</strong> {{ request.last_name }}<br>
+                                    <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Дата
+                                        заявления:</strong> {{ request.created_at|date:"d M Y" }}
                                 </p>
-                                <a href="{% url 'investigation_detail' request.pk %}" class="btn button-size-1 button-block button-primary"><i class="fa fa-external-link" aria-hidden="true"></i> Подробнее</a>
+
+                                {% if request.is_closed %}
+                                    <p class="card-text">
+                                        <strong class="badge bg-gradient-danger"><i class="fa fa-check"
+                                                                                    aria-hidden="true"></i> Дело закрыто</strong>
+                                    </p>
+                                {% else %}
+                                    {% if request.response %}
+                                        <p class="card-text">
+                                            <span class="badge bg-gradient-success"><i class="fa fa-gavel"
+                                                                                       aria-hidden="true"></i> Дан ответ</span>
+                                        </p>
+                                    {% endif %}
+
+                                    <p class="card-text">
+                                        {% if request.assigned_to %}
+                                            <span class="badge bg-gradient-danger"><i class="fa fa-user-o"
+                                                                                      aria-hidden="true"></i> Выполняет: {{ request.assigned_to.name }} {{ request.assigned_to.surnames }}</span>
+                                        {% else %}
+                                            <strong class="badge bg-gradient-success"><i class="fa fa-check"
+                                                                                         aria-hidden="true"></i>
+                                                Свободно для выполнения</strong>
+                                        {% endif %}
+
+                                        {% if request.response %}
+                                            <span class="badge bg-gradient-warning">Статус: Ответ дан</span>
+                                        {% else %}
+                                            <span class="badge bg-gradient-info">Статус: Ответ не дан</span>
+                                        {% endif %}
+                                    </p>
+                                {% endif %}
+
+                                <a href="{% url 'investigation_detail' request.pk %}"
+                                   class="btn button-size-1 button-block button-primary"><i class="fa fa-external-link"
+                                                                                            aria-hidden="true"></i>
+                                    Подробнее</a>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
-            <a href="{% url 'create_investigation_request' %}" class="btn button-size-1 button-block button-primary"><i class="fa fa-file-o" aria-hidden="true"></i> Создать заявление</a>
+                <a href="{% url 'create_investigation_request' %}"
+                   class="btn button-size-1 button-block button-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    Создать заявление</a>
+            <a href="{% url 'investigation_list' %}"
+               class="btn button-size-1 button-block button-primary"><i class="fa fa-database" aria-hidden="true"></i>
+                Архив закрытых дел</a>
             </div>
 
         </div>

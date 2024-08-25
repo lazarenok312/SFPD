@@ -1,40 +1,522 @@
+{% load static %}
 {% include 'base.html' %}
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>Заявление</title>
+    <style>
+        .paper {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border: 2px solid #bfae82;
+            background-image: radial-gradient(circle, #f9f7f1, #f4f1e8);
+        }
 
-{% block content %}
-  <h2>{{ investigation_request.title }}</h2>
-  <p>{{ investigation_request.description }}</p>
-  <p>Контактные данные: {{ investigation_request.contact_details }}</p>
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
 
-  {% if investigation_request.image %}
-    <img src="{{ investigation_request.image.url }}" alt="{{ investigation_request.title }}">
-  {% endif %}
+        .image {
+            flex: 0 0 200px;
+            margin-right: 20px;
+        }
 
-  {% if investigation_request.assigned_to %}
-    <p><strong>Выполняет:</strong> {{ investigation_request.assigned_to.user.username }}</p>
-  {% else %}
-    <p><strong>Статус:</strong> Свободно для выполнения</p>
-  {% endif %}
+        .image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
 
-  {% if user.is_authenticated and user.profile.department.name == 'Detective Bureau' and not investigation_request.assigned_to %}
-    <form method="post" action="{% url 'take_investigation' investigation_request.pk %}">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-primary">Взять заявление</button>
-    </form>
-  {% endif %}
+        .applicant-info {
+            flex: 1;
+            text-align: right;
+            font-size: 14px;
+            color: #555;
+            word-wrap: break-word;
+        }
 
-  {% if investigation_request.response %}
-    <h3>Ответ:</h3>
-    <p>{{ investigation_request.response }}</p>
-  {% endif %}
+        .title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            color: #343a40;
+            border-bottom: 2px solid #bfae82;
+            padding-bottom: 10px;
+        }
 
-  {% if user.is_authenticated and user.profile.department.name == 'Detective Bureau' and investigation_request.assigned_to == user.profile %}
-    <form method="post" action="{% url 'submit_response' investigation_request.pk %}">
-      {% csrf_token %}
-      <div class="form-group">
-        <label for="response">Ответ:</label>
-        <textarea id="response" name="response" class="form-control" rows="3"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Отправить ответ</button>
-    </form>
-  {% endif %}
-{% endblock %}
+        .description {
+            margin-bottom: 40px;
+            text-align: justify;
+            line-height: 1.6;
+            font-size: 16px;
+            color: #212529;
+        }
+
+        .signature-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 1;
+        }
+
+        .signature {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.2rem;
+            color: #333;
+            padding-top: 10px;
+            margin-top: 20px;
+            width: fit-content;
+            text-align: right;
+        }
+
+        .date {
+            font-size: 16px;
+            margin-top: 20px;
+            color: #212529;
+            text-align: right;
+        }
+
+        .overlay-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .overlay-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 290px;
+            height: auto;
+            z-index: 1000;
+        }
+
+        .buttons {
+            margin-top: 40px;
+            justify-content: space-between;
+        }
+
+        .buttons form {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .image {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+
+            .applicant-info {
+                text-align: center;
+            }
+        }
+
+        .modal-dialog-custom {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 1rem);
+        }
+
+        .modal-content-custom {
+            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 0.3rem;
+        }
+
+        .modal-header-custom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+            border-top-left-radius: 0.3rem;
+            border-top-right-radius: 0.3rem;
+        }
+
+        .modal-title {
+            margin-bottom: 0;
+            line-height: 1.5;
+        }
+
+        .close {
+            padding: 0.75rem;
+            margin: -0.75rem -0.75rem -0.75rem auto;
+        }
+
+        .close span {
+            position: relative;
+            display: inline-block;
+            width: 1.5em;
+            height: 1.5em;
+            background-color: #acb7be;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 1.5em;
+            font-size: 1.25em;
+            cursor: pointer;
+        }
+
+        .close span:hover {
+            background-color: #e9ecef;
+        }
+
+        .modal-body-custom {
+            position: relative;
+            flex: 1 1 auto;
+            padding: 1rem;
+        }
+
+        .modal-footer {
+            padding: 0;
+        }
+
+        .button-container {
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .button-container .btn {
+            padding: 10px 20px;
+            background-color: rgba(247, 46, 48, 0.57);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button-container .btn:hover {
+            background-color: #f52a29;
+        }
+    </style>
+</head>
+<body>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <img class="preloader-ico" src="{% static 'images/sfpd.ico' %}" alt="">
+        </div>
+        <h5>Загрузка...</h5>
+    </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <div class="rd-navbar-bg novi-background bg-image"
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
+    <section class="breadcrumbs-custom bg-image novi-background bg-primary">
+        <div class="container">
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                <li>Заявление</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="paper" style="margin-top: 20px; margin-bottom: 20px">
+        <div class="header">
+            <div class="image">
+                <img src="{% static 'images/logo.png' %}" alt="Картинка">
+            </div>
+            <div class="applicant-info">
+                <p>Шерифу департамента города Сан-Фиерро</p>
+                {% if sheriff %}
+                    <p>Шериф: {{ sheriff.user.get_full_name }}</p>
+                {% endif %}
+                <p>От гражданина: {{ investigation_request.last_name }} {{ investigation_request.first_name }}</p>
+            </div>
+        </div>
+
+        <div class="title">
+            Заявление
+        </div>
+
+        <div class="description">
+            <p>Я, {{ investigation_request.last_name }} {{ investigation_request.first_name }}, проживающий по
+                адресу Штат Evolve, {{ investigation_request.address }}, прошу провести расследование по следующему
+                вопросу:</p>
+            <div style="margin-top: 20px;">
+                {{ investigation_request.description|safe }}
+            </div>
+        </div>
+
+        {% if investigation_request.image %}
+            <div class="image">
+                <img src="{{ investigation_request.image.url }}" alt="Изображение">
+            </div>
+        {% endif %}
+
+        <div class="signature-container">
+            <div class="signature">
+                Подпись: {{ investigation_request.first_name|slice:":1" }}. {{ investigation_request.last_name }}
+            </div>
+
+            <div class="date">
+                Дата: {{ investigation_request.created_at|date:"d.m.Y" }}
+            </div>
+        </div>
+        {% if investigation_request.is_closed %}
+        {% else %}
+            <div class="buttons">
+                {% if user.is_authenticated and user.profile.department.name == 'Detective Bureau' %}
+                    {% if not investigation_request.assigned_to %}
+                        <form id="take-investigation-form" method="post"
+                              action="{% url 'take_investigation' investigation_request.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn button-size-1 button-block button-primary">
+                                <i class="fa fa-check" aria-hidden="true"></i> Взять заявление
+                            </button>
+                        </form>
+                    {% else %}
+                        {% if investigation_request.assigned_to == user.profile %}
+                            <form id="release-investigation-form" method="post"
+                                  action="{% url 'release_investigation' investigation_request.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn button-size-1 button-block button-secondary">
+                                    <i class="fa fa-times" aria-hidden="true"></i> Отказаться от заявления
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+
+                {% if user.is_authenticated and user.profile.department.name == 'Detective Bureau' and investigation_request.assigned_to == user.profile %}
+                    <div class="response-section">
+                        <form id="submit-response-form" method="post"
+                              action="{% url 'submit_response' investigation_request.pk %}">
+                            {% csrf_token %}
+                            <button type="button" class="btn button-size-1 button-block button-primary"
+                                    data-toggle="modal"
+                                    data-target="#responseModal" style="margin-top: 10px"><i class="fa fa-gavel"
+                                                                                             aria-hidden="true"></i>
+                                Дать
+                                ответ
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="modal fade" id="responseModal" tabindex="-1" aria-labelledby="responseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-custom">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title" id="responseModalLabel">Дать ответ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <form id="submit-response-form" method="post"
+                          action="{% url 'submit_response' investigation_request.pk %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="response-link">Ссылка:</label>
+                            <input type="url" id="response-link" name="response" class="form-control" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn button-size-1 button-block button-primary"><i
+                                    class="fa fa-gavel"
+                                    aria-hidden="true"></i> Отправить ответ
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if investigation_request.response %}
+        <div class="paper" style="margin-top: 20px; margin-bottom: 20px">
+            <div class="header">
+                <div class="image">
+                    <img src="{% static 'images/logo.png' %}" alt="Картинка">
+                </div>
+                <div class="applicant-info">
+                    <p>Шерифу департамента города Сан-Фиерро</p>
+                    {% if sheriff %}
+                        <p>Шериф: {{ sheriff.user.get_full_name }}</p>
+                    {% endif %}
+                    <p>От:
+                        {% if investigation_request.response_profile %}
+                            {{ response_profile.surnames }} {{ response_profile.name }}
+                        {% else %}
+                            Не указан
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="title">
+                Ответ на заявление
+            </div>
+
+            <div class="description" style="padding: 20px;">
+                <p>Уважаемый(ая) {{ investigation_request.last_name }} {{ investigation_request.first_name }},</p>
+
+                <p>В связи с поданным вами заявлением "<strong>{{ investigation_request.title }}</strong>" было
+                    проведено расследование, и мы рады предоставить вам следующую документацию:</p>
+
+                <p>В ходе работы над вашим запросом были предприняты следующие шаги:</p>
+
+                <ul style="list-style-type: disc; margin-left: 20px;">
+                    <li>☑ Проанализированы все представленные данные и документы.</li>
+                    <li>☑ Проведены необходимые исследования и проверки.</li>
+                    <li>☑ Составлен подробный отчет по вашему заявлению.</li>
+                </ul>
+
+                <p>Ниже вы можете ознакомиться с результатами расследования:</p>
+
+                <div style="margin-top: 20px;">
+                    <a href="{{ investigation_request.response }}"
+                       style="color: #007bff; text-decoration: none;" target="_blank"><i
+                            class="fa fa-file-text"
+                            aria-hidden="true"></i> Документация</a>
+                </div>
+
+                <p>Если у вас возникнут дополнительные вопросы или потребуется дальнейшая информация, пожалуйста, не
+                    стесняйтесь обращаться к нам.</p>
+
+                <p>С уважением,
+                    {% if response_profile %}
+                        {{ response_profile.name }} {{ response_profile.surnames }}
+                    {% else %}
+                        Не указан
+                    {% endif %}
+                </p>
+
+                <p>{{ response_profile.department }} | {{ response_profile.role }}</p>
+            </div>
+
+            <div class="signature-container">
+                {% if investigation_request.is_closed %}
+                    <div class="overlay-container">
+                        <img src="{% static 'images/case.png' %}" class="overlay-image" alt="Дело закрыто">
+                    </div>
+                {% endif %}
+                <div class="signature">
+                    Подпись: {{ response_profile.name|slice:":1" }}. {{ response_profile.surnames }}
+                </div>
+
+                {% if investigation_request.response_date %}
+                    <div class="date">
+                        {{ investigation_request.response_date|date:"d.m.Y" }}
+                    </div>
+                {% endif %}
+            </div>
+            {% if user.profile.role.name in 'Head of DB,Dep.Head of DB,Inspector of DB' and user.profile.role_confirmed %}
+                {% if not investigation_request.is_closed %}
+                    <div class="button-container">
+                        <form method="post" action="{% url 'close_investigation' investigation_request.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn button-size-1 button-block button-secondary">
+                                <i class="fa fa-gavel" aria-hidden="true"></i> Закрыть дело
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% include 'include/notifications.html' %}
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(document).on('submit', '#take-investigation-form', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        $('#take-investigation-form').remove();
+
+                        $('.buttons').append(`
+                        <form id="release-investigation-form" method="post" action="{% url 'release_investigation' investigation_request.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn button-size-1 button-block button-secondary">
+                                <i class="fa fa-times" aria-hidden="true"></i> Отказаться от заявления
+                            </button>
+                        </form>
+                        <form id="submit-response-form" method="post" action="{% url 'submit_response' investigation_request.pk %}">
+                            {% csrf_token %}
+                            <button type="button" class="btn button-size-1 button-block button-primary" data-toggle="modal"
+                                data-target="#responseModal" style="margin-top: 10px"><i class="fa fa-gavel"
+                                                                                         aria-hidden="true"></i> Дать
+                            ответ
+                        </button>
+                        </form>
+                    `);
+                    } else {
+                        console.error('Ошибка AJAX: ', response.error);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Ошибка AJAX: ', error);
+                }
+            });
+        });
+
+        $(document).on('submit', '#release-investigation-form', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        $('#release-investigation-form').remove();
+                        $('#submit-response-form').remove();
+
+                        $('.buttons').append(`
+                        <form id="take-investigation-form" method="post" action="{% url 'take_investigation' investigation_request.pk %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn button-size-1 button-block button-primary">
+                                <i class="fa fa-check" aria-hidden="true"></i> Взять заявление
+                            </button>
+                        </form>
+                    `);
+                    } else {
+                        console.error('Ошибка AJAX: ', response.error);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Ошибка AJAX: ', error);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
