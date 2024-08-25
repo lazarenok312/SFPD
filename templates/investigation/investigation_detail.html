@@ -242,9 +242,7 @@
             </div>
             <div class="applicant-info">
                 <p>Шерифу департамента города Сан-Фиерро</p>
-                {% if sheriff %}
-                    <p>Шериф: {{ sheriff.user.get_full_name }}</p>
-                {% endif %}
+                {% if sheriff.name %}{{ sheriff.name }}{% else %}{% endif %}
                 <p>От гражданина: {{ investigation_request.last_name }} {{ investigation_request.first_name }}</p>
             </div>
         </div>
@@ -254,9 +252,15 @@
         </div>
 
         <div class="description">
-            <p>Я, {{ investigation_request.last_name }} {{ investigation_request.first_name }}, проживающий по
-                адресу Штат Evolve, {{ investigation_request.address }}, прошу провести расследование по следующему
-                вопросу:</p>
+            <p>
+                Я, {{ investigation_request.last_name }} {{ investigation_request.first_name }}, проживающий по адресу
+                Штат Evolve,
+                {{ investigation_request.address }},
+                прилагаю паспорт №<a href="{{ investigation_request.passport_link }}" id="passport-series" target="_blank"></a>
+                <a href="{{ investigation_request.passport_link }}" id="passport-number" target="_blank"></a>,
+                а также телефон для связи - {{ investigation_request.phone_number }} прошу провести расследование по
+                следующему вопросу:
+            </p>
             <div style="margin-top: 20px;">
                 {{ investigation_request.description|safe }}
             </div>
@@ -280,7 +284,7 @@
         {% if investigation_request.is_closed %}
         {% else %}
             <div class="buttons">
-                {% if user.is_authenticated and user.profile.department.name == 'Detective Bureau' %}
+                {% if user.is_authenticated and user.profile.department.name == 'Detective Bureau' and user.profile.role_confirmed %}
                     {% if not investigation_request.assigned_to %}
                         <form id="take-investigation-form" method="post"
                               action="{% url 'take_investigation' investigation_request.pk %}">
@@ -448,6 +452,17 @@
 <script src="{% static 'js/script.js' %}"></script>
 {% include 'include/notifications.html' %}
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script>
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    var passportSeries = getRandomInt(1, 99);
+    var passportNumber = getRandomInt(100000, 999999);
+
+    document.getElementById('passport-series').textContent = passportSeries;
+    document.getElementById('passport-number').textContent = passportNumber;
+</script>
 <script>
     $(document).ready(function () {
         $(document).on('submit', '#take-investigation-form', function (e) {

@@ -675,6 +675,8 @@
                                         <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
                                     {% elif profile.role.name == "Recruit of SWAT" %}
                                         <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
+                                    {% elif profile.role.name %}
+                                        <span class="badge bg-gradient-staff">{{ profile.role.name }}</span>
                                     {% endif %}
                                     {% if profile.role_confirmed %}
                                         <span class="badge bg-gradient-success"> <i

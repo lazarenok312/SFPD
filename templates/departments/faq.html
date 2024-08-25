@@ -103,6 +103,50 @@
         .first-word, .second-word {
             display: block;
         }
+
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .badge-item {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            width: 210px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .badge-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge-image {
+            width: 80%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .badge-info h3 {
+            font-size: 18px;
+            margin: 15px 0 5px;
+            color: #31404a;
+        }
+
+        .badge-info p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .title-link {
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
 </head>
 <body>
@@ -136,11 +180,13 @@
 
                         <input type="checkbox" name="chacor" id="chacor1" checked="checked"/>
                         <label for="chacor1">Как вступить в полицейский департамент?</label>
-                        <div class="acor-body" >
-                            <p>Вступить в нашу академию можно четырымя способами:</p>
+                        <div class="acor-body">
+                            <p>Вступить в нашу академию можно четырьмя способами:</p>
                             <ol class="list-ordered">
-                                <li> Первый способ — <a href="https://docs.google.com/forms/d/e/1FAIpQLScsp2Ymkh5QFO8VjdQj9TyYwcW7D2HaLXpMuDwEVlWtr58V_g/viewform" target="_blank"
-                                                        style="color: #2e3843; font-weight: bold; text-decoration: underline;">подать
+                                <li> Первый способ — <a
+                                        href="https://docs.google.com/forms/d/e/1FAIpQLScsp2Ymkh5QFO8VjdQj9TyYwcW7D2HaLXpMuDwEVlWtr58V_g/viewform"
+                                        target="_blank"
+                                        style="color: #2e3843; font-weight: bold; text-decoration: underline;">подать
                                     заявление на службу с гражданки</a> на стажировку в
                                     департамент.
                                 </li>
@@ -150,8 +196,10 @@
                                     переводы
                                     доступны с должности младшего сержанта.
                                 </li>
-                                <li> Третий способ — <a href="https://docs.google.com/forms/d/e/1FAIpQLSc3dyeczDSUIE3YEr9Igmivdmm0mKw-t0jibMBt7y-xImDUzw/viewform" target="_blank"
-                                                        style="color: #2e3843; font-weight: bold; text-decoration: underline;">подать
+                                <li> Третий способ — <a
+                                        href="https://docs.google.com/forms/d/e/1FAIpQLSc3dyeczDSUIE3YEr9Igmivdmm0mKw-t0jibMBt7y-xImDUzw/viewform"
+                                        target="_blank"
+                                        style="color: #2e3843; font-weight: bold; text-decoration: underline;">подать
                                     заявление на контрактную службу</a>
                                 </li>
                                 <li> Четвертый способ — прийти на собеседование в департамент полиции SF, собеседования
@@ -166,7 +214,7 @@
                         <input type="checkbox" name="chacor" id="chacor2"/>
                         <label for="chacor2">Сколько времени проходит полицейская академия?</label>
                         <div class="acor-body">
-                            <p>Академия для гражданских по собеседованию / заявлению с оф.сайта - три дня включая дату
+                            <p>Академия для гражданских по собеседованию / заявлению с оф. сайта - три дня включая дату
                                 принятия</p>
                             <p>Академия для контрактников, военнослужащих переведенных с Армии на звание "Офицер" и выше
                                 - 1 день (экзамены можно сдать сразу и получить повышение)</p>
@@ -224,37 +272,58 @@
             </div>
         </div>
     </section>
-        <div class="container">
-            <div class="row box-icon-1-wrap">
-                <div class="col-md-4 box-icon-1">
-                    <a href="https://evolve-rp.su/threads/383103/post-3832368" target="_blank" class="title-link">
-                        <img class="img-faq" src="{% static 'images/faq/fp.png' %}" alt="">
+    <div class="container">
+        <div class="row box-icon-1-wrap">
+            <div class="col-md-4 box-icon-1">
+                <a href="https://evolve-rp.su/threads/383103/post-3832368" target="_blank" class="title-link">
+                    <img class="img-faq" src="{% static 'images/faq/fp.png' %}" alt="">
 
-                        <h5 class="title">
-                            <span class="first-word">Федеральное</span>
-                            <span class="second-word">Постановление</span>
-                        </h5>
-                    </a>
-                </div>
-                <div class="col-md-4 box-icon-1">
-                    <a href="https://evolve-rp.su/threads/383103/post-3832372" target="_blank" class="title-link">
-                        <img class="img-faq" src="{% static 'images/faq/yk.png' %}" alt="">
+                    <h5 class="title">
+                        <span class="first-word">Федеральное</span>
+                        <span class="second-word">Постановление</span>
+                    </h5>
+                </a>
+            </div>
+            <div class="col-md-4 box-icon-1">
+                <a href="https://evolve-rp.su/threads/383103/post-3832372" target="_blank" class="title-link">
+                    <img class="img-faq" src="{% static 'images/faq/yk.png' %}" alt="">
 
-                        <h5 class="title"><span class="first-word">Уголовный</span> <span
-                                class="second-word">кодекс</span>
-                        </h5>
-                    </a>
-                </div>
-                <div class="col-md-4 box-icon-1">
-                    <a href="https://evolve-rp.su/threads/383103/post-3832373" target="_blank" class="title-link">
-                        <img class="img-faq" src="{% static 'images/faq/ak.png' %}" alt="">
+                    <h5 class="title"><span class="first-word">Уголовный</span> <span
+                            class="second-word">кодекс</span>
+                    </h5>
+                </a>
+            </div>
+            <div class="col-md-4 box-icon-1">
+                <a href="https://evolve-rp.su/threads/383103/post-3832373" target="_blank" class="title-link">
+                    <img class="img-faq" src="{% static 'images/faq/ak.png' %}" alt="">
 
-                        <h5 class="title"><span class="first-word">Административный</span> <span
-                                class="second-word">Кодекс</span></h5>
-                    </a>
-                </div>
+                    <h5 class="title"><span class="first-word">Административный</span> <span
+                            class="second-word">Кодекс</span></h5>
+                </a>
             </div>
         </div>
+    </div>
+    <section class="section section-md">
+        <div class="container">
+            <div class="row row-50">
+            <div class="col-12">
+            <h2 class="section-title">Значки сайта и их описание</h2>
+                <div class="badge-container">
+                    {% for badge in badges %}
+                        <div class="badge-item">
+                            <img src="{{ badge.image.url }}" alt="{{ badge.name }}" class="badge-image">
+                            <div class="badge-info">
+                                <h3>{{ badge.name }}</h3>
+                                <p>{{ badge.description }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+
     {% include 'include/footer.html' %}
 </div>
 <div class="snackbars" id="form-output-global"></div>

@@ -4,7 +4,7 @@ from django.views.generic.edit import UpdateView, View
 from django.http import HttpResponse
 from django.contrib import messages
 from news.models import News
-from profiles.models import Profile, InvestigationRequest
+from profiles.models import Profile, InvestigationRequest, Badge
 
 
 def home_view(request):
@@ -86,7 +86,11 @@ def seb_view(request):
 
 
 def faq_view(request):
-    return render(request, 'departments/faq.html')
+    badges = Badge.objects.all().order_by('priority')
+    context = {
+        'badges': badges,
+    }
+    return render(request, 'departments/faq.html', context)
 
 
 def about_view(request):
