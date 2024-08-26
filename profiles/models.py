@@ -54,6 +54,7 @@ class Profile(models.Model):
     nick_name = models.CharField(max_length=50, verbose_name="Игровой ник", blank=True)
     profile_confirmed = models.BooleanField(default=False, verbose_name="Подтверждение профиля")
     role_confirmed = models.BooleanField(default=False, verbose_name="Подтверждение должности")
+    role_confirmation_requested = models.BooleanField(default=False, verbose_name="Запрос на подтверждение должности")
     likes = models.PositiveIntegerField(default=0, verbose_name="Лайки")
     dislikes = models.PositiveIntegerField(default=0, verbose_name="Дизлайки")
     birthdate = models.DateField(null=True, blank=True, verbose_name="Дата рождения")

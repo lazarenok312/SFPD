@@ -34,6 +34,9 @@ urlpatterns = [
 
     path('confirm/<str:token>/', views.confirm_profile, name='confirm_profile'),
     path('send-confirmation-email/', views.send_confirmation_email_view, name='send_confirmation_email'),
+    path('request-role-confirmation/', request_role_confirmation, name='request_role_confirmation'),
+    path('admin/confirm-roles/', views.confirm_roles, name='confirm_roles'),
+    path('confirm_role/<int:profile_id>/', views.confirm_role, name='confirm_role'),
 
     path('investigations/', views.investigation_list, name='investigation_list'),
     path('investigation/new/', views.create_investigation_request, name='create_investigation_request'),

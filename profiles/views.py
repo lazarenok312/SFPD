@@ -20,6 +20,7 @@ from departments.models import ChangeHistory
 from news.models import News
 from datetime import timedelta
 from departments.models import DepartmentStaff
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 def register(request):
@@ -393,6 +394,33 @@ def confirm_profile(request, token):
     profile.save()
     messages.success(request, 'Профиль успешно подтвержден.')
     return redirect('profile_detail', slug=profile.slug)
+
+
+@login_required
+def request_role_confirmation(request):
+    profile = request.user.profile
+    if not profile.role_confirmed:
+        profile.role_confirmation_requested = True
+        profile.save()
+        messages.success(request, "Запрос на подтверждение должности отправлен.")
+    return redirect('profile_detail', slug=profile.slug)
+
+
+@staff_member_required
+def confirm_roles(request):
+    profiles = Profile.objects.filter(role_confirmed=False, role_confirmation_requested=True)
+    return render(request, 'profile/confirm_roles.html', {'profiles': profiles})
+
+
+@staff_member_required
+def confirm_role(request, profile_id):
+    if request.method == 'POST' and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        profile = Profile.objects.get(id=profile_id)
+        profile.role_confirmed = True
+        profile.role_confirmation_requested = False
+        profile.save()
+        return JsonResponse({'success': True, 'message': f'Должность для {profile.user.username} подтверждена.'})
+    return JsonResponse({'success': False, 'message': 'Неверный запрос.'}, status=400)
 
 
 def get_unseen_counts(user):

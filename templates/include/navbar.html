@@ -321,15 +321,25 @@
                                     </li>
                                     <li class="rd-nav-item {% if request.path == '/police_academy/' or request.path == '/cpd/' or request.path == '/swat/' or request.path == '/db/' %}active{% endif %}">
                                         <a class="rd-nav-link" href="#"><i class="fas fa-building"
-                                                                           style="margin-right: 2px;"></i> Отделы</a>
+                                                                           style="margin-right: 2px;"></i> Отделы
+                                            <sup>
+                                                {% if available_requests_count > 0 %}
+                                                    <span class="notification-badge">{{ available_requests_count }}</span>
+                                                {% endif %}
+                                            </sup>
+                                        </a>
                                         <ul class="dropdown">
                                             <li><a href="{% url 'departments:pa_detail' %}"><i
                                                     class="fas fa-graduation-cap"></i> Police Academy</a></li>
-                                            <li><a href="{% url 'departments:cpd_detail' %}"><i
-                                                    class="fas fa-car"></i> Central Patrol Division</a>
-                                            </li>
+                                            <li><a href="{% url 'departments:cpd_detail' %}"><i class="fas fa-car"></i>
+                                                Central Patrol Division</a></li>
                                             <li><a href="{% url 'departments:db_detail' %}"><i
-                                                    class="fas fa-user-secret"></i> Detective Bureau</a></li>
+                                                    class="fas fa-user-secret"></i> Detective Bureau<sup>
+                                                {% if available_requests_count > 0 %}
+                                                    <span class="notification-badge">{{ available_requests_count }}</span>
+                                                {% endif %}
+                                            </sup></a>
+                                            </li>
                                             <li><a href="{% url 'departments:swat_detail' %}"><i
                                                     class="fas fa-hand-peace-o"></i> SWAT</a></li>
                                             <li><a href="{% url 'departments:seb_detail' %}"><i
@@ -340,29 +350,39 @@
                                         <a class="rd-nav-link" href="{% url 'departments:faq' %}"><i
                                                 class="fas fa-question-circle" style="margin-right: 2px;"></i> FAQ</a>
                                     </li>
-
                                     <li class="rd-nav-item {% if request.path == '/profiles/profiles_list/' %}active{% endif %}">
-                                        <a class="rd-nav-link" href="#"><i class="fas fa-bars"
-                                                                           style="margin-right: 2px;"></i> Разное<sup>
-                                            {% if new_changes_count > 0 %}
-                                                <span class="notification-badge">{{ new_changes_count }}</span>
-                                            {% endif %}</sup></a>
+                                        <a class="rd-nav-link" href="#"
+                                           title="{% if new_changes_count > 0 %}Изменения: {{ new_changes_count }}{% endif %}{% if role_confirmation_count > 0 %} Подтверждения: {{ role_confirmation_count }}{% endif %}">
+                                            <i class="fas fa-bars" style="margin-right: 2px;"></i> Разное
+                                            <sup>
+                                                {% if total_unseen > 0 %}
+                                                    <span class="notification-badge">{{ total_unseen }}</span>
+                                                {% endif %}
+                                            </sup>
+                                        </a>
+
                                         <ul class="dropdown">
-                                            {#                                            <li><a href="{% url 'departments:hall_of_fame' %}">Доска почета</a></li>#}
-{#                                            <li><a href="{% url 'departments:thank_board' %}"><i#}
-{#                                                    class="fas fa-desktop"></i> Благодарственная доска</a>#}
-{#                                            </li>#}
-                                            <li><a href="{% url 'profile_list' %}"><i
-                                                    class="fas fa-users"></i> Список пользователей</a></li>
+                                            <li><a href="{% url 'profile_list' %}"><i class="fas fa-users"></i> Список
+                                                пользователей</a></li>
                                             <li><a href="{% url 'departments:change_history_list' %}"><i
-                                                    class="fas fa-history"></i> История
-                                                изменений <sup>{% if new_changes_count > 0 %}
-                                                    <span class="notification-badge">{{ new_changes_count }}</span>
-                                                {% endif %}</sup></a></li>
+                                                    class="fas fa-history"></i> История изменений
+                                                <sup>
+                                                    {% if new_changes_count > 0 %}
+                                                        <span class="notification-badge">{{ new_changes_count }}</span>
+                                                    {% endif %}
+                                                </sup>
+                                            </a></li>
                                             {% if user.is_superuser %}
-                                                <li><a href="{% url 'admin:index' %}"><i
-                                                        class="fas fa-cogs"></i> Админ панель</a>
-                                                </li>
+                                                <li><a href="{% url 'admin:index' %}"><i class="fas fa-cogs"></i> Админ
+                                                    панель</a></li>
+                                                <li><a href="{% url 'confirm_roles' %}"><i
+                                                        class="fas fa-check-circle"></i> Подтверждение
+                                                    <sup>
+                                                        {% if role_confirmation_count > 0 %}
+                                                            <span class="notification-badge">{{ role_confirmation_count }}</span>
+                                                        {% endif %}
+                                                    </sup>
+                                                </a></li>
                                             {% endif %}
                                         </ul>
                                     </li>

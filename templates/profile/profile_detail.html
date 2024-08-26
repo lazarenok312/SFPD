@@ -882,6 +882,18 @@
                                             профиль
                                         </a></li>
                                     {% endif %}
+                                {% if not user.profile.role_confirmed %}
+                                    <li>
+                                        <a href="#" class="settings-link"
+                                           onclick="event.preventDefault(); document.getElementById('role-confirmation-form').submit();">
+                                            <i class="fas fa-check-square"></i> Подтвердить должность
+                                        </a>
+                                        <form id="role-confirmation-form" action="{% url 'request_role_confirmation' %}"
+                                              method="post" style="display: none;">
+                                            {% csrf_token %}
+                                        </form>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

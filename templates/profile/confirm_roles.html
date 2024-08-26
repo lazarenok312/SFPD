@@ -1,0 +1,317 @@
+{% load static %}
+{% include 'base.html' %}
+<!DOCTYPE html>
+<html class="wide wow-animation" lang="en">
+<head>
+    <title>Подтверждение должностей</title>
+    <style>
+        .badge {
+            --bs-badge-padding-x: 0.9em;
+            --bs-badge-padding-y: 0.55em;
+            --bs-badge-font-size: 0.75em;
+            --bs-badge-font-weight: 700;
+            --bs-badge-color: #fff;
+            --bs-badge-border-radius: 0.45rem;
+            display: inline-block;
+            padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
+            font-size: var(--bs-badge-font-size);
+            font-weight: var(--bs-badge-font-weight);
+            line-height: 1;
+            color: var(--bs-badge-color);
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: var(--bs-badge-border-radius);
+        }
+
+        .bg-gradient-secondary {
+            background-image: linear-gradient(195deg, #747b8a 0%, #495361 100%);
+        }
+
+        .bg-gradient-curator {
+            background-image: linear-gradient(195deg, #ffc001 0%, #efd789 100%);
+        }
+
+        .bg-gradient-chief {
+            background-image: linear-gradient(195deg, #a61c00 0%, #a61c00 100%);
+        }
+
+        .bg-gradient-depchief {
+            background-image: linear-gradient(195deg, #c12803 0%, #a9321b 100%);
+        }
+
+        .bg-gradient-insperctr {
+            background-image: linear-gradient(195deg, #b97f02 0%, #f1d04d 100%);
+        }
+
+        .bg-gradient-instructor {
+            background-image: linear-gradient(195deg, #5a02b9 0%, #844df1 100%);
+        }
+
+        .bg-gradient-cmu {
+            background-image: linear-gradient(195deg, #156a02 0%, #20841e 100%);
+        }
+
+        .bg-gradient-cmu {
+            background-image: linear-gradient(195deg, #898989 0%, rgba(83, 83, 83, 0.79) 100%);
+        }
+
+        .bg-gradient-jragent {
+            background-image: linear-gradient(195deg, #bc6161 0%, #c75151 100%);
+        }
+
+        .bg-gradient-recruit {
+            background-image: linear-gradient(195deg, #76a5af 0%, #76a5af 100%);
+        }
+
+        .bg-gradient-db {
+            background-image: linear-gradient(195deg, #800303 0%, #b00707 100%);
+        }
+
+        .bg-gradient-pa {
+            background-image: linear-gradient(195deg, #00b4ff 0%, #1760e1 100%);
+        }
+
+        .bg-gradient-cpd {
+            background-image: linear-gradient(195deg, #959595 0%, #929292 100%);
+        }
+
+        .bg-gradient-staff {
+            background-image: linear-gradient(195deg, #5b1e79 0%, #6d2890 100%);
+        }
+
+        .bg-gradient-swat {
+            background-image: linear-gradient(195deg, #232222 0%, #434345 100%);
+        }
+
+        .bg-gradient-success {
+            background-image: linear-gradient(195deg, #66BB6A 0%, #43A047 100%);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+
+        .profile-table {
+            width: 100%;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        @media (max-width: 768px) {
+
+            .profile-table {
+                width: 100%;
+                float: none;
+            }
+
+            .clearfix::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .table {
+            min-width: 600px;
+        }
+
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1600px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Загрузка...</p>
+    </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <div class="rd-navbar-bg novi-background bg-image"
+         style="background-image: url('{% static 'images/bg-navbar.png' %}')"></div>
+    <section class="breadcrumbs-custom bg-image novi-background bg-primary">
+        <div class="container">
+            <ul class="breadcrumbs-custom-path">
+                <li><a href="{% url 'departments:home' %}">Главная</a></li>
+                <li class="active">Подтверждение должностей</li>
+            </ul>
+        </div>
+    </section>
+    <section class="section section-md">
+        <div class="container">
+            <h2><i class="fa fa-users" aria-hidden="true"></i> Подтверждение должностей</h2>
+            <br>
+            <div class="clearfix">
+                <div class="profile-table">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover" id="my-search-table">
+                            <thead>
+                            <tr>
+                                <th>Профиль</th>
+                                <th>Имя</th>
+                                <th>Фамилия</th>
+                                <th>Nick Name</th>
+                                <th>Отдел</th>
+                                <th>Должность</th>
+                                <th>Подтверждение</th>
+                            </tr>
+                            </thead>
+                            <tbody id="profile-table">
+                            {% for profile in profiles %}
+                                <tr data-department="{{ profile.department.id }}" data-role="{{ profile.role.id }}">
+                                    <td class="text-center">
+                                        {% if profile.user %}
+                                            <a href="{{ profile.get_absolute_url }}">{{ profile.user.username }}</a>
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if profile.name %}
+                                            <a href="{{ profile.get_absolute_url }}">{{ profile.name }}</a>
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if profile.surnames %}
+                                            <a href="{{ profile.get_absolute_url }}">{{ profile.surnames }}</a>
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if profile.nick_name %}
+                                            <a href="{{ profile.get_absolute_url }}">{{ profile.nick_name }}</a>
+                                        {% else %}
+                                            Нет данных
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if profile.department %}
+                                            {% if profile.department.name == "Detective Bureau" %}
+                                                <span class="badge bg-gradient-db">{{ profile.department.name }}</span>
+                                            {% elif profile.department.name == "Police Academy" %}
+                                                <span class="badge bg-gradient-pa">{{ profile.department.name }}</span>
+                                            {% elif profile.department.name == "Speсial Weapons And Tactics" %}
+                                                <span class="badge bg-gradient-swat">{{ profile.department.name }}</span>
+                                            {% elif profile.department.name == "Central Patrol Division" %}
+                                                <span class="badge bg-gradient-cpd">{{ profile.department.name }}</span>
+                                            {% elif profile.department.name == "Staff SFPD" %}
+                                                <span class="badge bg-gradient-staff">{{ profile.department.name }}</span>
+                                            {% else %}
+                                                <span class="badge bg-gradient-secondary">{{ profile.department.name }}</span>
+                                            {% endif %}
+                                        {% else %}
+                                            Отсутствует
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if profile.role %}
+                                            {% if profile.role.name == "Curator of PA" or profile.role.name == "Curator of CPD" or profile.role.name == "Director of DB" or profile.role.name == "Curator of SWAT" %}
+                                                <span class="badge bg-gradient-curator">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Chief of PA" or profile.role.name == "Chief of CPD" or profile.role.name == "Head of DB" or profile.role.name == "Сommander of SWAT" %}
+                                                <span class="badge bg-gradient-chief">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Dep.Chief of PA" or profile.role.name == "Dep.Chief of CPD" or profile.role.name == "Dep.Head of DB" or profile.role.name == "Dep. Commander of SWAT" %}
+                                                <span class="badge bg-gradient-depchief">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Inspector of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" or profile.role.name == "Lector of PA" %}
+                                                <span class="badge bg-gradient-insperctr">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Instructor of PA" or profile.role.name == "Supervisor of CPD" or profile.role.name == "Inspector of DB" or profile.role.name == "Instructor of SWAT" %}
+                                                <span class="badge bg-gradient-instructor">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Officer of CPD" or profile.role.name == "Agent III" or profile.role.name == "Agent II" or profile.role.name == "Agent I" or profile.role.name == "Fighter of SWAT" %}
+                                                <span class="badge bg-gradient-cmu">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Jr.Agent" %}
+                                                <span class="badge bg-gradient-jragent">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name == "Recruit of SWAT" %}
+                                                <span class="badge bg-gradient-recruit">{{ profile.role.name }}</span>
+                                            {% elif profile.role.name %}
+                                                <span class="badge bg-gradient-staff">{{ profile.role.name }}</span>
+                                            {% endif %}
+                                        {% else %}
+                                            Отсутствует
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        <form id="confirm-role-form-{{ profile.id }}"
+                                              action="{% url 'confirm_role' profile.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="button" class="badge bg-gradient-success"
+                                                    onclick="confirmRole({{ profile.id }})">
+                                                <i class="fa fa-check" aria-hidden="true"></i> Подтвердить
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="7">Всего запросов на подтверждение: {{ profiles.count }}</td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% include 'include/footer.html' %}
+</div>
+</body>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script>
+    function confirmRole(profileId) {
+        var form = document.getElementById('confirm-role-form-' + profileId);
+        var url = form.action;
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: new URLSearchParams(new FormData(form))
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);
+                    // Скрываем строку таблицы после подтверждения
+                    var row = form.closest('tr');
+                    row.style.display = 'none';  // скрываем строку таблицы
+                } else {
+                    alert('Ошибка: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Ошибка:', error));
+    }
+</script>
+</html>
