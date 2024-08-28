@@ -73,9 +73,9 @@ def swat_view(request):
 
 
 def seb_view(request):
-    commander = SWATPosition.objects.filter(position='commander').first()
-    dep_commander1 = SWATPosition.objects.filter(position='dep_commander1').first()
-    dep_commander2 = SWATPosition.objects.filter(position='dep_commander2').first()
+    commander = SEBPosition.objects.filter(position='commander').first()
+    dep_commander1 = SEBPosition.objects.filter(position='dep_commander1').first()
+    dep_commander2 = SEBPosition.objects.filter(position='dep_commander2').first()
 
     context = {
         'commander': commander,

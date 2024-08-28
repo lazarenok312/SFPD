@@ -1,71 +1,565 @@
+{% load static %}
+{% include 'base.html' %}
 <!DOCTYPE html>
-<html lang="en">
+<html class="wide wow-animation" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Страница в разработке</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Special Enforcement Bureau</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #2c3e50;
-            font-family: 'Roboto', sans-serif;
-            color: #ecf0f1;
-            text-align: center;
+        .box-image-item {
+            background-size: cover;
+            width: 946px;
+            height: 485px;
+        }
+
+        @media (max-width: 767px) {
+            .box-image-item {
+                width: auto;
+                height: auto;
+            }
         }
 
         .container {
-            max-width: 600px;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            margin: 0 auto;
         }
 
-        h1 {
-            font-size: 3rem;
-            margin: 0 0 20px;
-            animation: fadeIn 1.5s ease-in-out;
+        .row-50 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
-        p {
-            font-size: 1.2rem;
-            line-height: 1.5;
-            margin: 0 0 20px;
-            animation: fadeIn 2s ease-in-out;
+        .team-classic-wrap {
+            position: relative;
+            width: 100%;
         }
 
-        .loader {
-            border: 8px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 8px solid #3498db;
-            width: 60px;
-            height: 60px;
-            margin: 20px auto 0;
-            animation: spin 2s linear infinite;
+        .team-classic-img img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .team-classic-img img:hover {
+            transform: scale(1.05);
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay.active {
+            display: flex;
+        }
+
+        .overlay-img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Страница в разработке</h1>
-        <p>Страница скоро будет доступна. Срок к сентябрю Я работаю над её улучшением и добавлением новых функций. Пожалуйста, зайдите позже.</p>
-        <div class="loader"></div>
+<div class="preloader">
+    <div class="preloader-body">
+        <div class="loader">
+            <img class="preloader-ico" src="{% static 'images/sfpd.ico' %}" alt="">
+        </div>
+        <H5>Загрузка...</H5>
     </div>
+</div>
+<div class="page">
+    {% include 'include/navbar.html' %}
+    <section class="section swiper-container swiper-slider swiper-slider-1 context-dark" data-loop="true"
+             data-autoplay="5000" data-simulate-touch="false">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide " data-slide-bg="{% static 'images/swat/bg-swat-main3.png' %}">
+                <div class="swiper-slide-caption section-lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp"
+                                          data-caption-delay="100">SEB</span><span
+                                        class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
+                                        data-caption-delay="200">Сommander of SEB</span></h1>
+                                <p class="lead text-with-border" data-caption-animate="fadeInUp"
+                                   data-caption-delay="350">{{ commander.nickname }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide " data-slide-bg="{% static 'images/swat/bg-swat-main4.png' %}">
+                <div class="swiper-slide-caption section-lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp"
+                                          data-caption-delay="100">SEB</span><span
+                                        class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
+                                        data-caption-delay="200">Dep. Commander of SEB</span></h1>
+                                <p class="lead text-with-border" data-caption-animate="fadeInUp"
+                                   data-caption-delay="350">{{ dep_commander1.nickname }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide " data-slide-bg="{% static 'images/swat/bg-swat-main5.png' %}">
+                <div class="swiper-slide-caption section-lg">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                                <h1><span class="d-block text-with-border" data-caption-animate="fadeInUp"
+                                          data-caption-delay="100">SEB</span><span
+                                        class="d-block text-light text-with-border" data-caption-animate="fadeInUp"
+                                        data-caption-delay="200">Dep. Commander of SEB</span></h1>
+                                <p class="lead text-with-border" data-caption-animate="fadeInUp"
+                                   data-caption-delay="350">{{ dep_commander2.nickname }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Swiper Pagination-->
+        <div class="swiper-pagination-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9 col-lg-7 offset-md-1 offset-xxl-0">
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Icon List 2-->
+    <section class="section section-sm section-sm-bottom-100 bg-primary text-center">
+        <div class="container">
+            <h2 class="mb-5">Special Enforcement Bureau</h2>
+            <h3 class="mb-5">Особенности отдела</h3>
+            <div class="row">
+        <div class="col-md-4 wow fadeInUp" data-wow-duration="1s">
+            <div class="box-icon-2">
+                <div class="icon novi-icon mercury-icon-case"></div>
+                <h5 class="title">Профессиональная подготовка</h5>
+                <p class="text">Разработка и внедрение обучающих программ для стажеров и специалистов департамента.</p>
+                <p class="text">Проведение регулярных практических занятий и периодическая аттестация сотрудников по требованию руководства.</p>
+            </div>
+        </div>
+        <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+            <div class="box-icon-2">
+                <div class="icon novi-icon mercury-icon-users"></div>
+                <h5 class="title">Профессиональное развитие</h5>
+                <p class="text">Разрешение конфликтных рабочих ситуаций и улучшение внутренних процессов.</p>
+                <p class="text">Систематическое обучение и совершенствование навыков сотрудников.</p>
+            </div>
+        </div>
+        <div class="col-md-4 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+            <div class="box-icon-2">
+                <div class="icon novi-icon mercury-icon-target-2"></div>
+                <h5 class="title">Обеспечение безопасности</h5>
+                <p class="text">Сотрудничество с обществом для создания безопасной среды и защиты общественного порядка.</p>
+            </div>
+        </div>
+    </div>
+        </div>
+    </section>
+    <section class="section section-lg bg-default">
+        <div class="container text-center text-lg-left">
+            <h2><span class="text-light">Руководство</span> отдела</h2>
+            <div class="row row-40">
+                <div class="col-md-4">
+                    <div class="team-box-left">
+                        <div class="team-meta unit align-items-center">
+                            {% if commander.photo %}
+                                <img class="img" src="{{ commander.photo.url }}" alt="" width="138" height="69"/>
+                            {% else %}
+                                <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                     height="69"/>
+                            {% endif %}
+                            <div class="unit-body">
+                                <h5 class="title">{{ commander.nickname }}</h5>
+                                <div class="subtitle">Сommander of SEB</div>
+                            </div>
+                        </div>
+                        <div class="content">{{ commander.description }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-box-left">
+                        <div class="team-meta unit align-items-center">
+                            {% if dep_commander1.photo %}
+                                <img class="img" src="{{ dep_commander1.photo.url }}" alt="" width="138" height="69"/>
+                            {% else %}
+                                <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                     height="69"/>
+                            {% endif %}
+                            <div class="unit-body">
+                                <h5 class="title">{{ dep_commander1.nickname }}</h5>
+                                <div class="subtitle">Dep. Commander of SEB</div>
+                            </div>
+                        </div>
+                        <div class="content">{{ dep_commander1.description }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="team-box-left">
+                        <div class="team-meta unit align-items-center">
+                            {% if dep_commander2.photo %}
+                                <img class="img" src="{{ dep_commander2.photo.url }}" alt="" width="138" height="69"/>
+                            {% else %}
+                                <img class="img" src="{% static 'images/incognito.png' %}" alt="" width="138"
+                                     height="69"/>
+                            {% endif %}
+                            <div class="unit-body">
+                                <h5 class="title">{{ dep_commander2.nickname }}</h5>
+                                <div class="subtitle">Dep. Commander of SEB</div>
+                            </div>
+                        </div>
+                        <div class="content">{{ dep_commander2.description }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section bg-gray-100 box-image-left">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="section-md section-md-bottom-50">
+                        <h2 class="title-icon"><span class="icon icon-default mercury-icon-speak"></span><span>Важная информация</span>
+                        </h2>
+                        <!-- Owl Carousel-->
+                        <div class="owl-carousel owl-carousel-1" data-items="1" data-dots="true" data-nav="false"
+                             data-stage-padding="0" data-loop="true" data-margin="30" data-mouse-drag="false">
+                            <blockquote class="quote quote-simple">
+                                <q>SWAT — это элитное подразделение полиции Saint-Louis, специализирующееся на
+                                    выполнении
+                                    сложных операций по защите общественной безопасности и борьбе с тяжёлым
+                                    преступлением.</q>
+                                <div class="quote-meta">
+                                    <div class="author">
+                                        <cite>{{ commander.nickname }}</cite>
+                                    </div>
+                                    <div class="position">Сommander of SEB</div>
+                                </div>
+                            </blockquote>
+                            <blockquote class="quote quote-simple">
+                                <q>Вступление в SWAT требует высоких навыков стрельбы, тактики и командной работы, а
+                                    также
+                                    безупречного профессионализма и способности принимать стратегические решения в
+                                    экстремальных
+                                    условиях.</q>
+                                <div class="quote-meta">
+                                    <div class="author">
+                                        <cite>{{ commander.nickname }}</cite>
+                                    </div>
+                                    <div class="position">Сommander of SEB</div>
+                                </div>
+                            </blockquote>
+                            <blockquote class="quote quote-simple">
+                                <q>SWAT обеспечивает оперативную реакцию на критические ситуации и эффективно
+                                    справляется с
+                                    угрозами общественной безопасности, работая на передовой в борьбе с
+                                    преступностью.</q>
+                                <div class="quote-meta">
+                                    <div class="author">
+                                        <cite>{{ commander.nickname }}</cite>
+                                    </div>
+                                    <div class="position">Сommander of SEB</div>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-image-item novi-background bg-image"
+             style="background-image: url('{% static 'images/swat/swat-important.png' %}');"></div>
+    </section>
+    <section class="parallax-container box-image-left"
+             data-parallax-img="{% static 'images/swat/parallax-swat.png' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 wow fadeInLeft">
+                    <div class="section-lg section-lg-top-100">
+                        <h2 class="title-icon title-icon-2" style="color: white"><span
+                                class="icon icon-default mercury-icon-touch"></span><span>
+Полезные ссылки<br></span></h2>
+                        <p class="big" style="color: white">Ниже представлены полезные скрипты для комфортной игры в
+                            нашем отделе</p>
+                        <div class="group-sm group-wrap-2">
+                            <a class="button button-icon button-icon-right button-swat"
+                               href="https://discord.gg/ddnRXcQJCV">
+                                <span>Спец. рация SFPD</span>
+                                <img src="{% static 'images/discord.svg' %}" alt="Discord Icon" width="25">
+                            </a>
+                            <a class="button button-icon button-icon-right button-swat"
+                               href="https://vk.com/away.php?to=https%3A%2F%2Fvl4sov.dev%2FDownload%2Ffbitools.zip"
+                               target="_blank">
+                                <span>FBI Tools</span>
+                                <span
+                                        class="icon fa fa-cog"></span>
+                            </a>
+                            <a class="button button-icon button-icon-right button-swat"
+                               href="https://docs.google.com/spreadsheets/d/10suCWj2o6Cy9J5tp-I9jMW9HinTgFq1T1yPlsAjJGPE/edit?gid=1836015645#gid=1836015645">
+                                <span>Таблица отдела</span>
+                                <span
+                                        class="icon fa fa-table"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box-image-item box-image-video novi-background bg-image"><a
+                class="icon novi-icon fa fa-youtube-play"
+                href="https://www.youtube.com/watch?v=1ehhpTuivWg"
+                data-lightgallery="item"></a></div>
+    </section>
+    <!-- Our Mission-->
+    <section class="section bg-default section-md">
+        <div class="container">
+            <div class="row row-30">
+                <div class="col-md-6">
+                    <h2 class="title-icon"><span class="icon icon-default mercury-icon-target-2"></span><span>Special Enforcement Bureau</span>
+                    </h2>
+                    <p class="big">Special Weapons And Tactics (SWAT) - это специализированное подразделение
+                        департамента, занимающееся выполнением особо сложных и опасных операций. SWAT отвечает за
+                        проведение антитеррористических операций, освобождение заложников, обеспечение безопасности
+                        высокопоставленных лиц, а также оказание поддержки другим полицейским подразделениям в сложных и
+                        критических ситуациях.</p>
+                    <ul class="list-marked-2">
+                        <li>Высококлассная подготовка в области тактики и стратегии ведения боевых действий</li>
+                        <li>Профессиональный рост и развитие навыков сотрудников</li>
+                        <li>Обеспечение безопасности и правопорядка на самом высоком уровне</li>
+                        <li>Тесное взаимодействие с другими отделами и специальными подразделениями</li>
+                    </ul>
+                    <p class="big">Если ты готов принять вызов, стремишься к совершенству и хочешь быть частью элитной
+                        команды, которая стоит на страже безопасности граждан, то SWAT - это твой выбор. Мы ищем
+                        целеустремленных, хладнокровных и высоко мотивированных сотрудников, готовых работать в
+                        экстремальных условиях и принимать сложные решения.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-6">
+                            <!--Box counter-->
+                            <div class="box-counter">
+                                <div class="box-counter-main">
+                                    <div class="counter">50+</div>
+                                </div>
+                                <p class="box-counter-title">Освобожденных заложников</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <!--Box counter-->
+                            <div class="box-counter">
+                                <div class="box-counter-main">
+                                    <div class="counter">10+</div>
+                                </div>
+                                <p class="box-counter-title">Проведенных спецопераций</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <!--Box counter-->
+                            <div class="box-counter">
+                                <div class="box-counter-main">
+                                    <div class="counter">5+</div>
+                                </div>
+                                <p class="box-counter-title">Ежедневно пойманных ООП</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <!--Box counter-->
+                            <div class="box-counter">
+                                <div class="box-counter-main">
+                                    <div class="counter">35</div>
+                                </div>
+                                <p class="box-counter-title">Обезвреженных бомб</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section section-md">
+        <div class="container">
+            <div class="row row-50 justify-content-center">
+                <div class="col-md col-12 text-center">
+                    <h3 class="wow fadeInLeft text-capitalize" data-wow-delay=".3s">Жизнь нашего
+                        <span class="text-primary">отдела</span>
+                    </h3>
+                </div>
+            </div>
+            <div class="row row-50 justify-content-center">
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInLeft" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/1.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/2.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInRight" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/3.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInLeft" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/4.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/5.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInRight" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/6.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInLeft" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/7.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/8.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInRight" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/9.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInLeft" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/10.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInUp" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/11.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 col-10 wow fadeInRight" data-wow-delay=".3s">
+                    <div class="team-classic-wrap">
+                        <div class="team-classic-img"><img src="{% static 'images/swat/12.jpg' %}"
+                                                           alt=""
+                                                           width="370"
+                                                           height="250"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="overlay" class="overlay">
+        <span class="close-btn">&times;</span>
+        <img class="overlay-img" id="overlayImg">
+    </div>
+    {% include 'include/footer.html' %}
+</div>
+<div class="snackbars" id="form-output-global"></div>
+<script src="{% static 'js/core.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const images = document.querySelectorAll('.team-classic-img img');
+        const overlay = document.getElementById('overlay');
+        const overlayImg = document.getElementById('overlayImg');
+        const closeBtn = document.querySelector('.close-btn');
+
+        images.forEach(image => {
+            image.addEventListener('click', () => {
+                overlay.classList.add('active');
+                overlayImg.src = image.src;
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+            }
+        });
+    });
+</script>
+{% include 'include/notifications.html' %}
 </body>
 </html>
